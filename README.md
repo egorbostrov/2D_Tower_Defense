@@ -25,41 +25,63 @@
 	Flere baner med 1, 2 eller 3 veier som ballonger kan komme fra
 	Map creator som spilleren kan lage sine egne maps.
 
-* `Idee 2: En platformer`
+* `Idee 2: En platformer`\
 	Mario/ super meat boy/ etc. insperert.
 	Platformer med hinderløype, “power ups”, fiender som kan skade deg (ta liv).
 	forksjellige baner som en spiller må komme gjennom for å gå til neste.
 
 # Skills:
-Generelt:
-* Egor, Tarjei, William, Trym:
-	* Studerer: Datasikkerhet.
-		Alle har samme kompetanse med java, siden vi går i samme klasse.
-	* Gjennomført emner som er relevant:
-		INF100 (Python)
-		INF101 (Java)
-		INF102 (Java)
-		INF142 (Datanett-Python)
-		INF113 (OS/ C-kodespråk)
-	Kevin:
-		Studerer: Datateknologi
-		Har samme kompetanse som de andre.
-				Gjennomført emner som er relevant:
-			INF100 (Python)
-					INF101 (Java)
-					INF102 (Java)
-					INF113 (OS/ C-kodespråk)
-			INF115 (Databaser)
-Spesifikt (Sterkheter og svakheter):
-	Egor:
-		Har kontroll på store deler av “MVC”, men syns jeg sliter litt med tester. Hvordan man implementerer de og hvordan selve testen skal teste et spesifikt ting i koden.
-		Syntes også at det er vanskelig å komme meg i gang med å kode, men å lese og forstår hvordan koden er satt opp og fungerer er jeg sterk på.
-	William:
-		Føler meg mest komfortabel med både model og controller i “MVC”, føler at jeg liker back-end-coding og syns dette er interessant og spennende. 
-		Jeg liker også teste selve koden. Front-end derimot, liker jeg ikke så godt.
-	Tarjei:
-		I model-view-controller så har jeg mest kontroll på “controlls” og hvordan dette skal kommunisere med resten av koden. 
-		Jeg sliter med kreativitet når det kommer til å komme på ulike ideer til hvordan komplekse problemer kan løses.
-	Trym:
-	Kevin:
+# Team Members and Skills Overview
+
+## General Information
+
+- **Egor, Tarjei, William, Trym:**
+  - **Studying:** Datasikkerhet (Data Security)
+  - **Skills:** All have the same competence in Java, as they attend the same class.
+  - **Completed Relevant Courses:**
+    - INF100 (Python)
+    - INF101 (Java)
+    - INF102 (Java)
+    - INF142 (Datanett-Python)
+    - INF113 (OS / C programming language)
+
+- **Kevin:**
+  - **Studying:** Datateknologi (Computer Technology)
+  - **Skills:** Has the same competence as the others.
+  - **Completed Relevant Courses:**
+    - INF100 (Python)
+    - INF101 (Java)
+    - INF102 (Java)
+    - INF113 (OS / C programming language)
+    - INF115 (Databases)
+
+## Specific Strengths and Weaknesses
+
+### Egor:
+- **Strengths:**
+  - Has control over most parts of "MVC" (Model-View-Controller).
+  - Good at reading and understanding how code is structured and functions.
+- **Weaknesses:**
+  - Struggles with implementing and understanding how tests should specifically test something in the code.
+  - Finds it difficult to start coding.
+
+### William:
+- **Strengths:**
+  - Feels most comfortable with both model and controller aspects of "MVC", enjoys back-end coding.
+  - Likes to test the code.
+- **Weaknesses:**
+  - Does not enjoy front-end development.
+
+### Tarjei:
+- **Strengths:**
+  - Has most control over "controllers" and how they communicate with the rest of the code.
+- **Weaknesses:**
+  - Struggles with creativity in solving complex problems.
+
+### Trym:
+*Information not provided.*
+
+### Kevin:
+*Specific
+
 
