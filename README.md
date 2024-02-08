@@ -1,74 +1,66 @@
-# INF112 libGDX + Maven template 
-Simple skeleton with [libGDX](https://libgdx.com/). 
+# Obama Gaming
 
-**Important:** Replace this README with info about *your* project!
+# Team & Roles:
+Prosjektleder: Egor
+Systemarkitekt: Trym
+Utvikler: Alle
+Design og UX: Kevin 
+Testansvarlig: William
+Santas Helper: Tarjei
 
+# Role Description:
+Prosjektleder 			(delegere arbeid, kommunisere med gruppeleder)
+Systemarkitekt 			(bestemmer struktur, kodeintegrasjon mellom klassene,grensesnitt, sjekk av kodekvalitet, 
+                          dokumentasjon) 
+Utvikler 				(Model - View, Controller (MVC), Main,)
+Design og UX-ansvarlig 	(Lyd, Bilde og graffikk)
+Testansvarlig 			(Fikse nødvendige tester og hjelper andre å kode)
+Santas Helper 			(Poteten i gruppen, hjelper de som trenger)
 
-# Maven Setup
-This project comes with a working Maven `pom.xml` file. You should be able to import it into Eclipse using *File → Import → Maven → Existing Maven Projects* (or *Check out Maven Projects from SCM* to do Git cloning as well). You can also build the project from the command line with `mvn clean compile` and test it with `mvn clean test`.
+# Project ideas:
+Idee 1: Tower defence (med map creator hvis mulig)
+	Balloons inspirert tower defence (kan være hva som helst, trenger ikke være “Balloons”)
+	Forskjelige maps og design på “apene” og “ballongene”
+	Ulike “aper” som gjør forskjellige ting (basic-angriper, flamme-angriper (damage over time), is-angriper (slowness))
+	Ha med liv som, livene blir påvirket om ballongene klarer å nå enden.
+	Flere baner med 1, 2 eller 3 veier som ballonger kan komme fra
+	Map creator som spilleren kan lage sine egne maps
 
-Pay attention to these folders:
-* `src/main/java` – Java source files go here (as usual for Maven) – **IMPORTANT!!** only `.java` files, no data files / assets
-* `src/main/resources` – data files go here, for example in an `assets` sub-folder – **IMPORTANT!** put data files here, or they won't get included in the jar file
-* `src/test/java` – JUnit tests
-* `target/classes` – compiled Java class files
+Idee 2: En platformer
+	Mario/ super meat boy/ etc. insperert
+	Platformer med hinderløype, “power ups”, fiender som kan skade deg (ta liv)
+	forksjellige baner som en spiller må komme gjennom for å gå til neste
 
-**TODO:** You should probably edit the `pom.xml` and fill in details such as the project `name` and `artifactId`:
-
-
-```xml
-
-	< !-- FIXME - set group id -->
-	<groupId>inf112.skeleton.app</groupId>
-	< !-- FIXME - set artifact name -->
-	<artifactId>gdx-app</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	< !-- FIXME - set app name -->
-	<name>mvn-app</name>
-	< !-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
-```
-
-	
-## Running
-You can run the project with Maven using `mvn exec:java`. Change the main class by modifying the `main.class` setting in `pom.xml`:
-
-```
-		<main.class>inf112.skeleton.app.Main</main.class>
-```
-
-Running the program should open a window with the text “Hello, world!” and an alligator in the lower left corner.  Clicking inside the window should play a *blip* sound. Exit by pressing *Escape* or closing the window.
-
-You may have to compile first, with `mvn compile` – or in a single step, `mvn compile exec:java`.
-
-## Testing
-Run unit tests with `mvn test` – unit test files should have `Test` in the file name, e.g., `ExampleTest.java`. This will also generate a [JaCoCo](https://www.jacoco.org/jacoco) code coverage report, which you can find in [target/site/jacoco/index.html](target/site/jacoco/index.html).
-
-Use `mvn verify` to run integration tests, if you have any. This will do everything up to and including `mvn package`, and then run all the tests with `IT` in the name, e.g., `ExampleIT.java`.
-
-## Jar Files
-
-If you run `mvn package` you get everything bundled up into a `.jar` file + a ‘fat’ Jar file where all the necessary dependencies have been added:
-
-* `target/NAME-VERSION.jar` – your compiled project, packaged in a JAR file
-* `target/NAME-VERSION-fat.jar` – your JAR file packaged with dependencies
-
-Run Jar files with, for example, `java -jar target/NAME-VERSION-fat.jar`.
-
-
-If you have test failures, and *really* need to build a jar anyway, you can skip testing with `mvn -Dmaven.test.skip=true package`.
-
-## Git Setup
-If you look at *Settings → Repository* in GitLab, you can protect branches – for example, forbid pushing to the `main` branch so everyone have to use merge requests.
-
-
-# Credits
-
-### Template example files
-* `src/main/resources/obligator.png` – Ingrid Næss Johansen
-* `src/main/resources/blipp.ogg`– Dr. Richard Boulanger et al (CC-BY-3.0)
-
-(You should probably delete these if you don't need them!)
+# Skills:
+Generelt:
+	Egor, Tarjei, William, Trym:
+			Studerer: Datasikkerhet.
+			Alle har samme kompetanse med java, siden vi går i samme klasse.
+			Gjennomført emner som er relevant:
+				INF100 (Python)
+				INF101 (Java)
+				INF102 (Java)
+				INF142 (Datanett-Python)
+				INF113 (OS/ C-kodespråk)
+	Kevin:
+		Studerer: Datateknologi
+		Har samme kompetanse som de andre.
+				Gjennomført emner som er relevant:
+			INF100 (Python)
+					INF101 (Java)
+					INF102 (Java)
+					INF113 (OS/ C-kodespråk)
+			INF115 (Databaser)
+Spesifikt (Sterkheter og svakheter):
+	Egor:
+		Har kontroll på store deler av “MVC”, men syns jeg sliter litt med tester. Hvordan man implementerer de og hvordan selve testen skal teste et spesifikt ting i koden.
+		Syntes også at det er vanskelig å komme meg i gang med å kode, men å lese og forstår hvordan koden er satt opp og fungerer er jeg sterk på.
+	William:
+		Føler meg mest komfortabel med både model og controller i “MVC”, føler at jeg liker back-end-coding og syns dette er interessant og spennende. 
+		Jeg liker også teste selve koden. Front-end derimot, liker jeg ikke så godt.
+	Tarjei:
+		I model-view-controller så har jeg mest kontroll på “controlls” og hvordan dette skal kommunisere med resten av koden. 
+		Jeg sliter med kreativitet når det kommer til å komme på ulike ideer til hvordan komplekse problemer kan løses.
+	Trym:
+	Kevin:
 
