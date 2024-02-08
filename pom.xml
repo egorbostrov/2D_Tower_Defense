@@ -4,11 +4,11 @@
 	<!-- FIXME - set group id -->
 	<groupId>no.uib.ii.inf112</groupId>
 	<!-- FIXME - set artifact name -->
-	<artifactId>gdx-app</artifactId>
+	<artifactId>gdx-tower-defence</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<!-- FIXME - set app name -->
-	<name>gdx-app</name>
+	<name>classified-appname</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 	<properties>
