@@ -1,87 +1,81 @@
 # Obama Gaming
 
-# Team & Roles:
-* `Prosjektleder:` Egor
-* `Systemarkitekt:` Trym
-* `Utvikler:` Alle
-* `Design og UX:` Kevin
-* `Testansvarlig:` William
-* `Santas Helper:` Tarjei
+## Team & Roles
 
-# Role Description:
-* `Prosjektleder`(delegere arbeid, kommunisere med gruppeleder)
-* `Systemarkitekt`(bestemmer struktur, kodeintegrasjon mellom klassene,grensesnitt, sjekk av kodekvalitet,dokumentasjon)
-* `Utvikler`(Model - View, Controller (MVC), Main,)
-* `Design og UX-ansvarlig` (Lyd, Bilde og graffikk)
-* `Testansvarlig` (Fikse nødvendige tester og hjelper andre å kode)
-* `Santas Helper` (Poteten i gruppen, hjelper de som trenger)
+- **Prosjektleder:** Egor
+  - *Responsibilities:* Delegating work, communicating with the team leader.
+- **Systemarkitekt:** Trym
+  - *Responsibilities:* Deciding structure, code integration between classes, interfaces, code quality checks, documentation.
+- **Utvikler:** Alle
+  - *Responsibilities:* Working on Model - View, Controller (MVC), Main.
+- **Design og UX:** Kevin
+  - *Responsibilities:* Sound, image, and graphics.
+- **Testansvarlig:** William
+  - *Responsibilities:* Fixing necessary tests and helping others with coding.
+- **Santas Helper:** Tarjei
+  - *Responsibilities:* The versatile member of the group, assists those in need.
 
-# Project ideas:
-* `Idee 1: Tower defence (med map creator hvis mulig)`\
-	Balloons inspirert tower defence (kan være hva som helst, trenger ikke være “Balloons”).
-	Forskjelige maps og design på “apene” og “ballongene”.
-	Ulike “aper” som gjør forskjellige ting (basic-angriper, flamme-angriper (damage over time), is-angriper (slowness)).
-	Ha med liv som, livene blir påvirket om ballongene klarer å nå enden.
-	Flere baner med 1, 2 eller 3 veier som ballonger kan komme fra
-	Map creator som spilleren kan lage sine egne maps.
+## Role Description
 
-* `Idee 2: En platformer`\
-	Mario/ super meat boy/ etc. insperert.
-	Platformer med hinderløype, “power ups”, fiender som kan skade deg (ta liv).
-	forksjellige baner som en spiller må komme gjennom for å gå til neste.
+- **Prosjektleder:** Delegates work and communicates with the team leader.
+- **Systemarkitekt:** Determines structure, code integration among classes, interfaces, checks for code quality, and documentation.
+- **Utvikler:** Works on Model-View-Controller (MVC), Main.
+- **Design og UX-ansvarlig:** Responsible for sound, image, and graphics.
+- **Testansvarlig:** Fixes necessary tests and assists others in coding.
+- **Santas Helper:** Acts as the versatile member of the group, providing help where needed.
 
-# Skills:
-# Team Members and Skills Overview
+## Project Ideas
 
-## General Information
+### Idee 1: Tower Defence (with map creator if possible)
+
+- Inspired by Balloons tower defence but can involve any theme, not necessarily "Balloons".
+- Different maps and designs for "monkeys" and "balloons".
+- Various "monkeys" that perform different actions (basic-attacker, flame-attacker for damage over time, ice-attacker for slowness).
+- Includes lives that are affected if balloons reach the end.
+- Multiple levels with 1, 2, or 3 paths from which balloons can emerge.
+- A map creator that allows players to create their own maps.
+
+### Idee 2: A Platformer
+
+- Inspired by Mario, Super Meat Boy, etc.
+- A platformer with obstacle courses, "power-ups", and enemies that can damage you (take lives).
+- Different levels that a player must complete to advance to the next.
+
+## Skills Overview
+
+### General Information
 
 - **Egor, Tarjei, William, Trym:**
   - **Studying:** Datasikkerhet (Data Security)
-  - **Skills:** All have the same competence in Java, as they attend the same class.
-  - **Completed Relevant Courses:**
-    - INF100 (Python)
-    - INF101 (Java)
-    - INF102 (Java)
-    - INF142 (Datanett-Python)
-    - INF113 (OS / C programming language)
+  - **Skills:** Unified competence in Java, sharing the same class.
+  - **Completed Relevant Courses:** INF100 (Python), INF101 (Java), INF102 (Java), INF142 (Datanett-Python), INF113 (OS / C programming language).
 
 - **Kevin:**
   - **Studying:** Datateknologi (Computer Technology)
-  - **Skills:** Has the same competence as the others.
-  - **Completed Relevant Courses:**
-    - INF100 (Python)
-    - INF101 (Java)
-    - INF102 (Java)
-    - INF113 (OS / C programming language)
-    - INF115 (Databases)
+  - **Skills:** Comparable competence with the others.
+  - **Completed Relevant Courses:** INF100 (Python), INF101 (Java), INF102 (Java), INF113 (OS / C programming language), INF115 (Databases).
 
-## Specific Strengths and Weaknesses
+### Specific Strengths and Weaknesses
 
-### Egor:
-- **Strengths:**
-  - Has control over most parts of "MVC" (Model-View-Controller).
-  - Good at reading and understanding how code is structured and functions.
-- **Weaknesses:**
-  - Struggles with implementing and understanding how tests should specifically test something in the code.
-  - Finds it difficult to start coding.
+#### Egor
 
-### William:
-- **Strengths:**
-  - Feels most comfortable with both model and controller aspects of "MVC", enjoys back-end coding.
-  - Likes to test the code.
-- **Weaknesses:**
-  - Does not enjoy front-end development.
+- **Strengths:** Proficient in most aspects of "MVC" and understanding code structure.
+- **Weaknesses:** Challenges with implementing tests and initiating coding.
 
-### Tarjei:
-- **Strengths:**
-  - Has most control over "controllers" and how they communicate with the rest of the code.
-- **Weaknesses:**
-  - Struggles with creativity in solving complex problems.
+#### William
 
-### Trym:
+- **Strengths:** Comfortable with model and controller in "MVC", enjoys back-end coding.
+- **Weaknesses:** Dislikes front-end development.
+
+#### Tarjei
+
+- **Strengths:** Control over "controllers" and their communication within the code.
+- **Weaknesses:** Creativity in solving complex problems.
+
+#### Trym
+
 *Information not provided.*
 
-### Kevin:
-*Specific
+#### Kevin
 
-
+*Specific strengths and weaknesses not provided.*
