@@ -6,19 +6,18 @@ Systemarkitekt: Trym\
 Utvikler: Alle\
 Design og UX: Kevin\ 
 Testansvarlig: William\
-Santas Helper: Tarjei\
+Santas Helper: Tarjei
 
 # Role Description:
-Prosjektleder 			(delegere arbeid, kommunisere med gruppeleder)\
-Systemarkitekt 			(bestemmer struktur, kodeintegrasjon mellom klassene,grensesnitt, sjekk av kodekvalitet, 
-                          dokumentasjon)\
-Utvikler 				(Model - View, Controller (MVC), Main,)\
-Design og UX-ansvarlig 	(Lyd, Bilde og graffikk)\
-Testansvarlig 			(Fikse nødvendige tester og hjelper andre å kode)\
-Santas Helper 			(Poteten i gruppen, hjelper de som trenger)\
+* `Prosjektleder`(delegere arbeid, kommunisere med gruppeleder)
+* `Systemarkitekt`(bestemmer struktur, kodeintegrasjon mellom klassene,grensesnitt, sjekk av kodekvalitet,dokumentasjon)
+* `Utvikler`(Model - View, Controller (MVC), Main,)
+* `Design og UX-ansvarlig` (Lyd, Bilde og graffikk)
+* `Testansvarlig` (Fikse nødvendige tester og hjelper andre å kode)
+* `Santas Helper` (Poteten i gruppen, hjelper de som trenger)
 
 # Project ideas:
-Idee 1: Tower defence (med map creator hvis mulig)\
+Idee 1: Tower defence (med map creator hvis mulig)
 	Balloons inspirert tower defence (kan være hva som helst, trenger ikke være “Balloons”)
 	Forskjelige maps og design på “apene” og “ballongene”
 	Ulike “aper” som gjør forskjellige ting (basic-angriper, flamme-angriper (damage over time), is-angriper (slowness))
