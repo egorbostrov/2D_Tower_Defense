@@ -1,8 +1,7 @@
 # Obama Gaming
 
 # Team & Roles:
-Prosjektleder: Egor
-
+Prosjektleder: Egor\
 Systemarkitekt: Trym
 Utvikler: Alle
 Design og UX: Kevin 
