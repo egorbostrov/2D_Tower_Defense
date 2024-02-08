@@ -1,12 +1,12 @@
 # Obama Gaming
 
 # Team & Roles:
-Prosjektleder: Egor\
-Systemarkitekt: Trym\
-Utvikler: Alle\
-Design og UX: Kevin\ 
-Testansvarlig: William\
-Santas Helper: Tarjei
+* `Prosjektleder:` Egor
+* `Systemarkitekt:` Trym
+* `Utvikler:` Alle
+* `Design og UX:` Kevin
+* `Testansvarlig:` William
+* `Santas Helper:` Tarjei
 
 # Role Description:
 * `Prosjektleder`(delegere arbeid, kommunisere med gruppeleder)
