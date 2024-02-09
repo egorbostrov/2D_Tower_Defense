@@ -1,5 +1,5 @@
 # Obama Gaming (Gruppe 5)
-
+- **Link til semesteroppgaven:** https://git.app.uib.no/inf112/24v/inf112-24v/-/wikis/prosjekt/semesteroppgave
 ## Team & Roles
 
 - **Prosjektleder:** Egor
