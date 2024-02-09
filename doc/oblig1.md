@@ -88,7 +88,7 @@
 # A2 - Konsept
 ## Spillkonsept: Tower Defense med Kartskaper
 
-### Kjerne Spillelementer:
+### Hoved spillelementer:
 - **Spillerkontrollert Tårnplassering:** Brukere kan strategisk plassere tårn langs en sti for å forsvare seg mot bølger av fiender.
 - **2D Rutenett Kart:** Spillverdenen består av et todimensjonalt rutenett hvor spillere kan bygge og tilpasse sitt forsvar.
 - **Kartskaper:** Spillere har tilgang til et verktøy for å lage kart, som lar dem designe og dele sine egne 2D rutenett kart for bruk i spillet.
@@ -96,7 +96,7 @@
 - **Poeng og Oppgraderinger:** Poeng tjenes ved å beseire fiender, som kan brukes til å kjøpe tårnoppgraderinger eller spesielle evner.
 - **Utfordringer:** Spillets utfordringer inkluderer å håndtere ressurser, velge de riktige tårntypene for forskjellige fiender, og tilpasse seg til stadig vanskeligere bølger.
 
-### Tilleggsbetraktninger:
+### Aspekter som vurderes:
 - **Tårnoppgraderinger:** Spillere kan oppgradere forskjellige tårn, som for eksempel å forbedre skadeutgang, for å forbedre deres defensive evner mot fiendens bølger.
 - **Hastighetsmodus:** Vurder å implementere en hastighetsmodus som lar spillet simulere bølger i 2x hastighet, noe som gjør spillopplevelsen raskere og mer dynamisk for spillere som søker en raskere spillprogresjon.
 
