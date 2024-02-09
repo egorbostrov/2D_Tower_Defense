@@ -1,4 +1,4 @@
-# Obama Gaming
+# Obama Gaming (Gruppe 5)
 
 ## Team & Roles
 
@@ -59,23 +59,41 @@
 
 #### Egor
 
-- **Strengths:** Proficient in most aspects of "MVC" and understanding code structure.
-- **Weaknesses:** Challenges with implementing tests and initiating coding.
+- **Strengths:**
+  - Has control over most parts of "MVC" (Model-View-Controller).
+  - Good at reading and understanding how code is structured and functions.
+- **Weaknesses:**
+  - Struggles with implementing tests and understanding how a test should test specific things in the code.
+  - Finds it difficult to start coding.
 
 #### William
 
-- **Strengths:** Comfortable with model and controller in "MVC", enjoys back-end coding.
-- **Weaknesses:** Dislikes front-end development.
+- **Strengths:**
+  - Feels most comfortable with both the model and controller in "MVC", enjoys back-end coding.
+  - Likes testing the code.
+- **Weaknesses:**
+  - Does not enjoy front-end development as much.
 
 #### Tarjei
 
-- **Strengths:** Control over "controllers" and their communication within the code.
-- **Weaknesses:** Creativity in solving complex problems.
+- **Strengths:**
+  - Has most control over "controllers" and how they communicate with the rest of the code in a Model-View-Controller setup.
+- **Weaknesses:**
+  - Struggles with creativity in coming up with different ideas to solve complex problems.
 
 #### Trym
 
-*Information not provided.*
+- **Strengths:**
+  - Finds thinking outside the box with different data structures exciting, which opens up possibilities for optimization in the project.
+  - Enjoys testing the security of applications, which can be beneficial when testing the game for bugs.
+- **Weaknesses:**
+  - Finds it difficult to start large coding projects.
+  - Tends to seek inspiration from sources when stuck, instead of allowing for extended problem-solving.
 
 #### Kevin
 
-*Specific strengths and weaknesses not provided.*
+- **Strengths:**
+  - A big fan of design, UI, and generally the frontend aspect of programs and systems. Feels that he has an eye for such things and manages well to convey the program's theme to the user in a nice way that has "flow".
+- **Weaknesses:**
+  - May struggle a bit at the start of a project, but once the idea for a certain solution has hit, everything is fine and dandy. Struggles somewhat with creating tests.
+
