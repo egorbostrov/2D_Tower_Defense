@@ -1,5 +1,19 @@
 # Rapport – innlevering 1
-**Team:** *Obama gaming (Gruppe 5)* – *Tarjei Fløtre, Egor, William Manley, Trym Fonn Jakobsen, Kevinas*
+
+ # A1 - Prosjektet
+ **Team:** 
+- **Prosjektleder:** Egor Bostrov
+  - *Responsibilities:* Delegating work, communicating with the team leader.
+- **Systemarkitekt:** Trym Fonn Jakobsen
+  - *Responsibilities:* Deciding structure, code integration between classes, interfaces, code quality checks, documentation.
+- **Utvikler:** Alle
+  - *Responsibilities:* Working on Model - View, Controller (MVC), Main.
+- **Design og UX:** Kevin Pliuskus
+  - *Responsibilities:* Sound, image, and graphics.
+- **Testansvarlig:** William Manley
+  - *Responsibilities:* Fixing necessary tests and helping others with coding.
+- **Santas Helper:** Tarjei Fløtre
+  - *Responsibilities:* The versatile member of the group, assists those in need.
 
 # A2 - Konsept
 * Tower defence: ulike towers spiller kan plassere på et gitt map for å bekjempe fiender.
