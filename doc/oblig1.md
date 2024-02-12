@@ -105,26 +105,26 @@ Dette spillet henter inspirasjon fra klassiske tower defense-spill og inkorporer
 
 # A3 - Velg og tilpass en prosess for teamet
 Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
-**Møter og hyppighet av dem**
-  - Møter skjer *hver-uke* der vi går gjennom hva vi har gjort, hva som må gjøres og problemer vi har.
-  - Møter skjer hver *Mandag kl: 1000 på Høytek rom: 209M1* (Hvis ledig)
-  - Møter kan bli tilkallet av hvem som helst med å spørre projektleder.
-**Kommunikasjon mellom møter**
-  - Kommunikasjonen skjer på discord, om det er noe viktig som trenger svar ASAP så kan vi "tagge" hverandre.
-**Arbeidsfordeling**
-  - Rollene har blitt fordelt.
-  - Vi jobber samlet minst en dag i uken (Fredag)
-  - Om vi jobber hver for oss, så sjekker vi først "Issue Board" sånn at vi ikke jobber på samme ting.
-**Oppfølging av arbeid**
-  - På møtet snakker vi om hvordan det går, hva vi sliter med og hva vi trenger hjelp til.
-**Deling og oppbevaring av felles dokumenter, diagram og kodebase**
-  - Alle dokumenter er lagt til på discord serveren våres og lagt til projektet på GitLab.
-  - Når vi er ferdig med å jobbe, så må vi alltid huske å "commit" arbeidet våres, uanset hvor mye er lite vi har gjort.
+  **Møter og hyppighet av dem**
+    - Møter skjer *hver-uke* der vi går gjennom hva vi har gjort, hva som må gjøres og problemer vi har.
+    - Møter skjer hver *Mandag kl: 1000 på Høytek rom: 209M1* (Hvis ledig)
+    - Møter kan bli tilkallet av hvem som helst med å spørre projektleder.
+  **Kommunikasjon mellom møter**
+    - Kommunikasjonen skjer på discord, om det er noe viktig som trenger svar ASAP så kan vi "tagge" hverandre.
+  **Arbeidsfordeling**
+    - Rollene har blitt fordelt.
+    - Vi jobber samlet minst en dag i uken (Fredag)
+    - Om vi jobber hver for oss, så sjekker vi først "Issue Board" sånn at vi ikke jobber på samme ting.
+  **Oppfølging av arbeid**
+    - På møtet snakker vi om hvordan det går, hva vi sliter med og hva vi trenger hjelp til.
+  **Deling og oppbevaring av felles dokumenter, diagram og kodebase**
+    - Alle dokumenter er lagt til på discord serveren våres og lagt til projektet på GitLab.
+    - Når vi er ferdig med å jobbe, så må vi alltid huske å "commit" arbeidet våres, uanset hvor mye er lite vi har gjort.
 
 ## A3 Del 2
 **Applikasjonens Mål**
+  Applikasjonen skal være et enkelt, men engasjerende "Tower Defence" hvor spilleren plasserer "tårn" for å forsvare seg mot bølger av "angripere". Målet er å overleve så mange bølger som mulig ved plassering av "tårn", samtidig som spilleren tenker på ressurser som liv og poeng. Spillet skal tilby en intuitiv og engasjerende brukeropplevelse og en gradvis økning i vanskelighetsgraden.
 
-Applikasjonen skal være et enkelt, men engasjerende "Tower Defence" hvor spilleren plasserer "tårn" for å forsvare seg mot bølger av "angripere". Målet er å overleve så mange bølger som mulig ved plassering av "tårn", samtidig som spilleren tenker på ressurser som liv og poeng. Spillet skal tilby en intuitiv og engasjerende brukeropplevelse og en gradvis økning i vanskelighetsgraden.
 
 **MVP**
   1. Vise et spillbrett
@@ -138,12 +138,12 @@ Applikasjonen skal være et enkelt, men engasjerende "Tower Defence" hvor spille
   9. Pause Screen
   10. "Beskytter" skyter/ skader "angriperen"
 
-**Brukerhistorier**
 
-*Som Spiller*
+**Brukerhistorier**
+  *Som Spiller*
   - Som spiller trenger jeg å skille mellom "forsvarstårn" og "angripere", samt forstå rekkevidden til "tårnere", slik at jeg kan planlegge min straregi mer effektivt. Jeg trenger også å enkelt kunne identifisere og velge oppgraderingsalternativer for mine tårn, inkludert forskjellige attributter som rekkevidde, skade, og spesialeffekter, for å tilpasse mitt forsvar basert på økende vanskelighetsgraden. Dette er spesielt viktig for å sikre at spillet er interessant og spennende for ulike spillere, inkludert de som kanskje har synsutfordringer eller spiller på enheter med mindre skjermer. Å ha intuitive ikoner og tydelige beskrivelse.
 
-*Som Utvikler*
+  *Som Utvikler*
   - Som en utvikler trenger jeg å implementere en intuitiv og tilgjengelig UI design som klart skiller spillbare elementer (som forsvarstårn og angripere) fra ikke-spillbare bakgrunnselementer. Dette krever at jeg bruker tydelige farger, symboler og muligens tekst-lementer som kan hjelpe spilleren, inkludert de som er fargeblinde. I tillegg til dette, må jeg utvikle et klart og forståelig system for å vise tårnenes oppgraderingsmuligheter, hvor hver oppgradering har distinkte  indikatorer for sine attributter (for eksempel rekkevidde, skade, spesialeffekter). Dette vil sikre at spillere kan gjøre raske og mer informerte valg når det gjelder å tilpasse og styrke deres forsvar, noe som er avgjørende for å forbedre spillernes engasjement og spenning med spillopplevelsen. Implementering av tilgjengelige UI-komponenter som støtter ulike typer brukere er essensielt, uavhengig av deres fysiske forutsetninger eller skjermstørrelse.
 
 
