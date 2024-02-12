@@ -138,6 +138,7 @@ Applikasjonen skal være et enkelt, men engasjerende "Tower Defence" hvor spille
     10. "Beskytter" skyter/ skader "angriperen"
 
 - **Brukerhistorier**
+
 *Som Spiller*
   - Som spiller trenger jeg å skille mellom "forsvarstårn" og "angripere", samt forstå rekkevidden til "tårnere", slik at jeg kan planlegge min straregi mer effektivt. Jeg trenger også å enkelt kunne identifisere og velge oppgraderingsalternativer for mine tårn, inkludert forskjellige attributter som rekkevidde, skade, og spesialeffekter, for å tilpasse mitt forsvar basert på økende vanskelighetsgraden. Dette er spesielt viktig for å sikre at spillet er interessant og spennende for ulike spillere, inkludert de som kanskje har synsutfordringer eller spiller på enheter med mindre skjermer. Å ha intuitive ikoner og tydelige beskrivelse.
 
