@@ -1,5 +1,6 @@
 # Obama Gaming (Gruppe 5)
 - **Link til semesteroppgaven:** https://git.app.uib.no/inf112/24v/inf112-24v/-/wikis/prosjekt/semesteroppgave
+- **Link til issue-board:** https://git.app.uib.no/Tarjei.Flotre/obama-gaming/-/boards
 
 ## Navnet på spillet ikke bestemt
 
@@ -16,7 +17,5 @@
 - Kommer...
 ## Kjøring
 - Kommer...
-## Link til Trello
-- https://trello.com/b/2W1yuI8I/obama-gaming-gruppe-5
 ## Skilder
 - Kommer...
