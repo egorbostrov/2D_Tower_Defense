@@ -105,21 +105,26 @@ Dette spillet henter inspirasjon fra klassiske tower defense-spill og inkorporer
 
 # A3 - Velg og tilpass en prosess for teamet
 Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
+
   **Møter og hyppighet av dem**
-    - Møter skjer *hver-uke* der vi går gjennom hva vi har gjort, hva som må gjøres og problemer vi har.
-    - Møter skjer hver *Mandag kl: 1000 på Høytek rom: 209M1* (Hvis ledig)
-    - Møter kan bli tilkallet av hvem som helst med å spørre projektleder.
+  - Møter skjer *hver-uke* der vi går gjennom hva vi har gjort, hva som må gjøres og problemer vi har.
+  - Møter skjer hver *Mandag kl: 1000 på Høytek rom: 209M1* (Hvis ledig)
+  - Møter kan bli tilkallet av hvem som helst med å spørre projektleder.
+
   **Kommunikasjon mellom møter**
-    - Kommunikasjonen skjer på discord, om det er noe viktig som trenger svar ASAP så kan vi "tagge" hverandre.
+  - Kommunikasjonen skjer på discord, om det er noe viktig som trenger svar ASAP så kan vi "tagge" hverandre.
+
   **Arbeidsfordeling**
-    - Rollene har blitt fordelt.
-    - Vi jobber samlet minst en dag i uken (Fredag)
-    - Om vi jobber hver for oss, så sjekker vi først "Issue Board" sånn at vi ikke jobber på samme ting.
+  - Rollene har blitt fordelt.
+  - Vi jobber samlet minst en dag i uken (Fredag)
+  - Om vi jobber hver for oss, så sjekker vi først "Issue Board" sånn at vi ikke jobber på samme ting.
+
   **Oppfølging av arbeid**
-    - På møtet snakker vi om hvordan det går, hva vi sliter med og hva vi trenger hjelp til.
+  - På møtet snakker vi om hvordan det går, hva vi sliter med og hva vi trenger hjelp til.
+
   **Deling og oppbevaring av felles dokumenter, diagram og kodebase**
-    - Alle dokumenter er lagt til på discord serveren våres og lagt til projektet på GitLab.
-    - Når vi er ferdig med å jobbe, så må vi alltid huske å "commit" arbeidet våres, uanset hvor mye er lite vi har gjort.
+  - Alle dokumenter er lagt til på discord serveren våres og lagt til projektet på GitLab.
+  - Når vi er ferdig med å jobbe, så må vi alltid huske å "commit" arbeidet våres, uanset hvor mye er lite vi har gjort.
 
 ## A3 Del 2
 **Applikasjonens Mål**
@@ -140,6 +145,7 @@ Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
 
 
 **Brukerhistorier**
+  
   *Som Spiller*
   - Som spiller trenger jeg å skille mellom "forsvarstårn" og "angripere", samt forstå rekkevidden til "tårnere", slik at jeg kan planlegge min straregi mer effektivt. Jeg trenger også å enkelt kunne identifisere og velge oppgraderingsalternativer for mine tårn, inkludert forskjellige attributter som rekkevidde, skade, og spesialeffekter, for å tilpasse mitt forsvar basert på økende vanskelighetsgraden. Dette er spesielt viktig for å sikre at spillet er interessant og spennende for ulike spillere, inkludert de som kanskje har synsutfordringer eller spiller på enheter med mindre skjermer. Å ha intuitive ikoner og tydelige beskrivelse.
 
