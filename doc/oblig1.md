@@ -123,6 +123,7 @@ Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
 
 ## A3 Del 2
 **Applikasjonens Mål**
+
 Applikasjonen skal være et enkelt, men engasjerende "Tower Defence" hvor spilleren plasserer "tårn" for å forsvare seg mot bølger av "angripere". Målet er å overleve så mange bølger som mulig ved plassering av "tårn", samtidig som spilleren tenker på ressurser som liv og poeng. Spillet skal tilby en intuitiv og engasjerende brukeropplevelse og en gradvis økning i vanskelighetsgraden.
 
 **MVP**
