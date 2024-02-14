@@ -157,7 +157,10 @@ Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
 10. "Beskytter" skyter/ skader "angriperen"  
 
 ### Brukerhistorier 
-  ***Som Spiller:***  
+  ***Som Spiller (MVP):***  
+  Som en spiller ønsker jeg å starte fra en startskjerm, plassere tårn for å stoppe angripere, og se min poengsum og gjenværende liv. Jeg vil ha en pausefunksjon, en enkel måte å starte spillet på nytt etter et tap, og en tydelig "Game Over" skjerm som oppsummerer runden min.
+
+  ***Som Spiller (End Product):***  
   Som spiller trenger jeg å skille mellom "forsvarstårn" og "angripere", samt forstå rekkevidden til "tårnere", slik at jeg kan planlegge min straregi mer effektivt. Jeg trenger også å enkelt kunne identifisere og velge oppgraderingsalternativer for mine tårn, inkludert forskjellige attributter som rekkevidde, skade, og spesialeffekter, for å tilpasse mitt forsvar basert på økende vanskelighetsgraden. Dette er spesielt viktig for å sikre at spillet er interessant og spennende for ulike spillere, inkludert de som kanskje har synsutfordringer eller spiller på enheter med mindre skjermer. Å ha intuitive ikoner og tydelige beskrivelse.  
 
   ***Som Utvikler:***  
