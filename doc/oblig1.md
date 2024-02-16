@@ -1,8 +1,8 @@
 # Rapport – innlevering 1
 
-# A0
-### Gruppenavn: Obama Gaming (Gruppe 5)
-### Team & Roller
+# A0: Obama Gaming (Gruppe 5)
+
+## Team & Roller
 - **Prosjektleder:** Egor Bostrov
   - *Ansvar:* Delegere arbeid, fikser møter, kommunisere med gruppeleder.
 - **Systemarkitekt:** Trym Fonn Jakobsen
@@ -16,8 +16,8 @@
 - **Santas Hjelper:** Tarjei Fløtre
   - *Ansvar:* Hjelperen i gruppen, hjelper de som trenger.
 
-### Kompetanse
-#### Generell Informasjon
+## Kompetanse
+## Generell Informasjon
 - **Egor, Tarjei, William, Trym:**
   - **Studerer:** Datasikkerhet
   - **Ferdigheter:** Samlet kompetanse i Java, deler samme klasse.
@@ -28,7 +28,7 @@
   - **Ferdigheter:** Sammenlignbar kompetanse med de andre.
   - **Fullførte Relevante Kurs:** INF100 (Python), INF101 (Java), INF102 (Java), INF113 (OS / C programmeringsspråk), INF115 (Databaser).
 
-#### Spesifikke Styrker og Svakheter
+## Spesifikke Styrker og Svakheter
 **Egor**
 - **Styrker:**  
   Har kontroll over størstedelen av "MVC".  
@@ -37,7 +37,7 @@
   Sliter med å implementere tester og forstå hvordan en test skal teste spesifikke ting i koden.  
   Finner det vanskelig å komme i gang med projekter.
 
-**William*
+**William**
 - **Styrker:**  
   Føler seg mest komfortabel med både modellen og kontrolleren i "MVC", liker back-end koding.  
   Liker å teste koden.
@@ -65,9 +65,8 @@
   Kan slite litt i starten av et prosjekt, men når ideen for en viss løsning har slått til, er alt bra. Sliter litt med å skape tester.
 
 
-# A1
-### Prosjektideer
-### Ide 1: Tower Defence (med kartskaper hvis mulig)
+# A1: Prosjektideer
+## Ide 1: Tower Defence (med kartskaper hvis mulig)
 OBS! Vi har bestemt å lage Tower Defence
 - Inspirert av Balloons tower defence, men kan involvere hvilket som helst tema, ikke nødvendigvis "Balloons".
 - Forskjellige kart og design for "aper" og "ballonger".
@@ -76,7 +75,7 @@ OBS! Vi har bestemt å lage Tower Defence
 - Flere nivåer med 1, 2, eller 3 veier hvorfra ballongene kan komme.
 - En kartskaper som lar spillerne lage sine egne kart.
 
-### Ide 2: En Platformer
+## Ide 2: En Platformer
 
 - Inspirert av Mario, Super Meat Boy, osv.
 - En plattformspiller med hinderløyper, "power-ups", og fiender som kan skade deg (ta liv).
@@ -84,10 +83,9 @@ OBS! Vi har bestemt å lage Tower Defence
 
 
 
-# A2 - Konsept
-## Spillkonsept: Tower Defense med Kartskaper
+# A2 - Spillkonsept: Tower Defense med Kartskaper
 
-### Hoved spillelementer:
+## Hoved spillelementer:
   - **Spillerkontrollert Tårnplassering:**  
   Brukere kan strategisk plassere tårn langs en sti for å forsvare seg mot bølger av fiender.
 
@@ -106,14 +104,14 @@ OBS! Vi har bestemt å lage Tower Defence
   - **Utfordringer:**  
   Spillets utfordringer inkluderer å håndtere ressurser, velge de riktige tårntypene for forskjellige fiender, og tilpasse seg til stadig vanskeligere bølger.
 
-### Aspekter som vurderes:
+## Aspekter som vurderes:
   - **Tårnoppgraderinger:**  
   Spillere kan oppgradere forskjellige tårn, som for eksempel å forbedre skadeutgang, for å forbedre deres defensive evner mot fiendens bølger.
 
   - **Hastighetsmodus:**  
   Vurder å implementere en hastighetsmodus som lar spillet simulere bølger i 2x hastighet, noe som gjør spillopplevelsen raskere og mer dynamisk for spillere som søker en raskere spillprogresjon.
 
-### Inspirasjon:
+## Inspirasjon:
 Dette spillet henter inspirasjon fra klassiske tower defense-spill og inkorporerer en kreativ vri med kartskaperfunksjonen, som oppmuntrer spillerkreativitet og forlenger spillets replay-verdi. Konseptet har som mål å blande strategisk dybde med brukergenerert innhold, og tilbyr et friskt perspektiv på tower defense-sjangeren.
 
 
@@ -141,10 +139,10 @@ Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
   - Når vi er ferdig med å jobbe, så må vi alltid huske å "commit" arbeidet våres, uanset hvor mye er lite vi har gjort.
 
 ## A3 Del 2
-### Applikasjonens Mål
+## Applikasjonens Mål
   Applikasjonen skal være et enkelt, men engasjerende "Tower Defence" hvor spilleren plasserer "tårn" for å forsvare seg mot bølger av "angripere". Målet er å overleve så mange bølger som mulig ved plassering av "tårn", samtidig som spilleren tenker på ressurser som liv og poeng. Spillet skal tilby en intuitiv og engasjerende brukeropplevelse og en gradvis økning i vanskelighetsgraden.
 
-### MVP  
+## MVP  
 1. Vise et spillbrett  
 2. Mulig å plassere en "beskytter" (i koden)  
 3. Mulig å generere "angripere" (i koden)  
@@ -156,7 +154,7 @@ Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
 9. Pause Screen  
 10. "Beskytter" skyter/ skader "angriperen"  
 
-### Brukerhistorier 
+## Brukerhistorier 
   ***Som Spiller (MVP):***  
   Som en spiller ønsker jeg å starte fra en startskjerm, plassere tårn for å stoppe angripere, og se min poengsum og gjenværende liv. Jeg vil ha en pausefunksjon, en enkel måte å starte spillet på nytt etter et tap, og en tydelig "Game Over" skjerm som oppsummerer runden min.
 
@@ -166,5 +164,48 @@ Vi bruker en Kanban board (GitLab Issue Board) og metoden vi bruker er "XP".
   ***Som Utvikler:***  
   Som en utvikler trenger jeg å implementere en intuitiv og tilgjengelig UI design som klart skiller spillbare elementer (som forsvarstårn og angripere) fra ikke-spillbare bakgrunnselementer. Dette krever at jeg bruker tydelige farger, symboler og muligens tekst-lementer som kan hjelpe spilleren, inkludert de som er fargeblinde. I tillegg til dette, må jeg utvikle et klart og forståelig system for å vise tårnenes oppgraderingsmuligheter, hvor hver oppgradering har distinkte  indikatorer for sine attributter (for eksempel rekkevidde, skade, spesialeffekter). Dette vil sikre at spillere kan gjøre raske og mer informerte valg når det gjelder å tilpasse og styrke deres forsvar, noe som er avgjørende for å forbedre spillernes engasjement og spenning med spillopplevelsen. Implementering av tilgjengelige UI-komponenter som støtter ulike typer brukere er essensielt, uavhengig av deres fysiske forutsetninger eller skjermstørrelse.
 
+# A4: Kode (Prosjektoppsett)
+## Rammeverk og Verktøy
+
+- Gruppen har utforsket det valgte rammeverket og verktøyene ved å eksperimentere med grunnleggende funksjoner som input-håndtering og enkle animasjoner for å forstå deres potensiale.
+
+## Programmering og Samarbeid
+
+- Selv om parprogrammering ikke har vært mye brukt, har alle medlemmer fått en gjennomgang av koden og rammeverket med prosjektleder og systemarkitekten, noe som sikrer en felles forståelse.
+
+## Fokus Fremover
+
+- Arbeidet fremover vil konsentrere seg om å utvikle et minimum viable product (MVP) innen neste deadline. Gruppen erkjenner verdien av parprogrammering og vil integrere dette mer fremover.
+
+## Avsluttende Ord
+
+- Gruppen er motivert for videre arbeid og ser frem til å utvikle prosjektet videre mot levering av et funksjonelt MVP.
+
+
+# A5: Oppsummering
+Gjennomføringen av prosjektet har avdekket flere viktige læringspunkter og områder for forbedring. Her følger en oppsummering av prosjekt-retrospektivet:
+
+## Hva gikk bra
+
+- **Organiserte møter:** Møtene våres var godt organiserte med en klar agenda, noe som bidro til effektive beslutningsprosesser og arbeidsflyt.
+- **Rollefordeling:** Fordelingen av roller i gruppen gikk bra, og alle medlemmer var fornøyde med sine tildelte oppgaver til nå.
+- **Tidlig planlegging:** Vi bestemte oss tidlig for en plan for prosjektet, noe som ga oss en klar retning og et solid utgangspunkt.
+
+## Forbedringspunkter
+
+- **Starttidspunkt:** Selv om vi håndterte fristene godt, ble det anerkjent at en tidligere start på prosjektarbeidet kunne redusert stressnivået og forbedret arbeidskvaliteten.
+- **Valg av rammeverk:** Vår initielle feilvurdering ved valg av rammeverk (JavaFX over libGDX) understreker behovet for en grundigere beslutning ved valg av verktøy og rammeverk i fremtiden.
+
+## Lærdommer og justeringer for neste fase
+
+- **Forbedret tidsplanlegging:** Gruppen vil forplikte seg til å starte tidligere på oppgavene for å unngå unødvendig stress mot slutten av prosjektet.
+- **Etablering av faste arbeidstidspunkter:** For å forbedre samarbeidet og effektiviteten, ser gruppen verdien av å fastsette regelmessige tidspunkter for felles arbeid.
+- **Utforskning av ny rammeverk:** Erfaringene med å tilpasse seg og integrere nye rammeverk viser viktigheten av å være fleksibel og villig til å lære. Dette vil fortsette å være en prioritet.
+
+## Vurdering og tilpasning
+
+Retrospektivet har gitt verdifull innsikt i hva som har fungert godt og hva som kan forbedres. Denne kunnskapen vil informere tilnærmingen til neste fase av prosjektet, med målet om å forbedre både prosessen og produktet. Gruppen har fått en bedre forståelse for tidsbruk og vanskelighetsgrad, noe som vil hjelpe i planleggingen og gjennomføringen av fremtidige oppgaver.
+
+Oppsummeringen avslører et prosjekt i god utvikling, med vellykkede elementer som effektiv planlegging og samarbeid, samtidig som det peker på områder for forbedring i håndtering av tid og rammeverk valg. Disse innsiktene er avgjørende for å forme gruppens strategi videre, og vil bidra til å forbedre både arbeidsprosessen og det endelige produktet i de kommende fasene av prosjektet.
 
 
