@@ -2,7 +2,7 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.ApplicationListener;
 
-public class OTDGame implements ApplicationListener {
+public class TDGame implements ApplicationListener {
     @Override
     public void create() {
 

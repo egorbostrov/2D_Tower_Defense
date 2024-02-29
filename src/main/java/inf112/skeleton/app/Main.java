@@ -10,7 +10,7 @@ public class Main {
         cfg.setTitle("TowerDefence");
         cfg.setWindowedMode(800, 600);
 
-        new Lwjgl3Application(new OTDGame(), cfg);
+        new Lwjgl3Application(new TDGame(), cfg);
     }
 }
 
