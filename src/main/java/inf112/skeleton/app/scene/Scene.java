@@ -15,11 +15,16 @@ public abstract class Scene {
         camera = new OrthographicCamera();
         camera.setToOrtho(true, GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT);
     }
-
+    
     public void render(SpriteBatch batch, ShapeRenderer sr) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         sr.setProjectionMatrix(camera.combined);
+    }
+
+    public SceneController getSceneController(){
+        return this.sceneController;
+
     }
 
     public abstract void update(float elapsedTime);
@@ -27,7 +32,7 @@ public abstract class Scene {
     public abstract void touchDown(float x, float y, int pointer, int button);
     public abstract void touchUp(float x, float y, int pointer, int button);
 
-    public enum StateEnum {
+    public enum SceneEnum {
         PlayScene, PauseScene, MenuScene, GameOverScene, OptionScene
     }
 }

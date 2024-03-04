@@ -1,4 +1,4 @@
 package inf112.skeleton.app.entity;
 
-public class HealthBar {
+public class HealthBar{
 }
