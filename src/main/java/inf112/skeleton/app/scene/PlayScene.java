@@ -16,10 +16,8 @@ public class PlayScene extends Scene{
     }
 
     public void gameOver() {
-        // MusicHandler.stopBackgroundMusic();
         level.restart();
         sceneController.setScene(SceneEnum.GameOverScene);
-        //MusicHandler.playGameoverMusic();
     }
 
     public void pause(){

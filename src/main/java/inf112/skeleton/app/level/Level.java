@@ -1,5 +1,6 @@
 package inf112.skeleton.app.level;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -28,7 +29,7 @@ public class Level {
     private Map map;
     private EnemyController enemyController;
     private TowerController towerController;
-    private MainControlMenu towerSelectionMenu; 
+    private MainControlMenu towerSelectionMenu;
     private InformationMenu infoMenu;
     private boolean checkRenderAndWaveValues = false;
     private int timeLeft;
@@ -36,7 +37,7 @@ public class Level {
 
     public Level(PlayScene scene) {
         this.scene = scene;
-        this.bitmapFont = new BitmapFont();
+        this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
         init();
     }
     private void init() {
@@ -69,7 +70,7 @@ public class Level {
         infoMenu.render(batch);
         if (checkRenderAndWaveValues){
             GameUtil.renderCenter("Wave: " + currentWave + "in: " + timeLeft + " second", batch, bitmapFont);
-            
+
         }
     }
     public void update(float elapsedTime) {
@@ -139,7 +140,7 @@ public class Level {
                 infoMenu.updateTowerInfo(defender);
                 towerSelectionMenu.updateUpgradeButtons(money);
                 break;
-            
+
             case LAND:
                 towerController.clearSelectedTower();
                 infoMenu.clearInfo();
@@ -167,7 +168,7 @@ public class Level {
     public int getEnemyNumber() {
         return numberOfEnemies;
     }
-    
+
     public void renderTiles(boolean bool) {
         this.map.getBoard().setRender(bool);
     }

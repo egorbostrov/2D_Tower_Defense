@@ -106,14 +106,12 @@ public class GameOverScene extends Scene {
     private void setListeners() {
         btnReplay.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(StateEnum.PlayScene);
-                //MusicHandler.playBackgroundMusic();
+                getSceneController().setScene(SceneEnum.PlayScene);
             }
         });
         btnMenu.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(StateEnum.MenuScene);
-                //MusicHandler.playMenuMusic();
+                getSceneController().setScene(SceneEnum.MenuScene);
             }
         });
 

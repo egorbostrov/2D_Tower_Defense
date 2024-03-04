@@ -95,27 +95,22 @@ public class PauseScene extends Scene {
                 .ifPresent(b -> b.touchRelease(x, y));
     }
 
-//    @Override
-//    public void scrolled(int amount) {
-//
-//    }
-
 
     private void setListeners() {
         btnRestart.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
-                PlayScene state = (PlayScene) getSceneController().getScene(StateEnum.PlayScene);
-                getSceneController().setScene(StateEnum.PlayScene);
-                state.restart();
+                PlayScene scene = (PlayScene) getSceneController().getScene(SceneEnum.PlayScene);
+                getSceneController().setScene(SceneEnum.PlayScene);
+                //scene.restart();
             }
         });
         btnResume.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE)
-                getSceneController().setScene(StateEnum.PlayScene);
+                getSceneController().setScene(SceneEnum.PlayScene);
         });
         btnOptions.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE)
-                getSceneController().setScene(StateEnum.OptionScene);
+                getSceneController().setScene(SceneEnum.OptionScene);
         });
     }
 }
