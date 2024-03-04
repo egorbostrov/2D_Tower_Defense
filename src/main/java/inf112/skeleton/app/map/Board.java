@@ -35,7 +35,7 @@ public class Board {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.PATH));
                 }
                 else {
-                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.LAND));
+                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.GROUND));
                 }
             }
         }

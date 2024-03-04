@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 public class MyAtlas {
     public static Sprite PATH_TILE;
+    public static Sprite GROUND_TILE;
 
     private static TextureAtlas atlas;
 
@@ -16,6 +17,7 @@ public class MyAtlas {
         atlas.getTextures().forEach(t -> t.setFilter(TextureFilter.Linear, TextureFilter.Linear));
 
         PATH_TILE = createSprite(atlas.findRegion("johanne"));
+        GROUND_TILE = createSprite(atlas.findRegion("etter"));
     }
 
     public static Sprite createSprite(AtlasRegion region) {

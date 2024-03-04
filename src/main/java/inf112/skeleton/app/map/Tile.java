@@ -24,6 +24,10 @@ public class Tile extends GameObject {
         switch (type) {
             case PATH:
                 batch.draw(MyAtlas.PATH_TILE, this.position.x, this.position.y, this.size.x, this.size.y);
+
+            case GROUND:
+                batch.draw(MyAtlas.GROUND_TILE, this.position.x, this.position.y, this.size.x, this.size.y);
+
             default:
                 break;
         }
@@ -41,7 +45,7 @@ public class Tile extends GameObject {
         this.type = type;
     }
     public enum EnumGridType {
-        PATH, LAND, TOWER
+        PATH, GROUND, TOWER
     }
 
 }
