@@ -55,13 +55,6 @@ public class ButtonFactory {
             return button;
         }
 
-    public OButton createOButton(String text, boolean textCenter) {
-        // Assuming default positions (0, 0) and using the provided text and textCenter flag
-        final GlyphLayout glyphLayout = new GlyphLayout(font, text);
-        final OButton button = new OButton(0, 0, width, height, font, text, glyphLayout);
-        button.setTextCenter(textCenter);
-        return button;
-    }
 
 //        public OToggleButton createToggleButton(Sprite icon, Sprite toggledIcon) {
 //            final OToggleButton button = new OToggleButton(width, height);
