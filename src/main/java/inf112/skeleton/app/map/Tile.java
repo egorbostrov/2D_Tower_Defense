@@ -48,4 +48,12 @@ public class Tile extends GameObject {
         PATH, GROUND, TOWER
     }
 
+    public float getX(){
+        return this.position.x;
+    }
+
+    public float getY(){
+        return this.position.y;
+    }
+
 }
