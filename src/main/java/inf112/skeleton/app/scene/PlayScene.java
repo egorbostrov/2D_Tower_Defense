@@ -1,7 +1,8 @@
 package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Gdx;
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.level.Level;
 
 public class PlayScene extends Scene{
@@ -13,38 +14,49 @@ public class PlayScene extends Scene{
         super(sceneController);
         level = new Level(this);
     }
+
+    public void gameOver() {
+        // MusicHandler.stopBackgroundMusic();
+        level.restart();
+        sceneController.setScene(StateEnum.GameOverScene);
+        //MusicHandler.playGameoverMusic();
+    }
+
+    @Override
+    public void render(SpriteBatch sb, ShapeRenderer sr) {
+        super.render(sb,sr);
+        sb.begin();
+        level.render(sb);
+        sb.end();
+
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        level.render(sr);
+        sr.end();
+    }
+
+    public void restart() {
+        level.restart();
+    }
+
     @Override
     public void update(float elapsedTime) {
-        if (!gamePaused){
+        if (!gamePaused) {
             level.update(Gdx.graphics.getDeltaTime());
         }
     }
 
     @Override
     public void updateInputs(float x, float y) {
-        level.updateInputs(x, y);
+
     }
 
     @Override
     public void touchDown(float x, float y, int pointer, int button) {
-        level.touchDown(x, y);
+
     }
 
     @Override
     public void touchUp(float x, float y, int pointer, int button) {
-        level.touchRelease(x, y);
-    }
 
-    public void pause() {
-        gamePaused = true;
-    }
-
-    public void resume(){
-        gamePaused = false;
-    }
-
-    public void restart(){
-        level.restart();
     }
 }
-

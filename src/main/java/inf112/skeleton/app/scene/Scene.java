@@ -14,8 +14,6 @@ public abstract class Scene {
     protected OrthographicCamera camera;
     protected GlyphLayout glyphLayout;
     protected BitmapFont bitmapFont;
-    protected StateEnum currentState;
-
 
 
     public Scene(SceneController sceneController) {
@@ -23,7 +21,7 @@ public abstract class Scene {
         bitmapFont = GameUtil.generateBitmapFont(100, Color.WHITE);
         glyphLayout = new GlyphLayout();
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT);
+        camera.setToOrtho(false, GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT);
     }
 
     public void render(SpriteBatch batch, ShapeRenderer sr) {
