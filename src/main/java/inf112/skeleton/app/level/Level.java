@@ -36,6 +36,7 @@ public class Level {
 
     public Level(PlayScene scene) {
         this.scene = scene;
+        this.bitmapFont = new BitmapFont();
         init();
     }
     private void init() {

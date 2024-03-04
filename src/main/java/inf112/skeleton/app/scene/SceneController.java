@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import inf112.skeleton.app.scene.Scene.StateEnum;
+import inf112.skeleton.app.scene.Scene.SceneEnum;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SceneController extends InputAdapter {
 
-    private final Map<StateEnum, Scene> sceneMap;
+    private final Map<SceneEnum, Scene> sceneMap;
     private Scene currentScene;
     private Scene previousScene;
 
@@ -23,9 +23,9 @@ public class SceneController extends InputAdapter {
         Gdx.input.setInputProcessor(this);
     }
 
-    public void setScene(StateEnum enumState) {
+    public void setScene(SceneEnum enumScene) {
         previousScene = currentScene;
-        currentScene = getScene(enumState);
+        currentScene = getScene(enumScene);
     }
 
     /**
@@ -40,7 +40,7 @@ public class SceneController extends InputAdapter {
     /**
      * Return the Scene, if it already exist or make a new one.
      * */
-    public Scene getScene(StateEnum enumState){
+    public Scene getScene(SceneEnum enumState){
         return sceneMap.computeIfAbsent(enumState, this::createScene);
     }
 
@@ -80,8 +80,8 @@ public class SceneController extends InputAdapter {
 //        currentScene.scrolled(amount);
 //        return false;
 //    }
-    private Scene createScene(StateEnum enumState) {
-        switch (enumState) {
+    private Scene createScene(SceneEnum enumScene) {
+        switch (enumScene) {
             case PlayScene:
                 return new PlayScene(this);
             case GameOverScene:
@@ -93,7 +93,7 @@ public class SceneController extends InputAdapter {
             case PauseScene:
                 return new PauseScene(this);
             default:
-                throw new IllegalArgumentException("Invalid state enum: " + enumState);
+                throw new IllegalArgumentException("Invalid state enum: " + enumScene);
         }
     }
 }
