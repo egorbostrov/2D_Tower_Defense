@@ -26,6 +26,10 @@ public class PlayScene extends Scene{
         gamePaused = true;
     }
 
+    public void resume(){
+        gamePaused = false;
+    }
+
     @Override
     public void render(SpriteBatch sb, ShapeRenderer sr) {
         super.render(sb,sr);

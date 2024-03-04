@@ -1,5 +1,6 @@
 package inf112.skeleton.app.level;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -36,7 +37,7 @@ public class Level {
 
     public Level(PlayScene scene) {
         this.scene = scene;
-        this.bitmapFont = new BitmapFont();
+        this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);;
         init();
     }
     private void init() {
@@ -90,8 +91,16 @@ public class Level {
             case TOWER:
                 System.out.println("KAN IKKE SETTE TÅRN SOM ALLEREDE FINNES");
                 break;
-            case LAND:
+            case GROUND:
                 int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, money);
+                if (cost != 0){
+                    tile.setType(Tile.EnumGridType.TOWER);
+                    removeMoney(cost);
+                }
+                this.map.getBoard().setRender(false);
+                break;
+            case PATH:
+                System.out.println("KAN IKKE BYGGE PATH");
             default:
                 break;
         }
@@ -140,7 +149,7 @@ public class Level {
                 towerSelectionMenu.updateUpgradeButtons(money);
                 break;
             
-            case LAND:
+            case GROUND:
                 towerController.clearSelectedTower();
                 infoMenu.clearInfo();
                 towerSelectionMenu.clearSelectedTower();
@@ -158,6 +167,7 @@ public class Level {
     public BaseDefender getSelectedDefender() {
         return towerController.getSelectedTower();
     }
+
     public Map getMap(){
         return map;
     }
@@ -169,7 +179,7 @@ public class Level {
     }
     
     public void renderTiles(boolean bool) {
-        this.map.getBoard().setRender(bool);
+        this.map.getBoard().renderSwitch(bool);
     }
     public void nextWaveCountDown(int x) {
         this.timeLeft = x;

@@ -30,6 +30,7 @@ public abstract class Scene {
         sr.setProjectionMatrix(camera.combined);
     }
 
+
     public SceneController getSceneController() {
         return sceneController;
     }
