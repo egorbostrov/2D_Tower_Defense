@@ -1,22 +1,21 @@
-package inf112.skeleton.app.resourceManager;
+package inf112.skeleton.app.resourceHandler;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.utils.Array;
 
 public class MyAtlas {
     public static Sprite PATH_TILE;
 
     private static TextureAtlas atlas;
 
-    public void init() {
-        atlas = new TextureAtlas(Gdx.files.internal("pack.atlas"));
+    public static void init() {
+        atlas = new TextureAtlas(Gdx.files.internal("texturePack.atlas"));
         atlas.getTextures().forEach(t -> t.setFilter(TextureFilter.Linear, TextureFilter.Linear));
 
-        PATH_TILE = createSprite(atlas.findRegion("path"));
+        PATH_TILE = createSprite(atlas.findRegion("johanne"));
     }
 
     public static Sprite createSprite(AtlasRegion region) {
