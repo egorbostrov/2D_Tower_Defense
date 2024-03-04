@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import inf112.skeleton.app.scene.Scene.GameState;
+import inf112.skeleton.app.scene.Scene.StateEnum;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SceneController extends InputAdapter {
 
-    private final Map<GameState, Scene> sceneMap;
+    private final Map<StateEnum, Scene> sceneMap;
     private Scene currentScene;
     private Scene previousScene;
 
@@ -23,9 +23,9 @@ public class SceneController extends InputAdapter {
         Gdx.input.setInputProcessor(this);
     }
 
-    public void setScene(GameState gameState) {
+    public void setScene(StateEnum enumState) {
         previousScene = currentScene;
-        currentScene = getScene(gameState);
+        currentScene = getScene(enumState);
     }
 
     /**
@@ -40,8 +40,8 @@ public class SceneController extends InputAdapter {
     /**
      * Return the Scene, if it already exist or make a new one.
      * */
-    public Scene getScene(GameState gameState){
-        return sceneMap.computeIfAbsent(gameState, this::createScene);
+    public Scene getScene(StateEnum enumState){
+        return sceneMap.computeIfAbsent(enumState, this::createScene);
     }
 
     public void render(SpriteBatch sb, ShapeRenderer sr) {
@@ -80,20 +80,20 @@ public class SceneController extends InputAdapter {
 //        currentScene.scrolled(amount);
 //        return false;
 //    }
-    private Scene createScene(GameState gameState) {
-        switch (gameState) {
+    private Scene createScene(StateEnum enumState) {
+        switch (enumState) {
 //            case PLAY:
 //                return new PlayScene(this);
 //            case GAMEOVER:
 //                return new GameOverScene(this);
-            case MENU:
+            case MenuScene:
                 return new MenuScene(this);
 //            case OPTION:
 //                return new OptionScene(this);
 //            case PAUSE:
 //                return new PauseScene(this);
             default:
-                throw new IllegalArgumentException("Invalid state enum: " + gameState);
+                throw new IllegalArgumentException("Invalid state enum: " + enumState);
         }
     }
 }

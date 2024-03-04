@@ -6,15 +6,13 @@ import inf112.skeleton.app.ui.buttons.OButton;
 import inf112.skeleton.app.ui.buttons.OButtonListener;
 import inf112.skeleton.app.ui.components.SimpleLayout;
 import inf112.skeleton.app.util.GameConstants;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuScene extends Scene{
 
-    private final String stateName = "MENU";
+    private final String sceneName = "MENU";
     private OButton btnPlay;
     private OButton btnOptions;
     private OButton btnExit;
@@ -23,12 +21,12 @@ public class MenuScene extends Scene{
 
     public MenuScene(SceneController sceneController) {
         super(sceneController);
-        layout.setText(font, stateName);
+        glyphLayout.setText(bitmapFont, sceneName);
         simpleLayout = new SimpleLayout(
-                GameConstants.GRID_WIDTH * 3,
-                GameConstants.GRID_HEIGHT * 4,
-                GameConstants.GRID_WIDTH * 10,
-                GameConstants.GRID_HEIGHT * 3,
+                GameConstants.TILE_WIDTH * 3,
+                GameConstants.TILE_HEIGHT * 4,
+                GameConstants.TILE_WIDTH * 10,
+                GameConstants.TILE_HEIGHT * 3,
                 110,
                 50
         );
@@ -41,14 +39,14 @@ public class MenuScene extends Scene{
     private void setListeners() {
         btnPlay.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(GameState.PLAY);
+                getSceneController().setScene(StateEnum.PlayScene);
 //                MusicHandler.playBackgroundMusic();
 //                MusicHandler.stopMenuMusic();
             }
         });
         btnOptions.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(GameState.OPTION);
+                getSceneController().setScene(StateEnum.OptionScene);
             }
         });
         btnExit.setButtonListener((event, x, y) -> {
@@ -59,8 +57,8 @@ public class MenuScene extends Scene{
     }
 
     private void initButtons() {
-        final ButtonFactory bf = new ButtonFactory(GameConstants.GRID_WIDTH * 1.5f,
-                GameConstants.GRID_HEIGHT * 1.5f);
+        final ButtonFactory bf = new ButtonFactory(GameConstants.TILE_WIDTH * 1.5f,
+                GameConstants.TILE_HEIGHT * 1.5f);
         btnPlay = bf.createOButton("PLAY", true);
         btnOptions = bf.createOButton("OPTIONS", true);
         btnExit = bf.createOButton("EXIT", true);
@@ -90,11 +88,6 @@ public class MenuScene extends Scene{
 
     @Override
     public void touchUp(float x, float y, int pointer, int button) {
-
-    }
-
-    @Override
-    public void scrolled(int amount) {
 
     }
 }
