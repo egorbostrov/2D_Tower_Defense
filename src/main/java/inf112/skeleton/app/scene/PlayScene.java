@@ -1,6 +1,9 @@
 package inf112.skeleton.app.scene;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
 
 public class PlayScene extends Scene{
     private final Level level;
@@ -10,6 +13,14 @@ public class PlayScene extends Scene{
         super(sceneController);
         level = new Level(this);
     }
+
+    @Override
+    public void render(SpriteBatch batch, ShapeRenderer render) {
+        super.render(batch, render);
+        batch.begin();
+        map.render()
+    }
+
     @Override
     public void update(float elapsedTime) {
 

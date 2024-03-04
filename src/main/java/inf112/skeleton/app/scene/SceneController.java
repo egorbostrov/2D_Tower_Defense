@@ -82,8 +82,8 @@ public class SceneController extends InputAdapter {
 //    }
     private Scene createScene(StateEnum enumState) {
         switch (enumState) {
-//            case PLAY:
-//                return new PlayScene(this);
+            case PlayScene:
+                return new PlayScene(this);
 //            case GAMEOVER:
 //                return new GameOverScene(this);
             case MenuScene:
