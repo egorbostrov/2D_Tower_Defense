@@ -26,7 +26,7 @@ public class MyAtlas {
           return sprite;
     }
 
-    public void dispose() {
+    public static void dispose() {
         atlas.dispose();
     }
 

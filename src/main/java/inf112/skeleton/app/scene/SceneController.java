@@ -82,16 +82,16 @@ public class SceneController extends InputAdapter {
 //    }
     private Scene createScene(StateEnum enumState) {
         switch (enumState) {
-//            case PLAY:
-//                return new PlayScene(this);
-//            case GAMEOVER:
-//                return new GameOverScene(this);
+            case PlayScene:
+                return new PlayScene(this);
+            case GameOverScene:
+                return new GameOverScene(this);
             case MenuScene:
                 return new MenuScene(this);
-//            case OPTION:
-//                return new OptionScene(this);
-//            case PAUSE:
-//                return new PauseScene(this);
+            case OptionScene:
+                return new OptionScene(this);
+            case PauseScene:
+                return new PauseScene(this);
             default:
                 throw new IllegalArgumentException("Invalid state enum: " + enumState);
         }

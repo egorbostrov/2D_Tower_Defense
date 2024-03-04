@@ -17,7 +17,7 @@ public class TDGame extends ApplicationAdapter {
 
     @Override
     public void create() {
-        //MyAtlas.init();
+        MyAtlas.init();
         sceneController = new SceneController();
         sceneController.setScene(StateEnum.MenuScene);
         batch = new SpriteBatch();
@@ -28,5 +28,10 @@ public class TDGame extends ApplicationAdapter {
     public void render() {
         sceneController.render(batch,render);
         sceneController.update(Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    public void dispose() {
+        MyAtlas.dispose();
     }
 }
