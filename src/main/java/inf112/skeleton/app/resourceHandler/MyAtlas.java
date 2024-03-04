@@ -1,11 +1,10 @@
-package inf112.skeleton.app.resources;
+package inf112.skeleton.app.resourceHandler;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.utils.Array;
 
 public class MyAtlas {
     public static Sprite PATH_TILE;

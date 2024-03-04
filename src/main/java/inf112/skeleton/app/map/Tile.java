@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.entity.GameObject;
-import inf112.skeleton.app.resources.MyAtlas;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
 
 public class Tile extends GameObject {
     private EnumGridType type;
