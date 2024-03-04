@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.entity.GameObject;
 import inf112.skeleton.app.resources.MyAtlas;
 
-public class Grid  extends GameObject {
+public class Tile extends GameObject {
     private EnumGridType type;
 
-    public Grid(float x, float y, float width, float height, EnumGridType type) {
+    public Tile(float x, float y, float width, float height, EnumGridType type) {
         super(x, y, width, height);
         this.type = type;
     }
