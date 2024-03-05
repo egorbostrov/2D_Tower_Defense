@@ -73,5 +73,6 @@ public class Board {
         return gameBoard;
     }
 
+    public void setRender(boolean b) {
+    }
 }
-
