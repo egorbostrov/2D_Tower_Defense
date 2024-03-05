@@ -22,7 +22,7 @@ public class MyAtlas {
 
     public static Sprite createSprite(AtlasRegion region) {
         final Sprite sprite = new Sprite(region);
-          sprite.flip(false, true);
+          sprite.flip(false, false);
           return sprite;
     }
 

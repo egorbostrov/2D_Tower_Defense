@@ -29,7 +29,7 @@ public class Board {
         for (int y = 0; y < GameConstants.MAP_ROWS; y++) {
             for (int x = 0; x < GameConstants.COLUMN_SIZE; x++) {
                 tileXCordStart = x * tileWidth;
-                tileYCordStart = (y + 1) * tileHeight;
+                tileYCordStart = y * tileHeight + 2 * tileHeight;
         
                 if (pathPoints.contains(new Vector2(x, y + 1))) {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.PATH));
