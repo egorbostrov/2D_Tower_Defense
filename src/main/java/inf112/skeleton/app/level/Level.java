@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 
+import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.PlayScene;
 import inf112.skeleton.app.enums.SceneEnum;
 import inf112.skeleton.app.tower.BaseDefender;
@@ -82,7 +83,7 @@ public class Level {
     public void updateInputs(float x, float y) {
         towerSelectionMenu.updateInputs(x, y);
     }
-    public void createTowerClicked(float x, float y, BaseDefender.DefenderType  type) {
+    public void createTowerClicked(float x, float y, DefenderType type) {
 
         Tile tile = map.getSelectedTile(x, y);
         if (tile == null){
