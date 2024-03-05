@@ -4,10 +4,10 @@ public class GameConstants {
     public static float SCREEN_HEIGHT = 720;
     public static float SCREEN_WIDTH = (float) (SCREEN_HEIGHT * 16) / 9;
 
-    public static int COLUMN_SIZE = 16;
-    public static int ROW_SIZE = 9;
+    public static int COLUMN_SIZE = 20;
+    public static int ROW_SIZE = 12;
 
-    public static int MAP_ROWS = 6;
+    public static int MAP_ROWS = 9;
     public static int UI_ROWS = ROW_SIZE - MAP_ROWS;
 
     public static float TILE_WIDTH = SCREEN_WIDTH / COLUMN_SIZE;

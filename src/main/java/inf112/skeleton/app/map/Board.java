@@ -30,25 +30,25 @@ public class Board {
             for (int x = 0; x < GameConstants.COLUMN_SIZE; x++) {
                 tileXCordStart = x * tileWidth;
                 tileYCordStart = y * tileHeight + 2 * tileHeight;
-        
-                if (pathPoints.contains(new Vector2(x, y + 1))) {
+
+                if (pathPoints.contains(new Vector2(x, y))) {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.PATH));
                 } else {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.GROUND));
                 }
             }
         }
-        
     }
 
     public List<Tile> getGameBoard() {
         return gameBoard;
     }
 
-    public void render(ShapeRenderer sr) {
+
+    public void render(ShapeRenderer renderer) {
         if (render) {
             for (Tile tile : gameBoard) {
-                tile.render(sr);
+                tile.render(renderer);
             }
         }
     }
