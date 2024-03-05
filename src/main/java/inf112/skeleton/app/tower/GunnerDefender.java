@@ -33,8 +33,8 @@ public class GunnerDefender extends BaseDefender {
             renderer.begin(ShapeType.Line);
         }
     }
-    @Override
+    /*@Override
     public void continuousShoot() {
         target.shoot(damage);
-    }
+    }*/
 }

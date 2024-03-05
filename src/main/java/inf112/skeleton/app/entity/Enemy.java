@@ -1,6 +1,7 @@
 package inf112.skeleton.app.entity;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -25,13 +26,13 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed){
+    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed, Sprite type){
         super(x, y, width, height);
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
         this.currentHealth = currentHealth;
         this.bounty = bounty;
-        this.sprite = MyAtlas.GUNNER; //Change to MyAtlas.ATTACKER
+        this.sprite = type;
 
         getNextDirection();
 

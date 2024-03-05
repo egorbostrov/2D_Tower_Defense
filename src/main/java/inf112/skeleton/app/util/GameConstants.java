@@ -1,5 +1,7 @@
 package inf112.skeleton.app.util;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class GameConstants {
     public static float SCREEN_HEIGHT = 720;
     public static float SCREEN_WIDTH = (float) (SCREEN_HEIGHT * 16) / 9;
@@ -33,4 +35,6 @@ public class GameConstants {
 
     public static float BULLET_WIDTH = TILE_WIDTH / 2;
     public static float BULLET_HEIGHT = TILE_HEIGHT / 2;
+
+    public static Vector2 START_POS = new Vector2(0, 0);
 }
