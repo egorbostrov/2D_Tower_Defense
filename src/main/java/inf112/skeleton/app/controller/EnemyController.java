@@ -13,6 +13,7 @@ public class EnemyController {
     private final Level level;
     private final List<Enemy> enemyList;
     
+
     public EnemyController(Level level){
         this.level = level;
         this.enemyList = new ArrayList<>();

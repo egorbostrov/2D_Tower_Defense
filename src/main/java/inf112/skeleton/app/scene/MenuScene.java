@@ -44,14 +44,12 @@ public class MenuScene extends Scene{
     private void setListeners() {
         btnPlay.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(StateEnum.PlayScene);
-//                MusicHandler.playBackgroundMusic();
-//                MusicHandler.stopMenuMusic();
+                getSceneController().setScene(SceneEnum.PlayScene);
             }
         });
         btnOptions.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(StateEnum.OptionScene);
+                getSceneController().setScene(SceneEnum.OptionScene);
             }
         });
         btnExit.setButtonListener((event, x, y) -> {
@@ -64,7 +62,7 @@ public class MenuScene extends Scene{
     private void initButtons() {
         final ButtonFactory bf = new ButtonFactory(GameConstants.TILE_WIDTH * 1.5f,
                 GameConstants.TILE_HEIGHT * 1.5f);
-        btnPlay = bf.createOButton(MyAtlas.PATH_TILE);
+        btnPlay = bf.createOButton("Play", MyAtlas.PATH_TILE, true);
         btnOptions = bf.createOButton("OPTIONS", MyAtlas.GROUND_TILE, true);
         btnExit = bf.createOButton("EXIT", MyAtlas.GROUND_TILE, true);
 

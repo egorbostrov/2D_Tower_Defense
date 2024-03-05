@@ -167,7 +167,6 @@ public class Level {
     public BaseDefender getSelectedDefender() {
         return towerController.getSelectedTower();
     }
-
     public Map getMap(){
         return map;
     }

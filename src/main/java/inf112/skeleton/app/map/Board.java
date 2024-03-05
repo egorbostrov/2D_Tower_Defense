@@ -69,6 +69,10 @@ public class Board {
         this.render = render;
     }
 
+    public List<Tile> getTileList() {
+        return gameBoard;
+    }
+
     public void setRender(boolean b) {
     }
 }

@@ -5,8 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
-import inf112.skeleton.app.scene.Scene;
-import inf112.skeleton.app.scene.Scene.StateEnum;
+import inf112.skeleton.app.scene.Scene.SceneEnum;
 import inf112.skeleton.app.scene.SceneController;
 
 public class TDGame extends ApplicationAdapter {
@@ -19,7 +18,7 @@ public class TDGame extends ApplicationAdapter {
     public void create() {
         MyAtlas.init();
         sceneController = new SceneController();
-        sceneController.setScene(StateEnum.MenuScene);
+        sceneController.setScene(SceneEnum.MenuScene);
         batch = new SpriteBatch();
         render = new ShapeRenderer();
     }
