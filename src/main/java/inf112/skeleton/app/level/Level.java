@@ -91,7 +91,7 @@ public class Level {
             case TOWER:
                 System.out.println("KAN IKKE SETTE TÅRN SOM ALLEREDE FINNES");
                 break;
-            case LAND:
+            case GROUND:
                 int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, money);
             default:
                 break;
@@ -141,7 +141,7 @@ public class Level {
                 towerSelectionMenu.updateUpgradeButtons(money);
                 break;
 
-            case LAND:
+            case GROUND:
                 towerController.clearSelectedTower();
                 infoMenu.clearInfo();
                 towerSelectionMenu.clearSelectedTower();
@@ -178,7 +178,7 @@ public class Level {
     }
     public void upgradeAttackClicked() {
         BaseDefender defender = towerController.getSelectedTower();
-        int cost = defender.getDefenderCost();
+        int cost = defender.getAttackCost();
 
         if (cost <= money){
             towerController.upgradeDamage();
