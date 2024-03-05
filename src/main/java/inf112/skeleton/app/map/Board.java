@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.enums.GridType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +33,13 @@ public class Board {
                 tileYCordStart = y * tileHeight + 2 * tileHeight;
 
                 if (pathPoints.contains(new Vector2(x, y))) {
-                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.PATH));
-                } else {
-                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.GROUND));
+                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, GridType.PATH));
+                }
+                else {
+                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, GridType.GROUND));
                 }
             }
         }
-        
     }
 
     public List<Tile> getGameBoard() {

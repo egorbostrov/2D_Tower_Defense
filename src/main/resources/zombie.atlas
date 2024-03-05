@@ -1,0 +1,31 @@
+zombie.png
+	size: 256, 16
+	repeat: none
+gritty1
+	bounds: 0, 0, 16, 16
+gritty2
+	bounds: 16, 0, 16, 16
+gritty3
+	bounds: 32, 0, 16, 16
+gritty4
+	bounds: 48, 0, 16, 16
+path
+	bounds: 64, 0, 16, 16
+point500
+	bounds: 80, 0, 16, 16
+rocky1
+	bounds: 96, 0, 16, 16
+rocky2
+	bounds: 112, 0, 16, 16
+rocky3
+	bounds: 128, 0, 16, 16
+rocky4
+	bounds: 144, 0, 16, 16
+sandy1
+	bounds: 160, 0, 16, 16
+sandy2
+	bounds: 176, 0, 16, 16
+sandy3
+	bounds: 192, 0, 16, 16
+sandy4
+	bounds: 208, 0, 16, 16
