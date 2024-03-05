@@ -31,6 +31,11 @@ public abstract class GameObject {
     protected Sprite sprite;
 
     /**
+     * Image for things that are visible and selected
+     */
+    protected Sprite spriteSelected;
+
+    /**
      * Sets visibility of object
      */
     protected boolean isVisible;
@@ -67,10 +72,15 @@ public abstract class GameObject {
     }
 
     public void update(float elapsedTime) {
+        //position
         boundsRectangle.x = position.x;
         boundsRectangle.y = position.y;
         boundsRectangle.height = size.y;
         boundsRectangle.width = size.x;
+
+        //center
+        center.x = position.x + size.x / 2;
+        center.y = position.y + size.y / 2;
     }
 
     public Vector2 getPositionOfObject() {
