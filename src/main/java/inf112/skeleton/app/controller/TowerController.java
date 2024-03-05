@@ -11,7 +11,7 @@ import inf112.skeleton.app.enums.DefenderType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TowerController {
+public class TowerController implements Render{
 
     private final List<BaseDefender> defenderList;
     private BaseDefender currentDefender;
@@ -55,9 +55,11 @@ public class TowerController {
     public void update(float elapsedTime) {
     }
 
+    @Override
     public void render(SpriteBatch batch) {
     }
 
+    @Override
     public void render(ShapeRenderer renderer) {
     }
 }

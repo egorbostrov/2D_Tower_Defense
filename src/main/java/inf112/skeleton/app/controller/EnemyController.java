@@ -8,7 +8,7 @@ import inf112.skeleton.app.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnemyController {
+public class EnemyController implements Render{
 
     private final Level level;
     private final List<Enemy> enemyList;
@@ -32,9 +32,11 @@ public class EnemyController {
     public void update(float elapsedTime) {
     }
 
+    @Override
     public void render(SpriteBatch batch) {
     }
 
+    @Override
     public void render(ShapeRenderer renderer) {
     }
 }

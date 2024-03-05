@@ -40,9 +40,9 @@ public class Level {
     public Level(PlayScene scene) {
         this.scene = scene;
         this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
-        init();
+        start();
     }
-    private void init() {
+    private void start() {
         currentWave = 1;
         score = 0;
         money = GameConstants.START_MONEY;
@@ -218,7 +218,7 @@ public class Level {
     }
 
     public void restart() {
-        init();
+        start();
     }
     public void pause() {
         scene.pause();
