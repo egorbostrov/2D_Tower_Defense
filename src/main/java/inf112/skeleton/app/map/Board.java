@@ -66,7 +66,7 @@ public class Board {
     }
 
     public void renderSwitch(boolean onOrOff) {
-        this.render = render;
+        this.render = onOrOff;
     }
 
     public List<Tile> getTileList() {
