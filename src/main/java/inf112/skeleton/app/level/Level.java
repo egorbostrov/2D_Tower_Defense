@@ -29,7 +29,7 @@ public class Level {
     private Map map;
     private EnemyController enemyController;
     private TowerController towerController;
-    private MainControlMenu towerSelectionMenu; 
+    private MainControlMenu towerSelectionMenu;
     private InformationMenu infoMenu;
     private boolean checkRenderAndWaveValues = false;
     private int timeLeft;
@@ -37,7 +37,7 @@ public class Level {
 
     public Level(PlayScene scene) {
         this.scene = scene;
-        this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);;
+        this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
         init();
     }
     private void init() {
@@ -70,7 +70,7 @@ public class Level {
         infoMenu.render(batch);
         if (checkRenderAndWaveValues){
             GameUtil.renderCenter("Wave: " + currentWave + "in: " + timeLeft + " second", batch, bitmapFont);
-            
+
         }
     }
     public void update(float elapsedTime) {
@@ -148,7 +148,7 @@ public class Level {
                 infoMenu.updateTowerInfo(defender);
                 towerSelectionMenu.updateUpgradeButtons(money);
                 break;
-            
+
             case GROUND:
                 towerController.clearSelectedTower();
                 infoMenu.clearInfo();
@@ -176,7 +176,7 @@ public class Level {
     public int getEnemyNumber() {
         return numberOfEnemies;
     }
-    
+
     public void renderTiles(boolean bool) {
         this.map.getBoard().renderSwitch(bool);
     }
@@ -186,7 +186,7 @@ public class Level {
     }
     public void upgradeAttackClicked() {
         BaseDefender defender = towerController.getSelectedTower();
-        int cost = defender.getDefenderCost();
+        int cost = defender.getAttackCost();
 
         if (cost <= money){
             towerController.upgradeDamage();
