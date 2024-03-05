@@ -15,6 +15,8 @@ public class SniperDefender extends BaseDefender{
         super(x, y, enemyList);
         type = DefenderType.SNIPER;
         damage = GameConstants.TOWER_DAMAGE_SNIPER;
+        range = GameConstants.TOWER_RANGE_SNIPER;
+        speed = GameConstants.TOWER_SPEED_SNIPER;
         sprite = MyAtlas.SNIPER;
         spriteSelected = MyAtlas.SNIPER;
     }

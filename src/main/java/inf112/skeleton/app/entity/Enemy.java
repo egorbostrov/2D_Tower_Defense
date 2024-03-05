@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.controller.Render;
+
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
@@ -38,8 +38,6 @@ public class Enemy extends GameObject{
 
         hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
     }
-
-
 
     public void shot(float damage){
         this.currentHealth -= damage;

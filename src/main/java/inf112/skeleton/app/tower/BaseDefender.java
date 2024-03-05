@@ -104,12 +104,12 @@ public abstract class BaseDefender extends GameObject {
        // Override this if tower shoots sometimes, attacks per speed of tower
     }
 
-    public void rappidShoot(){
+    public void rappidFire(){
         // Override this if tower shoots rapidly, attacks per update
     }
 
     private void startShooting(float deltaTime){
-        rappidShoot();
+        rappidFire();
         speedCounter += deltaTime;
         if (speedCounter >= 1f / speed) {
             speedCounter = 0;

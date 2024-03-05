@@ -29,6 +29,10 @@ public class GameConstants {
 
     public static int TOWER_DAMAGE_GUNNER = 5;
     public static final float TOWER_DAMAGE_SNIPER = 15;
+    public static final float TOWER_RANGE_SNIPER = 999;
+    public static final float TOWER_SPEED_SNIPER = 5;
+
+
     public static final float TOWER_DAMAGE_BOMBER = 10;
 
 

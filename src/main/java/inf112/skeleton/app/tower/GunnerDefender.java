@@ -34,7 +34,7 @@ public class GunnerDefender extends BaseDefender {
         }
     }
     /*@Override
-    public void continuousShoot() {
-        target.shoot(damage);
+    public void rappidFire() {
+        target.shot(damage);
     }*/
 }
