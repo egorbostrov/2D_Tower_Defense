@@ -3,6 +3,7 @@ package inf112.skeleton.app.entity;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class HealthBar extends GameObject{
+    private float health;
     public HealthBar(float x, float y, float width, float height, float currentHealth){
     super(x, y, width, height);
     }

@@ -9,8 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 public class MyAtlas {
     public static Sprite PATH_TILE;
     public static Sprite GROUND_TILE;
-    public static Sprite ATTACKER;
-
+    public static Sprite GUNNER;
+    public static Sprite SNIPER;
+    public static Sprite BOMBER;
     private static TextureAtlas atlas;
 
     public static void init() {
@@ -19,6 +20,12 @@ public class MyAtlas {
 
         PATH_TILE = createSprite(atlas.findRegion("path"));
         GROUND_TILE = createSprite(atlas.findRegion("gritty1"));
+
+        GUNNER = createSprite(atlas.findRegion("gunna0"));
+        SNIPER = createSprite(atlas.findRegion("gunna1"));
+        BOMBER = createSprite(atlas.findRegion("gunna2"));
+
+
     }
 
     public static Sprite createSprite(AtlasRegion region) {
