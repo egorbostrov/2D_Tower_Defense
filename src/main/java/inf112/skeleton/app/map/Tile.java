@@ -25,14 +25,16 @@ public class Tile extends GameObject {
         switch (type) {
             case PATH:
                 batch.draw(MyAtlas.PATH_TILE, this.position.x, this.position.y, this.size.x, this.size.y);
-
+                break;
             case GROUND:
                 batch.draw(MyAtlas.GROUND_TILE, this.position.x, this.position.y, this.size.x, this.size.y);
-
+                break;
             default:
                 break;
         }
     }
+
+    //Tarjis
 
     public boolean contains(float x, float y) {
         return x >= position.x && x < position.x + size.x && y >= position.y && y < position.y + size.y;

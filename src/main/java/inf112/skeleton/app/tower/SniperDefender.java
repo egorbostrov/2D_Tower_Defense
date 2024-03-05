@@ -1,0 +1,29 @@
+package inf112.skeleton.app.tower;
+
+import inf112.skeleton.app.entity.Bullet;
+import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.enums.BulletType;
+import inf112.skeleton.app.enums.DefenderType;
+import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
+
+import java.util.List;
+
+public class SniperDefender extends BaseDefender{
+
+    public SniperDefender(float x, float y, List<Enemy> enemyList) {
+        super(x, y, enemyList);
+        type = DefenderType.SNIPER;
+        damage = GameConstants.TOWER_DAMAGE_SNIPER;
+        sprite = MyAtlas.SNIPER;
+        spriteSelected = MyAtlas.SNIPER;
+    }
+
+    @Override
+    public void projectileShoot() {
+        bulletList.add(new Bullet(center.x, center.y, target, damage, BulletType.SNIPER_BULLET));
+    }
+
+    // needs to have a bigger range than the other towers
+    // needs to have a slower fire rate than the other towers
+}

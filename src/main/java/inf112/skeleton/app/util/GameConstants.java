@@ -4,10 +4,10 @@ public class GameConstants {
     public static float SCREEN_HEIGHT = 720;
     public static float SCREEN_WIDTH = (float) (SCREEN_HEIGHT * 16) / 9;
 
-    public static int COLUMN_SIZE = 16;
-    public static int ROW_SIZE = 9;
+    public static int COLUMN_SIZE = 20;
+    public static int ROW_SIZE = 12;
 
-    public static int MAP_ROWS = 6;
+    public static int MAP_ROWS = 9;
     public static int UI_ROWS = ROW_SIZE - MAP_ROWS;
 
     public static float TILE_WIDTH = SCREEN_WIDTH / COLUMN_SIZE;
@@ -24,6 +24,12 @@ public class GameConstants {
     public static int TOWER_ATTACK_PRICE = 15;
     public static int TOWER_RANGE_PRICE = 15;
     public static int TOWER_SPEED_PRICE = 15;
+
+    public static int TOWER_DAMAGE_GUNNER = 5;
+    public static final float TOWER_DAMAGE_SNIPER = 15;
+    public static final float TOWER_DAMAGE_BOMBER = 10;
+
+
 
     public static float BULLET_WIDTH = TILE_WIDTH / 2;
     public static float BULLET_HEIGHT = TILE_HEIGHT / 2;

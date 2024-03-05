@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.enums.GridType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import inf112.skeleton.app.enums.GridType;
 
 public class Board {
     private final List<Tile> gameBoard; //All tiles, building a gameBoard, holding either path or grass tiles.
@@ -31,25 +31,26 @@ public class Board {
             for (int x = 0; x < GameConstants.COLUMN_SIZE; x++) {
                 tileXCordStart = x * tileWidth;
                 tileYCordStart = y * tileHeight + 2 * tileHeight;
-        
-                if (pathPoints.contains(new Vector2(x, y + 1))) {
+
+                if (pathPoints.contains(new Vector2(x, y))) {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, GridType.PATH));
-                } else {
+                }
+                else {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, GridType.GROUND));
                 }
             }
         }
-        
     }
 
     public List<Tile> getGameBoard() {
         return gameBoard;
     }
 
-    public void render(ShapeRenderer sr) {
+
+    public void render(ShapeRenderer renderer) {
         if (render) {
             for (Tile tile : gameBoard) {
-                tile.render(sr);
+                tile.render(renderer);
             }
         }
     }
