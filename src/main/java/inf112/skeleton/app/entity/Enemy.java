@@ -31,7 +31,7 @@ public class Enemy extends GameObject{
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
         this.currentHealth = currentHealth;
         this.bounty = bounty;
-        this.sprite = MyAtlas.ENEMY;
+        this.sprite = MyAtlas.ATTACKER;
 
         getNextDirection();
 
@@ -148,7 +148,7 @@ public class Enemy extends GameObject{
             float slowDownTime = 0.5f;
             if (slowTime >= slowDownTime){
                 speed *= 2;
-                sprite = MyAtlas.ENEMY;
+                sprite = MyAtlas.ATTACKER;
                 isSlowed = false;
             }
         }
