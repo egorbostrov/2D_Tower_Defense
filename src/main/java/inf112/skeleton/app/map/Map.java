@@ -2,6 +2,9 @@ package inf112.skeleton.app.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashSet;
@@ -11,6 +14,7 @@ import java.util.Set;
 import inf112.skeleton.app.map.Board;
 
 public class Map {
+
     private final LinkedList<MapMaker.Direction> directions;
     private final Board board;
     public Map() {

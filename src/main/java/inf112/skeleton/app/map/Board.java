@@ -26,19 +26,19 @@ public class Board {
         float tileWidth = GameConstants.TILE_WIDTH;
         float tileHeight = GameConstants.TILE_HEIGHT;
 
-        for (int i = 0; i < GameConstants.MAP_ROWS; i++) {
-            for (int j = 0; j < GameConstants.COLUMN_SIZE; j++) {
-                tileXCordStart = j * tileWidth;
-                tileYCordStart = i * tileHeight + tileHeight;//Add tileHeight to leave an empty line of tiles at the top
-
-                if (pathPoints.contains(new Vector2(i, j))) {
+        for (int y = 0; y < GameConstants.MAP_ROWS; y++) {
+            for (int x = 0; x < GameConstants.COLUMN_SIZE; x++) {
+                tileXCordStart = x * tileWidth;
+                tileYCordStart = y * tileHeight + 2 * tileHeight;
+        
+                if (pathPoints.contains(new Vector2(x, y + 1))) {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.PATH));
-                }
-                else {
+                } else {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.GROUND));
                 }
             }
         }
+        
     }
 
     public List<Tile> getGameBoard() {
@@ -66,12 +66,13 @@ public class Board {
     }
 
     public void renderSwitch(boolean onOrOff) {
-        this.render = render;
+        this.render = onOrOff;
     }
 
     public List<Tile> getTileList() {
         return gameBoard;
     }
 
+    public void setRender(boolean b) {
+    }
 }
-

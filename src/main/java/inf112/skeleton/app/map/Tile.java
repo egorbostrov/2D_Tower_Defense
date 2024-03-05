@@ -8,7 +8,6 @@ import inf112.skeleton.app.resourceHandler.MyAtlas;
 
 public class Tile extends GameObject {
     private EnumGridType type;
-    
 
     public Tile(float x, float y, float width, float height, EnumGridType type) {
         super(x, y, width, height);
@@ -42,8 +41,6 @@ public class Tile extends GameObject {
         return type;
     }
 
-
-
     public void setType(EnumGridType type) {
         this.type = type;
     }
@@ -51,5 +48,12 @@ public class Tile extends GameObject {
         PATH, GROUND, TOWER
     }
 
+    public float getX(){
+        return this.position.x;
+    }
+
+    public float getY(){
+        return this.position.y;
+    }
 
 }

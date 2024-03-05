@@ -93,6 +93,14 @@ public class Level {
                 break;
             case GROUND:
                 int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, money);
+                if (cost != 0){
+                    tile.setType(Tile.EnumGridType.TOWER);
+                    removeMoney(cost);
+                }
+                this.map.getBoard().setRender(false);
+                break;
+            case PATH:
+                System.out.println("KAN IKKE BYGGE PATH");
             default:
                 break;
         }
@@ -170,7 +178,7 @@ public class Level {
     }
 
     public void renderTiles(boolean bool) {
-        this.map.getBoard().setRender(bool);
+        this.map.getBoard().renderSwitch(bool);
     }
     public void nextWaveCountDown(int x) {
         this.timeLeft = x;
