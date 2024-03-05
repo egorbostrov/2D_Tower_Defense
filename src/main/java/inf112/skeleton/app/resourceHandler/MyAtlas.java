@@ -10,6 +10,8 @@ public class MyAtlas {
     public static Sprite PATH_TILE;
     public static Sprite GROUND_TILE;
 
+    public static Sprite ENEMY;
+
     private static TextureAtlas atlas;
 
     public static void init() {
@@ -18,6 +20,8 @@ public class MyAtlas {
 
         PATH_TILE = createSprite(atlas.findRegion("johanne"));
         GROUND_TILE = createSprite(atlas.findRegion("etter"));
+
+        ENEMY = createSprite(atlas.findRegion("johanne"));
     }
 
     public static Sprite createSprite(AtlasRegion region) {

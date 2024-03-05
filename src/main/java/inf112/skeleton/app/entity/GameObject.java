@@ -5,11 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import inf112.skeleton.app.controller.Render;
 
 import java.awt.*;
 
 
-public abstract class GameObject {
+public abstract class GameObject implements Render {
     /**
      * position
      */
