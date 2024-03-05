@@ -15,4 +15,13 @@ public class GameConstants {
 
     public static float ENEMY_WIDTH = TILE_WIDTH / (float)2;
     public static float ENEMY_HEIGHT = TILE_HEIGHT / (float)2;
+
+    public static int START_MONEY = 1000;
+    public static int REMAINING_HEALTH = 6;
+    public static int SCORE_INCREASE = 100;
+    public static float TOWER_SIZE = TILE_WIDTH;
+    public static float TOWER_RANGE = TILE_WIDTH * 2;
+    public static int TOWER_ATTACK_PRICE = 15;
+    public static int TOWER_RANGE_PRICE = 15;
+    public static int TOWER_SPEED_PRICE = 15;
 }

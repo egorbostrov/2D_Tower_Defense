@@ -68,4 +68,10 @@ public class Board {
     public void renderSwitch(boolean onOrOff) {
         this.render = render;
     }
+
+    public List<Tile> getTileList() {
+        return gameBoard;
+    }
+
 }
+
