@@ -12,35 +12,36 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import inf112.skeleton.app.map.Board;
+import inf112.skeleton.app.enums.Direction;
 
 public class Map {
 
-    private final LinkedList<MapMaker.Direction> directions;
+    private final LinkedList<Direction> directions;
     private final Board board;
     public Map() {
-        directions = new LinkedList<MapMaker.Direction>();
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.DOWN);
-        directions.add(MapMaker.Direction.DOWN);
-        directions.add(MapMaker.Direction.DOWN);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.UP);
-        directions.add(MapMaker.Direction.UP);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
-        directions.add(MapMaker.Direction.RIGHT);
+        directions = new LinkedList<>();
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.DOWN);
+        directions.add(Direction.DOWN);
+        directions.add(Direction.DOWN);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.UP);
+        directions.add(Direction.UP);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
 
 
         Set<Vector2> pathTiles = new HashSet<>();
@@ -81,7 +82,7 @@ public class Map {
         board.update(elapsedTime);
     }
 
-    public LinkedList<MapMaker.Direction> getDirections() {
+    public LinkedList<Direction> getDirections() {
         return directions;
     }
 

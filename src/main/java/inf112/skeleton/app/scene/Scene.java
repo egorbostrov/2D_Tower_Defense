@@ -40,7 +40,5 @@ public abstract class Scene {
     public abstract void touchDown(float x, float y, int pointer, int button);
     public abstract void touchUp(float x, float y, int pointer, int button);
 
-    public enum SceneEnum {
-        PlayScene, PauseScene, MenuScene, GameOverScene, OptionScene
-    }
+
 }

@@ -38,6 +38,7 @@ public class Board {
                 }
             }
         }
+        
     }
 
     public List<Tile> getGameBoard() {

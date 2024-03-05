@@ -11,6 +11,7 @@ import inf112.skeleton.app.ui.components.SimpleLayout;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
+import inf112.skeleton.app.enums.SceneEnum;
 
 
 import java.util.ArrayList;

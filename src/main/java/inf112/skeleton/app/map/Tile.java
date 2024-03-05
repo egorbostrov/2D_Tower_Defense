@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.entity.GameObject;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
+import inf112.skeleton.app.enums.GridType;
 
 public class Tile extends GameObject {
-    private EnumGridType type;
+    private GridType type;
 
-    public Tile(float x, float y, float width, float height, EnumGridType type) {
+    public Tile(float x, float y, float width, float height, GridType type) {
         super(x, y, width, height);
         this.type = type;
     }
@@ -39,16 +40,14 @@ public class Tile extends GameObject {
         return x >= position.x && x < position.x + size.x && y >= position.y && y < position.y + size.y;
     }
 
-    public EnumGridType getType() {
+    public GridType getType() {
         return type;
     }
 
-    public void setType(EnumGridType type) {
+    public void setType(GridType type) {
         this.type = type;
     }
-    public enum EnumGridType {
-        PATH, GROUND, TOWER
-    }
+
 
     public float getX(){
         return this.position.x;
