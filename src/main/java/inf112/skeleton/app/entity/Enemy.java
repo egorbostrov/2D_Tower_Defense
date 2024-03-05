@@ -5,5 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 public class Enemy {
 
     public boolean isAlive() {
+        return false;
     }
 }

@@ -6,18 +6,18 @@ import inf112.skeleton.app.util.GameConstants;
 
 import static inf112.skeleton.app.util.GameConstants.BULLET_HEIGHT;
 import static inf112.skeleton.app.util.GameConstants.BULLET_WIDTH;
+import inf112.skeleton.app.enums.BulletType;
 
 public class Bullet extends GameObject{
 
-    private final EnumBulletType bulletType;
+    private final BulletType bulletType;
 
-    public Bullet(float x, float y, Enemy target, float damage, EnumBulletType bulletType) {
+    public Bullet(float x, float y, Enemy target, float damage, BulletType bulletType) {
         super(x, y, BULLET_WIDTH, BULLET_HEIGHT);
 
         this.bulletType = bulletType;
     }
-    public enum EnumBulletType {
-    }
+
     public boolean isVisible() {
         return false;
     }

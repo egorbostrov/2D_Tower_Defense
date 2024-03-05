@@ -9,6 +9,7 @@ import inf112.skeleton.app.util.GameConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import inf112.skeleton.app.enums.GridType;
 
 public class Board {
     private final List<Tile> gameBoard; //All tiles, building a gameBoard, holding either path or grass tiles.
@@ -32,9 +33,9 @@ public class Board {
                 tileYCordStart = y * tileHeight + 2 * tileHeight;
         
                 if (pathPoints.contains(new Vector2(x, y + 1))) {
-                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.PATH));
+                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, GridType.PATH));
                 } else {
-                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, Tile.EnumGridType.GROUND));
+                    gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, GridType.GROUND));
                 }
             }
         }

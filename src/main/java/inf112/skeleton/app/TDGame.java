@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.scene.Scene;
-import inf112.skeleton.app.scene.Scene.SceneEnum;
+import inf112.skeleton.app.enums.SceneEnum;
 import inf112.skeleton.app.scene.SceneController;
 
 public class TDGame extends ApplicationAdapter {

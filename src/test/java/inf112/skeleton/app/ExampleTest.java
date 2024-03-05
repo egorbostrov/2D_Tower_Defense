@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.map.Board;
 import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.enums.GridType;
 
 import java.util.List;
 
@@ -44,9 +45,9 @@ public void testCorrectTilesCreated() {
         int xGrid = (int)(tile.getX() / GameConstants.TILE_WIDTH);
         int yGrid = (int)(tile.getY() / GameConstants.TILE_HEIGHT);
         if (pathPoints.contains(new Vector2(xGrid, yGrid))) {
-            assertEquals(Tile.EnumGridType.PATH, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a path tile.");
+            assertEquals(GridType.PATH, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a path tile.");
         } else {
-            assertEquals(Tile.EnumGridType.GROUND, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a ground tile.");
+            assertEquals(GridType.GROUND, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a ground tile.");
         }
     }
 }

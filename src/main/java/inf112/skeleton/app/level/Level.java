@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 
 import inf112.skeleton.app.scene.PlayScene;
-import inf112.skeleton.app.scene.Scene.SceneEnum;
+import inf112.skeleton.app.enums.SceneEnum;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.InformationMenu;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
@@ -18,6 +18,7 @@ import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.entity.GameObject;
 import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.map.Tile;
+import inf112.skeleton.app.enums.GridType;
 public class Level {
     private final PlayScene scene;
     private int currentWave;
@@ -94,7 +95,7 @@ public class Level {
             case GROUND:
                 int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, money);
                 if (cost != 0){
-                    tile.setType(Tile.EnumGridType.TOWER);
+                    tile.setType(GridType.TOWER);
                     removeMoney(cost);
                 }
                 this.map.getBoard().setRender(false);
