@@ -9,15 +9,16 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 public class MyAtlas {
     public static Sprite PATH_TILE;
     public static Sprite GROUND_TILE;
+    public static Sprite ATTACKER;
 
     private static TextureAtlas atlas;
 
     public static void init() {
-        atlas = new TextureAtlas(Gdx.files.internal("texturePack.atlas"));
+        atlas = new TextureAtlas(Gdx.files.internal("zombie.atlas"));
         atlas.getTextures().forEach(t -> t.setFilter(TextureFilter.Linear, TextureFilter.Linear));
 
-        PATH_TILE = createSprite(atlas.findRegion("etter"));
-        GROUND_TILE = createSprite(atlas.findRegion("johanne"));
+        PATH_TILE = createSprite(atlas.findRegion("path"));
+        GROUND_TILE = createSprite(atlas.findRegion("gritty1"));
     }
 
     public static Sprite createSprite(AtlasRegion region) {
