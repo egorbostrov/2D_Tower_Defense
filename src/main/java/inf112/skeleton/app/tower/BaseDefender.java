@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.entity.GameObject;
+import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.util.GameConstants;
 
 
@@ -42,10 +43,6 @@ public abstract class BaseDefender extends GameObject {
         attackPrice = GameConstants.TOWER_ATTACK_PRICE;
         rangePrice = GameConstants.TOWER_RANGE_PRICE;
         speedPrice = GameConstants.TOWER_SPEED_PRICE;
-    }
-
-    public enum DefenderType {
-        GUNNER, SNIPER, BOMBER
     }
 
     @Override

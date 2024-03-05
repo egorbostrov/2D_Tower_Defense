@@ -25,6 +25,9 @@ public class GameConstants {
     public static int TOWER_RANGE_PRICE = 15;
     public static int TOWER_SPEED_PRICE = 15;
 
+    public static int TOWER_DAMAGE_GUNNER = 5;
+
+
     public static float BULLET_WIDTH = TILE_WIDTH / 2;
     public static float BULLET_HEIGHT = TILE_HEIGHT / 2;
 }

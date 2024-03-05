@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.tower.BaseDefender;
+import inf112.skeleton.app.enums.DefenderType;
 
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class TowerController {
     public void clearSelectedTower() {
     }
 
-    public int buildTower(float x, float y, List<Enemy> enemyList, BaseDefender.DefenderType type, int money){
+    public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type, int money){
         return 0;
     }
 
