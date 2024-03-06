@@ -26,13 +26,13 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed, Sprite type){
+    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed){
         super(x, y, width, height);
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
         this.currentHealth = currentHealth;
         this.bounty = bounty;
-        this.sprite = type;
+        this.sprite = MyAtlas.ZOMBIE;
 
         getNextDirection();
 
@@ -88,14 +88,14 @@ public class Enemy extends GameObject{
             float movedDistance = speed * elapsedTime;
 
             switch (currentDirection) {
-                case UP:
+                case DOWN:
                     position.y -= movedDistance;
                     distanceToTile -= movedDistance;
                     if (distanceToTile < 0){
                         position.y += distanceToTile;
                     }
                     break;
-                case DOWN:
+                case UP:
                     position.y += movedDistance;
                     distanceToTile -= movedDistance;
                     if (distanceToTile < 0){
