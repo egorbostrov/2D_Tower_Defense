@@ -10,7 +10,7 @@ public class GameConstants {
     public static int ROW_SIZE = 12;
 
     public static int MAP_ROWS = 9;
-    public static int UI_ROWS = ROW_SIZE - MAP_ROWS;
+    public static int UI_ROWS_BOTTOM = 2;
 
     public static float TILE_WIDTH = SCREEN_WIDTH / COLUMN_SIZE;
     public static float TILE_HEIGHT = SCREEN_HEIGHT / ROW_SIZE;
@@ -40,5 +40,5 @@ public class GameConstants {
     public static float BULLET_WIDTH = TILE_WIDTH / 2;
     public static float BULLET_HEIGHT = TILE_HEIGHT / 2;
 
-    public static Vector2 START_POS = new Vector2(0, 0);
+    public static Vector2 START_POS = new Vector2(0, UI_ROWS_BOTTOM * TILE_HEIGHT - TILE_HEIGHT);
 }
