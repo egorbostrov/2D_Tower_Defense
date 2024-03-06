@@ -20,14 +20,14 @@ public class Map {
     private final Board board;
     public Map() {
         directions = new LinkedList<>();
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.DOWN);
-        directions.add(Direction.DOWN);
-        directions.add(Direction.DOWN);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
         directions.add(Direction.UP);
         directions.add(Direction.UP);
+        directions.add(Direction.UP);
+        directions.add(Direction.UP);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.DOWN);
+        directions.add(Direction.DOWN);
         directions.add(Direction.RIGHT);
         directions.add(Direction.RIGHT);
         directions.add(Direction.RIGHT);
