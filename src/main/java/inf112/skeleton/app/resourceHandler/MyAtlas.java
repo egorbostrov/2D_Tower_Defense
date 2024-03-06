@@ -12,6 +12,7 @@ public class MyAtlas {
     public static Sprite GUNNER;
     public static Sprite SNIPER;
     public static Sprite BOMBER;
+    public static Sprite ZOMBIE;
     private static TextureAtlas atlas;
 
     public static void init() {
@@ -24,6 +25,8 @@ public class MyAtlas {
         GUNNER = createSprite(atlas.findRegion("gunna0"));
         SNIPER = createSprite(atlas.findRegion("gunna1"));
         BOMBER = createSprite(atlas.findRegion("gunna2"));
+
+        ZOMBIE = createSprite(atlas.findRegion("gunna5"));//Change atlas to zombie texture, when available :)
 
 
     }
