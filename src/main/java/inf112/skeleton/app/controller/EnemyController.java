@@ -20,7 +20,7 @@ public class EnemyController {
     public EnemyController(Level level){
         this.level = level;
         this.enemyList = new ArrayList<>();
-        enemyList.add(new Enemy(START_POS.x + TILE_WIDTH / 2, START_POS.y + 2 * TILE_HEIGHT, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 5, MyAtlas.GUNNER));
+        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
     }
 
     public void doubleSpeedClicked() {
