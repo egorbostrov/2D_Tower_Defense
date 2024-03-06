@@ -21,6 +21,10 @@ public class EnemyController {
         this.level = level;
         this.enemyList = new ArrayList<>();
         enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
+        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
+        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
+        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
+        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
     }
 
     public void doubleSpeedClicked() {
