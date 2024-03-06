@@ -1,6 +1,7 @@
 package inf112.skeleton.app.map;
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -30,7 +31,7 @@ public class Board {
         for (int y = 0; y < GameConstants.MAP_ROWS; y++) {
             for (int x = 0; x < GameConstants.COLUMN_SIZE; x++) {
                 tileXCordStart = x * tileWidth;
-                tileYCordStart = y * tileHeight + 2 * tileHeight;
+                tileYCordStart = y * tileHeight + GameConstants.UI_ROWS_BOTTOM * tileHeight;
 
                 if (pathPoints.contains(new Vector2(x, y))) {
                     gameBoard.add(new Tile(tileXCordStart, tileYCordStart, tileWidth, tileHeight, GridType.PATH));
