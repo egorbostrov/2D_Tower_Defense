@@ -51,6 +51,9 @@ public abstract class GameObject implements Render {
      */
     protected boolean isSelected = false;
 
+    protected boolean visible;
+
+
     public GameObject(float xCord, float yCord, float width, float height) {
         this.position = new Vector2(xCord, yCord);
         this.size = new Vector2(width, height);

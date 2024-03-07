@@ -13,28 +13,27 @@ public class GunnerDefender extends BaseDefender {
 
     public GunnerDefender(float x, float y, List<Enemy> enemyList) {
         super(x, y, enemyList);
-        type = DefenderType.GUNNER;
+        defenderType = DefenderType.GUNNER;
         sprite = MyAtlas.GUNNER;
         spriteSelected = MyAtlas.GUNNER;
         damage = GameConstants.TOWER_DAMAGE_GUNNER;
-        range = GameConstants.TILE_WIDTH * 3;
+        range = GameConstants.TILE_WIDTH * 2;
     }
 
     @Override
     public void render(ShapeRenderer renderer) {
         super.render(renderer);
-        if (target != null) {
+        if (enemy != null) {
             renderer.end();
             renderer.begin(ShapeType.Filled);
-            renderer.triangle(center.x, center.y,
-                    target.center.x, target.center.y + target.size.x / 2,
-                    target.center.x, target.center.y - target.size.x / 2);
+            renderer.circle(enemy.center.x, enemy.center.y, 5);
             renderer.end();
             renderer.begin(ShapeType.Line);
         }
     }
-    /*@Override
-    public void rappidFire() {
-        target.shot(damage);
-    }*/
+
+    @Override
+    public void projectileFire() {
+        enemy.shot(damage);
+    }
 }

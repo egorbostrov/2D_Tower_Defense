@@ -12,15 +12,15 @@ import java.util.List;
 public class BomberDefender extends BaseDefender{
     public BomberDefender(float xCord, float yCord, List<Enemy> enemyList) {
         super(xCord, yCord, enemyList);
-        type = DefenderType.BOMBER;
+        defenderType = DefenderType.BOMBER;
         damage = GameConstants.TOWER_DAMAGE_BOMBER;
         sprite = MyAtlas.BOMBER;
         spriteSelected = MyAtlas.BOMBER;
     }
 
     @Override
-    public void projectileShoot() {
-        bulletList.add(new Bullet(center.x, center.y, target, damage, BulletType.BOMBER_BULLET));
+    public void projectileFire() {
+        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET));
     }
 
     // needs to have a bigger damage area than the other towers

@@ -18,12 +18,12 @@ import java.util.Map;
 
 public abstract class BaseDefender extends GameObject {
 
-    protected List<Enemy> enemyList;
-    protected List<Bullet> bulletList;
-    protected HashMap<Enemy, Float> enemyMap;
-    protected DefenderType type;
+    protected List<Enemy> enemies;
+    protected List<Bullet> bullets;
+    protected HashMap<Enemy, Float> enemyDistanceMap;
+    protected DefenderType defenderType;
 
-    protected Enemy target;
+    protected Enemy enemy;
     protected float range;
     protected float damage;
 
@@ -35,9 +35,9 @@ public abstract class BaseDefender extends GameObject {
     protected int attackPrice;
     protected int speedPrice;
 
-    public BaseDefender(float xCord, float yCord, List<Enemy> enemyList) {
+    public BaseDefender(float xCord, float yCord, List<Enemy> enemies) {
         super(xCord, yCord, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
-        this.enemyList = enemyList;
+        this.enemies = enemies;
         this.range = GameConstants.TOWER_RANGE;
 
         attackPrice = GameConstants.TOWER_ATTACK_PRICE;
@@ -48,35 +48,44 @@ public abstract class BaseDefender extends GameObject {
     @Override
     public void render(ShapeRenderer renderer) {
         renderer.setColor(Color.RED);
-        if (isSelected) {
-            renderer.circle(center.x, center.y, range);
-        }
-        for (Bullet bullet : bulletList) {
-            bullet.render(renderer);
-        }
+        renderer.circle(center.x, center.y, range);
+
+//        for (Bullet bullet : bulletList) {
+//            bullet.render(renderer);
+//        }
     }
 
     @Override
     public void update(float deltaTime){
         super.update(deltaTime);
-        updateTargetMap();
-        bulletList.forEach(bullet -> bullet.update(deltaTime));
-        if (target == null || !target.isAlive()) {
+        updateEnemyMap();
+        //bulletList.forEach(bullet -> bullet.update(deltaTime));
+        if (enemy == null || !enemy.isAlive()) {
             findTarget();
-            if (target == null){
+            if (enemy == null){
                 return;
             }
         }
-        calculateRotation();
-        startShooting(deltaTime);
-        removeBullet();
+        checkRotation();
+        startFiring(deltaTime);
+        //removeBullet();
     }
 
     public void render(SpriteBatch batch) {
         Sprite activeSprite = isSelected ? spriteSelected : sprite;
-        batch.draw(activeSprite, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1, 1, rotation);
+        batch.draw(
+                activeSprite,
+                position.x,
+                position.y,
+                size.x / 2,
+                size.y / 2,
+                size.x,
+                size.y,
+                1,
+                1,
+                rotation);
 
-        bulletList.forEach(bullet -> bullet.render(batch));
+        //bulletList.forEach(bullet -> bullet.render(batch));
     }
 
 
@@ -95,12 +104,11 @@ public abstract class BaseDefender extends GameObject {
         speedPrice *= 2;
     }
 
-    private void calculateRotation(){
-        Vector2 temp = new Vector2(target.center).sub(center);
-        rotation = temp.angle() + 90f;
+    private void checkRotation(){
+        rotation = new Vector2(enemy.center).sub(center).angle() + 90;
     }
 
-    public void projectileShoot(){
+    public void projectileFire(){
        // Override this if tower shoots sometimes, attacks per speed of tower
     }
 
@@ -108,34 +116,44 @@ public abstract class BaseDefender extends GameObject {
         // Override this if tower shoots rapidly, attacks per update
     }
 
-    private void startShooting(float deltaTime){
+    private void startFiring(float deltaTime){
         rappidFire();
         speedCounter += deltaTime;
         if (speedCounter >= 1f / speed) {
             speedCounter = 0;
-            projectileShoot();
+            projectileFire();
         }
     }
 
     private void removeBullet(){
-        bulletList.removeIf(bullet -> !bullet.isVisible());
+        bullets.removeIf(bullet -> !bullet.isVisible());
     }
 
-    private void updateTargetMap() {
-        enemyMap = new HashMap<>();
-        for (Enemy enemy : enemyList) {
+    private void updateEnemyMap() {
+        enemyDistanceMap = new HashMap<>();
+        for (Enemy enemy : enemies) {
             float distance = center.dst(enemy.position);
             if (distance <= range && enemy.isAlive()) {
-                enemyMap.put(enemy, distance);
+                enemyDistanceMap.put(enemy, distance);
+            }
+            else {
+                enemyDistanceMap.remove(enemy);
             }
         }
     }
 
     private void findTarget() {
-        this.target = enemyMap.entrySet().stream()
-                .min(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse(null);
+        Enemy closestEnemy = null;
+        float closestDistance = Float.MAX_VALUE;
+
+        for (Map.Entry<Enemy, Float> entry : enemyDistanceMap.entrySet()) {
+            if (entry.getValue() < closestDistance) {
+                closestEnemy = entry.getKey();
+                closestDistance = entry.getValue();
+            }
+        }
+
+        this.enemy = closestEnemy;
     }
 
 
@@ -168,8 +186,8 @@ public abstract class BaseDefender extends GameObject {
     public int getAttackCost() {
         return attackPrice;
     }
-    public DefenderType getType() {
-        return type;
+    public DefenderType getDefenderType() {
+        return defenderType;
     }
 
 }

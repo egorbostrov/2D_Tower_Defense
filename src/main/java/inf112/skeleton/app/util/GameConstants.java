@@ -3,6 +3,7 @@ package inf112.skeleton.app.util;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameConstants {
+    public static final int TOWER_PRICE = 0;
     public static float SCREEN_HEIGHT = 720;
     public static float SCREEN_WIDTH = (float) (SCREEN_HEIGHT * 16) / 9;
 

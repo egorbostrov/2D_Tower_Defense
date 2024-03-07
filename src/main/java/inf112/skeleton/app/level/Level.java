@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 
+import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.PlayScene;
 import inf112.skeleton.app.enums.SceneEnum;
@@ -20,6 +21,9 @@ import inf112.skeleton.app.entity.GameObject;
 import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.enums.GridType;
+
+import java.util.List;
+
 public class Level {
     private final PlayScene scene;
     private int currentWave;
@@ -49,10 +53,12 @@ public class Level {
         numberOfEnemies = 10;
         enemyHealth = 100;
         remainingHealth = GameConstants.REMAINING_HEALTH;
+        //List<Enemy> currentEnemies = enemyController.getEnemyList();
 
         map = new Map();
         enemyController = new EnemyController(this);
-        towerController = new TowerController();
+        towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
+        towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 
@@ -108,7 +114,9 @@ public class Level {
         }
     }
     public void enemyPassedTheCheckPoint() {
+        System.out.println("ENEMY PASSED THE CHECKPOINT");
         remainingHealth--;
+        System.out.println(remainingHealth);
         towerSelectionMenu.fireHealthChanged(remainingHealth);
         if (remainingHealth == 0){
             scene.gameOver();

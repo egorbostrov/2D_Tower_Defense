@@ -54,6 +54,7 @@ public class MenuScene extends Scene{
         });
         btnExit.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
+                MyAtlas.dispose();
                 Gdx.app.exit();
             }
         });

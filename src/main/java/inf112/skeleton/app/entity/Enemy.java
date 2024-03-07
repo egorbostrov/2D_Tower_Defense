@@ -45,6 +45,10 @@ public class Enemy extends GameObject{
         hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
     }
 
+    public float getCurrentHealth() {
+        return currentHealth;
+    }
+
     public void shot(float damage){
         this.currentHealth -= damage;
 
@@ -61,10 +65,14 @@ public class Enemy extends GameObject{
         if (currentDirection != null){
             switch (currentDirection) {
                 case UP:
+                    distanceToTile = GameConstants.TILE_WIDTH;
+                    break;
                 case DOWN:
                     distanceToTile = GameConstants.TILE_WIDTH;
                     break;
                 case RIGHT:
+                    distanceToTile = GameConstants.TILE_HEIGHT;
+                    break;
                 case LEFT:
                     distanceToTile = GameConstants.TILE_HEIGHT;
                     break;
@@ -91,8 +99,6 @@ public class Enemy extends GameObject{
         if (elapsedTimeStart < spawnDelay || currentDirection == null) {
             return;
         }
-
-
         if (distanceToTile < 0){
             getNextDirection();
         }

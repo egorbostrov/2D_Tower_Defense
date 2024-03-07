@@ -13,7 +13,7 @@ public class SniperDefender extends BaseDefender{
 
     public SniperDefender(float x, float y, List<Enemy> enemyList) {
         super(x, y, enemyList);
-        type = DefenderType.SNIPER;
+        defenderType = DefenderType.SNIPER;
         damage = GameConstants.TOWER_DAMAGE_SNIPER;
         range = GameConstants.TOWER_RANGE_SNIPER;
         speed = GameConstants.TOWER_SPEED_SNIPER;
@@ -22,8 +22,8 @@ public class SniperDefender extends BaseDefender{
     }
 
     @Override
-    public void projectileShoot() {
-        bulletList.add(new Bullet(center.x, center.y, target, damage, BulletType.SNIPER_BULLET));
+    public void projectileFire() {
+        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.SNIPER_BULLET));
     }
 
     // needs to have a bigger range than the other towers

@@ -42,6 +42,12 @@ public class Map {
         directions.add(Direction.RIGHT);
         directions.add(Direction.RIGHT);
         directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
+        directions.add(Direction.RIGHT);
 
 
         Set<Vector2> pathTiles = new HashSet<>();
@@ -66,6 +72,10 @@ public class Map {
         pathTiles.add(new Vector2(13, 1));
         pathTiles.add(new Vector2(14, 1));
         pathTiles.add(new Vector2(15, 1));
+        pathTiles.add(new Vector2(16, 1));
+        pathTiles.add(new Vector2(17, 1));
+        pathTiles.add(new Vector2(18, 1));
+        pathTiles.add(new Vector2(19, 1));
 
         board = new Board(pathTiles);
     }
