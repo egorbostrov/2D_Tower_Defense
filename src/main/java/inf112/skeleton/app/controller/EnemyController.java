@@ -20,11 +20,17 @@ public class EnemyController {
     public EnemyController(Level level){
         this.level = level;
         this.enemyList = new ArrayList<>();
-        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
-        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
-        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
-        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
-        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
+        float spawnDelayInc = 2.0f;
+
+        for (int i = 0; i < 5; i++) {
+            float spawnDelay = i * spawnDelayInc;
+            enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30, spawnDelay));
+        }
+//        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 30));
+//        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 25));
+//        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 20));
+//        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 15));
+//        enemyList.add(new Enemy(START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT, 5, level.getMap().getDirections(), 5, 10));
     }
 
     public void doubleSpeedClicked() {

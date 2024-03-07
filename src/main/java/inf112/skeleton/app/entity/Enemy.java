@@ -22,20 +22,26 @@ public class Enemy extends GameObject{
     private Direction currentDirection;
     private final LinkedList<Direction> directionLinkedList;
 
+    private float spawnDelay;
+    private float elapsedTimeStart;
+
     private boolean alive = true;
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed){
+    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed, float spawnDelay){
         super(x, y, width, height);
+
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
         this.currentHealth = currentHealth;
         this.bounty = bounty;
         this.sprite = MyAtlas.ZOMBIE;
 
-        getNextDirection();
+        this.spawnDelay = spawnDelay;
+        this.elapsedTimeStart = 0;
 
+        getNextDirection();
         hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
     }
 
@@ -72,15 +78,21 @@ public class Enemy extends GameObject{
     }
     @Override
     public void render(SpriteBatch batch){
-        super.render(batch);
+        if (elapsedTimeStart >= spawnDelay) {
+            super.render(batch);
+        }
     }
 
     @Override
     public void update(float elapsedTime) {
         super.update(elapsedTime);
-        if (currentDirection == null){
+
+        elapsedTimeStart += elapsedTime;
+        if (elapsedTimeStart < spawnDelay || currentDirection == null) {
             return;
         }
+
+
         if (distanceToTile < 0){
             getNextDirection();
         }
@@ -160,7 +172,4 @@ public class Enemy extends GameObject{
         }
         slowTime = 0;
     }
-
-
-
 }

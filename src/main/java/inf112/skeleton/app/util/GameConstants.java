@@ -15,8 +15,8 @@ public class GameConstants {
     public static float TILE_WIDTH = SCREEN_WIDTH / COLUMN_SIZE;
     public static float TILE_HEIGHT = SCREEN_HEIGHT / ROW_SIZE;
 
-    public static float ENEMY_WIDTH = TILE_WIDTH / (float)2;
-    public static float ENEMY_HEIGHT = TILE_HEIGHT / (float)2;
+    public static float ENEMY_WIDTH = TILE_WIDTH / (float)1.2;
+    public static float ENEMY_HEIGHT = TILE_HEIGHT / (float)1.2;
 
     public static int START_MONEY = 1000;
     public static int REMAINING_HEALTH = 6;
