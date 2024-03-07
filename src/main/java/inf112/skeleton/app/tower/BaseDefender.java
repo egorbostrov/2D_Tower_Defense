@@ -12,6 +12,7 @@ import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.util.GameConstants;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,8 @@ public abstract class BaseDefender extends GameObject {
         attackPrice = GameConstants.TOWER_ATTACK_PRICE;
         rangePrice = GameConstants.TOWER_RANGE_PRICE;
         speedPrice = GameConstants.TOWER_SPEED_PRICE;
+
+        bullets = new ArrayList<>();
     }
 
     @Override
@@ -50,25 +53,27 @@ public abstract class BaseDefender extends GameObject {
         renderer.setColor(Color.RED);
         renderer.circle(center.x, center.y, range);
 
-//        for (Bullet bullet : bulletList) {
-//            bullet.render(renderer);
-//        }
+        for (Bullet bullet : bullets) {
+            bullet.render(renderer);
+        }
     }
 
     @Override
     public void update(float deltaTime){
         super.update(deltaTime);
         updateEnemyMap();
-        //bulletList.forEach(bullet -> bullet.update(deltaTime));
-        if (enemy == null || !enemy.isAlive()) {
+        bullets.forEach(bullet -> bullet.update(deltaTime));
+        if (enemy == null) {
             findTarget();
-            if (enemy == null){
-                return;
-            }
+            return;
         }
-        checkRotation();
-        startFiring(deltaTime);
-        //removeBullet();
+        if (enemy.isAlive() && enemyDistanceMap.containsKey(enemy)) {
+            checkRotation();
+            startFiring(deltaTime);
+            removeBullet();
+        } else {
+            enemy = null;
+        }
     }
 
     public void render(SpriteBatch batch) {
@@ -85,7 +90,7 @@ public abstract class BaseDefender extends GameObject {
                 1,
                 rotation);
 
-        //bulletList.forEach(bullet -> bullet.render(batch));
+        bullets.forEach(bullet -> bullet.render(batch));
     }
 
 
@@ -126,7 +131,15 @@ public abstract class BaseDefender extends GameObject {
     }
 
     private void removeBullet(){
-        bullets.removeIf(bullet -> !bullet.isVisible());
+        //bullets.removeIf(bullet -> !bullet.isVisible());
+        List<Bullet> tempList = new ArrayList<>();
+        for (int i = 0; i < bullets.size(); i++) {
+            Bullet bullet = bullets.get(i);
+            if (!bullet.isVisible()) {
+                tempList.add(bullet);
+            }
+        }
+        bullets.removeAll(tempList);
     }
 
     private void updateEnemyMap() {

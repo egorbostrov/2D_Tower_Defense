@@ -17,7 +17,7 @@ public class GunnerDefender extends BaseDefender {
         sprite = MyAtlas.GUNNER;
         spriteSelected = MyAtlas.GUNNER;
         damage = GameConstants.TOWER_DAMAGE_GUNNER;
-        range = GameConstants.TILE_WIDTH * 2;
+        range = GameConstants.TOWER_RANGE;
     }
 
     @Override

@@ -26,7 +26,7 @@ public class EnemyController {
         bountyList = new ArrayList<>();
         float spawnDelayInc = 2.0f;
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 6; i++) {
             float spawnDelay = i * spawnDelayInc;
             enemyList.add(new Enemy(
                     START_POS.x,
@@ -36,7 +36,7 @@ public class EnemyController {
                     500,
                     level.getMap().getDirections(),
                     5,
-                    500,
+                    50,
                     spawnDelay
             ));
         }
@@ -76,7 +76,6 @@ public class EnemyController {
 
     public void render(SpriteBatch batch) {
         for (Enemy enemy : enemyList) {
-            System.out.println(enemy.getCurrentHealth());
             enemy.render(batch);
         }
     }
