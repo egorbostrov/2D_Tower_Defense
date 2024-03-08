@@ -40,13 +40,44 @@ public abstract class Scene {
         return sceneController;
     }
 
+
     /**
+     * Updates the state of the scene or object based on the elapsed time.
+     * This method should contain logic for updating the game state, animations, or any time-sensitive operations.
      *
-     * @param elapsedTime
+     * @param elapsedTime The time in seconds that has elapsed since the last update.
      */
     public abstract void update(float elapsedTime);
+
+    /**
+     * Updates the input handling state based on the current position of the input (e.g., mouse or touch position).
+     * This method is intended to process continuous input states, such as cursor movement or touch drag.
+     *
+     * @param x The x-coordinate of the input position.
+     * @param y The y-coordinate of the input position.
+     */
     public abstract void updateInputs(float x, float y);
+
+    /**
+     * Processes the event of a touch or mouse click being pressed down.
+     * This method is intended for handling initial input actions, such as button presses or touch start events.
+     *
+     * @param x       The x-coordinate where the touch or click occurred.
+     * @param y       The y-coordinate where the touch or click occurred.
+     * @param pointer The pointer index for multi-touch events (ignored for mouse input).
+     * @param button  The button code (for mouse input) or 0 for touch input.
+     */
     public abstract void touchDown(float x, float y, int pointer, int button);
+
+    /**
+     * Processes the event of a touch or mouse click being released.
+     * This method is intended for handling the conclusion of an input action, such as button releases or touch end events.
+     *
+     * @param x       The x-coordinate where the touch or click was released.
+     * @param y       The y-coordinate where the touch or click was released.
+     * @param pointer The pointer index for multi-touch events (ignored for mouse input).
+     * @param button  The button code (for mouse input) or 0 for touch input.
+     */
     public abstract void touchUp(float x, float y, int pointer, int button);
 
 
