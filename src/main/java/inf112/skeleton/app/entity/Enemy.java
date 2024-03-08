@@ -1,10 +1,7 @@
 package inf112.skeleton.app.entity;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
@@ -40,7 +37,7 @@ public class Enemy extends GameObject{
         this.spawnDelay = spawnDelay;
         this.elapsedTimeStart = 0;
 
-        getNextDirection();
+        getNextDistance();
         hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
     }
 
@@ -48,6 +45,12 @@ public class Enemy extends GameObject{
         return currentHealth;
     }
 
+    /**
+     * Called when an enemy is hit by a bullet.
+     * Removes health according to the bullets damage, then checks if the enemy is still alive.
+     * Updates the hpBar according to the new health.
+     * @param damage the amount of health to remove from the enemy
+     */
     public void shot(float damage){
         this.currentHealth -= damage;
 
@@ -75,21 +78,21 @@ public class Enemy extends GameObject{
         return this.directionLinkedList;
     }
 
-    private void getNextDirection(){
+    /**
+     *Sets the next movement distance, according to the current directions.
+     * As the zombie never rotates more than 90 degrees,
+     */
+    private void getNextDistance(){
         currentDirection = directionLinkedList.pollFirst();
         if (currentDirection != null){
             switch (currentDirection) {
                 case UP:
-                    distanceToTile = GameConstants.TILE_WIDTH;
-                    break;
                 case DOWN:
-                    distanceToTile = GameConstants.TILE_WIDTH;
+                    distanceToTile = GameConstants.TILE_HEIGHT;
                     break;
                 case RIGHT:
-                    distanceToTile = GameConstants.TILE_HEIGHT;
-                    break;
                 case LEFT:
-                    distanceToTile = GameConstants.TILE_HEIGHT;
+                    distanceToTile = GameConstants.TILE_WIDTH;
                     break;
             }
         }
@@ -106,6 +109,10 @@ public class Enemy extends GameObject{
         }
     }
 
+    /**
+     * Changes the direction of the enemy, according to the elapsed time, speed and direction.
+     * @param elapsedTime time since last frame
+     */
     @Override
     public void update(float elapsedTime) {
         super.update(elapsedTime);
@@ -115,7 +122,7 @@ public class Enemy extends GameObject{
             return;
         }
         if (distanceToTile < 0){
-            getNextDirection();
+            getNextDistance();
         }
         if (currentDirection != null){
             float movedDistance = speed * elapsedTime;
@@ -174,23 +181,35 @@ public class Enemy extends GameObject{
         speed /= 2;
     }
 
+    /**
+     * Remove slowness effect from a zombie.
+     * @param elapsedTime
+     */
     private void removeSlowMode(float elapsedTime){
         if (isSlowed){
             slowTime += elapsedTime;
             float slowDownTime = 0.5f;
             if (slowTime >= slowDownTime){
                 speed *= 2;
-                sprite = MyAtlas.GUNNER; //Change to MyAtlas.GUNNER
+                sprite = MyAtlas.ZOMBIE; //FIX Change to the texture of a normal zombie
                 isSlowed = false;
             }
         }
     }
 
+    /**
+     * Put on a slowness effect.
+     * Used when shot by a specific type of tower(ice tower?) FIX
+     */
     public void slowDown(){
         if (!isSlowed){
+            slowTime = 0;
+            sprite = MyAtlas.ZOMBIE_SLOWED; //FIX
             speed /= 2;
             isSlowed = true;
         }
-        slowTime = 0;
+        else {
+            slowTime = 0;
+        }
     }
 }
