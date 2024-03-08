@@ -131,7 +131,7 @@ public abstract class BaseDefender extends GameObject {
     }
 
     private void removeBullet(){
-        //bullets.removeIf(bullet -> !bullet.isVisible());
+        bullets.removeIf(bullet -> !bullet.isVisible());
         List<Bullet> tempList = new ArrayList<>();
         for (int i = 0; i < bullets.size(); i++) {
             Bullet bullet = bullets.get(i);

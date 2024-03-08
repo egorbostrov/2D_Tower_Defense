@@ -1,7 +1,9 @@
 package inf112.skeleton.app.tower;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.enums.BulletType;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
@@ -34,6 +36,7 @@ public class GunnerDefender extends BaseDefender {
 
     @Override
     public void projectileFire() {
+        //bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
         enemy.shot(damage);
     }
 }

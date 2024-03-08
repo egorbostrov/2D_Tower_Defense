@@ -3,6 +3,7 @@ package inf112.skeleton.app.entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
 
 import static inf112.skeleton.app.util.GameConstants.BULLET_HEIGHT;
@@ -22,6 +23,10 @@ public class Bullet extends GameObject{
         this.target = target;
         this.damage = damage;
         this.bulletType = bulletType;
+
+        if (bulletType == BulletType.GUNNER_BULLET) {
+            sprite = MyAtlas.GROUND_TILE;
+        }
     }
 
     private void checkRemove() {
@@ -29,9 +34,7 @@ public class Bullet extends GameObject{
         if (distance <= GameConstants.BULLET_HEIGHT) {
             visible = false;
             target.shot(damage);
-
         }
-
     }
 
     public boolean isVisible() {
