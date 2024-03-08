@@ -22,6 +22,8 @@ public class GunnerDefender extends BaseDefender {
         range = GameConstants.TOWER_RANGE;
     }
 
+    // Needs to be changed so that the bullet has an animation that moves towards the enemy
+    // and not tracks the enemy's position with a circle
     @Override
     public void render(ShapeRenderer renderer) {
         super.render(renderer);
