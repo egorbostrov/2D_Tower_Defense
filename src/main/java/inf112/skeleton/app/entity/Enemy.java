@@ -21,7 +21,6 @@ public class Enemy extends GameObject{
     private float distanceToTile;
     private Direction currentDirection;
     private final LinkedList<Direction> directionLinkedList;
-
     private float spawnDelay;
     private float elapsedTimeStart;
 
@@ -58,6 +57,22 @@ public class Enemy extends GameObject{
         } else{
             hpBar.setHealth(currentHealth);
         }
+    }
+
+    /**
+     * Get method used in testing
+     * @return this.speed
+     */
+    public int getSpeed(){
+        return this.speed;
+    }
+
+    /**
+     * Get method used in testing
+     * @return directionLinkedList
+     */
+    public LinkedList<Direction> getDirectionLinkedList(){
+        return this.directionLinkedList;
     }
 
     private void getNextDirection(){
