@@ -82,28 +82,45 @@ public class GameOverScene extends Scene {
     @Override
     public void updateInputs(float x, float y) {
     }
-
+//FIX check if this actually works
     @Override
     public void touchDown(float x, float y, int pointer, int button) {
-        buttons.stream()
-                .filter(b -> b.contains(x, y))
-                .findFirst()
-                .ifPresent(b -> b.touchDown(x, y));
+        for (OButton b : buttons) {
+            if (b.contains(x, y)) {
+                b.touchDown(x, y);
+                break;
+            }
+        }
     }
 
+    //FIX Check if this actually works
     @Override
     public void touchUp(float x, float y, int pointer, int button) {
-        buttons.forEach(b -> b.setPressed(false));
-        buttons.stream()
-                .filter(b -> b.contains(x, y))
-                .findFirst()
-                .ifPresent(b -> b.touchRelease(x, y));
+        // Set all buttons to an unpressed state
+        for (OButton b : buttons) {
+            b.setPressed(false);
+        }
+
+        // Perform action on the first button that contains the touch-up point
+        for (OButton b : buttons) {
+            if (b.contains(x, y)) {
+                b.touchRelease(x, y);
+                break;  // Exit the loop after finding the first button that contains the point
+            }
+        }
     }
+
 
 //    @Override
 //    public void scrolled(int amount) {
 //    }
 
+    /**
+     * Checks for click on the button used to change from gameOver
+     * A click on replay button starts a new game after the loss, by going to PlayScene.
+     * A click on menu button goes back to menuScene
+     *
+     */
     private void setListeners() {
         btnReplay.setButtonListener((event, x, y) -> {
             if (event == OButtonListener.TouchEvent.RELEASE) {
@@ -115,7 +132,5 @@ public class GameOverScene extends Scene {
                 getSceneController().setScene(SceneEnum.MenuScene);
             }
         });
-
     }
-
 }

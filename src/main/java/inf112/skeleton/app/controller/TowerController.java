@@ -54,13 +54,20 @@ public class TowerController implements Render{
     public void clearSelectedTower() {
     }
 
-
+    /**
+     * Updates the logic and environment for all placed defending towers
+     * @param elapsedTime time since last frame
+     */
     public void update(float elapsedTime) {
         for (BaseDefender tower : defenderList) {
             tower.update(elapsedTime);
         }
     }
 
+    /**
+     * Gives a render call to the tower class, for each tower.
+     * @param batch SpriteBatch used to render.
+     */
     @Override
     public void render(SpriteBatch batch) {
         for (BaseDefender tower : defenderList) {
@@ -68,6 +75,10 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Calls the shaperender method for each tower, which renders their range, shown using a red circle.
+     * @param renderer the ShapeRenderer used
+     */
     @Override
     public void render(ShapeRenderer renderer) {
         for (BaseDefender tower : defenderList) {

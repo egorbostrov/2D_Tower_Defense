@@ -62,12 +62,20 @@ public abstract class GameObject implements Render {
         this.isVisible = true;
     }
 
+    /**
+     * Renders a bounds rectangle if the object is visible, used in collision
+     * @param render renderer
+     */
     public void render(ShapeRenderer render) {
         if (isVisible) {
             render.rect(this.position.x, this.position.y, this.size.x, this.size.y);
         }
     }
 
+    /**
+     * Renders texture of object of it's visible
+     * @param batch
+     */
     public void render(SpriteBatch batch) {
         if (!isVisible) {
             return;
@@ -75,6 +83,10 @@ public abstract class GameObject implements Render {
         batch.draw(sprite, this.position.x, this.position.y, this.size.x, this.size.y);
     }
 
+    /**
+     * Updates the bounds of object, used in collision between bullets and enemies
+     * @param elapsedTime time since last frame
+     */
     public void update(float elapsedTime) {
         //position
         boundsRectangle.x = position.x;

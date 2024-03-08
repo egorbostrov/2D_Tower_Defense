@@ -24,6 +24,11 @@ public abstract class Scene {
         camera.setToOrtho(false, GameConstants.SCREEN_WIDTH, GameConstants.SCREEN_HEIGHT);
     }
 
+    /**
+     * Renders the current screen using both sprites and shapes
+     * @param batch SpriteBatch used
+     * @param sr ShapeRenderer used
+     */
     public void render(SpriteBatch batch, ShapeRenderer sr) {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -35,6 +40,10 @@ public abstract class Scene {
         return sceneController;
     }
 
+    /**
+     *
+     * @param elapsedTime
+     */
     public abstract void update(float elapsedTime);
     public abstract void updateInputs(float x, float y);
     public abstract void touchDown(float x, float y, int pointer, int button);

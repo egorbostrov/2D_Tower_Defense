@@ -8,6 +8,9 @@ public class MouseController implements InputProcessor {
     private boolean isDragging;
     private int lastX, lastY;
 
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT){
@@ -17,7 +20,9 @@ public class MouseController implements InputProcessor {
         }
         return false;
     }
-
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT){
@@ -26,7 +31,9 @@ public class MouseController implements InputProcessor {
         }
         return false;
     }
-
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if (isDragging) {
@@ -38,7 +45,9 @@ public class MouseController implements InputProcessor {
         }
         return false;
     }
-
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         float mouseX = screenX;
@@ -46,28 +55,37 @@ public class MouseController implements InputProcessor {
 
         return false;
     }
-
-    // Methods below are not used
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean scrolled(float v, float v1) {
         return false;
     }
-
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean touchCancelled(int i, int i1, int i2, int i3) {
         return false;
     }
-
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean keyDown(int i) {
         return false;
     }
-
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean keyUp(int i) {
         return false;
     }
-
+    /**
+     * Not in use yet, but might come in handy later.
+     */
     @Override
     public boolean keyTyped(char c) {
         return false;
