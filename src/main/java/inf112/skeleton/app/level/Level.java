@@ -58,8 +58,8 @@ public class Level {
 
         map = new Map();
         enemyController = new EnemyController(this);
-        towerController = new TowerController(enemyController.getallEnemies()); //this should be replaced later
-        towerController.buildTower(200, 200, enemyController.getallEnemies(), DefenderType.GUNNER, money);
+        towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
+        towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 
@@ -130,7 +130,7 @@ public class Level {
                 System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
                 break;
             case GROUND:
-                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getallEnemies(), type, money);
+                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, money);
                 if (cost != 0){
                     tile.setType(GridType.TOWER);
                     removeMoney(cost);
