@@ -42,10 +42,14 @@ public class EnemyController {
         }
     }
 
+    /**
+     * Iterates the enemies and removes the ones that are either: outside the map or killed(thus also rewards the player for the kill)
+     */
     private void removeEnemy() {
         List<Enemy> shouldRemoved = new ArrayList<>();
         for (Enemy e : enemyList) {
             if (e.position.x + e.size.x > GameConstants.SCREEN_WIDTH || e.position.y + e.size.y > GameConstants.SCREEN_HEIGHT) {
+            //FIX , we have to check bound of the gameboard, not the screen. Changing this might create issues where enemies will be removed instantly, as they are spawned outside the gameboard.
                 shouldRemoved.add(e);
                 level.enemyPassedTheCheckPoint();
             }
