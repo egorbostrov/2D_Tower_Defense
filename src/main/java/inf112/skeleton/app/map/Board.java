@@ -23,6 +23,9 @@ public class Board {
         createGameBoard();
     }
 
+    /**
+     * Creates board with tiles using given gameconstants
+     */
     private void createGameBoard() {
         float tileXCordStart, tileYCordStart;
         float tileWidth = GameConstants.TILE_WIDTH;
@@ -43,11 +46,19 @@ public class Board {
         }
     }
 
+    /**
+     * Returns a list of all the tiles in the gameboard.
+     * @return gameBoard
+     */
     public List<Tile> getGameBoard() {
         return gameBoard;
     }
 
 
+    /**
+     * Renders given shape
+     * @param renderer shape
+     */
     public void render(ShapeRenderer renderer) {
         if (render) {
             for (Tile tile : gameBoard) {
@@ -56,26 +67,36 @@ public class Board {
         }
     }
 
+
+    /**
+     * Renders all the tiles in gameBoard
+     * @param batch given tile to be rendered
+     */
     public void render(SpriteBatch batch) {
         for (Tile tile : gameBoard) {
             tile.render(batch);
         }
     }
 
+    /**
+     * Updates the tiles on hte game board
+     * @param elapsedTime time from previous frame to current frame
+     *
+     */
     public void update(float elapsedTime) {
         for (Tile tile : gameBoard) {
             tile.update(elapsedTime);
         }
     }
 
+    /**
+     * Sets this.render to true/false based on the given param.
+     * If ture, them render will happen, if false then render will not happen
+     * @param onOrOff switch for rendering
+     */
     public void renderSwitch(boolean onOrOff) {
         this.render = onOrOff;
     }
 
-    public List<Tile> getTileList() {
-        return gameBoard;
-    }
 
-    public void setRender(boolean b) {
-    }
 }

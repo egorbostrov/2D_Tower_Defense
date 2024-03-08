@@ -2,6 +2,9 @@ package inf112.skeleton.app.util;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * All constants used in the game
+ * */
 public class GameConstants {
     public static final int TOWER_PRICE = 0;
     public static float SCREEN_HEIGHT = 720;
@@ -18,7 +21,7 @@ public class GameConstants {
 
     public static float ENEMY_WIDTH = TILE_WIDTH / (float)1.2;
     public static float ENEMY_HEIGHT = TILE_HEIGHT / (float)1.2;
-
+    public static int ENEMY_SPEED = (int) TILE_WIDTH;
     public static int START_MONEY = 1000;
     public static int REMAINING_HEALTH = 6;
     public static int SCORE_INCREASE = 100;
