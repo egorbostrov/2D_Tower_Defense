@@ -94,33 +94,59 @@ public abstract class BaseDefender extends GameObject {
     }
 
 
+    /**
+     * Upgrades damage the tower does by 1.5
+     * Also ups the next upgrade price
+     */
     public void damageUpgrade(){
         damage *= 1.5;
         attackPrice *= 2;
     }
 
+    /**
+     * Upgrades range the tower has by 1.1
+     * Also ups the next upgrade price
+     */
     public void rangeUpgrade(){
         range *= 1.1;
         rangePrice *= 2;
     }
 
+    /**
+     * Upgrades the speed the tower attacks by 1.1
+     * Also ups the next upgrade price
+     */
     public void speedUpgrade(){
         speed *= 1.1;
         speedPrice *= 2;
     }
 
+    /**
+     * Calculates the rotation between the center of BaseDefender and enemy
+     */
     private void checkRotation(){
         rotation = new Vector2(enemy.center).sub(center).angle() + 90;
     }
 
+    /**
+     * Override this if tower shoots sometimes, attacks per speed of tower
+     */
     public void projectileFire(){
-       // Override this if tower shoots sometimes, attacks per speed of tower
+
     }
 
+    /**
+     * Override this if tower shoots rapidly, attacks per update
+     */
     public void rappidFire(){
-        // Override this if tower shoots rapidly, attacks per update
+
     }
 
+    /**
+     * Makes the base defender shoot. Ensures the rate of fire is consistent while
+     * also allowing for rapid fire condition
+     * @param deltaTime time since last frame update
+     */
     private void startFiring(float deltaTime){
         rappidFire();
         speedCounter += deltaTime;
@@ -130,6 +156,9 @@ public abstract class BaseDefender extends GameObject {
         }
     }
 
+    /**
+     * Removes bullet if bullet is not visible, which means it is outside of map or hit target.
+     */
     private void removeBullet(){
         bullets.removeIf(bullet -> !bullet.isVisible());
         List<Bullet> tempList = new ArrayList<>();
@@ -142,6 +171,9 @@ public abstract class BaseDefender extends GameObject {
         bullets.removeAll(tempList);
     }
 
+    /**
+     * Updates the hashmap containing distance from enemies to the center of the base defender
+     */
     private void updateEnemyMap() {
         enemyDistanceMap = new HashMap<>();
         for (Enemy enemy : enemies) {
@@ -155,6 +187,9 @@ public abstract class BaseDefender extends GameObject {
         }
     }
 
+    /**
+     * Finds the closest enemy to teh base defender
+     */
     private void findTarget() {
         Enemy closestEnemy = null;
         float closestDistance = Float.MAX_VALUE;

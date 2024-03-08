@@ -13,11 +13,16 @@ import java.util.List;
 import java.util.Set;
 import inf112.skeleton.app.map.Board;
 import inf112.skeleton.app.enums.Direction;
+import inf112.skeleton.app.controller.Render;
 
-public class Map {
+public class Map implements Render{
 
     private final LinkedList<Direction> directions;
     private final Board board;
+
+    /**
+     * Hard coded map using directions that the path has
+     */
     public Map() {
         directions = new LinkedList<>();
         directions.add(Direction.UP);
@@ -80,6 +85,7 @@ public class Map {
         board = new Board(pathTiles);
     }
 
+
     public void render(ShapeRenderer renderer) {
         board.render(renderer);
     }
@@ -88,20 +94,38 @@ public class Map {
         board.render(batch);
     }
 
+    /**
+     * Updates the board
+     * @param elapsedTime time from previous frame to current frame
+     */
     public void update(float elapsedTime) {
         board.update(elapsedTime);
     }
 
+    /**
+     *
+     * @return List of all directions in the map
+     */
     public LinkedList<Direction> getDirections() {
         return directions;
     }
 
+    /**
+     *
+     * @return the board
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     *
+     * @param x coordinate for tile
+     * @param y coordinate for tile
+     * @return the selected tile
+     */
     public Tile getSelectedTile(float x, float y) {
-        List<Tile> gameBoard = this.board.getTileList();
+        List<Tile> gameBoard = this.board.getGameBoard();
         for (Tile tile : gameBoard) {
             if (tile.contains(x, y)) {
                 return tile;
