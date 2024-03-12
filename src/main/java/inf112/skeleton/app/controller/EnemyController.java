@@ -33,7 +33,7 @@ public class EnemyController {
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
-                    500,
+                    10,
                     level.getMap().getDirections(),
                     5,
                     50,
