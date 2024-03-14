@@ -27,6 +27,8 @@ public class Level {
     private int score;
     private int money;
     private int numberOfEnemies;
+
+    private int enemiesKilled;
     private int enemyHealth;
     private int userHealth;
     private Map map;
@@ -53,6 +55,7 @@ public class Level {
         score = 0;
         money = GameConstants.START_MONEY;
         numberOfEnemies = 10;
+        enemiesKilled = 0;
         enemyHealth = 100;
         userHealth = GameConstants.REMAINING_HEALTH;
 
@@ -163,6 +166,7 @@ public class Level {
     public void enemyKilled(int bounty){
         score += GameConstants.SCORE_INCREASE;
         numberOfEnemies -= 1;
+        enemiesKilled += 1;
         addMoney(bounty);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
@@ -402,5 +406,9 @@ public class Level {
 
     public int getCurrentWave(){
         return this.currentWave;
+    }
+
+    public int getEnemiesKilled(){
+        return enemiesKilled;
     }
 }

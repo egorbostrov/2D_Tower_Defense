@@ -64,6 +64,7 @@ public class PlayScene extends Scene{
         bitmapFont.draw(batch, "Score: " + level.getScore(), 10, GameConstants.SCREEN_HEIGHT - 20);
         bitmapFont.draw(batch, "Money: " + level.getMoney(), 100, GameConstants.SCREEN_HEIGHT - 20);
         bitmapFont.draw(batch, "Wave: " + level.getCurrentWave(), 210, GameConstants.SCREEN_HEIGHT - 20);
+        bitmapFont.draw(batch, "Enemies killed: " + level.getEnemiesKilled(), 310, GameConstants.SCREEN_HEIGHT - 20);
     }
 
     @Override
