@@ -2,9 +2,15 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.enums.SceneEnum;
+import inf112.skeleton.app.util.GameConstants;
+
+
 
 public class PlayScene extends Scene{
     private final Level level;
@@ -34,6 +40,8 @@ public class PlayScene extends Scene{
         super.render(sb,sr);
         sb.begin();
         level.render(sb);
+
+        renderInfo(sb);
         sb.end();
 
         sr.begin(ShapeRenderer.ShapeType.Line);
@@ -50,6 +58,12 @@ public class PlayScene extends Scene{
         if (!gamePaused) {
             level.update(Gdx.graphics.getDeltaTime());
         }
+    }
+
+    public void renderInfo(SpriteBatch batch){
+        bitmapFont.draw(batch, "Score: " + level.getScore(), 10, GameConstants.SCREEN_HEIGHT - 20);
+        bitmapFont.draw(batch, "Money: " + level.getMoney(), 100, GameConstants.SCREEN_HEIGHT - 20);
+        bitmapFont.draw(batch, "Wave: " + level.getCurrentWave(), 210, GameConstants.SCREEN_HEIGHT - 20);
     }
 
     @Override
