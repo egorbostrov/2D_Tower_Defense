@@ -391,4 +391,16 @@ public class Level {
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
     }
+
+    public int getScore(){
+        return this.score;
+    }
+
+    public int getMoney(){
+        return this.money;
+    }
+
+    public int getCurrentWave(){
+        return this.currentWave;
+    }
 }
