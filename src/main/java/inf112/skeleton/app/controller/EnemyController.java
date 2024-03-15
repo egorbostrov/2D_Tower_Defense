@@ -22,7 +22,7 @@ public class EnemyController {
     public EnemyController(Level level, String zombies){
         this.level = level;
         this.enemyList = new ArrayList<>();
-        bountyList = new ArrayList<>();
+        rewardList = new ArrayList<>();
         WaveEnemyFactory spawner = new WaveEnemyFactory(zombies);
         enemyList.add(spawner.getNext(level));
         enemyList.add(spawner.getNext(level));
