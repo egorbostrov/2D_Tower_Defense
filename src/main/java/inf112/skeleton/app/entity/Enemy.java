@@ -1,13 +1,17 @@
 package inf112.skeleton.app.entity;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import inf112.skeleton.app.enums.Direction;
+import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
 
 import java.util.LinkedList;
+
+import static inf112.skeleton.app.util.GameConstants.*;
 
 
 public class Enemy extends GameObject{
@@ -25,14 +29,14 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed, float spawnDelay){
+    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
 
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
         this.currentHealth = currentHealth;
         this.bounty = bounty;
-        this.sprite = MyAtlas.ZOMBIE;
+        this.sprite = texture;
 
         this.spawnDelay = spawnDelay;
         this.elapsedTimeStart = 0;
@@ -40,6 +44,34 @@ public class Enemy extends GameObject{
         getNextDistance();
         hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
     }
+
+    public static Enemy newEnemy(char type, Level level, int delayMultiplier) {
+        Enemy newEnemy = switch(type) {
+            case 'R'-> new Enemy(START_POS.x,
+                    START_POS.y,
+                    ENEMY_WIDTH,
+                    ENEMY_HEIGHT,
+                    ENEMY_REGULAR_START_HP,
+                    level.getMap().getDirections(),
+                    ENEMY_REGULAR_BOUNTY,
+                    EMEMY_REGULAR_SPEED,
+                    (ENEMY_REGULAR_SPAWN_DELAY * delayMultiplier),
+                    MyAtlas.REGULAR_ZOMBIE);
+            case 'T' -> new Enemy(START_POS.x,
+                    START_POS.y,
+                    ENEMY_WIDTH,
+                    ENEMY_HEIGHT,
+                    ENEMY_TANK_START_HP,
+                    level.getMap().getDirections(),
+                    ENEMY_TANK_BOUNTY,
+                    ENEMY_TANK_SPEED,
+                    (ENEMY_TANK_SPAWN_DELAY * delayMultiplier),
+                    MyAtlas.TANK_ZOMBIE);
+            default -> throw new IllegalArgumentException("No available zombie for: " + type);
+        };
+        return newEnemy;
+    }
+
 
     public float getCurrentHealth() {
         return currentHealth;
@@ -191,7 +223,7 @@ public class Enemy extends GameObject{
             float slowDownTime = 0.5f;
             if (slowTime >= slowDownTime){
                 speed *= 2;
-                sprite = MyAtlas.ZOMBIE; //FIX Change to the texture of a normal zombie
+                sprite = MyAtlas.REGULAR_ZOMBIE; //FIX Change to the texture of a normal zombie
                 isSlowed = false;
             }
         }
@@ -204,7 +236,7 @@ public class Enemy extends GameObject{
     public void slowDown(){
         if (!isSlowed){
             slowTime = 0;
-            sprite = MyAtlas.ZOMBIE_SLOWED; //FIX
+            sprite = MyAtlas.REGULAR_ZOMBIE_SLOWED; //FIX
             speed /= 2;
             isSlowed = true;
         }
