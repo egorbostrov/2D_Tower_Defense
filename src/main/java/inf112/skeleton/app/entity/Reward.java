@@ -3,8 +3,8 @@ package inf112.skeleton.app.entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Bounty extends GameObject{
-    public Bounty(float xCord, float yCord, float width, float height) {
+public class Reward extends GameObject{
+    public Reward(float xCord, float yCord, float width, float height) {
         super(xCord, yCord, width, height);
     }
 

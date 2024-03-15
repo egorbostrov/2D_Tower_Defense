@@ -2,10 +2,9 @@ package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import inf112.skeleton.app.entity.Bounty;
+import inf112.skeleton.app.entity.Reward;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
 
 import java.util.ArrayList;
@@ -17,13 +16,13 @@ public class EnemyController {
 
     private final Level level;
     private final List<Enemy> enemyList;
-    private final List<Bounty> bountyList;
+    private final List<Reward> rewardList;
     
 
     public EnemyController(Level level){
         this.level = level;
         this.enemyList = new ArrayList<>();
-        bountyList = new ArrayList<>();
+        rewardList = new ArrayList<>();
         float spawnDelayInc = 2.0f;
 
         for (int i = 0; i < 6; i++) {
@@ -55,7 +54,7 @@ public class EnemyController {
             }
             if (!e.isAlive()) {
                 shouldRemoved.add(e);
-                level.enemyKilled(e.getBounty());
+                level.enemyKilled(e.getReward());
             }
         }
         enemyList.removeAll(shouldRemoved);

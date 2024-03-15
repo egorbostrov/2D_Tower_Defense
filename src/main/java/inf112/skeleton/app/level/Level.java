@@ -160,13 +160,13 @@ public class Level {
 
     /**
      * Increases score and money when enemy is killed.
-     * @param bounty money gathered from killing the enemy
+     * @param reward money gathered from killing the enemy
      */
-    public void enemyKilled(int bounty){
+    public void enemyKilled(int reward){
         score += GameConstants.SCORE_INCREASE;
         numberOfEnemies -= 1;
         enemiesKilled += 1;
-        addMoney(bounty);
+        addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
     }

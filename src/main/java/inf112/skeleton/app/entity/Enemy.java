@@ -13,7 +13,7 @@ import java.util.LinkedList;
 public class Enemy extends GameObject{
 
     private float currentHealth;
-    private final int bounty;
+    private final int reward;
     private int speed;
     private float distanceToTile;
     private Direction currentDirection;
@@ -25,13 +25,13 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int bounty, int speed, float spawnDelay){
+    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, int speed, float spawnDelay){
         super(x, y, width, height);
 
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
         this.currentHealth = currentHealth;
-        this.bounty = bounty;
+        this.reward = reward;
         this.sprite = MyAtlas.ZOMBIE;
 
         this.spawnDelay = spawnDelay;
@@ -169,8 +169,8 @@ public class Enemy extends GameObject{
         return alive;
    }
 
-    public int getBounty(){
-        return bounty;
+    public int getReward(){
+        return reward;
     }
 
     public void doubleSpeedClicked(){
