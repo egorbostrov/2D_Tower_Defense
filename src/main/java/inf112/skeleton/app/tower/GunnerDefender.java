@@ -24,21 +24,26 @@ public class GunnerDefender extends BaseDefender {
 
     // Needs to be changed so that the bullet has an animation that moves towards the enemy
     // and not tracks the enemy's position with a circle
-    @Override
-    public void render(ShapeRenderer renderer) {
-        super.render(renderer);
-        if (enemy != null) {
-            renderer.end();
-            renderer.begin(ShapeType.Filled);
-            renderer.circle(enemy.center.x, enemy.center.y, 5);
-            renderer.end();
-            renderer.begin(ShapeType.Line);
-        }
-    }
+//    @Override
+//    public void render(ShapeRenderer renderer) {
+//        super.render(renderer);
+//        if (enemy != null) {
+//            renderer.end();
+//            renderer.begin(ShapeType.Filled);
+//            renderer.circle(enemy.center.x, enemy.center.y, 5);
+//            renderer.end();
+//            renderer.begin(ShapeType.Line);
+//        }
+//    }
+
+//    @Override
+//    public void projectileFire() {
+//        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
+//        enemy.shot(damage);
+//    }
 
     @Override
-    public void projectileFire() {
-        //bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
-        enemy.shot(damage);
+    public void rappidFire() {
+        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
     }
 }

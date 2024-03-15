@@ -9,6 +9,7 @@ import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.entity.GameObject;
 import inf112.skeleton.app.enums.DefenderType;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
 
 
@@ -142,7 +143,20 @@ public abstract class BaseDefender extends GameObject {
      * Calculates the rotation between the center of BaseDefender and enemy
      */
     private void checkRotation(){
-        rotation = new Vector2(enemy.center).sub(center).angle() + 90;
+        if (enemy != null) {
+            Vector2 direction = new Vector2(enemy.center).sub(center);
+            float angle = direction.angleDeg();
+            boolean shouldFlip = direction.x < 0;
+            if (sprite.isFlipX() != shouldFlip) {
+                sprite.flip(true, false);
+            }
+            if (shouldFlip) {
+                rotation = angle - 180;
+                if (rotation < 0) rotation += 360;
+            }else {
+                rotation = angle;
+            }
+        }
     }
 
     /**
@@ -177,7 +191,6 @@ public abstract class BaseDefender extends GameObject {
      * Removes bullet if bullet is not visible, which means it is outside of map or hit target.
      */
     private void removeBullet(){
-        bullets.removeIf(bullet -> !bullet.isVisible());
         List<Bullet> tempList = new ArrayList<>();
         for (int i = 0; i < bullets.size(); i++) {
             Bullet bullet = bullets.get(i);
