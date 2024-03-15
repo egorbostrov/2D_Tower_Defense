@@ -20,26 +20,15 @@ public class EnemyController {
     private final List<Bounty> bountyList;
     
 
-    public EnemyController(Level level){
+    public EnemyController(Level level, String zombies){
         this.level = level;
         this.enemyList = new ArrayList<>();
         bountyList = new ArrayList<>();
-        float spawnDelayInc = 2.0f;
-
-        for (int i = 0; i < 6; i++) {
-            float spawnDelay = i * spawnDelayInc;
-            enemyList.add(new Enemy(
-                    START_POS.x,
-                    START_POS.y,
-                    ENEMY_WIDTH,
-                    ENEMY_HEIGHT,
-                    10,
-                    level.getMap().getDirections(),
-                    5,
-                    50,
-                    spawnDelay
-            ));
-        }
+        WaveEnemyFactory spawner = new WaveEnemyFactory(zombies);
+        enemyList.add(spawner.getNext(level));
+        enemyList.add(spawner.getNext(level));
+        enemyList.add(spawner.getNext(level));
+        enemyList.add(spawner.getNext(level));
     }
 
     /**
@@ -85,5 +74,9 @@ public class EnemyController {
     }
 
     public void render(ShapeRenderer renderer) {
+    }
+
+    public void addEnemy(Enemy enemy) {
+        enemyList.add(enemy);
     }
 }
