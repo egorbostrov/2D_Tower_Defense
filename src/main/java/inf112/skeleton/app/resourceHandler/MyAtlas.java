@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 public class MyAtlas {
+    public static Sprite GUNNER_BULLET;
     public static Sprite PATH_TILE;
     public static Sprite GROUND_TILE;
     public static Sprite GUNNER;
@@ -29,6 +30,8 @@ public class MyAtlas {
 
         ZOMBIE = createSprite(atlas.findRegion("gunna5"));//FIX Change atlas to zombie texture, when available :)
         ZOMBIE_SLOWED = createSprite(atlas.findRegion("gunna3"));//FIX Change to frozen zombie when available
+
+        GUNNER_BULLET = createSprite(atlas.findRegion("point500"));
 
     }
 
