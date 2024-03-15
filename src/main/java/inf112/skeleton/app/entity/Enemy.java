@@ -29,7 +29,7 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, int speed, float spawnDelay){
+    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, int speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
 
         this.speed = speed;
