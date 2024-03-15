@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.Render;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
 
 import static inf112.skeleton.app.util.GameConstants.BULLET_HEIGHT;
 import static inf112.skeleton.app.util.GameConstants.BULLET_WIDTH;
@@ -23,6 +24,9 @@ public class Bullet extends GameObject {
         this.target = target;
         this.damage = damage;
         this.bulletType = bulletType;
+        if (bulletType == BulletType.GUNNER_BULLET){
+            sprite = MyAtlas.GUNNER_BULLET;
+        }
     }
 
     /**

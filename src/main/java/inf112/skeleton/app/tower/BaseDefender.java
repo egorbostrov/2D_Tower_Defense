@@ -62,7 +62,9 @@ public abstract class BaseDefender extends GameObject {
     public void update(float deltaTime){
         super.update(deltaTime);
         updateEnemyMap();
-        bullets.forEach(bullet -> bullet.update(deltaTime));
+        for (Bullet bullet : bullets) {
+            bullet.update(deltaTime);
+        }
         if (enemy == null) {
             findTarget();
             return;
@@ -77,20 +79,35 @@ public abstract class BaseDefender extends GameObject {
     }
 
     public void render(SpriteBatch batch) {
-        Sprite activeSprite = isSelected ? spriteSelected : sprite;
-        batch.draw(
-                activeSprite,
-                position.x,
-                position.y,
-                size.x / 2,
-                size.y / 2,
-                size.x,
-                size.y,
-                1,
-                1,
-                rotation);
+        if (isSelected) {
+            batch.draw(
+                    spriteSelected,
+                    position.x,
+                    position.y,
+                    size.x / 2,
+                    size.y / 2,
+                    size.x,
+                    size.y,
+                    1,
+                    1,
+                    rotation);
+        } else {
+            batch.draw(
+                    sprite,
+                    position.x,
+                    position.y,
+                    size.x / 2,
+                    size.y / 2,
+                    size.x,
+                    size.y,
+                    1,
+                    1,
+                    rotation);
+        }
 
-        bullets.forEach(bullet -> bullet.render(batch));
+        for (Bullet bullet : bullets) {
+            bullet.render(batch);
+        }
     }
 
 
