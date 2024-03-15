@@ -409,6 +409,6 @@ public class Level {
     }
 
     public int getEnemiesKilled(){
-        return enemiesKilled;
+        return this.enemiesKilled;
     }
 }

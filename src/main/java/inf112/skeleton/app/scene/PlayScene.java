@@ -60,6 +60,11 @@ public class PlayScene extends Scene{
         }
     }
 
+
+    /**
+     * Renders info about current score, money, wave number and number of enemies killed
+     * @param batch Spritebatch
+     */
     public void renderInfo(SpriteBatch batch){
         bitmapFont.draw(batch, "Score: " + level.getScore(), 10, GameConstants.SCREEN_HEIGHT - 20);
         bitmapFont.draw(batch, "Money: " + level.getMoney(), 100, GameConstants.SCREEN_HEIGHT - 20);
