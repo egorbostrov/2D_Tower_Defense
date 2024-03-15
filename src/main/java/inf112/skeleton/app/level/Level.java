@@ -60,7 +60,7 @@ public class Level {
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
-        enemyController = new EnemyController(this);
+        enemyController = new EnemyController(this, "TRRRRRRR");
         towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
         towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         towerSelectionMenu = new MainControlMenu(this);
