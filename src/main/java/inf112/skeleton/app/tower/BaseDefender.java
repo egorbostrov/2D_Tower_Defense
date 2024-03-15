@@ -9,6 +9,7 @@ import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.entity.GameObject;
 import inf112.skeleton.app.enums.DefenderType;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
 
 
@@ -62,7 +63,9 @@ public abstract class BaseDefender extends GameObject {
     public void update(float deltaTime){
         super.update(deltaTime);
         updateEnemyMap();
-        bullets.forEach(bullet -> bullet.update(deltaTime));
+        for (Bullet bullet : bullets) {
+            bullet.update(deltaTime);
+        }
         if (enemy == null) {
             findTarget();
             return;
@@ -77,20 +80,35 @@ public abstract class BaseDefender extends GameObject {
     }
 
     public void render(SpriteBatch batch) {
-        Sprite activeSprite = isSelected ? spriteSelected : sprite;
-        batch.draw(
-                activeSprite,
-                position.x,
-                position.y,
-                size.x / 2,
-                size.y / 2,
-                size.x,
-                size.y,
-                1,
-                1,
-                rotation);
+        if (isSelected) {
+            batch.draw(
+                    spriteSelected,
+                    position.x,
+                    position.y,
+                    size.x / 2,
+                    size.y / 2,
+                    size.x,
+                    size.y,
+                    1,
+                    1,
+                    rotation);
+        } else {
+            batch.draw(
+                    sprite,
+                    position.x,
+                    position.y,
+                    size.x / 2,
+                    size.y / 2,
+                    size.x,
+                    size.y,
+                    1,
+                    1,
+                    rotation);
+        }
 
-        bullets.forEach(bullet -> bullet.render(batch));
+        for (Bullet bullet : bullets) {
+            bullet.render(batch);
+        }
     }
 
 
@@ -125,7 +143,20 @@ public abstract class BaseDefender extends GameObject {
      * Calculates the rotation between the center of BaseDefender and enemy
      */
     private void checkRotation(){
-        rotation = new Vector2(enemy.center).sub(center).angle() + 90;
+        if (enemy != null) {
+            Vector2 direction = new Vector2(enemy.center).sub(center);
+            float angle = direction.angleDeg();
+            boolean shouldFlip = direction.x < 0;
+            if (sprite.isFlipX() != shouldFlip) {
+                sprite.flip(true, false);
+            }
+            if (shouldFlip) {
+                rotation = angle - 180;
+                if (rotation < 0) rotation += 360;
+            }else {
+                rotation = angle;
+            }
+        }
     }
 
     /**
@@ -160,7 +191,6 @@ public abstract class BaseDefender extends GameObject {
      * Removes bullet if bullet is not visible, which means it is outside of map or hit target.
      */
     private void removeBullet(){
-        bullets.removeIf(bullet -> !bullet.isVisible());
         List<Bullet> tempList = new ArrayList<>();
         for (int i = 0; i < bullets.size(); i++) {
             Bullet bullet = bullets.get(i);

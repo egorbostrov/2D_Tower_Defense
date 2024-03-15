@@ -27,7 +27,6 @@ public class Level {
     private int score;
     private int money;
     private int numberOfEnemies;
-
     private int enemiesKilled;
     private int enemyHealth;
     private int userHealth;
@@ -55,8 +54,7 @@ public class Level {
         score = 0;
         money = GameConstants.START_MONEY;
         numberOfEnemies = 10;
-        enemiesKilled = 0;
-        enemyHealth = 100;
+        enemyHealth = 5;
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
@@ -91,7 +89,7 @@ public class Level {
         towerSelectionMenu.render(batch);
         infoMenu.render(batch);
         if (changeTimeAndWaveNumber){
-            GameUtil.renderCenter("Wave: " + currentWave + "in: " + timeLeft + " second", batch, bitmapFont);
+            GameUtil.renderCenter("Wave: " + currentWave + " loading...", batch, bitmapFont);
 
         }
     }
@@ -142,6 +140,7 @@ public class Level {
                 break;
             case PATH:
                 System.out.println("KAN IKKE BYGGE PÅ PATH");
+                break;
             default:
                 break;
         }
@@ -161,13 +160,13 @@ public class Level {
 
     /**
      * Increases score and money when enemy is killed.
-     * @param bounty money gathered from killing the enemy
+     * @param reward money gathered from killing the enemy
      */
-    public void enemyKilled(int bounty){
+    public void enemyKilled(int reward){
         score += GameConstants.SCORE_INCREASE;
         numberOfEnemies -= 1;
         enemiesKilled += 1;
-        addMoney(bounty);
+        addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
     }
@@ -279,7 +278,6 @@ public class Level {
      * @param x is the time left of the current wave
      */
     public void nextWaveCountDown(int x) {
-        this.timeLeft = x;
         changeTimeAndWaveNumber = true;
     }
 
@@ -409,6 +407,6 @@ public class Level {
     }
 
     public int getEnemiesKilled(){
-        return enemiesKilled;
+        return this.enemiesKilled;
     }
 }

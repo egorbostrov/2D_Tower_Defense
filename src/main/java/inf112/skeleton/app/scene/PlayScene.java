@@ -1,6 +1,7 @@
 package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -60,11 +61,34 @@ public class PlayScene extends Scene{
         }
     }
 
+
+    /**
+     * Renders info about current score, money, wave number and number of enemies killed
+     * @param batch Spritebatch
+     */
     public void renderInfo(SpriteBatch batch){
-        bitmapFont.draw(batch, "Score: " + level.getScore(), 10, GameConstants.SCREEN_HEIGHT - 20);
-        bitmapFont.draw(batch, "Money: " + level.getMoney(), 100, GameConstants.SCREEN_HEIGHT - 20);
-        bitmapFont.draw(batch, "Wave: " + level.getCurrentWave(), 210, GameConstants.SCREEN_HEIGHT - 20);
-        bitmapFont.draw(batch, "Enemies killed: " + level.getEnemiesKilled(), 310, GameConstants.SCREEN_HEIGHT - 20);
+        String scoreText = "Score: " + level.getScore();
+        String moneyText = "Money: " + level.getMoney();
+        String waveText = "Wave: " + level.getCurrentWave();
+        String enemiesText = "Enemies killed: " + level.getEnemiesKilled();
+
+        float xCord = 10;
+        float yCord = GameConstants.SCREEN_HEIGHT - 20;
+        int padding = 20;
+
+        GlyphLayout glyphScore = bitmapFont.draw(batch, scoreText, xCord, yCord);
+        xCord += glyphScore.width + padding;
+
+        GlyphLayout glyphMoney = bitmapFont.draw(batch, moneyText, xCord, yCord);
+        xCord += glyphMoney.width + padding;
+
+        bitmapFont.draw(batch, enemiesText, xCord, yCord);
+
+        xCord = GameConstants.SCREEN_WIDTH / 2;
+        GlyphLayout glyphWave = new GlyphLayout();
+        glyphWave.setText(bitmapFont, waveText);
+
+        bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
     }
 
     @Override

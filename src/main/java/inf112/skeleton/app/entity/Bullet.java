@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.Render;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.resourceHandler.MyAtlas;
 
-import static inf112.skeleton.app.util.GameConstants.BULLET_HEIGHT;
-import static inf112.skeleton.app.util.GameConstants.BULLET_WIDTH;
 import inf112.skeleton.app.enums.BulletType;
+
+import static inf112.skeleton.app.util.GameConstants.*;
 
 public class Bullet extends GameObject {
 
@@ -23,6 +24,9 @@ public class Bullet extends GameObject {
         this.target = target;
         this.damage = damage;
         this.bulletType = bulletType;
+        if (bulletType == BulletType.GUNNER_BULLET){
+            sprite = MyAtlas.GUNNER_BULLET;
+        }
     }
 
     /**
@@ -31,7 +35,7 @@ public class Bullet extends GameObject {
     private void checkRemove() {
         float distance = target.center.dst(center);
         if (distance <= GameConstants.BULLET_HEIGHT) {
-            visible = false;
+            isVisible = false;
             target.shot(damage);
         }
     }
@@ -40,7 +44,7 @@ public class Bullet extends GameObject {
      * @return boolean showing if the bullet is still visible
      */
     public boolean isVisible() {
-        return visible;
+        return isVisible;
     }
 
     /**
@@ -53,11 +57,11 @@ public class Bullet extends GameObject {
         super.update(deltaTime);
         checkRemove();
 
-        if (visible) {
+        if (isVisible) {
 
             Vector2 targetPosition = new Vector2().set(target.center.x, target.center.y);
 
-            Vector2 temporary = targetPosition.sub(this.center).clamp(10,10)//FIX here we set restriction to the length of the projectile shooting, maybe we should set a limit here according to the range of the tower shooting the bullet?
+            Vector2 temporary = targetPosition.sub(this.center).clamp(TILE_WIDTH*8,TILE_WIDTH*8)//FIX here we set restriction to the length of the projectile shooting, maybe we should set a limit here according to the range of the tower shooting the bullet?
                     .scl(deltaTime);
             this.position.add(temporary);
 
