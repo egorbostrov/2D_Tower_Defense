@@ -142,6 +142,7 @@ public class Level {
                 break;
             case PATH:
                 System.out.println("KAN IKKE BYGGE PÅ PATH");
+                break;
             default:
                 break;
         }
