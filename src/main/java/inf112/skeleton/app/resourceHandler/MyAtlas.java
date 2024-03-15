@@ -12,8 +12,10 @@ public class MyAtlas {
     public static Sprite GUNNER;
     public static Sprite SNIPER;
     public static Sprite BOMBER;
-    public static Sprite ZOMBIE;
-    public static Sprite ZOMBIE_SLOWED;
+    public static Sprite REGULAR_ZOMBIE;
+    public static Sprite REGULAR_ZOMBIE_SLOWED;
+    public static Sprite TANK_ZOMBIE;
+    public static Sprite TANK_ZOMBIE_SLOWED;
     private static TextureAtlas atlas;
 
     public static void init() {
@@ -27,8 +29,11 @@ public class MyAtlas {
         SNIPER = createSprite(atlas.findRegion("gunna1"));
         BOMBER = createSprite(atlas.findRegion("gunna2"));
 
-        ZOMBIE = createSprite(atlas.findRegion("gunna5"));//FIX Change atlas to zombie texture, when available :)
-        ZOMBIE_SLOWED = createSprite(atlas.findRegion("gunna3"));//FIX Change to frozen zombie when available
+        REGULAR_ZOMBIE = createSprite(atlas.findRegion("gunna5"));//FIX Change atlas to zombie texture, when available :)
+        REGULAR_ZOMBIE_SLOWED = createSprite(atlas.findRegion("gunna3"));//FIX Change to frozen zombie when available
+
+        TANK_ZOMBIE = createSprite(atlas.findRegion("sandy1"));
+        TANK_ZOMBIE_SLOWED = createSprite(atlas.findRegion("rocky1"));
 
     }
 
