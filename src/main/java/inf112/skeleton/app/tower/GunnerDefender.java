@@ -36,11 +36,11 @@ public class GunnerDefender extends BaseDefender {
 //        }
 //    }
 
-//    @Override
-//    public void projectileFire() {
-//        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
-//        enemy.shot(damage);
-//    }
+    @Override
+    public void projectileFire() {
+        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
+        enemy.shot(damage);
+    }
 
     @Override
     public void rappidFire() {
