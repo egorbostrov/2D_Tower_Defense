@@ -10,8 +10,6 @@ import inf112.skeleton.app.util.GameConstants;
 import java.util.ArrayList;
 import java.util.List;
 
-import static inf112.skeleton.app.util.GameConstants.*;
-
 public class EnemyController {
 
     private final Level level;
@@ -39,7 +37,7 @@ public class EnemyController {
             if (e.position.x + e.size.x > GameConstants.SCREEN_WIDTH || e.position.y + e.size.y > GameConstants.SCREEN_HEIGHT) {
             //FIX , we have to check bound of the gameboard, not the screen. Changing this might create issues where enemies will be removed instantly, as they are spawned outside the gameboard.
                 shouldRemoved.add(e);
-                level.enemyPassedTheCheckPoint();
+                level.enemyCompletedPath();
             }
             if (!e.isAlive()) {
                 shouldRemoved.add(e);

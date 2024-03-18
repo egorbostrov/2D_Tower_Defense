@@ -19,8 +19,6 @@ import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.enums.GridType;
 
-import java.util.List;
-
 public class Level {
     private final PlayScene scene;
     private int currentWave;
@@ -150,7 +148,7 @@ public class Level {
      * Removes userheath when enemies manage to go through the whole path.
      * Also changes scene to game over if user has 0 health left.
      */
-    public void enemyPassedTheCheckPoint() {
+    public void enemyCompletedPath() {
         userHealth--;
         towerSelectionMenu.fireHealthChanged(userHealth);
         if (userHealth == 0){
