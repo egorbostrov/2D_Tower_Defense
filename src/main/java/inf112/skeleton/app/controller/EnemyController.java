@@ -22,10 +22,11 @@ public class EnemyController {
         this.enemyList = new ArrayList<>();
         rewardList = new ArrayList<>();
         WaveEnemyFactory spawner = new WaveEnemyFactory(zombies);
-        enemyList.add(spawner.getNext(level));
-        enemyList.add(spawner.getNext(level));
-        enemyList.add(spawner.getNext(level));
-        enemyList.add(spawner.getNext(level));
+
+        //Loop spawning all enemies from the string parameter
+        for(int i = 0; i < zombies.length(); i++) {
+            enemyList.add(spawner.getNext(level));
+        }
     }
 
     /**
