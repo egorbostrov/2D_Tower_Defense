@@ -20,7 +20,7 @@ public class BomberDefender extends BaseDefender{
 
     @Override
     public void projectileFire() {
-        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET));
+        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET, GameConstants.BOMBER_EXPLOSION_RADIUS));
     }
 
     // needs to have a bigger damage area than the other towers

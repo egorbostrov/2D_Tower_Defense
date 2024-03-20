@@ -11,6 +11,9 @@ import java.util.List;
 
 public class SniperDefender extends BaseDefender{
 
+    private float fireRate;
+    private float lastFireTime;
+
     public SniperDefender(float x, float y, List<Enemy> enemyList) {
         super(x, y, enemyList);
         defenderType = DefenderType.SNIPER;
@@ -19,12 +22,29 @@ public class SniperDefender extends BaseDefender{
         speed = GameConstants.TOWER_SPEED_SNIPER;
         sprite = MyAtlas.SNIPER;
         spriteSelected = MyAtlas.SNIPER;
+
+        fireRate = 2.0f;
+        lastFireTime = -fireRate;
+    }
+
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        lastFireTime += deltaTime; // Accumulate time
+        projectileFire(); // Attempt to fire at each update
     }
 
     @Override
     public void projectileFire() {
-        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.SNIPER_BULLET));
-    }
+        // Check if enough time has passed since the last shot
+        if (lastFireTime >= fireRate && !enemies.isEmpty()) {
+                // Example: targeting the first enemy in the list
+                bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.SNIPER_BULLET));
+                lastFireTime = 0; // Reset the timer after firing
+            }
+        }
+
 
     // needs to have a bigger range than the other towers
     // needs to have a slower fire rate than the other towers

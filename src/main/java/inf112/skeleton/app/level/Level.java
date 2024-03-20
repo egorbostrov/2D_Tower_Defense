@@ -57,8 +57,10 @@ public class Level {
 
         map = new Map();
         enemyController = new EnemyController(this, "TRRRRRRR");
-        towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
+        towerController = new TowerController(); //this should be replaced later
         towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
+        towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
+        towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 
@@ -208,7 +210,7 @@ public class Level {
         }
         switch (tile.getType()){
             case TOWER:
-                BaseDefender defender = towerController.getSelectedTower(tile.getPositionOfObject());
+                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());
                 infoMenu.updateTowerInfo(defender);
                 towerSelectionMenu.updateUpgradeButtons(money);
                 break;
@@ -234,7 +236,7 @@ public class Level {
      * @return the selected tower
      */
     public BaseDefender getSelectedDefender() {
-        return towerController.getSelectedTower();
+        return towerController.getSelectedDefender();
     }
 
     /**
@@ -285,7 +287,7 @@ public class Level {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getSelectedTower();
+        BaseDefender defender = towerController.getSelectedDefender();
         int cost = defender.getAttackCost();
 
         if (cost <= money){
@@ -300,7 +302,7 @@ public class Level {
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getSelectedTower();
+        BaseDefender defender = towerController.getSelectedDefender();
         int cost = defender.getRangePrice();
         if (cost <= money){
             towerController.upgradeRange();
@@ -317,7 +319,7 @@ public class Level {
      * towerinfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getSelectedTower();
+        BaseDefender defender = towerController.getSelectedDefender();
         int cost = defender.getSpeedPrice();
         if (cost <= money){
             towerController.upgradeSpeed();
