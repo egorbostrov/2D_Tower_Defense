@@ -3,6 +3,7 @@ package inf112.skeleton.app.entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 
@@ -13,6 +14,7 @@ import static inf112.skeleton.app.util.GameConstants.*;
 public class Bullet extends GameObject {
 
     private final BulletType bulletType;
+    private BomberDefender bomberDefender;
     private final Enemy enemy;
     private final float damage;
     private final float explosionRadius;
@@ -26,7 +28,7 @@ public class Bullet extends GameObject {
         this.enemy = enemy;
         this.damage = damage;
         this.bulletType = bulletType;
-        this.explosionRadius = explosionRadius;
+        this.explosionRadius = BOMBER_EXPLOSION_RADIUS;
 
         switch (bulletType) {
             case GUNNER_BULLET:
@@ -41,6 +43,11 @@ public class Bullet extends GameObject {
         }
     }
 
+    public void setBomberDefender(BomberDefender bomberDefender) {
+        this.bomberDefender = bomberDefender;
+    }
+
+
     /**
      * Checks if a bullet has hit a zombie, if that is the case, we call a help method shot() which handles the damage etc
      */
@@ -48,7 +55,11 @@ public class Bullet extends GameObject {
         float distance = enemy.center.dst(center);
         if (distance <= GameConstants.BULLET_HEIGHT) {
             isVisible = false;
-            enemy.shot(damage);
+            if (bulletType == BulletType.BOMBER_BULLET && bomberDefender != null) {
+                bomberDefender.applyAreaDamage(center, explosionRadius, damage);
+            } else {
+                enemy.shot(damage);
+            }
         }
     }
 
@@ -86,6 +97,12 @@ public class Bullet extends GameObject {
     @Override
     public void render(ShapeRenderer renderer) {
         super.render(renderer);
+        // radius around the bullet, used to test the bomber bullet
+        renderer.setColor(1, 0, 0, 1);
+        renderer.circle(center.x, center.y, explosionRadius);
+
+
+
     }
 
     /**

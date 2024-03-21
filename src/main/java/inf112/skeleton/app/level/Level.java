@@ -58,9 +58,9 @@ public class Level {
         map = new Map();
         enemyController = new EnemyController(this, "TRRRRRRR");
         towerController = new TowerController(); //this should be replaced later
-        towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
+        //towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
-        towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
+        //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 

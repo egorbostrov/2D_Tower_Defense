@@ -57,7 +57,7 @@ public class GameConstants {
     public static final float TOWER_RANGE_SNIPER = 1000;
     public static final float TOWER_SPEED_SNIPER = 1;
     public static final float TOWER_DAMAGE_BOMBER = 10;
-    public static final float BOMBER_EXPLOSION_RADIUS = 50;
+    public static final float BOMBER_EXPLOSION_RADIUS = 75;
 
 
     // Bullet dimensions
