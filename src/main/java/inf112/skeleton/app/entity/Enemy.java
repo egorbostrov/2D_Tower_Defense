@@ -75,11 +75,6 @@ public class Enemy extends GameObject{
         return newEnemy;
     }
 
-
-    public float getCurrentHealth() {
-        return currentHealth;
-    }
-
     /**
      * Called when an enemy is hit by a bullet.
      * Removes health according to the bullets damage, then checks if the enemy is still alive.

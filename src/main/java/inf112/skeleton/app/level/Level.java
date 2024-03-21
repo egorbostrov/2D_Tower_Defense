@@ -56,7 +56,7 @@ public class Level {
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
-        enemyController = new EnemyController(this, "TRRRRRRR");
+        enemyController = new EnemyController(this);
         towerController = new TowerController(); //this should be replaced later
         //towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
@@ -102,6 +102,10 @@ public class Level {
         map.update(elapsedTime);
         enemyController.update(elapsedTime);
         towerController.update(elapsedTime);
+
+        if (enemyController.getEnemyList().isEmpty()){
+            initiateNewWave();
+        }
     }
 
     /**
@@ -146,8 +150,30 @@ public class Level {
         }
     }
 
+    public void initiateNewWave() {
+        currentWave++;
+        // Determine the pattern for the new wave. This is a simple example;
+        // more complex logic could be used to adjust difficulty.
+        String newPattern = generateWavePattern(currentWave);
+
+        // Update the pattern in the WaveEnemyFactory
+        enemyController.updateWavePattern(newPattern);
+
+        // Spawn new enemies based on the new pattern
+        enemyController.spawnNewWave();
+    }
+
+    private String generateWavePattern(int wave) {
+        // Simple example: alternate between patterns. More complex logic can be applied.
+        if (wave % 2 == 0) {
+            return "TRRT"; // Example pattern, could be based on difficulty or randomness
+        } else {
+            return "RRTT";
+        }
+    }
+
     /**
-     * Removes userheath when enemies manage to go through the whole path.
+     * Removes users health when enemies manage to go through the whole path.
      * Also changes scene to game over if user has 0 health left.
      */
     public void enemyCompletedPath() {

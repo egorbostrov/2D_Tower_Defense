@@ -15,17 +15,30 @@ public class EnemyController {
     private final Level level;
     private final List<Enemy> enemyList;
     private final List<Reward> rewardList;
+    private WaveEnemyFactory spawner;
     
 
-    public EnemyController(Level level, String zombies){
+    public EnemyController(Level level){
         this.level = level;
         this.enemyList = new ArrayList<>();
         rewardList = new ArrayList<>();
-        WaveEnemyFactory spawner = new WaveEnemyFactory(zombies);
+//        this.spawner = new WaveEnemyFactory(zombies);
+//
+//        //Loop spawning all enemies from the string parameter
+//        for(int i = 0; i < zombies.length(); i++) {
+//            enemyList.add(spawner.getNext(level));
+//        }
+    }
 
-        //Loop spawning all enemies from the string parameter
-        for(int i = 0; i < zombies.length(); i++) {
-            enemyList.add(spawner.getNext(level));
+    public void updateWavePattern(String newPattern) {
+        this.spawner = new WaveEnemyFactory(newPattern);
+    }
+
+    public void spawnNewWave() {
+        enemyList.clear();
+        String pattern = this.spawner.getZombieChars();
+        for(int i = 0; i < pattern.length(); i++) {
+            enemyList.add(spawner.getNext(this.level));
         }
     }
 
