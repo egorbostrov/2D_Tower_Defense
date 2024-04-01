@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
  * All constants used in the game
  * */
 public class GameConstants {
-    public static final int TOWER_PRICE = 0;
+    public static final int TOWER_PRICE = 500;
     public static float SCREEN_HEIGHT = 720;
     public static float SCREEN_WIDTH = (float) (SCREEN_HEIGHT * 16) / 9;
 

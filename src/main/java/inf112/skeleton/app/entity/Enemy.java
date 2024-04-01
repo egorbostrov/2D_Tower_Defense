@@ -244,4 +244,8 @@ public class Enemy extends GameObject{
             slowTime = 0;
         }
     }
+
+    public float getEnemyHealth() {
+        return this.currentHealth;
+    }
 }
