@@ -68,7 +68,7 @@ public class Enemy extends GameObject{
                     level.getMap().getDirections(),
                     ENEMY_TANK_BOUNTY,
                     ENEMY_TANK_SPEED,
-                    (ENEMY_TANK_SPAWN_DELAY * delayMultiplier),
+                    (ENEMY_TANK_SPAWN_DELAY * delayMultiplier/2),
                     MyAtlas.TANK_ZOMBIE);
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };

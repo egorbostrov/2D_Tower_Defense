@@ -52,7 +52,7 @@ public class GameConstants {
     public static final int TOWER_PRICE_SNIPER = 10;
 
     // Tower attributes
-    public static int TOWER_DAMAGE_GUNNER = 5;
+    public static int TOWER_DAMAGE_GUNNER = 1;
     public static final float TOWER_DAMAGE_SNIPER = 15;
     public static final float TOWER_RANGE_SNIPER = 1000;
     public static final float TOWER_SPEED_SNIPER = 1;

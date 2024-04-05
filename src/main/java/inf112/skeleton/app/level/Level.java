@@ -48,7 +48,7 @@ public class Level {
      * Sets the start values for the start of the game and creates new map, controllers and menues
      */
     private void start() {
-        currentWave = 1;
+        currentWave = 8;
         score = 0;
         money = GameConstants.START_MONEY;
         numberOfEnemies = 10;
@@ -58,8 +58,8 @@ public class Level {
         map = new Map();
         enemyController = new EnemyController(this);
         towerController = new TowerController(); //this should be replaced later
-        //towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
-        towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
+        towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
+        //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
         //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
@@ -89,7 +89,7 @@ public class Level {
         towerSelectionMenu.render(batch);
         infoMenu.render(batch);
         if (changeTimeAndWaveNumber){
-            GameUtil.renderCenter("Wave: " + currentWave + " loading...", batch, bitmapFont);
+            GameUtil.renderCenter("Wave: " + currentWave + " starts in: " + timeLeft + " seconds", batch, bitmapFont);
 
         }
     }
@@ -103,8 +103,16 @@ public class Level {
         enemyController.update(elapsedTime);
         towerController.update(elapsedTime);
 
-        if (enemyController.getEnemyList().isEmpty()){
-            initiateNewWave();
+        if (!changeTimeAndWaveNumber && enemyController.getEnemyList().isEmpty()) {
+            nextWaveCountDown(100);
+        }
+        if (changeTimeAndWaveNumber) {
+            timeLeft -= elapsedTime % 2;
+            System.out.println("Time left: " + timeLeft);
+            if (timeLeft <= 0) {
+                changeTimeAndWaveNumber = false;
+                initiateNewWave();
+            }
         }
     }
 
@@ -164,13 +172,37 @@ public class Level {
     }
 
     private String generateWavePattern(int wave) {
-        // Simple example: alternate between patterns. More complex logic can be applied.
-        if (wave % 2 == 0) {
-            return "TRRT"; // Example pattern, could be based on difficulty or randomness
-        } else {
-            return "RRTT";
+        StringBuilder patternBuilder = new StringBuilder();
+
+        // Base number of enemies increases each wave
+        int baseEnemies = 5 + (wave * 2); // Starts with 5 enemies, increases by 2 each wave
+
+        // Example adjustment for enemy types based on wave number
+        for (int i = 0; i < baseEnemies; i++) {
+            if (wave < 3) {
+                // Early waves: More 'R' type enemies
+                patternBuilder.append("R");
+            } else if (wave < 6) {
+                // Intermediate waves: Mix 'R' and 'T' types
+                // For every fourth enemy, add a 'T' to introduce difficulty
+                if (i % 4 == 0) {
+                    patternBuilder.append("T");
+                } else {
+                    patternBuilder.append("R");
+                }
+            } else {
+                // Later waves: More 'T' type enemies and 'R' for variety
+                if (i % 3 == 0) {
+                    patternBuilder.append("R");
+                } else {
+                    patternBuilder.append("T");
+                }
+            }
         }
+
+        return patternBuilder.toString();
     }
+
 
     /**
      * Removes users health when enemies manage to go through the whole path.
@@ -301,10 +333,11 @@ public class Level {
 
     /**
      * Sets the time left of the current wave
-     * @param x is the time left of the current wave
+     * @param seconds is the time left of the current wave
      */
-    public void nextWaveCountDown(int x) {
+    public void nextWaveCountDown(int seconds) {
         changeTimeAndWaveNumber = true;
+        timeLeft = seconds;
     }
 
     /**
