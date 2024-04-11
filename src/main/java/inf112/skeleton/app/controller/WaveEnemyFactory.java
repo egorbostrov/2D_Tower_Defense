@@ -13,13 +13,13 @@ public class WaveEnemyFactory implements EnemyFactory{
 
     /**
      * Creates a new zombie according to the string of zombie types
-     * @param level used to access enemyList
+     * @param level used to give the enemy access to the directions it should follow
      * @return new zombie
      */
     @Override
-    public Enemy getNext(Level level) {
+    public Enemy getNext(Level level, float delay) {
         Character zombie = zombieChars.charAt(counter);
         counter = (counter + 1) % zombieChars.length();
-        return Enemy.newEnemy(zombie, level, counter);
+        return Enemy.newEnemy(zombie, level, delay);
     }
 }
