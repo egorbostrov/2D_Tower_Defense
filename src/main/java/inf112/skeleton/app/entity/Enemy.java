@@ -45,7 +45,7 @@ public class Enemy extends GameObject{
         hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
     }
 
-    public static Enemy newEnemy(char type, Level level, int delayMultiplier) {
+    public static Enemy newEnemy(char type, Level level, float spawnDelay) {
         Enemy newEnemy = switch(type) {
             case 'R'-> new Enemy(START_POS.x,
                     START_POS.y,
@@ -55,7 +55,7 @@ public class Enemy extends GameObject{
                     level.getMap().getDirections(),
                     ENEMY_REGULAR_BOUNTY,
                     EMEMY_REGULAR_SPEED,
-                    (ENEMY_REGULAR_SPAWN_DELAY * delayMultiplier),
+                    (spawnDelay),
                     MyAtlas.REGULAR_ZOMBIE);
             case 'T' -> new Enemy(START_POS.x,
                     START_POS.y,
@@ -65,7 +65,7 @@ public class Enemy extends GameObject{
                     level.getMap().getDirections(),
                     ENEMY_TANK_BOUNTY,
                     ENEMY_TANK_SPEED,
-                    (ENEMY_TANK_SPAWN_DELAY * delayMultiplier),
+                    (spawnDelay),
                     MyAtlas.TANK_ZOMBIE);
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
