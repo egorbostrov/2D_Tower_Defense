@@ -5,7 +5,7 @@ import inf112.skeleton.app.level.Level;
 
 public class RandomEnemyFactory implements EnemyFactory{
     @Override
-    public Enemy getNext(Level level) {
+    public Enemy getNext(Level level, float delay) {
         return null;
     }
 }
