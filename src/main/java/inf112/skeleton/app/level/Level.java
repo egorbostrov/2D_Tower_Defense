@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.PlayScene;
 import inf112.skeleton.app.enums.SceneEnum;
@@ -15,6 +16,7 @@ import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.TowerController;
+import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.enums.GridType;
@@ -29,7 +31,8 @@ public class Level {
     private int enemyHealth;
     private int userHealth;
     private Map map;
-    private EnemyController enemyController;
+    private EnemyController enemyController; //moved to WaveController
+    private WaveController waveController;
     private TowerController towerController;
     private MainControlMenu towerSelectionMenu;
     private InformationMenu infoMenu;
@@ -56,7 +59,9 @@ public class Level {
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
-        enemyController = new EnemyController(this, "TRRRRRRR");
+        enemyController = new EnemyController(this);// moved to WaveController
+//        enemyController = waveController.getEnemyController();
+        waveController = new WaveController(enemyController);
         towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
         towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         towerSelectionMenu = new MainControlMenu(this);
@@ -70,7 +75,8 @@ public class Level {
      */
     public void render(ShapeRenderer renderer) {
         map.render(renderer);
-        enemyController.render(renderer);
+        enemyController.render(renderer); //moved to WaveController
+//        waveController.render(renderer);
         towerController.render(renderer);
         towerSelectionMenu.render(renderer);
     }
@@ -82,7 +88,8 @@ public class Level {
      */
     public void render(SpriteBatch batch) {
         map.render(batch);
-        enemyController.render(batch);
+//        waveController.render(batch);
+        enemyController.render(batch); //moved to WaveController
         towerController.render(batch);
         towerSelectionMenu.render(batch);
         infoMenu.render(batch);
@@ -98,8 +105,18 @@ public class Level {
      */
     public void update(float elapsedTime) {
         map.update(elapsedTime);
-        enemyController.update(elapsedTime);
+//        waveController.update(elapsedTime);
+        enemyController.update(elapsedTime); //Moved to waveController
         towerController.update(elapsedTime);
+
+        if(enemyController.getEnemyList().isEmpty()) {
+            nextWave();
+        }
+    }
+
+    private void nextWave() {
+        currentWave++;
+        waveController.newWave(this);
     }
 
     /**
