@@ -4,7 +4,7 @@ import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
 
 public class WaveEnemyFactory implements EnemyFactory{
-    private String zombieChars;
+    private final String zombieChars;
     private int counter = 0;
 
     public WaveEnemyFactory(String zombieChars) {
@@ -18,7 +18,7 @@ public class WaveEnemyFactory implements EnemyFactory{
      */
     @Override
     public Enemy getNext(Level level, float delay) {
-        Character zombie = zombieChars.charAt(counter);
+        char zombie = zombieChars.charAt(counter);
         counter = (counter + 1) % zombieChars.length();
         return Enemy.newEnemy(zombie, level, delay);
     }
