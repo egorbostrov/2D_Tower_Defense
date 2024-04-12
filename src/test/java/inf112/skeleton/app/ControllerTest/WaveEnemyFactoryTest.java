@@ -1,2 +1,50 @@
-package inf112.skeleton.app.ControllerTest;public class WaveEnemyFactoryTest {
+package inf112.skeleton.app.ControllerTest;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import inf112.skeleton.app.controller.WaveEnemyFactory;
+import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.map.Map;
+
+import static org.mockito.Mockito.*;
+
+import java.util.LinkedList;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class WaveEnemyFactoryTest {
+
+    @Mock
+    private Level mockLevel;
+    @Mock
+    private Map mockMap;
+
+    private WaveEnemyFactory waveEnemyFactory;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        // Mock the behavior of the Level and Map objects
+        when(mockLevel.getMap()).thenReturn(mockMap);
+        when(mockMap.getDirections()).thenReturn(new LinkedList<>()); // Provide an empty LinkedList for directions
+
+        // Initialize the WaveEnemyFactory with the zombie types string
+        waveEnemyFactory = new WaveEnemyFactory("RT");
+    }
+
+    @Test
+    void testGetNextReturnsCorrectEnemy() {
+        // Call getNext to create an enemy based on the first character 'R'
+        Enemy enemyR = waveEnemyFactory.getNext(mockLevel);
+        assertNotNull(enemyR, "Enemy should not be null for type 'R'");
+
+        // Call getNext to create an enemy based on the next character 'T'
+        Enemy enemyT = waveEnemyFactory.getNext(mockLevel);
+        assertNotNull(enemyT, "Enemy should not be null for type 'T'");
+    }
 }
