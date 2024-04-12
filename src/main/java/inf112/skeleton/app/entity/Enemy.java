@@ -4,12 +4,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import static inf112.skeleton.app.util.GameConstants.*;
 
@@ -55,7 +58,7 @@ public class Enemy extends GameObject{
                     level.getMap().getDirections(),
                     ENEMY_REGULAR_BOUNTY,
                     EMEMY_REGULAR_SPEED,
-                    (ENEMY_REGULAR_SPAWN_DELAY * delayMultiplier),
+                    (ENEMY_REGULAR_SPAWN_DELAY * delayMultiplier/2),
                     MyAtlas.REGULAR_ZOMBIE);
             case 'T' -> new Enemy(START_POS.x,
                     START_POS.y,
@@ -65,16 +68,11 @@ public class Enemy extends GameObject{
                     level.getMap().getDirections(),
                     ENEMY_TANK_BOUNTY,
                     ENEMY_TANK_SPEED,
-                    (ENEMY_TANK_SPAWN_DELAY * delayMultiplier),
+                    (ENEMY_TANK_SPAWN_DELAY * delayMultiplier/2),
                     MyAtlas.TANK_ZOMBIE);
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
         return newEnemy;
-    }
-
-
-    public float getCurrentHealth() {
-        return currentHealth;
     }
 
     /**
