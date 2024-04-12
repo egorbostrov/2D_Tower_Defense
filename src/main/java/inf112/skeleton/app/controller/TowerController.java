@@ -24,6 +24,7 @@ public class TowerController implements Render{
     public TowerController(){
         defenderList = new ArrayList<>();
     }
+
     public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type, int money){
        switch (type){
            case GUNNER:

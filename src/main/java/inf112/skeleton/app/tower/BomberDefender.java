@@ -12,7 +12,7 @@ import java.util.List;
 
 public class BomberDefender extends BaseDefender{
 
-    private float explosionRadius;
+    private final float explosionRadius;
     public BomberDefender(float xCord, float yCord, List<Enemy> enemyList) {
         super(xCord, yCord, enemyList);
         defenderType = DefenderType.BOMBER;
@@ -32,9 +32,8 @@ public class BomberDefender extends BaseDefender{
 
     @Override
     public void projectileFire() {
-        //bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET, GameConstants.BOMBER_EXPLOSION_RADIUS));
         Bullet bullet = new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET, GameConstants.BOMBER_EXPLOSION_RADIUS);
-        bullet.setBomberDefender(this); // This sets the reference
+        bullet.setBomberDefender(this);
         bullets.add(bullet);
     }
 }
