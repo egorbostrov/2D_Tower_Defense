@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.PlayScene;
 import inf112.skeleton.app.enums.SceneEnum;
@@ -29,7 +30,8 @@ public class Level {
     private int enemyHealth;
     private int userHealth;
     private Map map;
-    private EnemyController enemyController;
+    private EnemyController enemyController; //moved to WaveController
+    private WaveController waveController;
     private TowerController towerController;
     private MainControlMenu towerSelectionMenu;
     private InformationMenu infoMenu;
@@ -48,7 +50,7 @@ public class Level {
      * Sets the start values for the start of the game and creates new map, controllers and menues
      */
     private void start() {
-        currentWave = 8;
+        currentWave = 0;
         score = 0;
         money = GameConstants.START_MONEY;
         numberOfEnemies = 10;
@@ -56,8 +58,10 @@ public class Level {
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
-        enemyController = new EnemyController(this);
-        towerController = new TowerController(); //this should be replaced later
+        enemyController = new EnemyController(this);// moved to WaveController
+//        enemyController = waveController.getEnemyController();
+        waveController = new WaveController(enemyController);
+        towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
         towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
         //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
@@ -89,7 +93,7 @@ public class Level {
         towerSelectionMenu.render(batch);
         infoMenu.render(batch);
         if (changeTimeAndWaveNumber){
-            GameUtil.renderCenter("Wave: " + currentWave + " starts in: " + timeLeft + " seconds", batch, bitmapFont);
+            GameUtil.renderCenter("Wave: " + currentWave + " loading...", batch, bitmapFont);
 
         }
     }
@@ -103,17 +107,14 @@ public class Level {
         enemyController.update(elapsedTime);
         towerController.update(elapsedTime);
 
-        if (!changeTimeAndWaveNumber && enemyController.getEnemyList().isEmpty()) {
-            nextWaveCountDown(100);
+        if(enemyController.getEnemyList().isEmpty()) {
+            nextWave();
         }
-        if (changeTimeAndWaveNumber) {
-            timeLeft -= elapsedTime % 2;
-            System.out.println("Time left: " + timeLeft);
-            if (timeLeft <= 0) {
-                changeTimeAndWaveNumber = false;
-                initiateNewWave();
-            }
-        }
+    }
+
+    private void nextWave() {
+        currentWave++;
+        waveController.newWave(this);
     }
 
     /**
@@ -157,52 +158,6 @@ public class Level {
                 break;
         }
     }
-
-    public void initiateNewWave() {
-        currentWave++;
-        // Determine the pattern for the new wave. This is a simple example;
-        // more complex logic could be used to adjust difficulty.
-        String newPattern = generateWavePattern(currentWave);
-
-        // Update the pattern in the WaveEnemyFactory
-        enemyController.updateWavePattern(newPattern);
-
-        // Spawn new enemies based on the new pattern
-        enemyController.spawnNewWave();
-    }
-
-    private String generateWavePattern(int wave) {
-        StringBuilder patternBuilder = new StringBuilder();
-
-        // Base number of enemies increases each wave
-        int baseEnemies = 5 + (wave * 2); // Starts with 5 enemies, increases by 2 each wave
-
-        // Example adjustment for enemy types based on wave number
-        for (int i = 0; i < baseEnemies; i++) {
-            if (wave < 3) {
-                // Early waves: More 'R' type enemies
-                patternBuilder.append("R");
-            } else if (wave < 6) {
-                // Intermediate waves: Mix 'R' and 'T' types
-                // For every fourth enemy, add a 'T' to introduce difficulty
-                if (i % 4 == 0) {
-                    patternBuilder.append("T");
-                } else {
-                    patternBuilder.append("R");
-                }
-            } else {
-                // Later waves: More 'T' type enemies and 'R' for variety
-                if (i % 3 == 0) {
-                    patternBuilder.append("R");
-                } else {
-                    patternBuilder.append("T");
-                }
-            }
-        }
-
-        return patternBuilder.toString();
-    }
-
 
     /**
      * Removes users health when enemies manage to go through the whole path.
@@ -268,7 +223,7 @@ public class Level {
         }
         switch (tile.getType()){
             case TOWER:
-                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());
+                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
                 infoMenu.updateTowerInfo(defender);
                 towerSelectionMenu.updateUpgradeButtons(money);
                 break;
@@ -294,7 +249,7 @@ public class Level {
      * @return the selected tower
      */
     public BaseDefender getSelectedDefender() {
-        return towerController.getSelectedDefender();
+        return towerController.getSelectedDefender();//GULP
     }
 
     /**
@@ -346,7 +301,7 @@ public class Level {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();
+        BaseDefender defender = towerController.getSelectedDefender();//GULP
         int cost = defender.getAttackCost();
 
         if (cost <= money){
@@ -361,7 +316,7 @@ public class Level {
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();
+        BaseDefender defender = towerController.getSelectedDefender();//GULP
         int cost = defender.getRangePrice();
         if (cost <= money){
             towerController.upgradeRange();
@@ -378,7 +333,7 @@ public class Level {
      * towerinfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();
+        BaseDefender defender = towerController.getSelectedDefender();//GULP
         int cost = defender.getSpeedPrice();
         if (cost <= money){
             towerController.upgradeSpeed();
