@@ -22,7 +22,7 @@ public class Enemy extends GameObject{
     private float distanceToTile;
     private Direction currentDirection;
     private final LinkedList<Direction> directionLinkedList;
-    private float spawnDelay;
+    private final float spawnDelay;
     private float elapsedTimeStart;
 
     private boolean alive = true;
@@ -215,7 +215,7 @@ public class Enemy extends GameObject{
 
     /**
      * Remove slowness effect from a zombie.
-     * @param elapsedTime
+     * @param elapsedTime time since last render
      */
     private void removeSlowMode(float elapsedTime){
         if (isSlowed){
