@@ -44,8 +44,4 @@ public class SniperDefender extends BaseDefender{
                 lastFireTime = 0; // Reset the timer after firing
             }
         }
-
-
-    // needs to have a bigger range than the other towers
-    // needs to have a slower fire rate than the other towers
 }

@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.controller.Render;
 
-import java.awt.*;
-
 
 public abstract class GameObject implements Render {
     /**
@@ -72,7 +70,7 @@ public abstract class GameObject implements Render {
 
     /**
      * Renders texture of object of it's visible
-     * @param batch
+     * @param batch spritebatch
      */
     public void render(SpriteBatch batch) {
         if (!isVisible) {

@@ -97,12 +97,6 @@ public class Bullet extends GameObject {
     @Override
     public void render(ShapeRenderer renderer) {
         super.render(renderer);
-        // radius around the bullet, used to test the bomber bullet
-        renderer.setColor(1, 0, 0, 1);
-        renderer.circle(center.x, center.y, explosionRadius);
-
-
-
     }
 
     /**

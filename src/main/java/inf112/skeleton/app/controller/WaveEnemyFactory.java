@@ -22,13 +22,4 @@ public class WaveEnemyFactory implements EnemyFactory{
         counter = (counter + 1) % zombieChars.length();
         return Enemy.newEnemy(zombie, level, delay);
     }
-
-    public String getZombieChars() {
-        return this.zombieChars;
-    }
-
-    public void setZombieChars(String newChars) {
-        this.zombieChars = newChars;
-        this.counter = 0; // Reset counter if needed
-    }
 }
