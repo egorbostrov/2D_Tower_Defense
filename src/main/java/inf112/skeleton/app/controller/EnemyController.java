@@ -15,8 +15,6 @@ public class EnemyController {
     private final Level level;
     private final List<Enemy> enemyList;
     private final List<Reward> rewardList;
-    private WaveEnemyFactory enemySpawner;
-    
 
     public EnemyController(Level level/*, String zombies*/){
         this.level = level;
@@ -32,8 +30,6 @@ public class EnemyController {
 
     public void newZombie(Enemy zombie) {
         enemyList.add(zombie);
-        System.out.println("added zombie");
-//        enemyList.add(enemySpawner.getNext(level, spawnDelay));
     }
 
     /**
