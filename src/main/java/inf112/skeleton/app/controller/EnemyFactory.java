@@ -5,8 +5,7 @@ import inf112.skeleton.app.level.Level;
 
 public interface EnemyFactory {
     /**
-     *Returns the next zombie type to be spawned.
-     * @return
+     * @return the next zombie type to be spawned.
      */
-    public Enemy getNext(Level level);
+    Enemy getNext(Level level, float delay);
 }

@@ -11,6 +11,7 @@ import inf112.skeleton.app.util.GameConstants;
 
 import java.util.LinkedList;
 
+
 import static inf112.skeleton.app.util.GameConstants.*;
 
 
@@ -22,7 +23,7 @@ public class Enemy extends GameObject{
     private float distanceToTile;
     private Direction currentDirection;
     private final LinkedList<Direction> directionLinkedList;
-    private float spawnDelay;
+    private final float spawnDelay;
     private float elapsedTimeStart;
 
     private boolean alive = true;
@@ -45,9 +46,10 @@ public class Enemy extends GameObject{
         hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
     }
 
-    public static Enemy newEnemy(char type, Level level, int delayMultiplier) {
+    public static Enemy newEnemy(char type, Level level, float spawnDelay) {
         Enemy newEnemy = switch(type) {
-            case 'R'-> new Enemy(START_POS.x,
+            case 'R'-> new Enemy(
+                    START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
@@ -55,9 +57,10 @@ public class Enemy extends GameObject{
                     level.getMap().getDirections(),
                     ENEMY_REGULAR_BOUNTY,
                     EMEMY_REGULAR_SPEED,
-                    (ENEMY_REGULAR_SPAWN_DELAY * delayMultiplier),
+                    (spawnDelay),
                     MyAtlas.REGULAR_ZOMBIE);
-            case 'T' -> new Enemy(START_POS.x,
+            case 'T' -> new Enemy(
+                    START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
@@ -65,16 +68,11 @@ public class Enemy extends GameObject{
                     level.getMap().getDirections(),
                     ENEMY_TANK_BOUNTY,
                     ENEMY_TANK_SPEED,
-                    (ENEMY_TANK_SPAWN_DELAY * delayMultiplier),
+                    (spawnDelay),
                     MyAtlas.TANK_ZOMBIE);
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
         return newEnemy;
-    }
-
-
-    public float getCurrentHealth() {
-        return currentHealth;
     }
 
     /**
@@ -148,7 +146,6 @@ public class Enemy extends GameObject{
     @Override
     public void update(float elapsedTime) {
         super.update(elapsedTime);
-
         elapsedTimeStart += elapsedTime;
         if (elapsedTimeStart < spawnDelay || currentDirection == null) {
             return;
@@ -193,7 +190,7 @@ public class Enemy extends GameObject{
         removeSlowMode(elapsedTime);
 
         hpBar.position.x = position.x;
-        hpBar.position.y = position.y - size.y / 5;
+        hpBar.position.y = position.y + size.y;
 
     }
 
@@ -215,7 +212,7 @@ public class Enemy extends GameObject{
 
     /**
      * Remove slowness effect from a zombie.
-     * @param elapsedTime
+     * @param elapsedTime time since last render
      */
     private void removeSlowMode(float elapsedTime){
         if (isSlowed){

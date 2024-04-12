@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.PlayScene;
 import inf112.skeleton.app.enums.SceneEnum;
@@ -30,6 +31,7 @@ public class Level {
     private int userHealth;
     private Map map;
     private EnemyController enemyController;
+    private WaveController waveController;
     private TowerController towerController;
     private MainControlMenu towerSelectionMenu;
     private InformationMenu infoMenu;
@@ -45,10 +47,10 @@ public class Level {
     }
 
     /**
-     * Sets the start values for the start of the game and creates new map, controllers and menues
+     * Sets the start values for the start of the game and creates new map, controllers and menus
      */
     private void start() {
-        currentWave = 1;
+        currentWave = 0;
         score = 0;
         money = GameConstants.START_MONEY;
         numberOfEnemies = 10;
@@ -56,9 +58,12 @@ public class Level {
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
-        enemyController = new EnemyController(this, "TRRRRRRR");
-        towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
+        enemyController = new EnemyController(this);
+        waveController = new WaveController(enemyController);
+        towerController = new TowerController();
         towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
+        //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
+        //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 
@@ -76,7 +81,7 @@ public class Level {
     }
 
     /**
-     * Renders the given batch on map, enemycontroller, towercontroller, towerselectionmenu and infomenu.
+     * Renders the given batch on map, enemyController, towerController, towerSelectionMenu and infoMenu.
      *
      * @param batch given batch
      */
@@ -100,12 +105,21 @@ public class Level {
         map.update(elapsedTime);
         enemyController.update(elapsedTime);
         towerController.update(elapsedTime);
+
+        if(enemyController.getEnemyList().isEmpty()) {
+            nextWave();
+        }
+    }
+
+    private void nextWave() {
+        currentWave++;
+        waveController.newWave(this);
     }
 
     /**
      *
-     * @param x
-     * @param y
+     * @param x x
+     * @param y y
      */
     public void updateInputs(float x, float y) {
         towerSelectionMenu.updateInputs(x, y);
@@ -145,7 +159,7 @@ public class Level {
     }
 
     /**
-     * Removes userheath when enemies manage to go through the whole path.
+     * Removes users health when enemies manage to go through the whole path.
      * Also changes scene to game over if user has 0 health left.
      */
     public void enemyCompletedPath() {
@@ -179,9 +193,7 @@ public class Level {
         changeTimeAndWaveNumber = false;
     }
 
-
     /*public void touchDown(float x, float y) {
-
         if (towerSelectionMenu.contains(x, y)){
             towerSelectionMenu.touchDown(x, y);
         } else {
@@ -189,13 +201,12 @@ public class Level {
         }
     }*/
 
-
     /*public void touchRelease(float x, float y) {
         towerSelectionMenu.touchRelease(x, y);
     }*/
 
     /**
-     * Select the tile user has clicked. If tower, then infomenu and towermenu showes.
+     * Select the tile user has clicked. If tower, then infoMenu and towerMenu are shown.
      * If path or ground is clicked, then the menus disappear.
      * @param x value of the tile
      * @param y value of the tile
@@ -208,7 +219,7 @@ public class Level {
         }
         switch (tile.getType()){
             case TOWER:
-                BaseDefender defender = towerController.getSelectedTower(tile.getPositionOfObject());
+                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
                 infoMenu.updateTowerInfo(defender);
                 towerSelectionMenu.updateUpgradeButtons(money);
                 break;
@@ -234,7 +245,7 @@ public class Level {
      * @return the selected tower
      */
     public BaseDefender getSelectedDefender() {
-        return towerController.getSelectedTower();
+        return towerController.getSelectedDefender();//GULP
     }
 
     /**
@@ -248,7 +259,7 @@ public class Level {
 
     /**
      *
-     * @return starthealth of the enemies
+     * @return startHealth of the enemies
      */
     public int getEnemyHealth() {
         return enemyHealth;
@@ -273,10 +284,11 @@ public class Level {
 
     /**
      * Sets the time left of the current wave
-     * @param x is the time left of the current wave
+     * @param seconds is the time left of the current wave
      */
-    public void nextWaveCountDown(int x) {
+    public void nextWaveCountDown(int seconds) {
         changeTimeAndWaveNumber = true;
+        timeLeft = seconds;
     }
 
     /**
@@ -285,7 +297,7 @@ public class Level {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getSelectedTower();
+        BaseDefender defender = towerController.getSelectedDefender();//GULP
         int cost = defender.getAttackCost();
 
         if (cost <= money){
@@ -300,7 +312,7 @@ public class Level {
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getSelectedTower();
+        BaseDefender defender = towerController.getSelectedDefender();//GULP
         int cost = defender.getRangePrice();
         if (cost <= money){
             towerController.upgradeRange();
@@ -313,11 +325,11 @@ public class Level {
      * When user clicks upgrade speed on one of the towers,
      * it first checks if user has enough money. If user doesn't have
      * enough, then nothing happens. If user does,
-     * the tower gets faster shootingspeed, balance gets updated and
-     * towerinfo gets updated to new stats of the tower.
+     * the tower gets faster shootingSpeed, balance gets updated and
+     * towerInfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getSelectedTower();
+        BaseDefender defender = towerController.getSelectedDefender();//GULP
         int cost = defender.getSpeedPrice();
         if (cost <= money){
             towerController.upgradeSpeed();
@@ -365,15 +377,15 @@ public class Level {
     }
 
     /**
-     * When the menu icon is cliced, pausescene is active
+     * When the menu icon is clicked, pauseScene is active
      */
     public void menuClicked() {
         scene.getSceneController().setScene(SceneEnum.PauseScene);
     }
 
     /**
-     * Adds money to your bank and calls methods in infomenu and
-     * towerselection menu to update your current balance
+     * Adds money to your bank and calls methods in infoMenu and
+     * towerSelection menu to update your current balance
      * @param amount to be added to your balance
      */
     public void addMoney(int amount) {

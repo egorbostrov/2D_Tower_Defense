@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 public class MyAtlas {
     public static Sprite GUNNER_BULLET;
+    public static Sprite SNIPER_BULLET;
+    public static Sprite BOMBER_BULLET;
     public static Sprite PATH_TILE;
     public static Sprite GROUND_TILE;
     public static Sprite GUNNER;
@@ -37,6 +39,8 @@ public class MyAtlas {
         TANK_ZOMBIE_SLOWED = createSprite(atlas.findRegion("rocky1"));
 
         GUNNER_BULLET = createSprite(atlas.findRegion("point500"));
+        SNIPER_BULLET = createSprite(atlas.findRegion("point500"));
+        BOMBER_BULLET = createSprite(atlas.findRegion("point500"));
 
     }
 

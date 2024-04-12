@@ -1,7 +1,6 @@
 package inf112.skeleton.app.tower;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -9,9 +8,7 @@ import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.entity.GameObject;
 import inf112.skeleton.app.enums.DefenderType;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -179,7 +176,7 @@ public abstract class BaseDefender extends GameObject {
      * @param deltaTime time since last frame update
      */
     private void startFiring(float deltaTime){
-        rappidFire();
+        //rappidFire();
         speedCounter += deltaTime;
         if (speedCounter >= 1f / speed) {
             speedCounter = 0;
