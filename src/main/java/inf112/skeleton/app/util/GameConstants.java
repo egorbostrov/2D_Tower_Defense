@@ -24,7 +24,7 @@ public class GameConstants {
 
     //REGULAR ZOMBIE VALUES:
     public static int EMEMY_REGULAR_SPEED = (int) TILE_WIDTH;
-    public static float ENEMY_REGULAR_START_HP = 10f;
+    public static float ENEMY_REGULAR_START_HP = 100f;
     public static int ENEMY_REGULAR_BOUNTY = 100;
     public static float ENEMY_REGULAR_SPAWN_DELAY = 1.5f;
 

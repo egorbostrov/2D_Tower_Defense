@@ -148,7 +148,6 @@ public class Enemy extends GameObject{
     @Override
     public void update(float elapsedTime) {
         super.update(elapsedTime);
-
         elapsedTimeStart += elapsedTime;
         if (elapsedTimeStart < spawnDelay || currentDirection == null) {
             return;
@@ -193,7 +192,7 @@ public class Enemy extends GameObject{
         removeSlowMode(elapsedTime);
 
         hpBar.position.x = position.x;
-        hpBar.position.y = position.y - size.y / 5;
+        hpBar.position.y = position.y + size.y;
 
     }
 
