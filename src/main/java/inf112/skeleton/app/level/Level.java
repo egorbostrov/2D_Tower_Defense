@@ -16,7 +16,6 @@ import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.TowerController;
-import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.enums.GridType;
