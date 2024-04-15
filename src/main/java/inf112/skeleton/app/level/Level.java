@@ -30,7 +30,7 @@ public class Level {
     private int enemyHealth;
     private int userHealth;
     private Map map;
-    private EnemyController enemyController; //moved to WaveController
+    private EnemyController enemyController;
     private WaveController waveController;
     private TowerController towerController;
     private MainControlMenu towerSelectionMenu;
@@ -47,7 +47,7 @@ public class Level {
     }
 
     /**
-     * Sets the start values for the start of the game and creates new map, controllers and menues
+     * Sets the start values for the start of the game and creates new map, controllers and menus
      */
     private void start() {
         currentWave = 0;
@@ -58,8 +58,7 @@ public class Level {
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
-        enemyController = new EnemyController(this);// moved to WaveController
-//        enemyController = waveController.getEnemyController();
+        enemyController = new EnemyController(this);
         waveController = new WaveController(enemyController);
         towerController = new TowerController(/*enemyController.getEnemyList()*/); //this should be replaced later
         towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
@@ -67,6 +66,7 @@ public class Level {
         //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
+
     }
 
     /**
@@ -81,7 +81,7 @@ public class Level {
     }
 
     /**
-     * Renders the given batch on map, enemycontroller, towercontroller, towerselectionmenu and infomenu.
+     * Renders the given batch on map, enemyController, towerController, towerSelectionMenu and infoMenu.
      *
      * @param batch given batch
      */
@@ -118,8 +118,8 @@ public class Level {
 
     /**
      *
-     * @param x
-     * @param y
+     * @param x x
+     * @param y y
      */
     public void updateInputs(float x, float y) {
         towerSelectionMenu.updateInputs(x, y);
@@ -193,9 +193,7 @@ public class Level {
         changeTimeAndWaveNumber = false;
     }
 
-
     /*public void touchDown(float x, float y) {
-
         if (towerSelectionMenu.contains(x, y)){
             towerSelectionMenu.touchDown(x, y);
         } else {
@@ -203,13 +201,12 @@ public class Level {
         }
     }*/
 
-
     /*public void touchRelease(float x, float y) {
         towerSelectionMenu.touchRelease(x, y);
     }*/
 
     /**
-     * Select the tile user has clicked. If tower, then infomenu and towermenu showes.
+     * Select the tile user has clicked. If tower, then infoMenu and towerMenu are shown.
      * If path or ground is clicked, then the menus disappear.
      * @param x value of the tile
      * @param y value of the tile
@@ -262,7 +259,7 @@ public class Level {
 
     /**
      *
-     * @return starthealth of the enemies
+     * @return startHealth of the enemies
      */
     public int getEnemyHealth() {
         return enemyHealth;
@@ -328,8 +325,8 @@ public class Level {
      * When user clicks upgrade speed on one of the towers,
      * it first checks if user has enough money. If user doesn't have
      * enough, then nothing happens. If user does,
-     * the tower gets faster shootingspeed, balance gets updated and
-     * towerinfo gets updated to new stats of the tower.
+     * the tower gets faster shootingSpeed, balance gets updated and
+     * towerInfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
         BaseDefender defender = towerController.getSelectedDefender();//GULP
@@ -380,15 +377,15 @@ public class Level {
     }
 
     /**
-     * When the menu icon is cliced, pausescene is active
+     * When the menu icon is clicked, pauseScene is active
      */
     public void menuClicked() {
         scene.getSceneController().setScene(SceneEnum.PauseScene);
     }
 
     /**
-     * Adds money to your bank and calls methods in infomenu and
-     * towerselection menu to update your current balance
+     * Adds money to your bank and calls methods in infoMenu and
+     * towerSelection menu to update your current balance
      * @param amount to be added to your balance
      */
     public void addMoney(int amount) {

@@ -4,15 +4,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameConstants;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+
 
 import static inf112.skeleton.app.util.GameConstants.*;
 
@@ -50,7 +48,8 @@ public class Enemy extends GameObject{
 
     public static Enemy newEnemy(char type, Level level, float spawnDelay) {
         Enemy newEnemy = switch(type) {
-            case 'R'-> new Enemy(START_POS.x,
+            case 'R'-> new Enemy(
+                    START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
@@ -60,7 +59,8 @@ public class Enemy extends GameObject{
                     ENEMY_REGULAR_SPEED,
                     (spawnDelay),
                     MyAtlas.REGULAR_ZOMBIE);
-            case 'T' -> new Enemy(START_POS.x,
+            case 'T' -> new Enemy(
+                    START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
@@ -73,11 +73,6 @@ public class Enemy extends GameObject{
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
         return newEnemy;
-    }
-
-
-    public float getCurrentHealth() {
-        return currentHealth;
     }
 
     /**
@@ -151,7 +146,6 @@ public class Enemy extends GameObject{
     @Override
     public void update(float elapsedTime) {
         super.update(elapsedTime);
-
         elapsedTimeStart += elapsedTime;
         if (elapsedTimeStart < spawnDelay || currentDirection == null) {
             return;
@@ -196,7 +190,7 @@ public class Enemy extends GameObject{
         removeSlowMode(elapsedTime);
 
         hpBar.position.x = position.x;
-        hpBar.position.y = position.y - size.y / 5;
+        hpBar.position.y = position.y + size.y;
 
     }
 

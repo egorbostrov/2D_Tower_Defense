@@ -26,16 +26,14 @@ public class GameConstants {
     public static float ENEMY_HEIGHT = TILE_HEIGHT / 1.2f;
 
     // Regular Zombie values
-    public static int ENEMY_REGULAR_SPEED = (int) TILE_WIDTH;
-    public static float ENEMY_REGULAR_START_HP = 10f;
+    public static int EMEMY_REGULAR_SPEED = (int) TILE_WIDTH;
+    public static float ENEMY_REGULAR_START_HP = 100f;
     public static int ENEMY_REGULAR_BOUNTY = 100;
-
 
     // Tank Zombie values
     public static int ENEMY_TANK_SPEED = (int) (TILE_WIDTH / 2);
     public static float ENEMY_TANK_START_HP = 20f;
     public static int ENEMY_TANK_BOUNTY = 150;
-
 
     // Game values
     public static int START_MONEY = 1000;
