@@ -61,13 +61,12 @@ public class Level {
         enemyController = new EnemyController(this);// moved to WaveController
 //        enemyController = waveController.getEnemyController();
         waveController = new WaveController(enemyController);
-        towerController = new TowerController(enemyController.getEnemyList()); //this should be replaced later
+        towerController = new TowerController(/*enemyController.getEnemyList()*/); //this should be replaced later
         towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
         //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
-
     }
 
     /**
