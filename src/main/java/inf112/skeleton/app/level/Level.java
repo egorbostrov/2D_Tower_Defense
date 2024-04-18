@@ -1,5 +1,6 @@
 package inf112.skeleton.app.level;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,7 +9,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.PlayScene;
-import inf112.skeleton.app.enums.SceneEnum;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.InformationMenu;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
@@ -21,7 +21,6 @@ import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.enums.GridType;
 
 public class Level {
-    private final PlayScene scene;
     private int currentWave;
     private int score;
     private int money;
@@ -38,10 +37,11 @@ public class Level {
     private boolean changeTimeAndWaveNumber = false;
     private int timeLeft;
     private final BitmapFont bitmapFont;
+    private Game game;
 
 
-    public Level(PlayScene scene) {
-        this.scene = scene;
+    public Level(Game game) {
+        this.game = game;
         this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
         start();
     }
@@ -105,9 +105,11 @@ public class Level {
         map.update(elapsedTime);
         enemyController.update(elapsedTime);
         towerController.update(elapsedTime);
+        System.out.println("update called in Level.java");
 
         if(enemyController.getEnemyList().isEmpty()) {
             nextWave();
+            System.out.println("new wave called in Level.java");
         }
     }
 
@@ -165,9 +167,6 @@ public class Level {
     public void enemyCompletedPath() {
         userHealth--;
         towerSelectionMenu.fireHealthChanged(userHealth);
-        if (userHealth == 0){
-            scene.gameOver();
-        }
     }
 
     /**
@@ -346,19 +345,6 @@ public class Level {
         start();
     }
 
-    /**
-     * Game gets paused when the method is called
-     */
-    public void pause() {
-        scene.pause();
-    }
-
-    /**
-     * If the game is paused, the game will be resumed when this method is called
-     */
-    public void resume() {
-        scene.resume();
-    }
 
     /**
      * Sets the speed of the game to 2x of normal speed
@@ -376,12 +362,6 @@ public class Level {
         enemyController.normalSpeedClicked();
     }
 
-    /**
-     * When the menu icon is clicked, pauseScene is active
-     */
-    public void menuClicked() {
-        scene.getSceneController().setScene(SceneEnum.PauseScene);
-    }
 
     /**
      * Adds money to your bank and calls methods in infoMenu and

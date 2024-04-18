@@ -20,6 +20,9 @@ public class TowerController implements Render{
 
     private final List<BaseDefender> defenderList;
     private BaseDefender currentDefender;
+    private boolean isTowerSelected;
+    private String selectedTowerType;
+
 
     public TowerController(){
         defenderList = new ArrayList<>();
@@ -106,6 +109,7 @@ public class TowerController implements Render{
      */
     @Override
     public void render(SpriteBatch batch) {
+
         for (BaseDefender tower : defenderList) {
             tower.render(batch);
         }
@@ -120,5 +124,21 @@ public class TowerController implements Render{
         for (BaseDefender tower : defenderList) {
             tower.render(renderer);
         }
+    }
+
+    // from libgdx-kev
+    public void setTowerSelected(String type) {
+        selectedTowerType = type;
+        isTowerSelected = true;
+
+    }
+
+    public boolean isTowerSelected() {
+        return this.isTowerSelected;
+    }
+
+
+    public String getSelectedTowerType() {
+        return selectedTowerType;
     }
 }

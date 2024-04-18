@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
@@ -245,4 +246,9 @@ public class Enemy extends GameObject{
     public float getEnemyHealth() {
         return this.currentHealth;
     }
+
+    public Rectangle getBoundsRectangle() {
+        return this.boundsRectangle;
+    }
+
 }

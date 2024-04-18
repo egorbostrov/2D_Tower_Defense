@@ -30,6 +30,7 @@ public class EnemyController {
 
     public void newZombie(Enemy zombie) {
         enemyList.add(zombie);
+        System.out.println("zombie added!");
     }
 
     /**
@@ -58,6 +59,7 @@ public class EnemyController {
     }
 
     public List<Enemy> getEnemyList(){
+        System.out.println(enemyList + " is enemylist.");
         return enemyList;
     }
 
@@ -69,7 +71,9 @@ public class EnemyController {
     }
 
     public void render(SpriteBatch batch) {
+        System.out.println("render call in Enemycontrller, count: " + enemyList.size());
         for (Enemy enemy : enemyList) {
+
             enemy.render(batch);
         }
     }
