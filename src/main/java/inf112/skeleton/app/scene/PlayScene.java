@@ -19,8 +19,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.MouseController;
 import inf112.skeleton.app.controller.TowerController;
+import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
-import inf112.skeleton.app.scene.WorldController;
+//import inf112.skeleton.app.scene.WorldController;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.MusicManager;
@@ -28,7 +29,7 @@ import inf112.skeleton.app.util.MusicManager;
 import static inf112.skeleton.app.util.GameConstants.*;
 
 public class PlayScene extends AbstractGameScene {
-    private WorldController worldController;
+    //private WorldController worldController;
     private boolean paused;
     private Stage stage;
     private Skin uimenuskin;
@@ -107,9 +108,9 @@ public class PlayScene extends AbstractGameScene {
 
     private void initializeGameControllers() {
         level = new Level(game);
-        enemyController = new EnemyController(level);
-        towerController = new TowerController();
-        worldController = new WorldController(game, level, enemyController, towerController);
+        this.enemyController = EnemyController.getInstance();
+        this.towerController = TowerController.getInstance();
+       // worldController = new WorldController(game, level, enemyController, towerController);
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -126,7 +127,7 @@ public class PlayScene extends AbstractGameScene {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("tower");
-                ontowerClicked("TOWER");
+                ontowerClicked(DefenderType.GUNNER);
             }
         });
 
@@ -134,8 +135,9 @@ public class PlayScene extends AbstractGameScene {
         return layer;
     }
 
-    private void ontowerClicked (String type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
+    private void ontowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
+        System.out.println(type + " tower built! Money remaining: " + level.getMoney());
     }
     //private String getClickedTowerType () {
 
@@ -143,11 +145,12 @@ public class PlayScene extends AbstractGameScene {
     @Override
     public void render (float deltaTime) { // main renderer for the playscene.
         // Do not update game world when paused.
-        if (!paused) {
-            // Update game world by the time that has passed
-            // since last rendered frame.
-            worldController.update(deltaTime);
-        }
+//        if (!paused) {
+//            // Update game world by the time that has passed
+//            // since last rendered frame.
+//            worldController.update(deltaTime);
+//        }
+        level.update(deltaTime);
         spriteBatch.setProjectionMatrix(camera.combined);
 
         //controlMenu.updateInputs(Gdx.input.getX(), Gdx.input.getY());
@@ -159,12 +162,13 @@ public class PlayScene extends AbstractGameScene {
         if (level != null) {
             level.getMap().render(spriteBatch);
         }
-        if (worldController != null){
-            worldController.render(spriteBatch);
-        }
+//        if (worldController != null){
+//            worldController.render(spriteBatch);
+//        }
+        level.render(spriteBatch);
         //controlMenu.render(spriteBatch);
         spriteBatch.end();
-        worldController.renderHitboxes(shapeRenderer);
+        //worldController.renderHitboxes(shapeRenderer);
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();

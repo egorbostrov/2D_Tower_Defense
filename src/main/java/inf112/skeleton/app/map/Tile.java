@@ -29,7 +29,6 @@ public class Tile extends GameObject {
 
     private void loadTextures() {
         // Access the texture regions from GameAssets
-        GameAssets gameAssets = GameAssets.instance;
         pathTexture = GameAssets.pathTexture;
         groundTexture = GameAssets.groundTexture;
 

@@ -18,14 +18,23 @@ import java.util.List;
 
 public class TowerController implements Render{
 
+    private static TowerController instance;
+
     private final List<BaseDefender> defenderList;
     private BaseDefender currentDefender;
     private boolean isTowerSelected;
-    private String selectedTowerType;
+    private DefenderType selectedTowerType;
 
 
     public TowerController(){
         defenderList = new ArrayList<>();
+    }
+
+    public static synchronized TowerController getInstance() {
+        if (instance == null) {
+            instance = new TowerController();
+        }
+        return instance;
     }
 
     public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type, int money){
@@ -61,6 +70,7 @@ public class TowerController implements Render{
     private int buildGunnerTower(float x, float y, List<Enemy> enemyList) {
         GunnerDefender gunnerDefender = new GunnerDefender(x, y, enemyList);
         defenderList.add(gunnerDefender);
+        System.out.println("Tower added at: " + x + ", " + y + " | Total towers: " + defenderList.size());
         return TOWER_PRICE_GUNNER;
     }
 
@@ -109,7 +119,6 @@ public class TowerController implements Render{
      */
     @Override
     public void render(SpriteBatch batch) {
-
         for (BaseDefender tower : defenderList) {
             tower.render(batch);
         }
@@ -127,7 +136,7 @@ public class TowerController implements Render{
     }
 
     // from libgdx-kev
-    public void setTowerSelected(String type) {
+    public void setTowerSelected(DefenderType type) {
         selectedTowerType = type;
         isTowerSelected = true;
 
@@ -138,7 +147,7 @@ public class TowerController implements Render{
     }
 
 
-    public String getSelectedTowerType() {
+    public DefenderType getSelectedTowerType() {
         return selectedTowerType;
     }
 }

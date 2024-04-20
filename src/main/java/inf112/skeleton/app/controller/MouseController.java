@@ -8,7 +8,9 @@ import java.util.List;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
+import inf112.skeleton.app.util.GameConstants;
 
 public class MouseController implements InputProcessor {
     private TowerController towerController;
@@ -24,24 +26,31 @@ public class MouseController implements InputProcessor {
         this.level = level;
     }
 
+    private CameraManager getCameraManager() {
+        return level.getCameraManager();
+    }
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touched");
-        int flippedY = Gdx.graphics.getHeight() - screenY;
         if (button == Input.Buttons.LEFT && towerController.isTowerSelected()) {
-            Vector3 worldCoordinates = new Vector3(screenX, flippedY, 0);
-            List<Enemy> currentEnemies = this.enemyController.getEnemyList();
-            DefenderType selectedType = DefenderType.valueOf(towerController.getSelectedTowerType());
-            int availableMoney = this.level.getMoney();  // Assume getMoney() method provides current money
+            Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
+            getCameraManager().getCamera().unproject(worldCoordinates); // Use CameraManager's camera to unproject
+            float towerSize = GameConstants.TOWER_SIZE;
+            float centeredSizeX = worldCoordinates.x - towerSize / 2;
+            float centeredSizeY = worldCoordinates.y - towerSize / 2;
 
-            // Check if a non-zero cost is returned, indicating a tower was built
-            if (towerController.buildTower(worldCoordinates.x, worldCoordinates.y, currentEnemies, selectedType, availableMoney) > 0) {
-                towerController.clearSelectedTower();  // Clear selection after placing
+            List<Enemy> currentEnemies = this.enemyController.getEnemyList();
+            DefenderType selectedType = towerController.getSelectedTowerType();
+            int availableMoney = this.level.getMoney();
+
+            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType, availableMoney) > 0) {
+                towerController.clearSelectedTower();
                 return true;
             }
         }
         return false;
     }
+
 
 
 

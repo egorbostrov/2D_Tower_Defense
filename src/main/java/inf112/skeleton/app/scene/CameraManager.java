@@ -30,6 +30,9 @@ public class CameraManager {
         applySettings(); // Apply settings immediately when changed.
     }
 
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
     public Vector3 getPosition() {
         return new Vector3(position.x, position.y, position.z); // Return a copy to prevent direct manipulation.
     }

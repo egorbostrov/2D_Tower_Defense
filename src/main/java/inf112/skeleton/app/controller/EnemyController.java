@@ -12,12 +12,15 @@ import java.util.List;
 
 public class EnemyController {
 
-    private final Level level;
     private final List<Enemy> enemyList;
     private final List<Reward> rewardList;
+    private static EnemyController instance;
+    private EnemyEvents listener;
 
-    public EnemyController(Level level/*, String zombies*/){
-        this.level = level;
+
+
+    public EnemyController(/*, String zombies*/){
+        this.listener = listener;
         this.enemyList = new ArrayList<>();
         rewardList = new ArrayList<>();
 //        this.enemySpawner = new WaveEnemyFactory(zombies);
@@ -27,6 +30,13 @@ public class EnemyController {
             enemyList.add(spawner.getNext(level));
         }*/
     }
+    public static EnemyController getInstance() {
+        if (instance == null) {
+            instance = new EnemyController();
+        }
+        return instance;
+    }
+
 
     public void newZombie(Enemy zombie) {
         enemyList.add(zombie);
@@ -40,13 +50,12 @@ public class EnemyController {
         List<Enemy> shouldRemoved = new ArrayList<>();
         for (Enemy e : enemyList) {
             if (e.position.x + e.size.x > GameConstants.SCREEN_WIDTH || e.position.y + e.size.y > GameConstants.SCREEN_HEIGHT) {
-            //FIX , we have to check bound of the gameboard, not the screen. Changing this might create issues where enemies will be removed instantly, as they are spawned outside the gameboard.
                 shouldRemoved.add(e);
-                level.enemyCompletedPath();
+                if (listener != null) listener.enemyCompletedPath();
             }
             if (!e.isAlive()) {
                 shouldRemoved.add(e);
-                level.enemyKilled(e.getReward());
+                if (listener != null) listener.enemyKilled(e.getReward());
             }
         }
         enemyList.removeAll(shouldRemoved);
@@ -59,7 +68,6 @@ public class EnemyController {
     }
 
     public List<Enemy> getEnemyList(){
-        System.out.println(enemyList + " is enemylist.");
         return enemyList;
     }
 
@@ -71,9 +79,7 @@ public class EnemyController {
     }
 
     public void render(SpriteBatch batch) {
-        System.out.println("render call in Enemycontrller, count: " + enemyList.size());
         for (Enemy enemy : enemyList) {
-
             enemy.render(batch);
         }
     }

@@ -22,10 +22,10 @@ public class GunnerDefender extends BaseDefender {
         range = GameConstants.TOWER_RANGE;
     }
 
-//    @Override
-//    public void projectileFire() {
-//        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
-//    }
+    @Override
+    public void projectileFire() {
+        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
+    }
 
     @Override
     public void rappidFire() {
