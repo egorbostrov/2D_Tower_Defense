@@ -58,10 +58,10 @@
 - [Møtereferat 2 (Uke 7)](Møtereferat2_12.02.24.pdf)
 - [Møtereferat 3 (Uke 8)](Møtereferat3_23.02.24.pdf)
 - [Møtereferat 4 (Uke 9)](Møtereferat4_01.03.24.pdf)
-- [Møtereferat 5 (Uke 10)](Møtereferat5_08.03.24pdf)
-- [Møtereferat 6 (Uke 11)](Møtereferat6_14.03.24pdf)
+- [Møtereferat 5 (Uke 10)](Møtereferat5_08.03.24.pdf)
+- [Møtereferat 6 (Uke 11)](Møtereferat6_14.03.24.pdf)
 - [Møtereferat 7 (Uke 12)](Møtereferat7_23.03.2024.pdf)
-- [Møtereferat 8 (Uke 13: Påskeferie, ingen referat)]()
+- Møtereferat 8 (Uke 13: Påskeferie, ingen referat)
 - [Møtereferat 9 (Uke 14)](Møtereferat9_04.04.24.pdf)
 - [Møtereferat 10 (Uke 15)](Møtereferat10_11.04.24.pdf)
 
