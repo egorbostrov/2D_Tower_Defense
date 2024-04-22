@@ -8,13 +8,18 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.controller.EnemyController;
@@ -33,13 +38,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import static inf112.skeleton.app.util.GameConstants.*;
 
 public class PlayScene extends AbstractGameScene {
-    //private WorldController worldController;
     private boolean paused;
     private Stage stage;
     private Skin uimenuskin;
-    private Button towerButton;
+    private Button gunnerButton;
+    private Button sniperButton;
+    private Button bomberButton;
     private SpriteBatch spriteBatch;
-    private Button tower2Button;
     private Level level;
     private EnemyController enemyController;
     private TowerController towerController;
@@ -67,6 +72,8 @@ public class PlayScene extends AbstractGameScene {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
         stage = new Stage(new ScreenViewport(camera), spriteBatch);
+
+
     }
 
     private void setupInput() {
@@ -113,10 +120,8 @@ public class PlayScene extends AbstractGameScene {
     }
 
     private void initializeGameControllers() {
-        //level = new Level(game);
         this.enemyController = EnemyController.getInstance(this.level);
         this.towerController = TowerController.getInstance(this.level);
-       // worldController = new WorldController(game, level, enemyController, towerController);
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -127,16 +132,35 @@ public class PlayScene extends AbstractGameScene {
         layer.setFillParent(true);
         layer.bottom();
 
-        towerButton = new Button(uimenuskin, "tower");
-        layer.add(towerButton).padBottom(10);  // Add padding at the bottom if needed
-        towerButton.addListener(new ChangeListener() {
+        gunnerButton = new Button(uimenuskin, "gunnertower");
+        layer.add(gunnerButton).padBottom(10);  // Add padding at the bottom if needed
+        gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("tower");
+                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
 
+        sniperButton = new Button(uimenuskin, "snipertower");
+        layer.add(sniperButton).padBottom(10);  // Add padding at the bottom if needed
+        sniperButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("sniper selected");
+                onTowerClicked(DefenderType.SNIPER);
+            }
+        });
+
+        bomberButton = new Button(uimenuskin, "bombertower");
+        layer.add(bomberButton).padBottom(10);  // Add padding at the bottom if needed
+        bomberButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("bomber selected");
+                onTowerClicked(DefenderType.BOMBER);
+            }
+        });
         layer.row();
         return layer;
     }
@@ -209,8 +233,15 @@ public class PlayScene extends AbstractGameScene {
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
     }
 
+
+
     @Override
     public void resize (int width, int height) {
+        if (stage != null) {
+            stage.getViewport().update(width, height, true);
+            camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
+            camera.update();
+        }
     }
 
     @Override
@@ -219,15 +250,11 @@ public class PlayScene extends AbstractGameScene {
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
         if(GameSettings.getMusic() == true) {
-            MusicManager.play("chastushki.ogg", true);
+            MusicManager.play("gamemusic.ogg", true);
         }
 
         // temporary multiplexer to use both stage ui buttons and configurer mousecontroller bs so that i can place the towers. (temp temp temp!!!)
-
-
     }
-
-
     @Override
     public void hide () {
         MusicManager.stopCurrentMusic();

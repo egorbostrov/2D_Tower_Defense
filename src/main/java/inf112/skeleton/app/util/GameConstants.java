@@ -64,8 +64,8 @@ public class GameConstants {
 
 
 
-    public static float BULLET_WIDTH = TILE_WIDTH / 2;
-    public static float BULLET_HEIGHT = TILE_HEIGHT / 2;
+    public static float BULLET_WIDTH = TILE_WIDTH / 8;
+    public static float BULLET_HEIGHT = TILE_HEIGHT / 8;
 
     public static Vector2 START_POS = new Vector2(0, TILE_HEIGHT * (UI_ROWS_BOTTOM - 1));
 }

@@ -9,6 +9,7 @@ import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import inf112.skeleton.app.util.MusicManager;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class GunnerDefender extends BaseDefender {
 
     @Override
     public void projectileFire() {
+        MusicManager.playGunnerShot();
         bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
     }
 

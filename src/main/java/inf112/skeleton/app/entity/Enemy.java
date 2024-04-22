@@ -10,6 +10,7 @@ import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.util.MusicManager;
 
 import java.util.LinkedList;
 
@@ -90,6 +91,7 @@ public class Enemy extends GameObject{
         if (this.currentHealth <= 0){
             alive = false;
             isVisible = false;
+            MusicManager.playZombieDeathScream();
         } else{
             hpBar.setHealth(currentHealth);
         }

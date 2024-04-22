@@ -144,11 +144,11 @@ public class MenuScene extends AbstractGameScene {
         Gdx.input.setInputProcessor(stage);
         build();
         prefs.load();   // load preferences.
-        MusicManager.changeVolume(); // change volume (placeholder for when i will complete musicmanager).
+        MusicManager.changeMusicVolume(); // change volume (placeholder for when i will complete musicmanager).
         if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
             MusicManager.stopCurrentMusic(); // stop the music.
         } else {
-            MusicManager.play("bumer.ogg", true);
+            MusicManager.play("menumusic.ogg", true);
         }
 
     }
