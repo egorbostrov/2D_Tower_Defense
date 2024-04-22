@@ -45,6 +45,7 @@ public class PlayScene extends AbstractGameScene {
     private ShapeRenderer shapeRenderer;
     private CameraManager cameraManager;
     private MainControlMenu controlMenu;
+    private BitmapFont bitmapFont;
 
     public PlayScene(Game game) {
         super(game);
@@ -164,6 +165,7 @@ public class PlayScene extends AbstractGameScene {
         if (level != null) {
             level.getMap().render(spriteBatch);
         }
+        //renderInfo(spriteBatch);
 //        if (worldController != null){
 //            worldController.render(spriteBatch);
 //        }
@@ -174,8 +176,33 @@ public class PlayScene extends AbstractGameScene {
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
-
     }
+
+    public void renderInfo(SpriteBatch batch){
+        String scoreText = "Score: " + level.getScore();
+        String moneyText = "Money: " + level.getMoney();
+        String waveText = "Wave: " + level.getCurrentWave();
+        String enemiesText = "Enemies killed: " + level.getEnemiesKilled();
+
+        float xCord = 10;
+        float yCord = GameConstants.SCREEN_HEIGHT - 20;
+        int padding = 20;
+
+        GlyphLayout glyphScore = bitmapFont.draw(batch, scoreText, xCord, yCord);
+        xCord += glyphScore.width + padding;
+
+        GlyphLayout glyphMoney = bitmapFont.draw(batch, moneyText, xCord, yCord);
+        xCord += glyphMoney.width + padding;
+
+        bitmapFont.draw(batch, enemiesText, xCord, yCord);
+
+        xCord = GameConstants.SCREEN_WIDTH / 2;
+        GlyphLayout glyphWave = new GlyphLayout();
+        glyphWave.setText(bitmapFont, waveText);
+
+        bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
+    }
+
     @Override
     public void resize (int width, int height) {
     }
@@ -192,6 +219,7 @@ public class PlayScene extends AbstractGameScene {
 
 
     }
+
 
     @Override
     public void hide () {
