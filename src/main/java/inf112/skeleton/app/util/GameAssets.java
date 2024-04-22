@@ -15,6 +15,8 @@ public class GameAssets implements Disposable {
     public static TextureAtlas.AtlasRegion playButtonDown;
     public static TextureAtlas.AtlasRegion gunnerTexture;
     public static TextureAtlas.AtlasRegion sniperTexture;
+    public static TextureAtlas.AtlasRegion bomberTexture;
+    public static TextureAtlas.AtlasRegion bombTexture;
     public static TextureAtlas.AtlasRegion zombieTexture;
     public static TextureAtlas.AtlasRegion pathTexture;
     public static TextureAtlas.AtlasRegion groundTexture;
@@ -47,18 +49,20 @@ public class GameAssets implements Disposable {
         }
 
         // Load individual textures
-        playButtonUp = atlas.findRegion("play-up");
-        playButtonDown = atlas.findRegion("play-dn");
+        playButtonUp = atlas.findRegion("play_up");
+        playButtonDown = atlas.findRegion("play_dn");
         gunnerTexture = atlas.findRegion("gunna0");
         sniperTexture = atlas.findRegion("snipa0");
+        bomberTexture = atlas.findRegion("bomba0");
         zombieTexture = atlas.findRegion("gunna0");
         pathTexture = atlas.findRegion("path");
+        bombTexture = atlas.findRegion("bomb");
         groundTexture = atlas.findRegion("gritty2");
 
         // sprite form
         gunnerSprite = createSprite(gunnerTexture);
-        sniperSprite = createSprite(gunnerTexture);
-        bomberSprite = createSprite(gunnerTexture);
+        sniperSprite = createSprite(sniperTexture);
+        bomberSprite = createSprite(bomberTexture);
 
         zombieSprite = createSprite(zombieTexture);//FIX Change atlas to zombie texture, when available :)
         zombieslowedSprite = createSprite(zombieTexture);//FIX Change to frozen zombie when available
@@ -66,9 +70,9 @@ public class GameAssets implements Disposable {
         tankSprite = createSprite(zombieTexture);
         tankslowedSprite = createSprite(zombieTexture);
 
-        gunnerBulletSprite = createSprite(atlas.findRegion("path"));
-        sniperBulletSprite = createSprite(atlas.findRegion("path"));
-        bomberBulletSprite = createSprite(atlas.findRegion("path"));
+        gunnerBulletSprite = createSprite(atlas.findRegion("bullet"));
+        sniperBulletSprite = createSprite(atlas.findRegion("bullet"));
+        bomberBulletSprite = createSprite(atlas.findRegion("bomb"));
 
         if (playButtonUp == null || playButtonDown == null || gunnerTexture == null || zombieTexture == null || pathTexture == null) {
             Gdx.app.error("GameAssets", "One or more texture regions not found!");

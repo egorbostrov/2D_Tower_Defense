@@ -5,15 +5,18 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 public class MusicManager {
+
     private static Music currentMusic;
     private static String currentTrack = "";
 
     // SFX
     // Shooting sfx
-    private static Sound sniperShotSound = Gdx.audio.newSound(Gdx.files.internal("sniper_shot.ogg"));
-    private static Sound gunnerShotSound = Gdx.audio.newSound(Gdx.files.internal("gunner_shot.ogg"));
+    private static final Sound sniperShotSound = Gdx.audio.newSound(Gdx.files.internal("sniper_shot.ogg"));
+    private static final Sound gunnerShotSound = Gdx.audio.newSound(Gdx.files.internal("gunner_shot.ogg"));
+    private static final Sound bomberShotSound = Gdx.audio.newSound(Gdx.files.internal("bombashoot.ogg"));
+    private static final Sound bombExplodeSound = Gdx.audio.newSound(Gdx.files.internal("bombexplode.ogg"));
     // Enemy sfx
-    private static Sound zombieDeathScream = Gdx.audio.newSound(Gdx.files.internal("zombie_death.ogg"));
+    private static final Sound zombieDeathScream = Gdx.audio.newSound(Gdx.files.internal("zombie_death.ogg"));
 
 
     public static void play(String filename, boolean loop) {
@@ -39,7 +42,7 @@ public class MusicManager {
 
     }
 
-    public static void changeVolume(){
+    public static void changeMusicVolume(){
         if(currentMusic!=null) {
             currentMusic.setVolume(GameSettings.getVolMusic());
         }
@@ -57,11 +60,16 @@ public class MusicManager {
     public static void playGunnerShot() {
         gunnerShotSound.play();
     }
+    public static void playBomberShot() { bomberShotSound.play();
+    }
+    public static void playBombExplode() { bombExplodeSound.play();
+    }
 
     // Enemies
     public static void playZombieDeathScream() {
         zombieDeathScream.play();
     }
+
 
 
 }

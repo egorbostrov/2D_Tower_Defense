@@ -16,11 +16,12 @@
     default: { font: default-font, fontColor: white }
   },
   com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
-    play: { down: play-dn, up: play-up },
-    options: { down: options-dn, up: options-up },
-    tower: { down :play-dn, up: play-up},
-    tower2: { down :play-dn, up: play-up}
-    exit: { down: exit-dn, up: exit-up},
+    play: { down: play_dn, up: play_up },
+    options: { down: options_dn, up: options_up },
+    gunnertower: { down :board_gunna_down, up: board_gunna},
+    snipertower: { down :board_snipa_down, up: board_snipa},
+    bombertower: { down: board_bomba_down, up: board_bomba}
+    exit: { down: exit_dn, up: exit_up},
   },
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
     "default": {
