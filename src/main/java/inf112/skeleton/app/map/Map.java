@@ -81,6 +81,14 @@ public class Map implements Render{
         pathTiles.add(new Vector2(17, 1));
         pathTiles.add(new Vector2(18, 1));
         pathTiles.add(new Vector2(19, 1));
+        pathTiles.add(new Vector2(20, 1));
+        pathTiles.add(new Vector2(21, 1));
+        pathTiles.add(new Vector2(22, 1));
+        pathTiles.add(new Vector2(23, 1));
+        pathTiles.add(new Vector2(24, 1));
+        pathTiles.add(new Vector2(25, 1));
+
+
 
         board = new Board(pathTiles);
     }

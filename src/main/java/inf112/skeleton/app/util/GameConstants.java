@@ -9,8 +9,6 @@ public class GameConstants {
 
     public static final String PREFERENCES = "game_preferences.txt";
     public static final float BOMBER_EXPLOSION_RADIUS = 20;
-    public static float SCREEN_HEIGHT = 720;
-    public static float SCREEN_WIDTH = (float) (SCREEN_HEIGHT * 16) / 9;
 
     public static final String TEXTURE_ATLAS_UI = "zombie.atlas";
     public static final String SKIN_UI = "skin.json";
@@ -19,17 +17,21 @@ public class GameConstants {
     public static float UI_WIDTH = 860;
     public static float UI_HEIGHT = 640;
 
-    public static int COLUMN_SIZE = 14;
-    public static int ROW_SIZE = 11;
+    public static float TILE_WIDTH = 60;
+    public static float TILE_HEIGHT = 60;
 
-    public static int MAP_ROWS = 12;
-    public static int UI_ROWS_BOTTOM = 3;
+    public static int COLUMN_SIZE = 20;
 
-    public static float TILE_WIDTH = SCREEN_WIDTH / COLUMN_SIZE;
-    public static float TILE_HEIGHT = SCREEN_HEIGHT / ROW_SIZE;
+    public static int MAP_ROWS = 10;
+    public static int UI_ROWS_BOTTOM = 2;
+    public static int UI_ROWS_TOP = 1;
 
-    public static float ENEMY_WIDTH = TILE_WIDTH / (float)1.2;
-    public static float ENEMY_HEIGHT = TILE_HEIGHT / (float)1.2;
+    public static float SCREEN_HEIGHT = TILE_HEIGHT * (MAP_ROWS + UI_ROWS_BOTTOM + UI_ROWS_TOP);
+    public static float SCREEN_WIDTH = TILE_WIDTH * COLUMN_SIZE;
+
+
+    public static float ENEMY_WIDTH = TILE_WIDTH;
+    public static float ENEMY_HEIGHT = TILE_HEIGHT;
 
     //REGULAR ZOMBIE VALUES:
     public static int ENEMY_REGULAR_SPEED = (int) TILE_WIDTH;
@@ -66,5 +68,5 @@ public class GameConstants {
     public static float BULLET_WIDTH = TILE_WIDTH / 2;
     public static float BULLET_HEIGHT = TILE_HEIGHT / 2;
 
-    public static Vector2 START_POS = new Vector2(0, 160);
+    public static Vector2 START_POS = new Vector2(0, TILE_HEIGHT * (UI_ROWS_BOTTOM - 1));
 }
