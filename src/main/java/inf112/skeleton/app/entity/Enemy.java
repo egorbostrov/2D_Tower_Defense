@@ -49,7 +49,7 @@ public class Enemy extends GameObject{
     }
 
     public static Enemy newEnemy(char type, Level level, float spawnDelay) {
-        Enemy newEnemy = switch(type) {
+        return switch(type) {
             case 'R'-> new Enemy(
                     START_POS.x,
                     START_POS.y,
@@ -74,7 +74,6 @@ public class Enemy extends GameObject{
                     GameAssets.zombieSprite);
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
-        return newEnemy;
     }
 
     /**
