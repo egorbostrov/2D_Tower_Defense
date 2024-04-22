@@ -132,13 +132,14 @@ public class MenuScene extends AbstractGameScene {
     }
     @Override
     public void hide () {
-        MusicManager.stopCurrentMusic();
         stage.dispose();
         uimenuskin.dispose();
     }
     @Override
     public void show () {
-        MusicManager.play("bumer.ogg", true);
+        if (!MusicManager.isMusicPlaying()) {
+            MusicManager.play("bumer.ogg", true);
+        }
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();

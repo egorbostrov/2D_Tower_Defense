@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
+import inf112.skeleton.app.util.MusicManager;
 
 public class OptionScene extends AbstractGameScene {
     private static final String TAG = OptionScene.class.getName();
@@ -152,6 +153,9 @@ public class OptionScene extends AbstractGameScene {
 
     @Override
     public void show () {
+        if (!MusicManager.isMusicPlaying()) {
+            MusicManager.play("bumer.ogg", true);
+        }
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();
