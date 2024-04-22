@@ -108,7 +108,7 @@ public class PlayScene extends AbstractGameScene {
 
     private void initializeGameControllers() {
         //level = new Level(game);
-        this.enemyController = EnemyController.getInstance();
+        this.enemyController = EnemyController.getInstance(this.level);
         this.towerController = TowerController.getInstance(this.level);
        // worldController = new WorldController(game, level, enemyController, towerController);
 

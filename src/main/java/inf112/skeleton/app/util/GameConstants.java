@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
  * All constants used in the game
  * */
 public class GameConstants {
-    public static final int TOWER_PRICE = 0;
+
     public static final String PREFERENCES = "game_preferences.txt";
     public static final float BOMBER_EXPLOSION_RADIUS = 20;
     public static float SCREEN_HEIGHT = 720;
@@ -32,7 +32,7 @@ public class GameConstants {
     public static float ENEMY_HEIGHT = TILE_HEIGHT / (float)1.2;
 
     //REGULAR ZOMBIE VALUES:
-    public static int EMEMY_REGULAR_SPEED = (int) TILE_WIDTH;
+    public static int ENEMY_REGULAR_SPEED = (int) TILE_WIDTH;
     public static float ENEMY_REGULAR_START_HP = 10f;
     public static int ENEMY_REGULAR_BOUNTY = 100;
     public static float ENEMY_REGULAR_SPAWN_DELAY = 1.5f;
