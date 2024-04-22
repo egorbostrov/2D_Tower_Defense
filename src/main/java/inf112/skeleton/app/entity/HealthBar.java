@@ -16,8 +16,14 @@ public class HealthBar extends GameObject {
     private final ProgressBar healthBar;
     private float newHealth;
 
-
-
+    /**
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param width width of the bar
+     * @param height height of the bar
+     * @param startHealth start health of the bar which will be the max of the bar
+     */
     public HealthBar(float x, float y, float width, float height, float startHealth){
         super(x, y, width, height);
         ProgressBarStyle barStyle = new ProgressBarStyle();
@@ -26,14 +32,14 @@ public class HealthBar extends GameObject {
         healthBar = new ProgressBar(0, startHealth, 1, false, barStyle);
         healthBar.setWidth(width);
         healthBar.setHeight(height);
-
-        healthBar.setAnimateDuration(0.0f);
         healthBar.setValue(startHealth);
         this.newHealth = startHealth;
 
     }
 
-    public static Drawable createDrawable(int width, int height, Color color){
+
+
+    public Drawable createDrawable(int width, int height, Color color){
         Pixmap map = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         map.setColor(color);
         map.fill();
@@ -64,7 +70,5 @@ public class HealthBar extends GameObject {
     public void update(float elapsedTime){
         super.update(elapsedTime);
     }
-
-
 
 }
