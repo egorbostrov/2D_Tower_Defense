@@ -49,8 +49,8 @@ public class PlayScene extends AbstractGameScene {
         initializeResources();
         setupUI();
         setupInput(); // Now setupInput can be called safely
-        initializeGameControllers();
         this.level = new Level(game);
+        initializeGameControllers();
 
     }
 
@@ -107,9 +107,9 @@ public class PlayScene extends AbstractGameScene {
     }
 
     private void initializeGameControllers() {
-        level = new Level(game);
+        //level = new Level(game);
         this.enemyController = EnemyController.getInstance();
-        this.towerController = TowerController.getInstance(level);
+        this.towerController = TowerController.getInstance(this.level);
        // worldController = new WorldController(game, level, enemyController, towerController);
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
