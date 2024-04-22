@@ -2,6 +2,7 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -26,6 +27,7 @@ import inf112.skeleton.app.TDGame;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
 
 public class MenuScene extends AbstractGameScene {
@@ -137,12 +139,18 @@ public class MenuScene extends AbstractGameScene {
     }
     @Override
     public void show () {
-        if (!MusicManager.isMusicPlaying()) {
-            MusicManager.play("bumer.ogg", true);
-        }
+        GameSettings prefs = GameSettings.instance;
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();
+        prefs.load();   // load preferences.
+        MusicManager.changeVolume(); // change volume (placeholder for when i will complete musicmanager).
+        if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
+            MusicManager.stopCurrentMusic(); // stop the music.
+        } else {
+            MusicManager.play("bumer.ogg", true);
+        }
+
     }
     @Override public void pause () { }
 }
