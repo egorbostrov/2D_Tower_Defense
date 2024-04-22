@@ -35,13 +35,11 @@ public class GameConstants {
     public static int ENEMY_REGULAR_SPEED = (int) TILE_WIDTH;
     public static float ENEMY_REGULAR_START_HP = 10f;
     public static int ENEMY_REGULAR_BOUNTY = 100;
-    public static float ENEMY_REGULAR_SPAWN_DELAY = 1.5f;
 
     //TANK ZOMBIE VALUES:
     public static int ENEMY_TANK_SPEED = (int) TILE_WIDTH/2;
     public static float ENEMY_TANK_START_HP = 20f;
     public static int ENEMY_TANK_BOUNTY = 150;
-    public static float ENEMY_TANK_SPAWN_DELAY = 3f;
 
     public static int START_MONEY = 1000;
     public static int REMAINING_HEALTH = 6;
