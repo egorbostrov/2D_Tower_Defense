@@ -13,11 +13,8 @@ public class GameSettings {
     public boolean music;
     public float volSound;
     public float volMusic;
-    private Preferences prefs;
+    private Preferences prefs = Gdx.app.getPreferences(GameConstants.PREFERENCES);
 
-    private void GamePreferences () {
-        prefs = Gdx.app.getPreferences(GameConstants.PREFERENCES);
-    }
 
     public void load () {
         sound = prefs.getBoolean("sound", true);
@@ -27,6 +24,7 @@ public class GameSettings {
     }
     public void save () {
         prefs.putBoolean("sound", sound);
+        System.out.println();
         prefs.putBoolean("music", music);
         prefs.putFloat("volSound", volSound);
         prefs.putFloat("volMusic", volMusic);
