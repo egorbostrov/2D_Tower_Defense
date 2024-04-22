@@ -41,9 +41,8 @@ public class MouseController implements InputProcessor {
 
             List<Enemy> currentEnemies = this.enemyController.getEnemyList();
             DefenderType selectedType = towerController.getSelectedTowerType();
-            int availableMoney = this.level.getMoney();
 
-            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType, availableMoney) > 0) {
+            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType) > 0) {
                 towerController.clearSelectedTower();
                 return true;
             }

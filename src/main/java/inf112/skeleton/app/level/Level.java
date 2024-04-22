@@ -67,7 +67,7 @@ public class Level implements EnemyEvents {
         map = new Map();
         this.enemyController = EnemyController.getInstance();
         waveController = new WaveController(enemyController);
-        this.towerController = TowerController.getInstance();
+        this.towerController = TowerController.getInstance(this);
         //towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
         //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
         //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
@@ -155,7 +155,7 @@ public class Level implements EnemyEvents {
                 System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
                 break;
             case GROUND:
-                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, money);
+                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type);
                 if (cost != 0){
                     tile.setType(GridType.TOWER);
                     removeMoney(cost);
@@ -394,7 +394,9 @@ public class Level implements EnemyEvents {
         this.money -= amount;
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
+        System.out.println("Money remaining:" + this.money);
     }
+
 
     public int getScore(){
         return this.score;

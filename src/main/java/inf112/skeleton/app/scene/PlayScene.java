@@ -49,8 +49,8 @@ public class PlayScene extends AbstractGameScene {
         initializeResources();
         setupUI();
         setupInput(); // Now setupInput can be called safely
-        initializeGameControllers();
         this.level = new Level(game);
+        initializeGameControllers();
 
     }
 
@@ -107,9 +107,9 @@ public class PlayScene extends AbstractGameScene {
     }
 
     private void initializeGameControllers() {
-        level = new Level(game);
+        //level = new Level(game);
         this.enemyController = EnemyController.getInstance();
-        this.towerController = TowerController.getInstance();
+        this.towerController = TowerController.getInstance(this.level);
        // worldController = new WorldController(game, level, enemyController, towerController);
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
@@ -127,7 +127,7 @@ public class PlayScene extends AbstractGameScene {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("tower");
-                ontowerClicked(DefenderType.GUNNER);
+                onTowerClicked(DefenderType.GUNNER);
             }
         });
 
@@ -135,9 +135,9 @@ public class PlayScene extends AbstractGameScene {
         return layer;
     }
 
-    private void ontowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
+    private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
-        System.out.println(type + " tower built! Money remaining: " + level.getMoney());
+
     }
     //private String getClickedTowerType () {
 
