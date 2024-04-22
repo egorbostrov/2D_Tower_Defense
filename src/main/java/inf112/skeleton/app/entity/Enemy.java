@@ -137,6 +137,7 @@ public class Enemy extends GameObject{
     public void render(SpriteBatch batch){
         if (elapsedTimeStart >= spawnDelay) {
             super.render(batch);
+            hpBar.render(batch);
         }
     }
 

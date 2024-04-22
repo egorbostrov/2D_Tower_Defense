@@ -68,6 +68,7 @@ public class EnemyController {
     public void update(float elapsedTime) {
         for (Enemy enemy : enemyList) {
             enemy.update(elapsedTime);
+
         }
         removeEnemy();
     }
