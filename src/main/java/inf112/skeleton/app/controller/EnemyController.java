@@ -23,12 +23,6 @@ public class EnemyController {
         this.listener = listener;
         this.enemyList = new ArrayList<>();
         rewardList = new ArrayList<>();
-//        this.enemySpawner = new WaveEnemyFactory(zombies);
-
-        //Loop spawning all enemies from the string parameter
-        /*for(int i = 0; i < zombies.length(); i++) {
-            enemyList.add(spawner.getNext(level));
-        }*/
     }
     public static EnemyController getInstance() {
         if (instance == null) {
@@ -40,7 +34,6 @@ public class EnemyController {
 
     public void newZombie(Enemy zombie) {
         enemyList.add(zombie);
-        System.out.println("zombie added!");
     }
 
     /**
