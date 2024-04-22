@@ -28,6 +28,7 @@ import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.MusicManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+
 import static inf112.skeleton.app.util.GameConstants.*;
 
 public class PlayScene extends AbstractGameScene {
@@ -60,6 +61,7 @@ public class PlayScene extends AbstractGameScene {
     private void initializeResources() {
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
+        bitmapFont = new BitmapFont();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
@@ -165,11 +167,14 @@ public class PlayScene extends AbstractGameScene {
         if (level != null) {
             level.getMap().render(spriteBatch);
         }
-        //renderInfo(spriteBatch);
+        renderInfo(spriteBatch);
 //        if (worldController != null){
 //            worldController.render(spriteBatch);
 //        }
-        level.render(spriteBatch);
+        if (level != null){
+            level.render(spriteBatch);
+        }
+
         //controlMenu.render(spriteBatch);
         spriteBatch.end();
         //worldController.renderHitboxes(shapeRenderer);
@@ -178,7 +183,7 @@ public class PlayScene extends AbstractGameScene {
         stage.draw();
     }
 
-    public void renderInfo(SpriteBatch batch){
+    private void renderInfo(SpriteBatch batch){
         String scoreText = "Score: " + level.getScore();
         String moneyText = "Money: " + level.getMoney();
         String waveText = "Wave: " + level.getCurrentWave();
