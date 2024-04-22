@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
+import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 
 import java.util.LinkedList;
@@ -47,7 +49,7 @@ public class Enemy extends GameObject{
     }
 
     public static Enemy newEnemy(char type, Level level, float spawnDelay) {
-        Enemy newEnemy = switch(type) {
+        return switch(type) {
             case 'R'-> new Enemy(
                     START_POS.x,
                     START_POS.y,
@@ -58,7 +60,7 @@ public class Enemy extends GameObject{
                     ENEMY_REGULAR_BOUNTY,
                     ENEMY_REGULAR_SPEED,
                     (spawnDelay),
-                    MyAtlas.REGULAR_ZOMBIE);
+                    GameAssets.zombieSprite); //GameAssets.
             case 'T' -> new Enemy(
                     START_POS.x,
                     START_POS.y,
@@ -69,10 +71,9 @@ public class Enemy extends GameObject{
                     ENEMY_TANK_BOUNTY,
                     ENEMY_TANK_SPEED,
                     (spawnDelay),
-                    MyAtlas.TANK_ZOMBIE);
+                    GameAssets.zombieSprite);
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
-        return newEnemy;
     }
 
     /**
@@ -136,6 +137,7 @@ public class Enemy extends GameObject{
     public void render(SpriteBatch batch){
         if (elapsedTimeStart >= spawnDelay) {
             super.render(batch);
+            hpBar.render(batch);
         }
     }
 
@@ -245,4 +247,9 @@ public class Enemy extends GameObject{
     public float getEnemyHealth() {
         return this.currentHealth;
     }
+
+    public Rectangle getBoundsRectangle() {
+        return this.boundsRectangle;
+    }
+
 }

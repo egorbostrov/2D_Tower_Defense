@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.tower.BomberDefender;
+import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 
@@ -32,13 +33,13 @@ public class Bullet extends GameObject {
 
         switch (bulletType) {
             case GUNNER_BULLET:
-                sprite = MyAtlas.GUNNER_BULLET;
+                sprite = GameAssets.gunnerBulletSprite;
                 break;
             case SNIPER_BULLET:
-                sprite = MyAtlas.SNIPER_BULLET;
+                sprite = GameAssets.sniperBulletSprite;
                 break;
             case BOMBER_BULLET:
-                sprite = MyAtlas.BOMBER_BULLET;
+                sprite = GameAssets.bomberBulletSprite;
                 break;
         }
     }

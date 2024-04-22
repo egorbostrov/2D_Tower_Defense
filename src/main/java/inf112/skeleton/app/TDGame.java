@@ -1,40 +1,41 @@
 package inf112.skeleton.app;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
-import inf112.skeleton.app.scene.Scene;
-import inf112.skeleton.app.enums.SceneEnum;
-import inf112.skeleton.app.scene.SceneController;
+import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.scene.MenuScene;
+import inf112.skeleton.app.util.GameAssets;
 
-public class TDGame extends ApplicationAdapter {
-
-    private SceneController sceneController;
-    private ShapeRenderer render;
+public class TDGame extends Game {
+    private Level level; // No longer initialized here
     private SpriteBatch batch;
+    private ShapeRenderer renderer;
 
     @Override
     public void create() {
-        MyAtlas.init();
-        sceneController = new SceneController();
-        sceneController.setScene(SceneEnum.MenuScene);
+        // Initialize rendering tools
         batch = new SpriteBatch();
-        render = new ShapeRenderer();
+        renderer = new ShapeRenderer();
+
+        // Load assets
+        GameAssets.instance.init();
+
+        // Start at menu screen, where the user can trigger game start
+        setScreen(new MenuScene(this));
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0, 0, 0, 1); //Clear screen
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Clear buffer and screen
-        sceneController.render(batch,render);
-        sceneController.update(Gdx.graphics.getDeltaTime());
+        super.render(); // Let the current screen handle rendering
     }
 
     @Override
     public void dispose() {
-        MyAtlas.dispose();
+        if (batch != null) batch.dispose();
+        if (renderer != null) renderer.dispose();
+        GameAssets.instance.dispose();
     }
+
 }

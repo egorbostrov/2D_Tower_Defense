@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.tower.SniperDefender;
@@ -18,25 +19,43 @@ import java.util.List;
 
 public class TowerController implements Render{
 
+    private static TowerController instance;
+
     private final List<BaseDefender> defenderList;
     private BaseDefender currentDefender;
+    private boolean isTowerSelected;
+    private DefenderType selectedTowerType;
 
-    public TowerController(){
+    private Level level;
+
+
+    public TowerController(Level level){
         defenderList = new ArrayList<>();
+        this.level = level;
     }
 
-    public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type, int money){
+    public static synchronized TowerController getInstance(Level level) {
+        if (instance == null) {
+            instance = new TowerController(level);
+        }
+        return instance;
+    }
+
+    public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type){
        switch (type){
            case GUNNER:
-               if (money >= TOWER_PRICE_GUNNER){
+               if (this.level.getMoney() >= TOWER_PRICE_GUNNER){
+                   this.level.removeMoney(TOWER_PRICE_GUNNER);
                    return buildGunnerTower(x, y, enemyList);
                } break;
            case BOMBER:
-                if (money >= TOWER_PRICE_BOMBER){
+                if (this.level.getMoney() >= TOWER_PRICE_BOMBER){
+                    this.level.removeMoney(TOWER_PRICE_BOMBER);
                     return buildBomberTower(x, y, enemyList);
                 } break;
            case SNIPER:
-                if (money >= TOWER_PRICE_SNIPER){
+                if (this.level.getMoney() >= TOWER_PRICE_SNIPER){
+                    this.level.removeMoney(TOWER_PRICE_SNIPER);
                    return buildSniperTower(x, y, enemyList);
                 } break;
        }
@@ -58,6 +77,7 @@ public class TowerController implements Render{
     private int buildGunnerTower(float x, float y, List<Enemy> enemyList) {
         GunnerDefender gunnerDefender = new GunnerDefender(x, y, enemyList);
         defenderList.add(gunnerDefender);
+        System.out.println("Tower added at: " + x + ", " + y + " | Total towers: " + defenderList.size());
         return TOWER_PRICE_GUNNER;
     }
 
@@ -120,5 +140,21 @@ public class TowerController implements Render{
         for (BaseDefender tower : defenderList) {
             tower.render(renderer);
         }
+    }
+
+    // from libgdx-kev
+    public void setTowerSelected(DefenderType type) {
+        selectedTowerType = type;
+        isTowerSelected = true;
+
+    }
+
+    public boolean isTowerSelected() {
+        return this.isTowerSelected;
+    }
+
+
+    public DefenderType getSelectedTowerType() {
+        return selectedTowerType;
     }
 }

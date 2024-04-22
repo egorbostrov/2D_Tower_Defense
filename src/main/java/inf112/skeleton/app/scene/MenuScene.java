@@ -1,115 +1,147 @@
 package inf112.skeleton.app.scene;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
-import inf112.skeleton.app.ui.buttons.ButtonFactory;
-import inf112.skeleton.app.ui.buttons.OButton;
-import inf112.skeleton.app.ui.buttons.OButtonListener;
-import inf112.skeleton.app.ui.components.SimpleLayout;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import inf112.skeleton.app.TDGame;
+import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.util.GameUtil;
-import inf112.skeleton.app.enums.SceneEnum;
-import java.util.ArrayList;
-import java.util.List;
+import inf112.skeleton.app.util.MusicManager;
 
-public class MenuScene extends Scene{
+public class MenuScene extends AbstractGameScene {
+    private Stage stage;
+    private Skin uimenuskin;
+    //BUTTONS
+    private Button playButton;
+    private Button exitButton;
+    private Button optionsButton;
+    private Image bgimg;
 
-    private final String sceneName = "MENU";
-    private OButton btnPlay;
-    private OButton btnOptions;
-    private OButton btnExit;
-    private final List<OButton> buttons;
-    private final SimpleLayout simpleLayout;
-
-    public MenuScene(SceneController sceneController) {
-        super(sceneController);
-        glyphLayout.setText(bitmapFont, sceneName);
-        simpleLayout = new SimpleLayout(
-                GameConstants.TILE_WIDTH * 3,
-                GameConstants.TILE_HEIGHT * 4,
-                GameConstants.TILE_WIDTH * 10,
-                GameConstants.TILE_HEIGHT * 3,
-                110,
-                50
-        );
-
-        buttons = new ArrayList<>();
-        initButtons();
-        setListeners();
+    public MenuScene(Game game) {
+        super(game);
     }
 
-    private void setListeners() {
-        btnPlay.setButtonListener((event, x, y) -> {
-            if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(SceneEnum.PlayScene);
-            }
-        });
-        btnOptions.setButtonListener((event, x, y) -> {
-            if (event == OButtonListener.TouchEvent.RELEASE) {
-                getSceneController().setScene(SceneEnum.OptionScene);
-            }
-        });
-        btnExit.setButtonListener((event, x, y) -> {
-            if (event == OButtonListener.TouchEvent.RELEASE) {
-                MyAtlas.dispose();
-                Gdx.app.exit();
-            }
-        });
+    private void build() {
+        uimenuskin = new Skin(Gdx.files.internal(GameConstants.SKIN_UI),
+                new TextureAtlas(GameConstants.TEXTURE_ATLAS_UI));
+
+        Table layerBackground = buildBg();
+        Table layerControls = buildControls();
+
+        stage.clear();
+        Stack stack = new Stack();
+        stage.addActor(stack);
+        stack.setSize(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT);
+        stack.add(layerBackground);
+        stack.add(layerControls);
+
     }
 
-    private void initButtons() {
-        final ButtonFactory bf = new ButtonFactory(GameConstants.TILE_WIDTH * 1.5f,
-                GameConstants.TILE_HEIGHT * 1.5f);
-        btnPlay = bf.createOButton("Play", MyAtlas.PATH_TILE, true);
-        btnOptions = bf.createOButton("OPTIONS", MyAtlas.GROUND_TILE, true);
-        btnExit = bf.createOButton("EXIT", MyAtlas.GROUND_TILE, true);
-
-        buttons.add(btnPlay);
-        buttons.add(btnOptions);
-        buttons.add(btnExit);
-
-        simpleLayout.addComponents(buttons);
-        simpleLayout.pack();
+    private Table buildBg() {   // move this to menuscenemenu later on.
+        Table layer = new Table();
+        layer.setFillParent(true);
+        // + Background
+        bgimg = new Image(uimenuskin, "background");
+        bgimg.setScaling(Scaling.stretch);
+        bgimg.setFillParent(true);
+        layer.add(bgimg).expand().fill();
+        return layer;
     }
 
+    private Table buildControls() { // move this to menuscenemenu later on.
+        Table layer = new Table();
+        // + Play Button
+        playButton = new Button(uimenuskin, "play");
+        layer.add(playButton);
+        playButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("play was pressed");
+                onPlayClicked();
+            }
+        });
+        layer.row();
+
+
+        //+ Options Button
+        optionsButton = new Button(uimenuskin, "options");
+        layer.add(optionsButton);
+        optionsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onOptionsClicked();
+            }
+        });
+        layer.row();
+
+        //+ exit button
+        exitButton = new Button(uimenuskin, "exit");
+        layer.add(exitButton);
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onExitClicked();
+            }
+        });
+        return layer;
+    }
+
+    private void onExitClicked() {
+        System.exit(0);
+    }
+
+    private void onPlayClicked () {
+        game.setScreen(new PlayScene(game));
+    }
+
+    private void onOptionsClicked () {
+        game.setScreen(new OptionScene(game));
+
+    }
     @Override
-    public void render(SpriteBatch sb, ShapeRenderer sr) {
-        super.render(sb, sr);
-
+    public void render (float deltaTime) {
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        sb.begin();
-        GameUtil.renderCenter(sceneName, sb, bitmapFont);
-        simpleLayout.render(sb);
-        sb.end();
+        stage.act(deltaTime);
+        stage.draw();
     }
 
     @Override
-    public void update(float deltaTime) {
-
+    public void resize (int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
-
     @Override
-    public void updateInputs(float x, float y) {
-
+    public void hide () {
+        MusicManager.stopCurrentMusic();
+        stage.dispose();
+        uimenuskin.dispose();
     }
-
     @Override
-    public void touchDown(float x, float y, int pointer, int button) {
-        buttons.stream()
-                .filter(b -> b.contains(x, y))
-                .findFirst()
-                .ifPresent(b -> b.touchDown(x, y));
+    public void show () {
+        MusicManager.play("bumer.ogg", true);
+        stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
+        Gdx.input.setInputProcessor(stage);
+        build();
     }
-
-    @Override
-    public void touchUp(float x, float y, int pointer, int button) {
-        buttons.forEach(b -> b.setPressed(false));
-        buttons.stream()
-                .filter(b -> b.contains(x, y))
-                .findFirst()
-                .ifPresent(b -> b.touchRelease(x, y));
-    }
+    @Override public void pause () { }
 }

@@ -1,41 +1,53 @@
 zombie.png
-	size: 1024, 64
-	repeat: none
+size:1024,512
+repeat:none
+background
+bounds:2,150,637,358
+exit-dn
+bounds:132,20,128,128
+exit-up
+bounds:641,380,128,128
 gritty1
-	bounds: 0, 0, 16, 16
+bounds:20,2,16,16
 gritty2
-	bounds: 48, 0, 16, 16
+bounds:821,362,16,16
 gritty3
-	bounds: 96, 0, 16, 16
+bounds:2,2,16,16
 gritty4
-	bounds: 144, 0, 16, 16
+bounds:392,82,16,16
 gunna0
-	bounds: 192, 0, 48, 48
+bounds:771,330,48,48
 gunna2
-	bounds: 240, 0, 48, 48
+bounds:392,100,48,48
 gunna1
-	bounds: 240, 0, 48, 48
+bounds:392,100,48,48
 gunna3
-	bounds: 288, 0, 48, 48
+bounds:641,200,48,48
 gunna5
-	bounds: 336, 0, 48, 48
+bounds:901,460,48,48
+options-dn
+bounds:771,380,128,128
+options-up
+bounds:641,250,128,128
+p500
+bounds:659,182,16,16
 path
-	bounds: 384, 0, 16, 16
-point500
-	bounds: 432, 0, 16, 16
-rocky1
-	bounds: 480, 0, 16, 16
+bounds:691,232,16,16
+play-dn
+bounds:2,20,128,128
+play-up
+bounds:262,20,128,128
 rocky2
-	bounds: 528, 0, 16, 16
+bounds:771,312,16,16
 rocky3
-	bounds: 576, 0, 16, 16
+bounds:691,214,16,16
 rocky4
-	bounds: 624, 0, 16, 16
+bounds:951,492,16,16
 sandy1
-	bounds: 672, 0, 16, 16
+bounds:641,164,16,16
 sandy2
-	bounds: 720, 0, 16, 16
+bounds:901,442,16,16
 sandy3
-	bounds: 768, 0, 16, 16
+bounds:641,182,16,16
 sandy4
-	bounds: 816, 0, 16, 16
+bounds:442,132,16,16
