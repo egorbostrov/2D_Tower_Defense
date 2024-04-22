@@ -58,7 +58,7 @@ public class Enemy extends GameObject{
                     ENEMY_REGULAR_START_HP,
                     level.getMap().getDirections(),
                     ENEMY_REGULAR_BOUNTY,
-                    EMEMY_REGULAR_SPEED,
+                    ENEMY_REGULAR_SPEED,
                     (spawnDelay),
                     GameAssets.zombieSprite); //GameAssets.
             case 'T' -> new Enemy(
