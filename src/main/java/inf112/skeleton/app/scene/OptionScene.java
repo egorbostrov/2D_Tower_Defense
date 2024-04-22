@@ -19,9 +19,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
+import inf112.skeleton.app.util.MusicManager;
 
 public class OptionScene extends AbstractGameScene {
-    private static final String TAG = OptionScene.class.getName();
     private final String stateName = "OPTION MENU";
     private Stage stage;
     private TextureAtlas atlas;
@@ -32,6 +32,7 @@ public class OptionScene extends AbstractGameScene {
     private Slider sldSound;
     private CheckBox chkMusic;
     private Slider sldMusic;
+    private CheckBox chkFullscreen;
 
     private Image bgImg;
     private Skin uiskin;
@@ -40,6 +41,7 @@ public class OptionScene extends AbstractGameScene {
         super(game);
     }
 
+    // Build the scene
     private void build() {
         skin = new Skin(Gdx.files.internal(GameConstants.SKIN_UI),
                 new TextureAtlas(GameConstants.TEXTURE_ATLAS_UI));
@@ -58,26 +60,27 @@ public class OptionScene extends AbstractGameScene {
 
     }
 
+    // Build the controls layer.
     private Table buildControls () {
         Table layer = new Table();
-        // + Title: "Audio"
+        // audio-options
         layer.pad(10, 10, 0, 10);
-        layer.add(new Label("Audio", uiskin, "default-font", Color.ORANGE)).colspan(3);
+        layer.add(new Label("Options", uiskin, "default-font", Color.ORANGE)).colspan(3);
         layer.row();
         layer.columnDefaults(0).padRight(10);
         layer.columnDefaults(1).padRight(10);
         // + Checkbox, "Sound" label, sound volume slider
-        chkSound = new CheckBox("", uiskin);
+        chkSound = new CheckBox("Sound", uiskin);
         layer.add(chkSound);
-        layer.add(new Label("Sound", uiskin));
-        sldSound = new Slider(0.0f, 2.0f, 0.1f, false, uiskin);
+        layer.add(new Label("Volume", uiskin));
+        sldSound = new Slider(0.0f, 1.0f, 0.1f, false, uiskin);
         layer.add(sldSound);
         layer.row();
         // + Checkbox, "Music" label, music volume slider
-        chkMusic = new CheckBox("", uiskin);
+        chkMusic = new CheckBox("Music", uiskin);
         layer.add(chkMusic);
-        layer.add(new Label("Music", uiskin));
-        sldMusic = new Slider(0.0f, 2.0f, 0.1f, false, uiskin);
+        layer.add(new Label("Volume", uiskin));
+        sldMusic = new Slider(0.0f, 1.0f, 0.1f, false, uiskin);
         layer.add(sldMusic);
         layer.row();
         saveButton = new TextButton("Save", uiskin);
@@ -95,9 +98,15 @@ public class OptionScene extends AbstractGameScene {
                 onCancelClicked();
             }
         });
+        // video-options
+        chkFullscreen = new CheckBox("Fullscreen", uiskin);
+        layer.add(chkFullscreen);
+
         return layer;
+
     }
 
+    // Builds the background-layer.
     private Table buildBg() {
         Table layer = new Table();
         layer.setFillParent(true);
@@ -109,32 +118,40 @@ public class OptionScene extends AbstractGameScene {
         return layer;
     }
 
+
+    // Load settings from My Preferences and change the buttons/sliders to their corresponding values.
     private void loadSettings() {
         GameSettings prefs = GameSettings.instance;
         prefs.load();
-        chkSound.setChecked(prefs.sound);
-        sldSound.setValue(prefs.volSound);
-        chkMusic.setChecked(prefs.music);
-        sldMusic.setValue(prefs.volMusic);
+        chkSound.setChecked(prefs.getSound());
+        sldSound.setValue(prefs.getVolSound());
+        chkMusic.setChecked(prefs.getMusic());
+        sldMusic.setValue(prefs.getVolMusic());
+        chkFullscreen.setChecked(prefs.getFullscreen());
     }
 
+    // Save selected settings to My Preferences, using the corresponding values set by the user.
     private void saveSettings() {
         GameSettings prefs = GameSettings.instance;
-        prefs.sound = chkSound.isChecked();
-        prefs.volSound = sldSound.getValue();
-        prefs.music = chkMusic.isChecked();
-        prefs.volMusic = sldMusic.getValue();
+        prefs.setSound(chkSound.isChecked());;
+        prefs.setVolSound(sldSound.getValue());
+        prefs.setMusic(chkMusic.isChecked());
+        prefs.setVolMusic(sldMusic.getValue());
+        prefs.setFullscreen(chkFullscreen.isChecked());
         prefs.save();
     }
 
+    // Method for Save button
     private void onSaveClicked() {
         saveSettings();
         onCancelClicked();
     }
 
+    // Method for Cancel button
     private void onCancelClicked() {
         game.setScreen(new MenuScene(game));
     }
+
     @Override
     public void render (float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -155,6 +172,7 @@ public class OptionScene extends AbstractGameScene {
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();
+        loadSettings();
     }
 
     @Override

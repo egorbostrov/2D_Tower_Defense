@@ -25,6 +25,7 @@ import inf112.skeleton.app.level.Level;
 //import inf112.skeleton.app.scene.WorldController;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -217,8 +218,9 @@ public class PlayScene extends AbstractGameScene {
         //controlMenu = new MainControlMenu(level, towerController);
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-        MusicManager.play("chastushki.ogg", true);
+        if(GameSettings.getMusic() == true) {
+            MusicManager.play("chastushki.ogg", true);
+        }
 
         // temporary multiplexer to use both stage ui buttons and configurer mousecontroller bs so that i can place the towers. (temp temp temp!!!)
 
