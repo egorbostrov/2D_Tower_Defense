@@ -2,10 +2,19 @@ package inf112.skeleton.app.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 public class MusicManager {
     private static Music currentMusic;
     private static String currentTrack = "";
+
+    // SFX
+    // Shooting sfx
+    private static Sound sniperShotSound = Gdx.audio.newSound(Gdx.files.internal("sniper_shot.ogg"));
+    private static Sound gunnerShotSound = Gdx.audio.newSound(Gdx.files.internal("gunner_shot.ogg"));
+    // Enemy sfx
+    private static Sound zombieDeathScream = Gdx.audio.newSound(Gdx.files.internal("zombie_death.ogg"));
+
 
     public static void play(String filename, boolean loop) {
         if (GameSettings.getMusic()!=false) {
@@ -37,6 +46,21 @@ public class MusicManager {
     }
     public static boolean isMusicPlaying() {
         return currentMusic != null && currentMusic.isPlaying();
+    }
+
+
+    // Game SFX
+    // Defenders
+    public static void playSniperShot() {
+        sniperShotSound.play();
+    }
+    public static void playGunnerShot() {
+        gunnerShotSound.play();
+    }
+
+    // Enemies
+    public static void playZombieDeathScream() {
+        zombieDeathScream.play();
     }
 
 

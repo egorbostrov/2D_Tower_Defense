@@ -148,7 +148,7 @@ public class MenuScene extends AbstractGameScene {
         if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
             MusicManager.stopCurrentMusic(); // stop the music.
         } else {
-            MusicManager.play("bumer.ogg", true);
+            MusicManager.play("menumusic.ogg", true);
         }
 
     }

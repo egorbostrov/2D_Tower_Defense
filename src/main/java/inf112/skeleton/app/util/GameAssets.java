@@ -14,6 +14,7 @@ public class GameAssets implements Disposable {
     public static TextureAtlas.AtlasRegion playButtonUp;
     public static TextureAtlas.AtlasRegion playButtonDown;
     public static TextureAtlas.AtlasRegion gunnerTexture;
+    public static TextureAtlas.AtlasRegion sniperTexture;
     public static TextureAtlas.AtlasRegion zombieTexture;
     public static TextureAtlas.AtlasRegion pathTexture;
     public static TextureAtlas.AtlasRegion groundTexture;
@@ -49,6 +50,7 @@ public class GameAssets implements Disposable {
         playButtonUp = atlas.findRegion("play-up");
         playButtonDown = atlas.findRegion("play-dn");
         gunnerTexture = atlas.findRegion("gunna0");
+        sniperTexture = atlas.findRegion("snipa0");
         zombieTexture = atlas.findRegion("gunna0");
         pathTexture = atlas.findRegion("path");
         groundTexture = atlas.findRegion("gritty2");

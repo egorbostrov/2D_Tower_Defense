@@ -233,7 +233,7 @@ public class PlayScene extends AbstractGameScene {
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
         if(GameSettings.getMusic() == true) {
-            MusicManager.play("chastushki.ogg", true);
+            MusicManager.play("gamemusic.ogg", true);
         }
 
         // temporary multiplexer to use both stage ui buttons and configurer mousecontroller bs so that i can place the towers. (temp temp temp!!!)
