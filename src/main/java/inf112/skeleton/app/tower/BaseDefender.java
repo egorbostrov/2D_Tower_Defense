@@ -41,7 +41,6 @@ public abstract class BaseDefender extends GameObject {
         super(xCord, yCord, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
         this.enemies = enemies;
         this.range = GameConstants.TOWER_RANGE;
-
         attackPrice = GameConstants.TOWER_ATTACK_PRICE;
         rangePrice = GameConstants.TOWER_RANGE_PRICE;
         speedPrice = GameConstants.TOWER_SPEED_PRICE;
@@ -272,5 +271,6 @@ public abstract class BaseDefender extends GameObject {
     public DefenderType getDefenderType() {
         return defenderType;
     }
+
 
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.tower.SniperDefender;
@@ -25,30 +26,36 @@ public class TowerController implements Render{
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
 
+    private Level level;
 
-    public TowerController(){
+
+    public TowerController(Level level){
         defenderList = new ArrayList<>();
+        this.level = level;
     }
 
-    public static synchronized TowerController getInstance() {
+    public static synchronized TowerController getInstance(Level level) {
         if (instance == null) {
-            instance = new TowerController();
+            instance = new TowerController(level);
         }
         return instance;
     }
 
-    public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type, int money){
+    public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type){
        switch (type){
            case GUNNER:
-               if (money >= TOWER_PRICE_GUNNER){
+               if (this.level.getMoney() >= TOWER_PRICE_GUNNER){
+                   this.level.removeMoney(TOWER_PRICE_GUNNER);
                    return buildGunnerTower(x, y, enemyList);
                } break;
            case BOMBER:
-                if (money >= TOWER_PRICE_BOMBER){
+                if (this.level.getMoney() >= TOWER_PRICE_BOMBER){
+                    this.level.removeMoney(TOWER_PRICE_BOMBER);
                     return buildBomberTower(x, y, enemyList);
                 } break;
            case SNIPER:
-                if (money >= TOWER_PRICE_SNIPER){
+                if (this.level.getMoney() >= TOWER_PRICE_SNIPER){
+                    this.level.removeMoney(TOWER_PRICE_SNIPER);
                    return buildSniperTower(x, y, enemyList);
                 } break;
        }
