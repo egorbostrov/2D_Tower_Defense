@@ -47,7 +47,7 @@ public class Enemy extends GameObject{
         this.elapsedTimeStart = 0;
 
         getNextDistance();
-        hpBar = new HealthBar(x, y - height / 5, width, height / 10, currentHealth);
+        hpBar = new HealthBar(x + 5, y + this.height, width - 10, height / 10, currentHealth);
     }
 
     public static Enemy newEnemy(char type, Level level, float spawnDelay) {
@@ -194,7 +194,7 @@ public class Enemy extends GameObject{
         }
         removeSlowMode(elapsedTime);
 
-        hpBar.updatePosition(position.x, position.y + this.height);
+        hpBar.updatePosition(position.x + 5, position.y + this.height);
 
     }
 
