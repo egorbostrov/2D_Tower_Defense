@@ -8,13 +8,17 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.controller.EnemyController;
@@ -33,13 +37,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import static inf112.skeleton.app.util.GameConstants.*;
 
 public class PlayScene extends AbstractGameScene {
-    //private WorldController worldController;
     private boolean paused;
     private Stage stage;
     private Skin uimenuskin;
-    private Button towerButton;
+    private Button gunnerButton;
     private SpriteBatch spriteBatch;
-    private Button tower2Button;
+    private Button sniperButton;
     private Level level;
     private EnemyController enemyController;
     private TowerController towerController;
@@ -127,16 +130,25 @@ public class PlayScene extends AbstractGameScene {
         layer.setFillParent(true);
         layer.bottom();
 
-        towerButton = new Button(uimenuskin, "tower");
-        layer.add(towerButton).padBottom(10);  // Add padding at the bottom if needed
-        towerButton.addListener(new ChangeListener() {
+        gunnerButton = new Button(uimenuskin, "tower");
+        layer.add(gunnerButton).padBottom(10);  // Add padding at the bottom if needed
+        gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("tower");
+                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
 
+        sniperButton = new Button(uimenuskin, "tower");
+        layer.add(sniperButton).padBottom(10);  // Add padding at the bottom if needed
+        sniperButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("sniper selected");
+                onTowerClicked(DefenderType.SNIPER);
+            }
+        });
         layer.row();
         return layer;
     }
@@ -208,6 +220,8 @@ public class PlayScene extends AbstractGameScene {
 
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
     }
+
+
 
     @Override
     public void resize (int width, int height) {

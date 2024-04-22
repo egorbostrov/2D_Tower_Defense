@@ -12,6 +12,9 @@
       "file": "default.fnt"
     }
   },
+  com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+    default: { font: default-font, fontColor: white }
+  },
   com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
     play: { down: play-dn, up: play-up },
     options: { down: options-dn, up: options-up },
