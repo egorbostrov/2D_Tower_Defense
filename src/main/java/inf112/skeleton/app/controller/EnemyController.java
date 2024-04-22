@@ -15,18 +15,19 @@ public class EnemyController {
     private final List<Enemy> enemyList;
     private final List<Reward> rewardList;
     private static EnemyController instance;
-    private EnemyEvents listener;
+
+    private Level level;
 
 
 
-    public EnemyController(/*, String zombies*/){
-        this.listener = listener;
+    public EnemyController(Level level){
+        this.level = level;
         this.enemyList = new ArrayList<>();
         rewardList = new ArrayList<>();
     }
-    public static EnemyController getInstance() {
+    public static EnemyController getInstance(Level level) {
         if (instance == null) {
-            instance = new EnemyController();
+            instance = new EnemyController(level);
         }
         return instance;
     }
@@ -44,11 +45,11 @@ public class EnemyController {
         for (Enemy e : enemyList) {
             if (e.position.x + e.size.x > GameConstants.SCREEN_WIDTH || e.position.y + e.size.y > GameConstants.SCREEN_HEIGHT) {
                 shouldRemoved.add(e);
-                if (listener != null) listener.enemyCompletedPath();
+                level.enemyCompletedPath();
             }
             if (!e.isAlive()) {
                 shouldRemoved.add(e);
-                if (listener != null) listener.enemyKilled(e.getReward());
+                level.enemyKilled(e.getReward());
             }
         }
         enemyList.removeAll(shouldRemoved);
@@ -67,6 +68,7 @@ public class EnemyController {
     public void update(float elapsedTime) {
         for (Enemy enemy : enemyList) {
             enemy.update(elapsedTime);
+
         }
         removeEnemy();
     }

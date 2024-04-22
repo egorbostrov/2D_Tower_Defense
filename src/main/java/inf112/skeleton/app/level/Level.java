@@ -65,7 +65,7 @@ public class Level implements EnemyEvents {
         userHealth = GameConstants.REMAINING_HEALTH;
 
         map = new Map();
-        this.enemyController = EnemyController.getInstance();
+        this.enemyController = EnemyController.getInstance(this);
         waveController = new WaveController(enemyController);
         this.towerController = TowerController.getInstance(this);
         //towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
@@ -192,6 +192,7 @@ public class Level implements EnemyEvents {
         addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
+        System.out.println("get money");
     }
 
     /**

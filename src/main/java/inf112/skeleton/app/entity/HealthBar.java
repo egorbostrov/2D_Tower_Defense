@@ -10,11 +10,15 @@ public class HealthBar extends GameObject {
 
 
     private final ProgressBar healthBar;
+    private float x;
+    private float y;
 
     private float timer = 0;
 
     public HealthBar(float x, float y, float width, float height, float startHealth){
         super(x, y, width, height);
+        this.x = x;
+        this.y = y;
         ProgressBarStyle barStyle = new ProgressBarStyle();
         barStyle.background = HealthBarUtils.coloredDrawable((int) width, (int) height, Color.RED);
         barStyle.knob = HealthBarUtils.coloredDrawable((int) width, (int) height, Color.GREEN);
@@ -31,6 +35,11 @@ public class HealthBar extends GameObject {
 
     public void setHealth(float newHealth) {
         healthBar.setValue(newHealth);
+    }
+
+    public void setPos(float x, float y){
+        this.x = x;
+        this.y = y;
     }
 
 
