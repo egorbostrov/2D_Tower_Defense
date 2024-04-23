@@ -176,7 +176,7 @@ public abstract class BaseDefender extends GameObject {
      * @param deltaTime time since last frame update
      */
     private void startFiring(float deltaTime){
-        //rappidFire();
+        rappidFire();
         speedCounter += deltaTime;
         if (speedCounter >= 1f / speed) {
             speedCounter = 0;
