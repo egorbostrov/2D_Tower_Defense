@@ -35,8 +35,8 @@ public class Map implements Render{
 
     private void selectFileHandle() {
         switch (selectedMap) {
-            case 1 -> filehandle = Gdx.files.internal("map1.txt");
-            case 2 -> filehandle = Gdx.files.internal("map2.txt");
+            case 1 -> filehandle = Gdx.files.internal("maps/map1.txt");
+            case 2 -> filehandle = Gdx.files.internal("maps/map2.txt");
             default -> throw new IllegalArgumentException("Found no map for the value:  " + selectedMap);
         }
     }
