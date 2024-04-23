@@ -38,7 +38,6 @@ public class HealthBar extends GameObject {
     }
 
 
-
     public Drawable createDrawable(int width, int height, Color color){
         Pixmap map = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         map.setColor(color);
