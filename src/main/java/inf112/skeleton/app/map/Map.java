@@ -1,97 +1,104 @@
 package inf112.skeleton.app.map;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 import inf112.skeleton.app.map.Board;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.controller.Render;
 
 public class Map implements Render{
-
-    private final LinkedList<Direction> directions;
-    private final Board board;
+    private FileHandle filehandle;
+    private LinkedList<Direction> directions;
+    private Board board;
+    private final int selectedMap;
 
     /**
      * Hard coded map using directions that the path has
      */
-    public Map() {
-        directions = new LinkedList<>();
-        directions.add(Direction.UP);
-        directions.add(Direction.UP);
-        directions.add(Direction.UP);
-        directions.add(Direction.UP);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.DOWN);
-        directions.add(Direction.DOWN);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
-        directions.add(Direction.RIGHT);
+    public Map(int mapSelection) {
+        this.selectedMap = mapSelection;
+        initializeMap();
+    }
 
-
-        Set<Vector2> pathTiles = new HashSet<>();
-        pathTiles.add(new Vector2(0, 0));
-        pathTiles.add(new Vector2(0, 1));
-        pathTiles.add(new Vector2(0, 2));
-        pathTiles.add(new Vector2(0, 3));
-        pathTiles.add(new Vector2(1, 3));
-        pathTiles.add(new Vector2(2, 3));
-        pathTiles.add(new Vector2(2, 2));
-        pathTiles.add(new Vector2(2, 1));
-        pathTiles.add(new Vector2(3, 1));
-        pathTiles.add(new Vector2(4, 1));
-        pathTiles.add(new Vector2(5, 1));
-        pathTiles.add(new Vector2(6, 1));
-        pathTiles.add(new Vector2(7, 1));
-        pathTiles.add(new Vector2(8, 1));
-        pathTiles.add(new Vector2(9, 1));
-        pathTiles.add(new Vector2(10, 1));
-        pathTiles.add(new Vector2(11, 1));
-        pathTiles.add(new Vector2(12, 1));
-        pathTiles.add(new Vector2(13, 1));
-        pathTiles.add(new Vector2(14, 1));
-        pathTiles.add(new Vector2(15, 1));
-        pathTiles.add(new Vector2(16, 1));
-        pathTiles.add(new Vector2(17, 1));
-        pathTiles.add(new Vector2(18, 1));
-        pathTiles.add(new Vector2(19, 1));
-        pathTiles.add(new Vector2(20, 1));
-        pathTiles.add(new Vector2(21, 1));
-        pathTiles.add(new Vector2(22, 1));
-        pathTiles.add(new Vector2(23, 1));
-        pathTiles.add(new Vector2(24, 1));
-        pathTiles.add(new Vector2(25, 1));
-
-
-
+    private void initializeMap() {
+        selectFileHandle();
+        String fileContent = filehandle.readString();
+        this.directions = createDirectionList(fileContent);
+        Set<Vector2> pathTiles = createPathSet(fileContent);
         board = new Board(pathTiles);
     }
+
+    private void selectFileHandle() {
+        switch (selectedMap) {
+            case 1 -> filehandle = Gdx.files.internal("map1.txt");
+            case 2 -> filehandle = Gdx.files.internal("map2.txt");
+            default -> throw new IllegalArgumentException("Found no map for the value:  " + selectedMap);
+        }
+    }
+
+    private LinkedList<Direction> createDirectionList(String fileContent) {
+        LinkedList<Direction> directions = new LinkedList<>();
+        String[] lines = fileContent.split("\n");
+        boolean readingDir = false;
+
+        for(String line : lines) {
+            if(line.startsWith("Directions:")) {
+                readingDir = true;
+                continue;
+            }
+            if(line.startsWith("Paths:")) {
+                readingDir = false;
+                break;
+            }
+            if (readingDir) {
+                String[] dirs = line.split(",\\s*");
+                for(String dir : dirs) {
+                    dir = dir.trim();
+                    switch (dir) {
+                        case "U" -> directions.add(Direction.UP);
+                        case "D" -> directions.add(Direction.DOWN);
+                        case "L" -> directions.add(Direction.LEFT);
+                        case "R" -> directions.add(Direction.RIGHT);
+                    }
+                }
+            }
+        }
+        return directions;
+    }
+
+//Some help from chatGPT with the string handling here.
+    private Set<Vector2> createPathSet(String fileContent) {
+        Set<Vector2> pathTiles = new HashSet<>();
+        String[] lines = fileContent.split("\n");
+        boolean readingPath = false;
+
+        for(String line : lines) {
+            if (line.startsWith("Paths:")) {
+                readingPath = true;
+                continue;
+            }
+            if(readingPath) {
+                for(String coordinate : line.split(", ")) {
+                    String[] parts = coordinate.trim().replace("(", "").replace(")","").split(",");
+                    float x = Float.parseFloat(parts[0]);
+                    float y = Float.parseFloat(parts[1]);
+                    pathTiles.add(new Vector2(x, y));
+                }
+            }
+        }
+        return pathTiles;
+    }
+
 
 
     public void render(ShapeRenderer renderer) {
