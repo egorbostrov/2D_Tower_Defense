@@ -183,6 +183,7 @@ public class PlayScene extends AbstractGameScene {
         stage.draw();
     }
 
+
     private void renderInfo(SpriteBatch batch){
         String scoreText = "Score: " + level.getScore();
         String moneyText = "Money: " + level.getMoney();
