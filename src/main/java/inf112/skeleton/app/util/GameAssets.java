@@ -19,7 +19,12 @@ public class GameAssets implements Disposable {
     public static TextureAtlas.AtlasRegion bombTexture;
     public static TextureAtlas.AtlasRegion zombieTexture;
     public static TextureAtlas.AtlasRegion pathTexture;
+
     public static TextureAtlas.AtlasRegion groundTexture;
+    public static TextureAtlas.AtlasRegion groundTexture2;
+    public static TextureAtlas.AtlasRegion groundTexture3;
+    public static TextureAtlas.AtlasRegion groundTexture4;
+
     public static Sprite bomberSprite;
     public static Sprite zombieSprite;
     public static Sprite zombieslowedSprite;
@@ -57,7 +62,10 @@ public class GameAssets implements Disposable {
         zombieTexture = atlas.findRegion("gunna0");
         pathTexture = atlas.findRegion("path");
         bombTexture = atlas.findRegion("bomb");
-        groundTexture = atlas.findRegion("gritty2");
+        groundTexture = atlas.findRegion("gritty1");
+        groundTexture2 = atlas.findRegion("gritty2");
+        groundTexture3 = atlas.findRegion("gritty3");
+        groundTexture4 = atlas.findRegion("gritty4");
 
         // sprite form
         gunnerSprite = createSprite(gunnerTexture);
