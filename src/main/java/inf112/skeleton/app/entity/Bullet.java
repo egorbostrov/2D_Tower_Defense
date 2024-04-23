@@ -100,6 +100,7 @@ public class Bullet extends GameObject {
     @Override
     public void render(ShapeRenderer renderer) {
         super.render(renderer);
+
     }
 
     /**

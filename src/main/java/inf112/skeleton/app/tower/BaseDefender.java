@@ -50,13 +50,14 @@ public abstract class BaseDefender extends GameObject {
 
     @Override
     public void render(ShapeRenderer renderer) {
-        renderer.setColor(Color.RED);
-        renderer.circle(center.x, center.y, range);
+        renderer.setColor(Color.RED); // Set the color to red
+        renderer.circle(center.x, center.y, range); // Draw the circle with 'range' as the radius
 
         for (Bullet bullet : bullets) {
-            bullet.render(renderer);
+            bullet.render(renderer); // Ensure Bullet's render method also wraps drawing commands correctly
         }
     }
+
 
     @Override
     public void update(float deltaTime){

@@ -193,16 +193,15 @@ public class PlayScene extends AbstractGameScene {
             level.getMap().render(spriteBatch);
         }
         renderInfo(spriteBatch);
-//        if (worldController != null){
-//            worldController.render(spriteBatch);
-//        }
         if (level != null){
             level.render(spriteBatch);
         }
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        towerController.render(shapeRenderer);
         //controlMenu.render(spriteBatch);
         spriteBatch.end();
-        //worldController.renderHitboxes(shapeRenderer);
+        shapeRenderer.end();
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
