@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WaveController {
+    private FileHandle filehandle;
+    private final int selectedWave;
     EnemyController enemyController;
     float spawnDelay;
     WaveEnemyFactory enemyFactory;
@@ -16,16 +18,25 @@ public class WaveController {
     int waveIndex;
     float zombieIndex;
 
-    public WaveController(EnemyController enemyController) {
+    public WaveController(EnemyController enemyController, int selectedWave) {
         this.enemyController = enemyController;
-        this.spawnDelay = 5;
+        this.selectedWave = selectedWave;
 
-        this.wavePatterns = readWavePatternsFromFile("WavePatterns.txt");
+        selectFileHandle();
+        this.wavePatterns = readWavePatternsFromFile(filehandle.readString());
+
+        this.spawnDelay = 5;
     }
 
-    private List<String> readWavePatternsFromFile(String fileName) {
-        FileHandle fileHandle = Gdx.files.internal(fileName);
-        String fileContent = fileHandle.readString();
+    private void selectFileHandle() {
+        switch(selectedWave) {
+            case 1 -> filehandle = Gdx.files.internal("maps/WavePattern1.txt");
+            case 2 -> filehandle = Gdx.files.internal("maps/WavePattern2.txt");
+            default -> throw new IllegalArgumentException("Found no wave for the value:  " + selectedWave);
+        }
+    }
+
+    private List<String> readWavePatternsFromFile(String fileContent) {
         String[] lines = fileContent.split("\n");
         List<String> cleanLines = new ArrayList<>();
 
