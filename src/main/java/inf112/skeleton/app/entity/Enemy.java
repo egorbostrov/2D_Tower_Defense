@@ -34,8 +34,10 @@ public class Enemy extends GameObject{
     private final HealthBar hpBar;
 
     private final float height;
+    private boolean doubleSpeed;
     public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, int speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
+        this.doubleSpeed = false;
         this.height = height;
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
@@ -131,10 +133,7 @@ public class Enemy extends GameObject{
         }
     }
 
-    @Override
-    public void render(ShapeRenderer renderer){
-        hpBar.render(renderer);
-    }
+
     @Override
     public void render(SpriteBatch batch){
         if (elapsedTimeStart >= spawnDelay) {
@@ -190,7 +189,6 @@ public class Enemy extends GameObject{
                 default:
                     break;
             }
-
         }
         removeSlowMode(elapsedTime);
 
@@ -209,11 +207,17 @@ public class Enemy extends GameObject{
     }
 
     public void doubleSpeedClicked(){
-        speed *= 2;
+        if(!this.doubleSpeed){
+            speed *= 2;
+            this.doubleSpeed = true;
+        }
     }
 
     public void normalSpeedClicked(){
-        speed /= 2;
+        if(this.doubleSpeed){
+            speed /= 2;
+            this.doubleSpeed = false;
+        }
     }
 
     /**

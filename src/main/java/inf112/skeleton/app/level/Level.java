@@ -414,4 +414,7 @@ public class Level implements EnemyEvents {
     public int getEnemiesKilled(){
         return this.enemiesKilled;
     }
+    public int getUserHealth(){
+        return this.userHealth;
+    }
 }
