@@ -55,6 +55,7 @@ public class EnemyController {
         enemyList.removeAll(shouldRemoved);
     }
 
+
     public void doubleSpeedClicked() {
     }
 
