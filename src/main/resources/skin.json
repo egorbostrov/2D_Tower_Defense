@@ -22,6 +22,7 @@
     snipertower: { down :board_snipa_down, up: board_snipa},
     bombertower: { down: board_bomba_down, up: board_bomba}
     exit: { down: exit_dn, up: exit_up},
+    playoptions: { down: board_cog_down, up: board_cog}
   },
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
     "default": {

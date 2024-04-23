@@ -33,7 +33,7 @@ public class OptionScene extends AbstractGameScene {
     private CheckBox chkMusic;
     private Slider sldMusic;
     private CheckBox chkFullscreen;
-
+    private static boolean fromPlayScene;
     private Image bgImg;
     private Skin uiskin;
 
@@ -141,6 +141,14 @@ public class OptionScene extends AbstractGameScene {
         prefs.save();
     }
 
+    // Getter and setter to see if options was triggered from PlayScene
+    public static boolean getFromPlayScene() {
+        return fromPlayScene;
+    }
+
+    public static void setFromPlayScene() {
+        fromPlayScene = true;
+    }
     // Method for Save button
     private void onSaveClicked() {
         saveSettings();
@@ -149,7 +157,12 @@ public class OptionScene extends AbstractGameScene {
 
     // Method for Cancel button
     private void onCancelClicked() {
-        game.setScreen(new MenuScene(game));
+        if(getFromPlayScene()) {
+            game.setScreen(new PlayScene(game));
+        }
+        else {
+            game.setScreen(new MenuScene(game));
+        }
     }
 
     @Override

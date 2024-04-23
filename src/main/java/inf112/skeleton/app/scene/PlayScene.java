@@ -44,6 +44,7 @@ public class PlayScene extends AbstractGameScene {
     private Button gunnerButton;
     private Button sniperButton;
     private Button bomberButton;
+    private Button optionsButton;
     private SpriteBatch spriteBatch;
     private Level level;
     private EnemyController enemyController;
@@ -114,9 +115,9 @@ public class PlayScene extends AbstractGameScene {
                 new TextureAtlas(GameConstants.TEXTURE_ATLAS_UI));
         Table layerControls = buildControls();
         Stack stack = new Stack();
-        stage.addActor(stack);
         stack.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stack.add(layerControls);
+        stage.addActor(stack);
     }
 
     private void initializeGameControllers() {
@@ -127,13 +128,17 @@ public class PlayScene extends AbstractGameScene {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    private Table buildControls() { // move this to playscenemenu later on.
-        Table layer = new Table();
-        layer.setFillParent(true);
-        layer.bottom();
+
+    private Table buildControls() {
+        Table maintable = new Table();
+        maintable.setFillParent(true);
+        maintable.bottom();
+
+        // Table for towers.
+        Table towerlayer = new Table();
+        towerlayer.bottom();
 
         gunnerButton = new Button(uimenuskin, "gunnertower");
-        layer.add(gunnerButton).padBottom(10);  // Add padding at the bottom if needed
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -141,9 +146,10 @@ public class PlayScene extends AbstractGameScene {
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
+        towerlayer.add(gunnerButton).pad(10);
+
 
         sniperButton = new Button(uimenuskin, "snipertower");
-        layer.add(sniperButton).padBottom(10);  // Add padding at the bottom if needed
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -151,9 +157,10 @@ public class PlayScene extends AbstractGameScene {
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
+        towerlayer.add(sniperButton).pad(10);
+
 
         bomberButton = new Button(uimenuskin, "bombertower");
-        layer.add(bomberButton).padBottom(10);  // Add padding at the bottom if needed
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -161,8 +168,32 @@ public class PlayScene extends AbstractGameScene {
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
-        layer.row();
-        return layer;
+
+        towerlayer.add(bomberButton).pad(10);
+        // Adding layers to the main table.
+        maintable.add(towerlayer).expandX().fillX().fillY().bottom(); // Use fillY() and bottom() to ensure vertical alignment
+        maintable.row(); // Start a new row for the options button
+
+        // Table for options button aligned to the bottom right.
+        Table optionslayer = new Table();
+        optionslayer.bottom().right(); // Align this table to the bottom-right
+        optionsButton = new Button(uimenuskin, "playoptions");
+        optionsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Options selected");
+                OptionScene.setFromPlayScene();
+                game.setScreen(new OptionScene(game));
+            }
+        });
+
+        optionslayer.add(optionsButton).pad(10).bottom(); // Ensures options button is at the bottom right.
+
+        maintable.add(optionslayer).expandX().fillX().bottom().right(); // Use bottom().right() to align the options button
+        maintable.setDebug(true); // This lets you see the bounds of the table and its cells
+
+        return maintable;
+
     }
 
     private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
@@ -172,22 +203,16 @@ public class PlayScene extends AbstractGameScene {
     //private String getClickedTowerType () {
 
     //}
-    @Override
-    public void render (float deltaTime) { // main renderer for the playscene.
-        // Do not update game world when paused.
-//        if (!paused) {
-//            // Update game world by the time that has passed
-//            // since last rendered frame.
-//            worldController.update(deltaTime);
-//        }
-        level.update(deltaTime);
-        spriteBatch.setProjectionMatrix(camera.combined);
 
-        //controlMenu.updateInputs(Gdx.input.getX(), Gdx.input.getY());
+
+    @Override
+    public void render (float deltaTime) { // main renderer for the playable scene.
+        level.update(deltaTime);
         // Sets the clear screen color to: Cornflower Blue
         Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
         // Clears the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         if (level != null) {
             level.getMap().render(spriteBatch);
@@ -196,11 +221,12 @@ public class PlayScene extends AbstractGameScene {
         if (level != null){
             level.render(spriteBatch);
         }
+        spriteBatch.end();
 
+        shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         towerController.render(shapeRenderer);
         //controlMenu.render(spriteBatch);
-        spriteBatch.end();
         shapeRenderer.end();
         // Render game world to screen
         stage.act(deltaTime);

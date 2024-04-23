@@ -50,6 +50,13 @@ public class CameraManager {
         return zoom;
     }
 
+    public void resize(int width, int height) {
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
+    }
+
+
     public void applyToCamera() {
         camera.position.set(position);
         camera.zoom = zoom;
