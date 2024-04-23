@@ -124,7 +124,7 @@ public class PlayScene extends AbstractGameScene {
         this.enemyController = EnemyController.getInstance(this.level);
         this.towerController = TowerController.getInstance(this.level);
 
-        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(level));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -272,7 +272,7 @@ public class PlayScene extends AbstractGameScene {
     @Override
     public void show() {
         //controlMenu = new MainControlMenu(level, towerController);
-        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(level));
         Gdx.input.setInputProcessor(inputMultiplexer);
         if(GameSettings.getMusic() == true) {
             MusicManager.play("gamemusic.ogg", true);

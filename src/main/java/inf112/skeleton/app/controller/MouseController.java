@@ -1,5 +1,6 @@
 package inf112.skeleton.app.controller;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -20,10 +21,10 @@ public class MouseController implements InputProcessor {
     private int lastX, lastY;
     private EnemyController enemyController;
 
-    public MouseController(TowerController towerController, EnemyController enemyController, Level level) {
-        this.towerController = towerController;
-        this.enemyController = enemyController;
+    public MouseController(Level level) {
         this.level = level;
+        this.towerController = TowerController.getInstance(this.level);
+        this.enemyController = EnemyController.getInstance(this.level);
     }
 
     private CameraManager getCameraManager() {
