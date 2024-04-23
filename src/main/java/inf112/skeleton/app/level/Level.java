@@ -155,7 +155,7 @@ public class Level implements EnemyEvents {
                 System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
                 break;
             case GROUND:
-                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type);
+                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, 100);
                 if (cost != 0){
                     tile.setType(GridType.TOWER);
                     removeMoney(cost);
