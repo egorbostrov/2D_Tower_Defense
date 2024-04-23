@@ -10,6 +10,7 @@ import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
+import inf112.skeleton.app.util.MusicManager;
 
 import java.util.LinkedList;
 
@@ -32,9 +33,11 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
+
+    private final float height;
     public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, int speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
-
+        this.height = height;
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
         this.currentHealth = currentHealth;
@@ -45,7 +48,7 @@ public class Enemy extends GameObject{
         this.elapsedTimeStart = 0;
 
         getNextDistance();
-        hpBar = new HealthBar(x, y - height / 5, width, height / 5, currentHealth);
+        hpBar = new HealthBar(x, y - height / 5, width, height / 10, currentHealth);
     }
 
     public static Enemy newEnemy(char type, Level level, float spawnDelay) {
@@ -88,6 +91,7 @@ public class Enemy extends GameObject{
         if (this.currentHealth <= 0){
             alive = false;
             isVisible = false;
+            MusicManager.playZombieDeathScream();
         } else{
             hpBar.setHealth(currentHealth);
         }
@@ -188,13 +192,15 @@ public class Enemy extends GameObject{
                 default:
                     break;
             }
+
         }
         removeSlowMode(elapsedTime);
 
-        hpBar.position.x = position.x;
-        hpBar.position.y = position.y + size.y;
+        hpBar.updatePosition(position.x, position.y + this.height);
 
     }
+
+
 
    public boolean isAlive(){
         return alive;

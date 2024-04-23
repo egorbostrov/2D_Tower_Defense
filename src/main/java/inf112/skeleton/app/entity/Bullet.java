@@ -9,6 +9,7 @@ import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 
 import inf112.skeleton.app.enums.BulletType;
+import inf112.skeleton.app.util.MusicManager;
 
 import static inf112.skeleton.app.util.GameConstants.*;
 
@@ -58,6 +59,7 @@ public class Bullet extends GameObject {
             isVisible = false;
             if (bulletType == BulletType.BOMBER_BULLET && bomberDefender != null) {
                 bomberDefender.applyAreaDamage(center, explosionRadius, damage);
+                MusicManager.playBombExplode();
             } else {
                 enemy.shot(damage);
             }
