@@ -64,7 +64,7 @@ public class Level implements EnemyEvents {
         enemyHealth = 5;
         userHealth = GameConstants.REMAINING_HEALTH;
 
-        map = new Map(1);
+        map = new Map(2);
         this.enemyController = EnemyController.getInstance(this);
         waveController = new WaveController(enemyController, 1);
         this.towerController = TowerController.getInstance(this);
