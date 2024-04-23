@@ -144,31 +144,31 @@ public class Level implements EnemyEvents {
      * @param y coordinate for tile
      * @param type type of tower
      */
-    public void createTowerClicked(float x, float y, DefenderType type) {
-
-        Tile tile = map.getSelectedTile(x, y);
-        if (tile == null){
-            return;
-        }
-        switch (tile.getType()){
-            case TOWER:
-                System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
-                break;
-            case GROUND:
-                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type);
-                if (cost != 0){
-                    tile.setType(GridType.TOWER);
-                    removeMoney(cost);
-                }
-                this.map.getBoard().renderSwitch(false);
-                break;
-            case PATH:
-                System.out.println("KAN IKKE BYGGE PÅ PATH");
-                break;
-            default:
-                break;
-        }
-    }
+//    public void createTowerClicked(float x, float y, DefenderType type) {
+//
+//        Tile tile = map.getSelectedTile(x, y);
+//        if (tile == null){
+//            return;
+//        }
+//        switch (tile.getType()){
+//            case TOWER:
+//                System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
+//                break;
+//            case GROUND:
+//                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type);
+//                if (cost != 0){
+//                    tile.setType(GridType.TOWER);
+//                    removeMoney(cost);
+//                }
+//                this.map.getBoard().renderSwitch(false);
+//                break;
+//            case PATH:
+//                System.out.println("KAN IKKE BYGGE PÅ PATH");
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     /**
      * Removes users health when enemies manage to go through the whole path.
@@ -223,34 +223,34 @@ public class Level implements EnemyEvents {
      * @param x value of the tile
      * @param y value of the tile
      */
-    public void selectTile(float x, float y) {
-
-        Tile tile = this.map.getSelectedTile(x, y);
-        if (tile == null){
-            return;
-        }
-        switch (tile.getType()){
-            case TOWER:
-                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
-                infoMenu.updateTowerInfo(defender);
-                towerSelectionMenu.updateUpgradeButtons(money);
-                break;
-
-            case GROUND:
-                towerController.clearSelectedTower();
-                infoMenu.clearInfo();
-                towerSelectionMenu.clearSelectedTower();
-                break;
-
-            case PATH:
-                towerController.clearSelectedTower();
-                towerSelectionMenu.clearSelectedTower();
-                break;
-
-            default:
-                break;
-        }
-    }
+//    public void selectTile(float x, float y) {
+//
+//        Tile tile = this.map.getSelectedTile(x, y);
+//        if (tile == null){
+//            return;
+//        }
+//        switch (tile.getType()){
+//            case TOWER:
+//                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
+//                infoMenu.updateTowerInfo(defender);
+//                towerSelectionMenu.updateUpgradeButtons(money);
+//                break;
+//
+//            case GROUND:
+//                towerController.clearSelectedTower();
+//                infoMenu.clearInfo();
+//                towerSelectionMenu.clearSelectedTower();
+//                break;
+//
+//            case PATH:
+//                towerController.clearSelectedTower();
+//                towerSelectionMenu.clearSelectedTower();
+//                break;
+//
+//            default:
+//                break;
+//        }
+//    }
 
     /**
      *

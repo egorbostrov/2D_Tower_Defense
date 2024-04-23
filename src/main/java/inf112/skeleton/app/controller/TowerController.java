@@ -1,15 +1,22 @@
 package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.map.Map;
+import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.tower.SniperDefender;
 import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.tower.GunnerDefender;
+import inf112.skeleton.app.util.GameAssets;
+import inf112.skeleton.app.util.GameConstants;
 
 import static inf112.skeleton.app.util.GameConstants.*;
 
@@ -27,6 +34,8 @@ public class TowerController implements Render{
     private DefenderType selectedTowerType;
 
     private Level level;
+    private Map map = new Map();
+    private GameAssets asset = this.asset;
 
 
     public TowerController(Level level){
@@ -42,7 +51,11 @@ public class TowerController implements Render{
     }
 
     public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type){
-       switch (type){
+        Tile tile = map.getSelectedTile(x, y);
+        if (!legalPlacement(x, y)){
+            return 0;
+        }
+        switch (type){
            case GUNNER:
                if (this.level.getMoney() >= TOWER_PRICE_GUNNER){
                    this.level.removeMoney(TOWER_PRICE_GUNNER);
@@ -62,6 +75,31 @@ public class TowerController implements Render{
        return 0;
     }
 
+    //BUGGED WIP
+    private boolean legalPlacement(float x, float y) {
+        // Calculate the bounds of the tower based on its center.
+        float towerLeft = x - GameConstants.TOWER_SIZE / 2;
+        float towerBottom = y - GameConstants.TOWER_SIZE / 2;
+        Rectangle newTowerBounds = new Rectangle(towerLeft, towerBottom, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
+
+        // Check all tiles that the tower overlaps with for legality.
+        // Assuming map.getSelectedTile() returns the tile based on bottom-left corner.
+        if (map.getSelectedTile(x, y).getType() == GridType.PATH) {
+            return false; // The center of the tower would be on a path, so illegal.
+        }
+
+        // Check if any existing tower occupies the calculated bounds.
+        for (BaseDefender defender : defenderList) {
+            if (defender.getHitBox().overlaps(newTowerBounds)) {
+                return false; // The position is already taken by another tower.
+            }
+        }
+
+        return true;
+    }
+
+
+
     private int buildSniperTower(float x, float y, List<Enemy> enemyList) {
         SniperDefender sniperDefender = new SniperDefender(x, y, enemyList);
         defenderList.add(sniperDefender);
@@ -78,6 +116,8 @@ public class TowerController implements Render{
         GunnerDefender gunnerDefender = new GunnerDefender(x, y, enemyList);
         defenderList.add(gunnerDefender);
         System.out.println("Tower added at: " + x + ", " + y + " | Total towers: " + defenderList.size());
+        System.out.println(map.getSelectedTile(x,y));
+        System.out.println();
         return TOWER_PRICE_GUNNER;
     }
 

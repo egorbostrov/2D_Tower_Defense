@@ -2,11 +2,13 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.particles.renderers.PointSpriteRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -45,11 +47,11 @@ public class PlayScene extends AbstractGameScene {
     private Button sniperButton;
     private Button bomberButton;
     private SpriteBatch spriteBatch;
+    private ShapeRenderer shapeRenderer;
     private Level level;
     private EnemyController enemyController;
     private TowerController towerController;
     private OrthographicCamera camera;
-    private ShapeRenderer shapeRenderer;
     private CameraManager cameraManager;
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
@@ -200,8 +202,12 @@ public class PlayScene extends AbstractGameScene {
             level.render(spriteBatch);
         }
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        towerController.render(shapeRenderer);
+
         //controlMenu.render(spriteBatch);
         spriteBatch.end();
+        shapeRenderer.end();
         //worldController.renderHitboxes(shapeRenderer);
         // Render game world to screen
         stage.act(deltaTime);

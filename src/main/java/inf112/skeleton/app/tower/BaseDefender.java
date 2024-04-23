@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
@@ -37,6 +38,7 @@ public abstract class BaseDefender extends GameObject {
     protected int attackPrice;
     protected int speedPrice;
 
+
     public BaseDefender(float xCord, float yCord, List<Enemy> enemies) {
         super(xCord, yCord, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
         this.enemies = enemies;
@@ -50,12 +52,12 @@ public abstract class BaseDefender extends GameObject {
 
     @Override
     public void render(ShapeRenderer renderer) {
-        renderer.setColor(Color.RED);
-        renderer.circle(center.x, center.y, range);
+        super.render(renderer);
 
-        for (Bullet bullet : bullets) {
-            bullet.render(renderer);
-        }
+//
+//        for (Bullet bullet : bullets) {
+//            bullet.render(renderer);
+//        }
     }
 
     @Override
@@ -78,6 +80,7 @@ public abstract class BaseDefender extends GameObject {
         }
     }
 
+    @Override
     public void render(SpriteBatch batch) {
         if (sprite == null || spriteSelected == null) {
             Gdx.app.error("BaseDefender", "Sprite textures are not initialized!");
@@ -183,7 +186,7 @@ public abstract class BaseDefender extends GameObject {
      * @param deltaTime time since last frame update
      */
     private void startFiring(float deltaTime){
-        //rappidFire();
+        rappidFire();
         speedCounter += deltaTime;
         if (speedCounter >= 1f / speed) {
             speedCounter = 0;
@@ -238,8 +241,20 @@ public abstract class BaseDefender extends GameObject {
         this.enemy = closestEnemy;
     }
 
+    public boolean contains(float x, float y){
+        return x >= position.x && x < position.x + size.x &&
+                y >= position.y && y < position.y + size.y;
+    }
 
     // getters and setters
+    public Rectangle getHitBox(){
+        return new Rectangle(
+                position.x - size.x / 2, // Left edge of the tower
+                position.y - size.y / 2, // Bottom edge of the tower
+                size.x, // Width of the tower
+                size.y  // Height of the tower
+        );
+    }
     public void setSpeed(float attackSpeed) {
         this.speed = attackSpeed;
     }

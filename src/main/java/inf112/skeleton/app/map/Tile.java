@@ -47,8 +47,6 @@ public class Tile extends GameObject {
         }
     }
 
-    //Tarjis
-
     /**
      *
      * @param x coordinate
