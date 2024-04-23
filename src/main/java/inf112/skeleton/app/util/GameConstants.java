@@ -59,13 +59,10 @@ public class GameConstants {
     public static final int TOWER_PRICE_SNIPER = 100;
 
 
-
     public static final float TOWER_DAMAGE_BOMBER = 10;
-
-
 
     public static float BULLET_WIDTH = TILE_WIDTH / 8;
     public static float BULLET_HEIGHT = TILE_HEIGHT / 8;
 
-    public static Vector2 START_POS = new Vector2(0, TILE_HEIGHT * (UI_ROWS_BOTTOM - 1));
+    public static Vector2 START_POS = new Vector2(1 * TILE_WIDTH, TILE_HEIGHT * (UI_ROWS_BOTTOM - 1));
 }
