@@ -97,6 +97,4 @@ public class Board {
     public void renderSwitch(boolean onOrOff) {
         this.render = onOrOff;
     }
-
-
 }
