@@ -22,7 +22,7 @@ public class Enemy extends GameObject{
 
     private float currentHealth;
     private final int reward;
-    private int speed;
+    private float speed;
     private float distanceToTile;
     private Direction currentDirection;
     private final LinkedList<Direction> directionLinkedList;
@@ -35,7 +35,7 @@ public class Enemy extends GameObject{
     private final HealthBar hpBar;
 
     private final float height;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, int speed, float spawnDelay, Sprite texture){
+    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
         this.height = height;
         this.speed = speed;
@@ -51,17 +51,26 @@ public class Enemy extends GameObject{
         hpBar = new HealthBar(x, y - height / 5, width, height / 10, currentHealth);
     }
 
-    public static Enemy newEnemy(char type, Level level, float spawnDelay) {
+    /**
+     * Creates a new zombie according to the char
+     * @param type char symbolizing the type of zombie
+     * @param level used to access the direction list
+     * @param speedMultiplier increases the speed of zombies for each wave
+     * @param healthMultiplier increases the health of zombies for each wave
+     * @param spawnDelay sets the game time of which the zombie will spawn
+     * @return new zombie/enemy with these assigned values
+     */
+    public static Enemy newEnemy(char type, Level level,float speedMultiplier, float healthMultiplier, float spawnDelay) {
         return switch(type) {
             case 'R'-> new Enemy(
                     START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
-                    ENEMY_REGULAR_START_HP,
+                    (ENEMY_REGULAR_START_HP * healthMultiplier),
                     level.getMap().getDirections(),
                     ENEMY_REGULAR_BOUNTY,
-                    ENEMY_REGULAR_SPEED,
+                    (ENEMY_REGULAR_SPEED * speedMultiplier),
                     (spawnDelay),
                     GameAssets.zombieSprite); //GameAssets.
             case 'T' -> new Enemy(
@@ -69,10 +78,10 @@ public class Enemy extends GameObject{
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
-                    ENEMY_TANK_START_HP,
+                    (ENEMY_TANK_START_HP * healthMultiplier),
                     level.getMap().getDirections(),
                     ENEMY_TANK_BOUNTY,
-                    ENEMY_TANK_SPEED,
+                    (ENEMY_TANK_SPEED * speedMultiplier),
                     (spawnDelay),
                     GameAssets.zombieSprite);
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
@@ -101,7 +110,7 @@ public class Enemy extends GameObject{
      * Get method used in testing
      * @return this.speed
      */
-    public int getSpeed(){
+    public float getSpeed(){
         return this.speed;
     }
 
