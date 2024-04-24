@@ -34,8 +34,8 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-
     private final float height;
+
     public Enemy(char type, float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
         this.type = type;
@@ -75,7 +75,8 @@ public class Enemy extends GameObject{
                     ENEMY_REGULAR_BOUNTY,
                     (ENEMY_REGULAR_SPEED * speedMultiplier),
                     (spawnDelay),
-                    GameAssets.zombieSprite); //GameAssets.
+                    GameAssets.zombieSprite//GameAssets.
+            );
             case 'T' -> new Enemy(
                     type,
                     START_POS.x,
@@ -87,7 +88,21 @@ public class Enemy extends GameObject{
                     ENEMY_TANK_BOUNTY,
                     (ENEMY_TANK_SPEED * speedMultiplier),
                     (spawnDelay),
-                    GameAssets.zombieSprite);
+                    GameAssets.tankSprite
+            );
+            case 'Q' -> new Enemy(
+                    type,
+                    START_POS.x,
+                    START_POS.y,
+                    ENEMY_WIDTH,
+                    ENEMY_HEIGHT,
+                    (ENEMY_QUICK_START_HP * healthMultiplier),
+                    level.getMap().getDirections(),
+                    ENEMY_QUICK_BOUNTY,
+                    (ENEMY_QUICK_SPEED * speedMultiplier),
+                    (spawnDelay),
+                    GameAssets.quickzombieSprite
+            );
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
     }
