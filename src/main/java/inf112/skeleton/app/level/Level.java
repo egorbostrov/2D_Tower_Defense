@@ -112,7 +112,6 @@ public class Level implements EnemyEvents {
 
         if(enemyController.getEnemyList().isEmpty()) {
             nextWave();
-            System.out.println("new wave called in Level.java");
         }
     }
 
@@ -189,7 +188,6 @@ public class Level implements EnemyEvents {
         addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
-        System.out.println("get money");
     }
 
     /**

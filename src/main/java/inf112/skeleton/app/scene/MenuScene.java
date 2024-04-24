@@ -78,7 +78,6 @@ public class MenuScene extends AbstractGameScene {
         playButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("play was pressed");
                 onPlayClicked();
             }
         });
