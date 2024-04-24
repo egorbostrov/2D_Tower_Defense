@@ -31,6 +31,7 @@ public class GameConstants {
 
     public static float ENEMY_WIDTH = TILE_WIDTH;
     public static float ENEMY_HEIGHT = TILE_HEIGHT;
+    public static String ENEMY_TYPES = "RT";
 
     //REGULAR ZOMBIE VALUES:
     public static int ENEMY_REGULAR_SPEED = (int) TILE_WIDTH;
