@@ -198,4 +198,8 @@ public class TowerController implements Render{
     public DefenderType getSelectedTowerType() {
         return selectedTowerType;
     }
+
+    public void clearDefenders(){
+        defenderList.clear();
+    }
 }

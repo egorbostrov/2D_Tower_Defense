@@ -65,6 +65,11 @@ public class EnemyController {
         return enemyList;
     }
 
+    public void clearEnemies() {
+        enemyList.clear();
+    }
+
+
     public void update(float elapsedTime) {
         for (Enemy enemy : enemyList) {
             enemy.update(elapsedTime);

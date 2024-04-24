@@ -212,6 +212,10 @@ public class PlayScene extends AbstractGameScene {
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
+        if (level.getUserHealth() <= 0){
+            game.setScreen(new GameOverScene(game, level));
+        }
+
     }
 
     private void renderInfo(SpriteBatch batch){
