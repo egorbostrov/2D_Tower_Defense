@@ -2,11 +2,13 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.particles.renderers.PointSpriteRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -67,6 +69,7 @@ public class PlayScene extends AbstractGameScene {
         this.level = new Level(game);
         initializeGameControllers();
         this.mouseController = new MouseController(level);
+
 
     }
 
@@ -217,7 +220,6 @@ public class PlayScene extends AbstractGameScene {
         Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
         // Clears the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         if (level != null) {
             level.getMap().render(spriteBatch);
@@ -237,6 +239,10 @@ public class PlayScene extends AbstractGameScene {
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
+        if (level.getUserHealth() <= 0){
+            game.setScreen(new GameOverScene(game, level));
+        }
+
     }
 
     private void renderInfo(SpriteBatch batch){
@@ -244,6 +250,7 @@ public class PlayScene extends AbstractGameScene {
         String moneyText = "Money: " + level.getMoney();
         String waveText = "Wave: " + level.getCurrentWave();
         String enemiesText = "Enemies killed: " + level.getEnemiesKilled();
+        String healthText = "Health: " + level.getUserHealth();
 
         float xCord = 10;
         float yCord = GameConstants.SCREEN_HEIGHT - 20;
@@ -255,7 +262,10 @@ public class PlayScene extends AbstractGameScene {
         GlyphLayout glyphMoney = bitmapFont.draw(batch, moneyText, xCord, yCord);
         xCord += glyphMoney.width + padding;
 
-        bitmapFont.draw(batch, enemiesText, xCord, yCord);
+        GlyphLayout glyphHealth = bitmapFont.draw(batch, enemiesText, xCord, yCord);
+        xCord += glyphHealth.width + padding;
+
+        bitmapFont.draw(batch, healthText, xCord, yCord);
 
         xCord = GameConstants.SCREEN_WIDTH / 2;
         GlyphLayout glyphWave = new GlyphLayout();

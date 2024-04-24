@@ -43,6 +43,7 @@ public class Level implements EnemyEvents {
     private Game game;
     private OrthographicCamera camera;
     private CameraManager cameraManager;
+    private boolean isPaused;
 
     public Level(Game game) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -57,6 +58,7 @@ public class Level implements EnemyEvents {
      * Sets the start values for the start of the game and creates new map, controllers and menus
      */
     private void start() {
+        isPaused = false;
         currentWave = 0;
         score = 0;
         money = GameConstants.START_MONEY;
@@ -106,6 +108,10 @@ public class Level implements EnemyEvents {
      * @param elapsedTime time between last frame and current frame
      */
     public void update(float elapsedTime) {
+        if (isPaused) {
+            return;
+        }
+
         map.update(elapsedTime);
         enemyController.update(elapsedTime);
         towerController.update(elapsedTime);
@@ -175,6 +181,9 @@ public class Level implements EnemyEvents {
     public void enemyCompletedPath() {
         userHealth--;
         towerSelectionMenu.fireHealthChanged(userHealth);
+        if (userHealth == 0){
+            pause();
+        }
     }
 
     /**
@@ -352,7 +361,10 @@ public class Level implements EnemyEvents {
      * are set back to initial values from the start() method.
      */
     public void restart() {
-        start();
+       start();
+       userHealth = GameConstants.REMAINING_HEALTH;
+       enemyController.clearEnemies();
+       towerController.clearDefenders();
     }
 
 
@@ -395,7 +407,13 @@ public class Level implements EnemyEvents {
         System.out.println("Money remaining:" + this.money);
     }
 
+    public void pause() {
+        isPaused = !isPaused;
+    }
 
+    public int getUserHealth() {
+        return this.userHealth;
+    }
     public int getScore(){
         return this.score;
     }
