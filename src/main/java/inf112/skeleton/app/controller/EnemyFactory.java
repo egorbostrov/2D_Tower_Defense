@@ -7,5 +7,5 @@ public interface EnemyFactory {
     /**
      * @return the next zombie type to be spawned.
      */
-    Enemy getNext(Level level, float delay);
+    Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay);
 }
