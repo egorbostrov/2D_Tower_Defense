@@ -28,6 +28,7 @@ import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 //import inf112.skeleton.app.scene.WorldController;
+import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
@@ -49,7 +50,10 @@ public class PlayScene extends AbstractGameScene {
     private Level level;
     private EnemyController enemyController;
     private TowerController towerController;
+    private Map map;
     private OrthographicCamera camera;
+    private MouseController mouseController;
+
     private ShapeRenderer shapeRenderer;
     private CameraManager cameraManager;
     private MainControlMenu controlMenu;
@@ -62,6 +66,7 @@ public class PlayScene extends AbstractGameScene {
         setupInput(); // Now setupInput can be called safely
         this.level = new Level(game);
         initializeGameControllers();
+        this.mouseController = new MouseController(level);
 
     }
 
@@ -222,10 +227,11 @@ public class PlayScene extends AbstractGameScene {
             level.render(spriteBatch);
         }
         spriteBatch.end();
-
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         towerController.render(shapeRenderer);
+        level.getMap().render(shapeRenderer);
+        mouseController.renderDebug(shapeRenderer);
         //controlMenu.render(spriteBatch);
         shapeRenderer.end();
         // Render game world to screen
@@ -258,8 +264,6 @@ public class PlayScene extends AbstractGameScene {
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
     }
 
-
-
     @Override
     public void resize (int width, int height) {
         if (stage != null) {
@@ -273,6 +277,7 @@ public class PlayScene extends AbstractGameScene {
     public void show() {
         //controlMenu = new MainControlMenu(level, towerController);
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(level));
+        inputMultiplexer.addProcessor(mouseController);
         Gdx.input.setInputProcessor(inputMultiplexer);
         if(GameSettings.getMusic() == true) {
             MusicManager.play("gamemusic.ogg", true);

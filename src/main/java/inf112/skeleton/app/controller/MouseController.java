@@ -4,8 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+
 import java.util.List;
+
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
@@ -20,7 +24,7 @@ public class MouseController implements InputProcessor {
     private Level level;
     private int lastX, lastY;
     private EnemyController enemyController;
-
+    private Vector3 lastTouch = new Vector3(-1, -1, 0);
     public MouseController(Level level) {
         this.level = level;
         this.towerController = TowerController.getInstance(this.level);
@@ -43,28 +47,39 @@ public class MouseController implements InputProcessor {
             List<Enemy> currentEnemies = this.enemyController.getEnemyList();
             DefenderType selectedType = towerController.getSelectedTowerType();
 
-            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType) > 0) {
-                towerController.clearSelectedTower();
+                //ifvalidtile
+                level.createTowerClicked(centeredSizeX,centeredSizeY,selectedType);
+                System.out.println("Clicked on " + "\nX: " + worldCoordinates.x + " Y: " + worldCoordinates.y);
+                        towerController.clearSelectedTower();
+                lastTouch.set(screenX, screenY, 0);
+                getCameraManager().getCamera().unproject(lastTouch);
                 return true;
-            }
         }
         return false;
     }
+    public void renderDebug(ShapeRenderer shapeRenderer) {
+        if (lastTouch.x != -1 && lastTouch.y != -1) {
+            System.out.println("renderdebug called!");
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.circle(lastTouch.x, lastTouch.y, 5); // Draw a circle of radius 5 at the last touch
+        }
+    }
 
-
-
-
+    public void disposeDebug(ShapeRenderer shapeRenderer) {
+        shapeRenderer.dispose();
+    }
     /**
      * Not in use yet, but might come in handy later.
      */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (button == Input.Buttons.LEFT){
+        if (button == Input.Buttons.LEFT) {
             isDragging = false;
             return true;
         }
         return false;
     }
+
     /**
      * Not in use yet, but might come in handy later.
      */
@@ -79,6 +94,7 @@ public class MouseController implements InputProcessor {
         }
         return false;
     }
+
     /**
      * Not in use yet, but might come in handy later.
      */
@@ -89,6 +105,7 @@ public class MouseController implements InputProcessor {
 
         return false;
     }
+
     /**
      * Not in use yet, but might come in handy later.
      */
@@ -96,6 +113,7 @@ public class MouseController implements InputProcessor {
     public boolean scrolled(float v, float v1) {
         return false;
     }
+
     /**
      * Not in use yet, but might come in handy later.
      */
@@ -103,6 +121,7 @@ public class MouseController implements InputProcessor {
     public boolean touchCancelled(int i, int i1, int i2, int i3) {
         return false;
     }
+
     /**
      * Not in use yet, but might come in handy later.
      */
@@ -110,6 +129,7 @@ public class MouseController implements InputProcessor {
     public boolean keyDown(int i) {
         return false;
     }
+
     /**
      * Not in use yet, but might come in handy later.
      */
@@ -117,6 +137,7 @@ public class MouseController implements InputProcessor {
     public boolean keyUp(int i) {
         return false;
     }
+
     /**
      * Not in use yet, but might come in handy later.
      */

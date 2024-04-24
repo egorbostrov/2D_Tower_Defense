@@ -91,5 +91,8 @@ public class Tile extends GameObject {
     public float getY(){
         return this.position.y;
     }
+    public float getWidth() { return this.size.x; }
+    public float getHeight() { return this.size.y; }
+
 
 }

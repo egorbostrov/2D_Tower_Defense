@@ -142,7 +142,6 @@ public class Level implements EnemyEvents {
      * @param type type of tower
      */
     public void createTowerClicked(float x, float y, DefenderType type) {
-
         Tile tile = map.getSelectedTile(x, y);
         if (tile == null){
             return;
@@ -152,6 +151,7 @@ public class Level implements EnemyEvents {
                 System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
                 break;
             case GROUND:
+                System.out.println("TÅRNET BYGGET PÅ GROUND.");
                 int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type);
                 if (cost != 0){
                     tile.setType(GridType.TOWER);

@@ -128,7 +128,6 @@ public class TowerController implements Render{
     @Override
     public void render(SpriteBatch batch) {
         for (BaseDefender tower : defenderList) {
-            System.out.println("SB call in towercont");
             tower.render(batch);
         }
     }
@@ -140,7 +139,6 @@ public class TowerController implements Render{
     @Override
     public void render(ShapeRenderer renderer) {
         for (BaseDefender tower : defenderList) {
-            System.out.println("SR call in towercont");
             tower.render(renderer);
         }
     }
