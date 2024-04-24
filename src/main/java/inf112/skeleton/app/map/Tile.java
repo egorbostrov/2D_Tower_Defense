@@ -44,16 +44,7 @@ public class Tile extends GameObject {
     }
 
     public void render(SpriteBatch batch) {
-        switch (type) {
-            case PATH:
-                batch.draw(tileTexture, this.position.x, this.position.y, this.size.x, this.size.y);
-                break;
-            case GROUND:
-                batch.draw(tileTexture, this.position.x, this.position.y, this.size.x, this.size.y);
-                break;
-            default:
-                break;
-        }
+        batch.draw(tileTexture, this.position.x, this.position.y, this.size.x, this.size.y);
     }
 
     private void setRandomTileTexture() {
