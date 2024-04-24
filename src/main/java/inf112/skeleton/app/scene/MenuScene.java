@@ -37,6 +37,7 @@ public class MenuScene extends AbstractGameScene {
     private Button playButton;
     private Button exitButton;
     private Button optionsButton;
+    private Button howToPlayButton;
     private Image bgimg;
 
     public MenuScene(Game game) {
@@ -72,6 +73,7 @@ public class MenuScene extends AbstractGameScene {
 
     private Table buildControls() { // move this to menuscenemenu later on.
         Table layer = new Table();
+
         // + Play Button
         playButton = new Button(uimenuskin, "play");
         layer.add(playButton);
@@ -84,6 +86,16 @@ public class MenuScene extends AbstractGameScene {
         });
         layer.row();
 
+        // How to play button
+        howToPlayButton = new Button(uimenuskin, "play");
+        layer.add(howToPlayButton);
+        howToPlayButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onHowToPlayClicked();
+            }
+        });
+        layer.row();
 
         //+ Options Button
         optionsButton = new Button(uimenuskin, "options");
@@ -118,8 +130,12 @@ public class MenuScene extends AbstractGameScene {
 
     private void onOptionsClicked () {
         game.setScreen(new OptionScene(game));
-
     }
+
+    private void onHowToPlayClicked() {
+        game.setScreen(new HowToPlayScene(game));
+    }
+
     @Override
     public void render (float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

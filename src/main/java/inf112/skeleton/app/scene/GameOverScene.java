@@ -24,17 +24,6 @@ public class GameOverScene extends AbstractGameScene{
     private Button exitButton;
     private Button optionsButton;
     private Image bgimg;
-
-    private TextureAtlas atlas;
-    private Skin skin;
-    private TextButton saveButton;
-    private TextButton cancelButton;
-    private CheckBox chkSound;
-    private Slider sldSound;
-    private CheckBox chkMusic;
-    private Slider sldMusic;
-    private CheckBox chkFullscreen;
-
     private Level level;
 
     public GameOverScene(Game game, Level level) {
@@ -58,7 +47,7 @@ public class GameOverScene extends AbstractGameScene{
 
     }
 
-    private Table buildBg() {   // move this to menuscenemenu later on.
+    private Table buildBg() {
         Table layer = new Table();
         layer.setFillParent(true);
         // + Background
@@ -69,22 +58,22 @@ public class GameOverScene extends AbstractGameScene{
         return layer;
     }
 
-    private Table buildControls() { // move this to menuscenemenu later on.
+    private Table buildControls() {
         Table layer = new Table();
         layer.pad(10, 10, 0, 10);
 
         // Score
-        String scoreText = "Score: " + (level != null ? level.getScore() : "0");
+        String scoreText = "Score: " + level.getScore();
         layer.add(new Label(scoreText, uiskin));
         layer.row();
 
         // Enemies Killed
-        String enemiesText = "Enemies Killed: " + (level != null ? level.getEnemiesKilled() : "0");
+        String enemiesText = "Enemies Killed: " + level.getEnemiesKilled();
         layer.add(new Label(enemiesText, uiskin));
         layer.row();
 
-        // + Checkbox, "Music" label, music volume slider
-        String waveText = "Wave: " + (level != null ? level.getCurrentWave() : "0");
+        // Waves
+        String waveText = "Wave: " + level.getCurrentWave();
         layer.add(new Label(waveText, uiskin));
         layer.row();
 

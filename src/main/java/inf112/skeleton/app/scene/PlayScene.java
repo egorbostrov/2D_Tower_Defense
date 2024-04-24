@@ -223,6 +223,7 @@ public class PlayScene extends AbstractGameScene {
         String moneyText = "Money: " + level.getMoney();
         String waveText = "Wave: " + level.getCurrentWave();
         String enemiesText = "Enemies killed: " + level.getEnemiesKilled();
+        String healthText = "Health: " + level.getUserHealth();
 
         float xCord = 10;
         float yCord = GameConstants.SCREEN_HEIGHT - 20;
@@ -234,7 +235,10 @@ public class PlayScene extends AbstractGameScene {
         GlyphLayout glyphMoney = bitmapFont.draw(batch, moneyText, xCord, yCord);
         xCord += glyphMoney.width + padding;
 
-        bitmapFont.draw(batch, enemiesText, xCord, yCord);
+        GlyphLayout glyphHealth = bitmapFont.draw(batch, enemiesText, xCord, yCord);
+        xCord += glyphHealth.width + padding;
+
+        bitmapFont.draw(batch, healthText, xCord, yCord);
 
         xCord = GameConstants.SCREEN_WIDTH / 2;
         GlyphLayout glyphWave = new GlyphLayout();
