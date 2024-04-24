@@ -32,7 +32,10 @@ public class EnemyController {
         return instance;
     }
 
-
+    /**
+     * Adds a new zombie to the list of zombies that's controlled on the map
+     * @param zombie the zombie to add
+     */
     public void newZombie(Enemy zombie) {
         enemyList.add(zombie);
     }
