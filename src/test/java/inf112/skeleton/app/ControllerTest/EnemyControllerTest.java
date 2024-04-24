@@ -32,7 +32,7 @@ public class EnemyControllerTest {
         when(mockMap.getDirections()).thenReturn(new LinkedList<>()); // return an empty list or a list with some directions
 
         // Now create an instance of EnemyController that will use the mocked Level
-        enemyController = new EnemyController(mockLevel, "RT");
+        enemyController = new EnemyController(mockLevel);
     }
 
     @Test
