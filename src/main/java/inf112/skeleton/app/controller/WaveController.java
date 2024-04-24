@@ -10,8 +10,10 @@ import java.util.List;
 public class WaveController {
     private FileHandle filehandle;
     private final int selectedWave;
-    EnemyController enemyController;
-    float spawnDelay;
+    private final EnemyController enemyController;
+    float speedMultiplier;
+    float healthMultiplier;
+    private float spawnDelay;
     WaveEnemyFactory enemyFactory;
 
     List<String> wavePatterns;
@@ -25,6 +27,8 @@ public class WaveController {
         selectFileHandle();
         this.wavePatterns = readWavePatternsFromFile(filehandle.readString());
 
+        this.speedMultiplier = 1;
+        this.healthMultiplier = 1;
         this.spawnDelay = 5;
     }
 
@@ -53,10 +57,14 @@ public class WaveController {
         this.enemyFactory = new WaveEnemyFactory(wavePattern);
 
         this.zombieIndex = 1f;
+
+        //Increase the zombie speed, health and decrease the delay inbetween their spawns.
+        speedMultiplier *= 1.05f;
+        healthMultiplier *= 1.05f;
         spawnDelay *= 0.75f;
 
         for(int i = 0; i < wavePattern.length(); i++) {
-            enemyController.newZombie(enemyFactory.getNext(level, zombieIndex * spawnDelay));
+            enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
             zombieIndex++;
         }
         waveIndex++;
