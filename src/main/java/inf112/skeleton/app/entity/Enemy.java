@@ -20,6 +20,7 @@ import static inf112.skeleton.app.util.GameConstants.*;
 
 public class Enemy extends GameObject{
 
+    private char type;
     private float currentHealth;
     private final int reward;
     private float speed;
@@ -35,8 +36,9 @@ public class Enemy extends GameObject{
     private final HealthBar hpBar;
 
     private final float height;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture){
+    public Enemy(char type, float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
+        this.type = type;
         this.height = height;
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
@@ -63,6 +65,7 @@ public class Enemy extends GameObject{
     public static Enemy newEnemy(char type, Level level,float speedMultiplier, float healthMultiplier, float spawnDelay) {
         return switch(type) {
             case 'R'-> new Enemy(
+                    type,
                     START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
@@ -74,6 +77,7 @@ public class Enemy extends GameObject{
                     (spawnDelay),
                     GameAssets.zombieSprite); //GameAssets.
             case 'T' -> new Enemy(
+                    type,
                     START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
@@ -265,6 +269,10 @@ public class Enemy extends GameObject{
 
     public Rectangle getBoundsRectangle() {
         return this.boundsRectangle;
+    }
+
+    public char getType() {
+        return this.type;
     }
 
 }
