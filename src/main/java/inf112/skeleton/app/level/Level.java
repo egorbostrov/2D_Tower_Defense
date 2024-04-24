@@ -66,7 +66,7 @@ public class Level implements EnemyEvents {
 
         map = new Map(2);
         this.enemyController = EnemyController.getInstance(this);
-        waveController = new WaveController(enemyController, 1);
+        waveController = new WaveController(enemyController, 1, true);
         this.towerController = TowerController.getInstance(this);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
@@ -390,7 +390,6 @@ public class Level implements EnemyEvents {
         this.money -= amount;
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
-        System.out.println("Money remaining:" + this.money);
     }
 
 
