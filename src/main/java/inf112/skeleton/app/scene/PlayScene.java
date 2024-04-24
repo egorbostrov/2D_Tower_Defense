@@ -137,7 +137,6 @@ public class PlayScene extends AbstractGameScene {
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
@@ -147,7 +146,6 @@ public class PlayScene extends AbstractGameScene {
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("sniper selected");
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
@@ -157,7 +155,6 @@ public class PlayScene extends AbstractGameScene {
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("bomber selected");
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
