@@ -58,17 +58,14 @@ public class TowerController implements Render{
         switch (type){
            case GUNNER:
                if (this.level.getMoney() >= TOWER_PRICE_GUNNER){
-                   this.level.removeMoney(TOWER_PRICE_GUNNER);
                    return buildGunnerTower(x, y, enemyList);
                } break;
            case BOMBER:
                 if (this.level.getMoney() >= TOWER_PRICE_BOMBER){
-                    this.level.removeMoney(TOWER_PRICE_BOMBER);
                     return buildBomberTower(x, y, enemyList);
                 } break;
            case SNIPER:
                 if (this.level.getMoney() >= TOWER_PRICE_SNIPER){
-                    this.level.removeMoney(TOWER_PRICE_SNIPER);
                    return buildSniperTower(x, y, enemyList);
                 } break;
        }
@@ -89,11 +86,11 @@ public class TowerController implements Render{
         }
 
         // Check if any existing tower occupies the calculated bounds.
-        for (BaseDefender defender : defenderList) {
-            if (defender.getHitBox().overlaps(newTowerBounds)) {
-                return false; // The position is already taken by another tower.
-            }
-        }
+//        for (BaseDefender defender : defenderList) {
+//            if (defender.getHitBox().overlaps(newTowerBounds)) {
+//                return false; // The position is already taken by another tower.
+//            }
+//        }
 
         return true;
     }
@@ -120,6 +117,7 @@ public class TowerController implements Render{
         System.out.println();
         return TOWER_PRICE_GUNNER;
     }
+
 
     public void doubleSpeedClicked() {
     }
@@ -169,6 +167,9 @@ public class TowerController implements Render{
     public void render(SpriteBatch batch) {
         for (BaseDefender tower : defenderList) {
             tower.render(batch);
+//            if(isTowerSelected()) {
+//                BaseDefender.setSelected(isTowerSelected);
+//            }
         }
     }
 
@@ -187,12 +188,15 @@ public class TowerController implements Render{
     public void setTowerSelected(DefenderType type) {
         selectedTowerType = type;
         isTowerSelected = true;
+        // show defender type on mouse.
 
     }
 
     public boolean isTowerSelected() {
         return this.isTowerSelected;
+
     }
+
 
 
     public DefenderType getSelectedTowerType() {

@@ -14,6 +14,7 @@ import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.scene.CameraManager;
+import inf112.skeleton.app.scene.PlayScene;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 
@@ -23,10 +24,14 @@ public class MouseController implements InputProcessor {
     private boolean isDragging;
     private Level level;
     private int lastX, lastY;
+    private ShapeRenderer shapeRenderer;
     private EnemyController enemyController;
+    private boolean renderDebug = false;
+
     private Vector3 lastTouch = new Vector3(-1, -1, 0);
     public MouseController(Level level) {
         this.level = level;
+        shapeRenderer = PlayScene.shapeRenderer;
         this.towerController = TowerController.getInstance(this.level);
         this.enemyController = EnemyController.getInstance(this.level);
     }
@@ -43,26 +48,16 @@ public class MouseController implements InputProcessor {
             float towerSize = GameConstants.TOWER_SIZE;
             float centeredSizeX = worldCoordinates.x - towerSize / 2;
             float centeredSizeY = worldCoordinates.y - towerSize / 2;
-
-            List<Enemy> currentEnemies = this.enemyController.getEnemyList();
             DefenderType selectedType = towerController.getSelectedTowerType();
-
                 //ifvalidtile
-                level.createTowerClicked(centeredSizeX,centeredSizeY,selectedType);
+                level.createTowerClicked(worldCoordinates.x, worldCoordinates.y,selectedType);
                 System.out.println("Clicked on " + "\nX: " + worldCoordinates.x + " Y: " + worldCoordinates.y);
-                        towerController.clearSelectedTower();
-                lastTouch.set(screenX, screenY, 0);
+                towerController.clearSelectedTower();
                 getCameraManager().getCamera().unproject(lastTouch);
+                renderDebug = true;
                 return true;
         }
         return false;
-    }
-    public void renderDebug(ShapeRenderer shapeRenderer) {
-        if (lastTouch.x != -1 && lastTouch.y != -1) {
-            System.out.println("renderdebug called!");
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.circle(lastTouch.x, lastTouch.y, 5); // Draw a circle of radius 5 at the last touch
-        }
     }
 
     public void disposeDebug(ShapeRenderer shapeRenderer) {
