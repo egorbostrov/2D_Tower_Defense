@@ -40,11 +40,11 @@ public class WaveEnemyFactoryTest {
     @Test
     void testGetNextReturnsCorrectEnemy() {
         // Call getNext to create an enemy based on the first character 'R'
-        Enemy enemyR = waveEnemyFactory.getNext(mockLevel);
+        Enemy enemyR = waveEnemyFactory.getNext(mockLevel, 1f, 1f, 1f);
         assertNotNull(enemyR, "Enemy should not be null for type 'R'");
 
         // Call getNext to create an enemy based on the next character 'T'
-        Enemy enemyT = waveEnemyFactory.getNext(mockLevel);
+        Enemy enemyT = waveEnemyFactory.getNext(mockLevel, 1f, 1f, 1f);
         assertNotNull(enemyT, "Enemy should not be null for type 'T'");
     }
 }
