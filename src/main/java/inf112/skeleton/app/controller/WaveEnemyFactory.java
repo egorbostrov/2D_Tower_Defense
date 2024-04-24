@@ -17,9 +17,9 @@ public class WaveEnemyFactory implements EnemyFactory{
      * @return new zombie
      */
     @Override
-    public Enemy getNext(Level level, float speed, float health, float delay) {
+    public Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay) {
         char zombie = zombieChars.charAt(counter);
         counter = (counter + 1) % zombieChars.length();
-        return Enemy.newEnemy(zombie, level, speed, health, delay);
+        return Enemy.newEnemy(zombie, level, speedMultiplier, healthMultiplier, delay);
     }
 }
