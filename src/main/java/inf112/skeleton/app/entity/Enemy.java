@@ -36,13 +36,27 @@ public class Enemy extends GameObject{
     private final HealthBar hpBar;
     private final float height;
 
-    public Enemy(char type, float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture){
+    /**
+     * Create a new enemy object
+     * @param type char representing which type of zombie this is
+     * @param x start position on the x axis
+     * @param y start position on the y axis
+     * @param width width of the zombie(gameObject)
+     * @param height height of the zombie(gameObject)
+     * @param startHealth Start health of the zombie
+     * @param directionLinkedList The directions used to reach the end, following the path
+     * @param reward money awarded for killing this zombie
+     * @param speed start speed of the zombie
+     * @param spawnDelay the delay before the zombie get put on the map
+     * @param texture the visual zombie texture
+     */
+    public Enemy(char type, float x, float y, float width, float height, float startHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture){
         super(x, y, width, height);
         this.type = type;
         this.height = height;
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
-        this.currentHealth = currentHealth;
+        this.currentHealth = startHealth;
         this.reward = reward;
         this.sprite = texture;
 
@@ -229,11 +243,16 @@ public class Enemy extends GameObject{
     }
 
 
-
+    /**
+     * @return true of the enemy is alive
+     */
    public boolean isAlive(){
         return alive;
    }
 
+    /**
+     * @return the bounty reward
+     */
     public int getReward(){
         return reward;
     }
@@ -278,6 +297,10 @@ public class Enemy extends GameObject{
         }
     }
 
+    /**
+     * Used in testing
+     * @return current health of the enemy
+     */
     public float getEnemyHealth() {
         return this.currentHealth;
     }

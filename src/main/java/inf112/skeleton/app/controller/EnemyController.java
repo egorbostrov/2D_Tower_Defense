@@ -19,7 +19,11 @@ public class EnemyController {
     private Level level;
 
 
-
+    /**
+     * Creates a new EnemyController.
+     * Used to: add and remove(kill) enemies.
+     * @param level used to check whether zombies has completed the path, and award player for kill
+     */
     public EnemyController(Level level){
         this.level = level;
         this.enemyList = new ArrayList<>();
