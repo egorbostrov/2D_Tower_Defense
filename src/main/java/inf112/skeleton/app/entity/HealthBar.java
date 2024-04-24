@@ -50,6 +50,9 @@ public class HealthBar extends GameObject {
     public void setHealth(float newHealth) {
         this.newHealth = newHealth;
     }
+    public float getCurrentHealth(){
+        return this.newHealth;
+    }
 
     public void updatePosition(float x, float y) {
         this.position.set(x, y);

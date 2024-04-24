@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.enums.DefenderType;
@@ -223,41 +224,14 @@ public class Level implements EnemyEvents {
      * @param x value of the tile
      * @param y value of the tile
      */
-    public void selectTile(float x, float y) {
 
-        Tile tile = this.map.getSelectedTile(x, y);
-        if (tile == null){
-            return;
-        }
-        switch (tile.getType()){
-            case TOWER:
-                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
-                infoMenu.updateTowerInfo(defender);
-                towerSelectionMenu.updateUpgradeButtons(money);
-                break;
-
-            case GROUND:
-                towerController.clearSelectedTower();
-                infoMenu.clearInfo();
-                towerSelectionMenu.clearSelectedTower();
-                break;
-
-            case PATH:
-                towerController.clearSelectedTower();
-                towerSelectionMenu.clearSelectedTower();
-                break;
-
-            default:
-                break;
-        }
-    }
 
     /**
      *
      * @return the selected tower
      */
     public BaseDefender getSelectedDefender() {
-        return towerController.getSelectedDefender();//GULP
+        return towerController.getCurrentDefender();//GULP
     }
 
     /**
@@ -309,7 +283,7 @@ public class Level implements EnemyEvents {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getAttackCost();
 
         if (cost <= money){
@@ -324,7 +298,7 @@ public class Level implements EnemyEvents {
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getRangePrice();
         if (cost <= money){
             towerController.upgradeRange();
@@ -341,7 +315,7 @@ public class Level implements EnemyEvents {
      * towerInfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getSpeedPrice();
         if (cost <= money){
             towerController.upgradeSpeed();

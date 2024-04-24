@@ -39,7 +39,7 @@ public class GameConstants {
 
     //TANK ZOMBIE VALUES:
     public static int ENEMY_TANK_SPEED = (int) TILE_WIDTH/2;
-    public static float ENEMY_TANK_START_HP = 20f;
+    public static float ENEMY_TANK_START_HP = 100f;
     public static int ENEMY_TANK_BOUNTY = 150;
 
     public static int START_MONEY = 1000;

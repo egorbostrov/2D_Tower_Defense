@@ -50,8 +50,9 @@ public class Enemy extends GameObject{
         this.elapsedTimeStart = 0;
 
         getNextDistance();
-        hpBar = new HealthBar(x + 5, y + this.height, width - 10, height / 10, currentHealth);
+        this.hpBar = new HealthBar(x + 5, y + this.height, width - 10, height / 10, currentHealth);
     }
+
 
     public static Enemy newEnemy(char type, Level level, float spawnDelay) {
         return switch(type) {
@@ -206,6 +207,10 @@ public class Enemy extends GameObject{
 
     public int getReward(){
         return reward;
+    }
+
+    public HealthBar getHpBar(){
+        return this.hpBar;
     }
 
     public void doubleSpeedClicked(){

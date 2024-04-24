@@ -1,6 +1,5 @@
-package inf112.skeleton.app.ControllerTest;
+package inf112.skeleton.app.controller;
 
-import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
 
@@ -32,7 +31,7 @@ public class EnemyControllerTest {
         when(mockMap.getDirections()).thenReturn(new LinkedList<>()); // return an empty list or a list with some directions
 
         // Now create an instance of EnemyController that will use the mocked Level
-        enemyController = new EnemyController(mockLevel, "RT");
+        enemyController = new EnemyController(mockLevel);
     }
 
     @Test

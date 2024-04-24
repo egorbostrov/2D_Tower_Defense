@@ -3,6 +3,7 @@ package inf112.skeleton.app.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import java.util.List;
 import inf112.skeleton.app.entity.Enemy;
@@ -32,6 +33,7 @@ public class MouseController implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
         if (button == Input.Buttons.LEFT && towerController.isTowerSelected()) {
             Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
             getCameraManager().getCamera().unproject(worldCoordinates); // Use CameraManager's camera to unproject
@@ -46,6 +48,10 @@ public class MouseController implements InputProcessor {
                 towerController.clearSelectedTower();
                 return true;
             }
+        }
+        else if (button == Input.Buttons.LEFT && !towerController.isTowerSelected()){
+            Vector2 coordinate = new Vector2(screenX, screenY);
+            towerController.setCurrentDefender(coordinate);
         }
         return false;
     }
