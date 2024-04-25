@@ -152,7 +152,6 @@ public class Enemy extends GameObject{
     @Override
     public void update(float elapsedTime) {
         super.update(elapsedTime);
-        System.out.println(speed);
         elapsedTimeStart += elapsedTime;
         if (elapsedTimeStart < spawnDelay || currentDirection == null) {
             return;

@@ -2,28 +2,17 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g3d.particles.renderers.PointSpriteRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.MouseController;
 import inf112.skeleton.app.controller.TowerController;
@@ -43,12 +32,17 @@ public class PlayScene extends AbstractGameScene {
     private boolean paused;
     private Stage stage;
     private Skin uimenuskin;
+
+    //Buttons
     private Button gunnerButton;
     private Button sniperButton;
     private Button bomberButton;
     private Button doubleSpeedButton;
+    private Button pauseButton;
+    private Button exitButton;
 
-    private boolean isToggled = false;
+    private boolean isToggledSpeed = false;
+    private boolean isToggledPause = false;
 
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
@@ -167,20 +161,48 @@ public class PlayScene extends AbstractGameScene {
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
+        layer.row();
 
         doubleSpeedButton = new Button(uimenuskin, "gunnertower");
-        layer.add(doubleSpeedButton).padBottom(10);  // Add padding at the bottom if needed
+        layer.add(doubleSpeedButton).padBottom(10).size(40);  // Add padding at the bottom if needed
         doubleSpeedButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                isToggled = !isToggled;
-                if (isToggled) {
+                isToggledSpeed = !isToggledSpeed;
+                if (isToggledSpeed) {
                     System.out.println("Double speed clicked");
                     level.doubleSpeedClicked();
                 } else {
                     System.out.println("Normal speed clicked");
                     level.normalSpeedClicked();
                 }
+            }
+        });
+
+        pauseButton = new Button(uimenuskin, "bombertower");
+        layer.add(pauseButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        pauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                isToggledPause = !isToggledPause;
+                if (isToggledPause) {
+                    System.out.println("Pause clicked");
+                    level.pause();
+                } else {
+                    System.out.println("Resume clicked");
+                    level.resume();
+                }
+            }
+        });
+
+        exitButton = new Button(uimenuskin, "snipertower");
+        layer.add(exitButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Exit clicked");
+                level.pause();
+                game.setScreen(new MenuScene(game));
             }
         });
         layer.row();

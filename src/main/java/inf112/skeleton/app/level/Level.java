@@ -415,7 +415,11 @@ public class Level implements EnemyEvents {
     }
 
     public void pause() {
-        isPaused = !isPaused;
+        isPaused = true;
+    }
+
+    public void resume() {
+        isPaused = false;
     }
 
     public int getUserHealth() {
