@@ -45,12 +45,15 @@ public class Level implements EnemyEvents {
     private OrthographicCamera camera;
     private CameraManager cameraManager;
 
-    public Level(Game game) {
+    private int mapNumber;
+
+    public Level(Game game, int mapNumber) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.setToOrtho(false);
         this.cameraManager = new CameraManager(camera);
         this.game = game;
         this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
+        this.mapNumber = mapNumber;
         start();
     }
 
@@ -65,7 +68,7 @@ public class Level implements EnemyEvents {
         enemyHealth = 5;
         userHealth = GameConstants.REMAINING_HEALTH;
 
-        map = new Map(2);
+        map = new Map(mapNumber);
         this.enemyController = EnemyController.getInstance(this);
         waveController = new WaveController(enemyController, 1, true);
         this.towerController = TowerController.getInstance(this);
@@ -365,7 +368,6 @@ public class Level implements EnemyEvents {
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
     }
-
 
     public int getScore(){
         return this.score;

@@ -4,33 +4,35 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.util.GameConstants;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
 
-public class MapSelectionScene extends AbstractGameScene{
-
-
-    private Skin uiMenuSkin;
-
+public class MapSelectionScene extends AbstractGameScene {
     private Stage stage;
+    private Skin uimenuskin;
+    //BUTTONS
     private Button mapOneButton;
     private Button mapTwoButton;
-    private Button exitButton;
+    private Button backButton;
     private Image bgimg;
-    public MapSelectionScene(Game game){
+
+    public MapSelectionScene(Game game) {
         super(game);
     }
 
-    private void build(){
-        uiMenuSkin = new Skin(Gdx.files.internal(GameConstants.SKIN_UI),
+    private void build() {
+        uimenuskin = new Skin(Gdx.files.internal(GameConstants.SKIN_UI),
                 new TextureAtlas(GameConstants.TEXTURE_ATLAS_UI));
 
         Table layerBackground = buildBg();
@@ -42,13 +44,14 @@ public class MapSelectionScene extends AbstractGameScene{
         stack.setSize(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT);
         stack.add(layerBackground);
         stack.add(layerControls);
+
     }
 
     private Table buildBg() {   // move this to menuscenemenu later on.
         Table layer = new Table();
         layer.setFillParent(true);
         // + Background
-        bgimg = new Image(uiMenuSkin, "background");
+        bgimg = new Image(uimenuskin, "background");
         bgimg.setScaling(Scaling.stretch);
         bgimg.setFillParent(true);
         layer.add(bgimg).expand().fill();
@@ -57,47 +60,48 @@ public class MapSelectionScene extends AbstractGameScene{
 
     private Table buildControls() { // move this to menuscenemenu later on.
         Table layer = new Table();
-        // + Map one button
-        mapOneButton = new Button(uiMenuSkin, "Map 1");
+        // + map one Button
+        mapOneButton = new Button(uimenuskin, "play");
         layer.add(mapOneButton);
         mapOneButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("play was pressed");
-                //Add level createmap here
+                onMapClicked(1);
             }
         });
         layer.row();
-
-        //+ Map two button
-        mapTwoButton = new Button(uiMenuSkin, "options");
+        // + map two Button
+        mapTwoButton = new Button(uimenuskin, "play");
         layer.add(mapTwoButton);
-        mapTwoButton.addListener(new ChangeListener() {
+        mapTwoButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
+                onMapClicked(2);
             }
         });
         layer.row();
-
         //+ exit button
-        exitButton = new Button(uiMenuSkin, "exit");
-        layer.add(exitButton);
-        exitButton.addListener(new ChangeListener() {
+        backButton = new Button(uimenuskin, "exit");
+        layer.add(backButton);
+        backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                onExitClicked();
+                onBackClicked();
             }
         });
         return layer;
     }
 
-    private void onExitClicked() {
-        System.exit(0);
+    private void onBackClicked() {
+        game.setScreen(new MenuScene(game));
+    }
+
+    private void onMapClicked (int mapNumber) {
+        game.setScreen(new PlayScene(game, mapNumber));
     }
 
     @Override
-    public void render(float deltaTime) {
+    public void render (float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(deltaTime);
@@ -105,12 +109,16 @@ public class MapSelectionScene extends AbstractGameScene{
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize (int width, int height) {
         stage.getViewport().update(width, height, true);
     }
-
     @Override
-    public void show() {
+    public void hide () {
+        stage.dispose();
+        uimenuskin.dispose();
+    }
+    @Override
+    public void show () {
         GameSettings prefs = GameSettings.instance;
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
@@ -122,16 +130,7 @@ public class MapSelectionScene extends AbstractGameScene{
         } else {
             MusicManager.play("menumusic.ogg", true);
         }
-    }
-
-    @Override
-    public void hide() {
-        stage.dispose();
-        uiMenuSkin.dispose();
-    }
-
-    @Override
-    public void pause() {
 
     }
+    @Override public void pause () { }
 }

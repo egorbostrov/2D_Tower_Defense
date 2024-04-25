@@ -54,12 +54,12 @@ public class PlayScene extends AbstractGameScene {
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
 
-    public PlayScene(Game game) {
+    public PlayScene(Game game, int mapNumber) {
         super(game);
         initializeResources();
         setupUI();
         setupInput(); // Now setupInput can be called safely
-        this.level = new Level(game);
+        this.level = new Level(game, mapNumber);
         initializeGameControllers();
 
     }

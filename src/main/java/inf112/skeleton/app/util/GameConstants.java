@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class GameConstants {
 
     public static final String PREFERENCES = "My Preferences";
-    public static final float BOMBER_EXPLOSION_RADIUS = 20;
+    public static final float BOMBER_EXPLOSION_RADIUS = 100;
     public static final String TEXTURE_ATLAS_UI = "zombie.atlas";
     public static final String SKIN_UI = "skin.json";
     public static final String PLACEHOLDER_ATLAS = "uiskin.atlas";
