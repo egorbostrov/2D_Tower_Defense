@@ -46,6 +46,10 @@ public class PlayScene extends AbstractGameScene {
     private Button gunnerButton;
     private Button sniperButton;
     private Button bomberButton;
+    private Button doubleSpeedButton;
+
+    private boolean isToggled = false;
+
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
     private Level level;
@@ -163,13 +167,28 @@ public class PlayScene extends AbstractGameScene {
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
+
+        doubleSpeedButton = new Button(uimenuskin, "gunnertower");
+        layer.add(doubleSpeedButton).padBottom(10);  // Add padding at the bottom if needed
+        doubleSpeedButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                isToggled = !isToggled;
+                if (isToggled) {
+                    System.out.println("Double speed clicked");
+                    level.doubleSpeedClicked();
+                } else {
+                    System.out.println("Normal speed clicked");
+                    level.normalSpeedClicked();
+                }
+            }
+        });
         layer.row();
         return layer;
     }
 
     private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
-
     }
     //private String getClickedTowerType () {
 

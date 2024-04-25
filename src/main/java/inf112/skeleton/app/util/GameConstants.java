@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 public class GameConstants {
 
     public static final String PREFERENCES = "My Preferences";
-    public static final float BOMBER_EXPLOSION_RADIUS = 20;
     public static final String TEXTURE_ATLAS_UI = "zombie.atlas";
     public static final String SKIN_UI = "skin.json";
     public static final String PLACEHOLDER_ATLAS = "uiskin.atlas";
     public static final String PLACEHOLDER_UI = "uiskin.json";
+
     public static float UI_WIDTH = 860;
     public static float UI_HEIGHT = 640;
 
@@ -51,6 +51,7 @@ public class GameConstants {
     public static int TOWER_RANGE_PRICE = 15;
     public static int TOWER_SPEED_PRICE = 15;
     public static int TOWER_DAMAGE_GUNNER = 5;
+    public static final float BOMBER_EXPLOSION_RADIUS = 50;
     public static final float TOWER_DAMAGE_SNIPER = 15;
     public static final float TOWER_RANGE_SNIPER = 999;
     public static final float TOWER_SPEED_SNIPER = 5;

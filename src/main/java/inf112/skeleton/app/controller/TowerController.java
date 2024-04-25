@@ -32,6 +32,7 @@ public class TowerController implements Render{
     private BaseDefender currentDefender;
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
+    private boolean speedMode = false;
 
     private Level level;
     private Map map = new Map();
@@ -102,18 +103,27 @@ public class TowerController implements Render{
 
     private int buildSniperTower(float x, float y, List<Enemy> enemyList) {
         SniperDefender sniperDefender = new SniperDefender(x, y, enemyList);
+        if (speedMode) {
+            sniperDefender.setSpeed(sniperDefender.getSpeed() * 2);
+        }
         defenderList.add(sniperDefender);
         return TOWER_PRICE_SNIPER;
     }
 
     private int buildBomberTower(float x, float y, List<Enemy> enemyList) {
         BomberDefender bomberDefender = new BomberDefender(x, y, enemyList);
+        if (speedMode) {
+            bomberDefender.setSpeed(bomberDefender.getSpeed() * 2);
+        }
         defenderList.add(bomberDefender);
         return TOWER_PRICE_BOMBER;
     }
 
     private int buildGunnerTower(float x, float y, List<Enemy> enemyList) {
         GunnerDefender gunnerDefender = new GunnerDefender(x, y, enemyList);
+        if (speedMode) {
+            gunnerDefender.setSpeed(gunnerDefender.getDamage() * 2);
+        }
         defenderList.add(gunnerDefender);
         System.out.println("Tower added at: " + x + ", " + y + " | Total towers: " + defenderList.size());
         System.out.println(map.getSelectedTile(x,y));
@@ -122,12 +132,17 @@ public class TowerController implements Render{
     }
 
     public void doubleSpeedClicked() {
+        speedMode = true;
+        for (BaseDefender currentDefender : defenderList) {
+            currentDefender.setSpeed(currentDefender.getSpeed() * 2);
+        }
     }
 
     public void normalSpeedClicked() {
-    }
-
-    public void upgradeSpeed() {
+        speedMode = false;
+        for (BaseDefender currentDefender : defenderList) {
+            currentDefender.setSpeed(currentDefender.getSpeed() / 2);
+        }
     }
 
     public BaseDefender getSelectedDefender(Vector2 tileCenter) {
@@ -141,10 +156,16 @@ public class TowerController implements Render{
         return currentDefender;
     }
 
+    public void upgradeSpeed() {
+        currentDefender.speedUpgrade();
+    }
+
     public void upgradeRange() {
+        currentDefender.rangeUpgrade();
     }
 
     public void upgradeDamage() {
+        currentDefender.damageUpgrade();
     }
 
     public void clearSelectedTower() {

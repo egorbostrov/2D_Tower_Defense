@@ -56,9 +56,17 @@ public class EnemyController {
     }
 
     public void doubleSpeedClicked() {
+        for (Enemy enemy : enemyList) {
+            enemy.doubleSpeedClicked();
+
+        }
     }
 
     public void normalSpeedClicked() {
+        for (Enemy enemy : enemyList) {
+            enemy.normalSpeedClicked();
+
+        }
     }
 
     public List<Enemy> getEnemyList(){

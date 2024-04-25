@@ -20,6 +20,10 @@ public class WaveEnemyFactory implements EnemyFactory{
     public Enemy getNext(Level level, float delay) {
         char zombie = zombieChars.charAt(counter);
         counter = (counter + 1) % zombieChars.length();
-        return Enemy.newEnemy(zombie, level, delay);
+        Enemy newEnemy = Enemy.newEnemy(zombie, level, delay);
+        if (level.isDoubleSpeedActive()) {
+            newEnemy.doubleSpeedClicked();
+        }
+        return newEnemy;
     }
 }

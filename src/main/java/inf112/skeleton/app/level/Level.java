@@ -44,6 +44,7 @@ public class Level implements EnemyEvents {
     private OrthographicCamera camera;
     private CameraManager cameraManager;
     private boolean isPaused;
+    private boolean isDoubleSpeedActive = false;
 
     public Level(Game game) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -372,6 +373,7 @@ public class Level implements EnemyEvents {
      * Sets the speed of the game to 2x of normal speed
      */
     public void doubleSpeedClicked() {
+        isDoubleSpeedActive = true;
         towerController.doubleSpeedClicked();
         enemyController.doubleSpeedClicked();
     }
@@ -380,8 +382,13 @@ public class Level implements EnemyEvents {
      * Sets the speed of the game back to normal speed.
      */
     public void normalSpeedClicked() {
+        isDoubleSpeedActive = false;
         towerController.normalSpeedClicked();
         enemyController.normalSpeedClicked();
+    }
+
+    public boolean isDoubleSpeedActive() {
+        return isDoubleSpeedActive;
     }
 
 
