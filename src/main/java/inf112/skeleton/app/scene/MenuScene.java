@@ -100,7 +100,7 @@ public class MenuScene extends AbstractGameScene {
     }
 
     private void onPlayClicked () {
-        game.setScreen(new PlayScene(game));
+        game.setScreen(new MapSelectionScene(game));
     }
 
     private void onOptionsClicked () {

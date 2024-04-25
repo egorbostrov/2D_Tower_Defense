@@ -2,18 +2,22 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.util.GameConstants;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import inf112.skeleton.app.util.GameSettings;
+import inf112.skeleton.app.util.MusicManager;
 
 public class MapSelectionScene extends AbstractGameScene{
 
-    private final Level level;
+
     private Skin uiMenuSkin;
 
     private Stage stage;
@@ -21,9 +25,8 @@ public class MapSelectionScene extends AbstractGameScene{
     private Button mapTwoButton;
     private Button exitButton;
     private Image bgimg;
-    public MapSelectionScene(Game game, Level level){
+    public MapSelectionScene(Game game){
         super(game);
-        this.level = level;
     }
 
     private void build(){
@@ -95,22 +98,36 @@ public class MapSelectionScene extends AbstractGameScene{
 
     @Override
     public void render(float deltaTime) {
-
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(deltaTime);
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
     public void show() {
-
+        GameSettings prefs = GameSettings.instance;
+        stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
+        Gdx.input.setInputProcessor(stage);
+        build();
+        prefs.load();   // load preferences.
+        MusicManager.changeMusicVolume(); // change volume (placeholder for when i will complete musicmanager).
+        if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
+            MusicManager.stopCurrentMusic(); // stop the music.
+        } else {
+            MusicManager.play("menumusic.ogg", true);
+        }
     }
 
     @Override
     public void hide() {
-
+        stage.dispose();
+        uiMenuSkin.dispose();
     }
 
     @Override

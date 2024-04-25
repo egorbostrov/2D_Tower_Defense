@@ -1,4 +1,4 @@
-package inf112.skeleton.app.ControllerTest;
+package inf112.skeleton.app.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
