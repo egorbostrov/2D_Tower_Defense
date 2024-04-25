@@ -49,21 +49,30 @@ public class EnemyController {
      */
     private void removeEnemy() {
         List<Enemy> shouldRemoved = new ArrayList<>();
-        for (Enemy e : enemyList) {
-            if (checkBoundsForEnemy(e)) {
-                shouldRemoved.add(e);
+        for (Enemy enemy : enemyList) {
+            if (checkBoundsForEnemy(enemy) && enemy.hasEnteredMap) {
+                System.out.println("utenfor bounds og har entret mappet");
+                shouldRemoved.add(enemy);
                 level.enemyCompletedPath();
             }
-            if (!e.isAlive()) {
-                shouldRemoved.add(e);
-                level.enemyKilled(e.getReward());
+            if (!enemy.isAlive()) {
+                shouldRemoved.add(enemy);
+                level.enemyKilled(enemy.getReward());
             }
         }
         enemyList.removeAll(shouldRemoved);
     }
 
+    /**
+     * @param enemy enemy we check bounds for
+     * @return true if enemy is our of bounds
+     */
     private boolean checkBoundsForEnemy(Enemy enemy) {
-        return (enemy.position.x + enemy.size.x > GameConstants.SCREEN_WIDTH || enemy.position.y + enemy.size.y > GameConstants.SCREEN_HEIGHT);
+            return (enemy.position.x + enemy.size.x > GameConstants.SCREEN_WIDTH ||
+                    enemy.position.x - enemy.size.x < 0 ||
+                    enemy.position.y + enemy.size.y > GameConstants.SCREEN_HEIGHT - (GameConstants.UI_ROWS_TOP * GameConstants.TILE_HEIGHT) ||
+                    enemy.position.y - enemy.size.y < GameConstants.UI_ROWS_BOTTOM * GameConstants.TILE_HEIGHT
+            );
     }
 
     public void doubleSpeedClicked() {
@@ -78,6 +87,9 @@ public class EnemyController {
 
     public void update(float elapsedTime) {
         for (Enemy enemy : enemyList) {
+            if (!checkBoundsForEnemy(enemy) && !enemy.hasEnteredMap) {
+                enemy.enemyEnteredMap();
+            }
             enemy.update(elapsedTime);
 
         }
