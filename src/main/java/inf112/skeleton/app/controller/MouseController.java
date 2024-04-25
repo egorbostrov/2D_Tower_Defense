@@ -1,6 +1,5 @@
 package inf112.skeleton.app.controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
@@ -42,7 +41,7 @@ public class MouseController implements InputProcessor {
             List<Enemy> currentEnemies = this.enemyController.getEnemyList();
             DefenderType selectedType = towerController.getSelectedTowerType();
 
-            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType) > 0) {
+            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType, 100) > 0) {
                 towerController.clearSelectedTower();
                 return true;
             }

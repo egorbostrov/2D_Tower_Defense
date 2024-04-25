@@ -41,7 +41,7 @@ public class TowerController implements Render{
         return instance;
     }
 
-    public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type){
+    public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type, int i){
        switch (type){
            case GUNNER:
                if (this.level.getMoney() >= TOWER_PRICE_GUNNER){
@@ -158,4 +158,9 @@ public class TowerController implements Render{
     public DefenderType getSelectedTowerType() {
         return selectedTowerType;
     }
+
+    public List<BaseDefender> getDefenderList() {
+        return defenderList;
+    }
+
 }
