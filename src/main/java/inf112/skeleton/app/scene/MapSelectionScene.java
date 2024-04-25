@@ -21,11 +21,6 @@ import inf112.skeleton.app.util.MusicManager;
 public class MapSelectionScene extends AbstractGameScene {
     private Stage stage;
     private Skin uimenuskin;
-    //BUTTONS
-    private Button mapOneButton;
-    private Button mapTwoButton;
-    private Button backButton;
-    private Image bgimg;
 
     public MapSelectionScene(Game game) {
         super(game);
@@ -51,7 +46,7 @@ public class MapSelectionScene extends AbstractGameScene {
         Table layer = new Table();
         layer.setFillParent(true);
         // + Background
-        bgimg = new Image(uimenuskin, "background");
+        Image bgimg = new Image(uimenuskin, "background");
         bgimg.setScaling(Scaling.stretch);
         bgimg.setFillParent(true);
         layer.add(bgimg).expand().fill();
@@ -61,7 +56,8 @@ public class MapSelectionScene extends AbstractGameScene {
     private Table buildControls() { // move this to menuscenemenu later on.
         Table layer = new Table();
         // + map one Button
-        mapOneButton = new Button(uimenuskin, "play");
+        //BUTTONS
+        Button mapOneButton = new Button(uimenuskin, "play");
         layer.add(mapOneButton);
         mapOneButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override
@@ -69,9 +65,8 @@ public class MapSelectionScene extends AbstractGameScene {
                 onMapClicked(1);
             }
         });
-        layer.row();
         // + map two Button
-        mapTwoButton = new Button(uimenuskin, "play");
+        Button mapTwoButton = new Button(uimenuskin, "play");
         layer.add(mapTwoButton);
         mapTwoButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override
@@ -80,9 +75,9 @@ public class MapSelectionScene extends AbstractGameScene {
             }
         });
         layer.row();
-        //+ exit button
-        backButton = new Button(uimenuskin, "exit");
-        layer.add(backButton);
+        //+ back button
+        Button backButton = new Button(uimenuskin, "exit");
+        layer.add(backButton).colspan(2).center();
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
