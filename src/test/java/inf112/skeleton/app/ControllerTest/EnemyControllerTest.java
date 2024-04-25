@@ -1,9 +1,12 @@
 package inf112.skeleton.app.ControllerTest;
 
 import inf112.skeleton.app.controller.EnemyController;
+import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
 
+import inf112.skeleton.app.util.GameAssets;
+import inf112.skeleton.app.util.GameConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -36,9 +39,23 @@ public class EnemyControllerTest {
     }
 
     @Test
-    void testEnemySpawning() {
-        // Verify that the EnemyController's list is populated with the correct number of enemies
-        assertEquals(2, enemyController.getEnemyList().size(), "Enemy list should have two enemies");
+    void populateEnemyList() {
+        for (int i = 0; i < 5; i++) {
+            enemyController.newZombie(new Enemy(
+                    'R',
+                    GameConstants.START_POS.x,
+                    GameConstants.START_POS.y,
+                    GameConstants.ENEMY_WIDTH,
+                    GameConstants.ENEMY_HEIGHT,
+                    5,
+                    mockMap.getDirections(),
+                    5,
+                    5,
+                    5,
+                    GameAssets.zombieSprite
+            ));
+        }
+        assertEquals(5, enemyController.getEnemyList().size(), "List should contain 5 enemies");
     }
 }
 
