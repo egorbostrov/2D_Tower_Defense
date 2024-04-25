@@ -90,7 +90,6 @@ public class WaveController {
         this.zombieIndex = 1f;
 
         for(int i = 0; i < wavePattern.length(); i++) {
-            System.out.println("new fixed:");
             enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
             zombieIndex++;
         }
