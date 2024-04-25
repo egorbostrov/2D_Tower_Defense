@@ -31,6 +31,7 @@ public class GameConstants {
 
     public static float ENEMY_WIDTH = TILE_WIDTH;
     public static float ENEMY_HEIGHT = TILE_HEIGHT;
+    public static String ENEMY_TYPES = "RTQ";
 
     //REGULAR ZOMBIE VALUES:
     public static int ENEMY_REGULAR_SPEED = (int) TILE_WIDTH;
@@ -41,6 +42,11 @@ public class GameConstants {
     public static int ENEMY_TANK_SPEED = (int) TILE_WIDTH/2;
     public static float ENEMY_TANK_START_HP = 100f;
     public static int ENEMY_TANK_BOUNTY = 150;
+
+    //QUICK ZOMBIE VALUES:
+    public static int ENEMY_QUICK_SPEED = (int)TILE_WIDTH*2;
+    public static float ENEMY_QUICK_START_HP = 4f;
+    public static int ENEMY_QUICK_BOUNTY = 75;
 
     public static int START_MONEY = 1000;
     public static int REMAINING_HEALTH = 6;
@@ -59,13 +65,10 @@ public class GameConstants {
     public static final int TOWER_PRICE_SNIPER = 100;
 
 
-
     public static final float TOWER_DAMAGE_BOMBER = 10;
-
-
 
     public static float BULLET_WIDTH = TILE_WIDTH / 8;
     public static float BULLET_HEIGHT = TILE_HEIGHT / 8;
 
-    public static Vector2 START_POS = new Vector2(0, TILE_HEIGHT * (UI_ROWS_BOTTOM - 1));
+    public static Vector2 START_POS = new Vector2(1 * TILE_WIDTH, TILE_HEIGHT * (UI_ROWS_BOTTOM - 1));
 }

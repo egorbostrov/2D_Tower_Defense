@@ -81,7 +81,6 @@ public class TowerController implements Render{
     private int buildGunnerTower(float x, float y, List<Enemy> enemyList) {
         GunnerDefender gunnerDefender = new GunnerDefender(x, y, enemyList);
         defenderList.add(gunnerDefender);
-        System.out.println("Tower added at: " + x + ", " + y + " | Total towers: " + defenderList.size());
         return TOWER_PRICE_GUNNER;
     }
 

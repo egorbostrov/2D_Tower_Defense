@@ -1,10 +1,11 @@
-package inf112.skeleton.app.controller;
+package inf112.skeleton.app.ControllerTest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import inf112.skeleton.app.controller.WaveEnemyFactory;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
@@ -39,11 +40,11 @@ public class WaveEnemyFactoryTest {
     @Test
     void testGetNextReturnsCorrectEnemy() {
         // Call getNext to create an enemy based on the first character 'R'
-        Enemy enemyR = waveEnemyFactory.getNext(mockLevel, 0);
+        Enemy enemyR = waveEnemyFactory.getNext(mockLevel, 1f, 1f, 1f);
         assertNotNull(enemyR, "Enemy should not be null for type 'R'");
 
         // Call getNext to create an enemy based on the next character 'T'
-        Enemy enemyT = waveEnemyFactory.getNext(mockLevel, 0);
+        Enemy enemyT = waveEnemyFactory.getNext(mockLevel, 1f, 1f, 1f);
         assertNotNull(enemyT, "Enemy should not be null for type 'T'");
     }
 }

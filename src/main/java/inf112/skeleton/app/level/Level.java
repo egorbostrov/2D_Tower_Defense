@@ -65,13 +65,10 @@ public class Level implements EnemyEvents {
         enemyHealth = 5;
         userHealth = GameConstants.REMAINING_HEALTH;
 
-        map = new Map();
+        map = new Map(2);
         this.enemyController = EnemyController.getInstance(this);
-        waveController = new WaveController(enemyController);
+        waveController = new WaveController(enemyController, 1, true);
         this.towerController = TowerController.getInstance(this);
-        //towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
-        //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
-        //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 
@@ -116,7 +113,6 @@ public class Level implements EnemyEvents {
 
         if(enemyController.getEnemyList().isEmpty()) {
             nextWave();
-            System.out.println("new wave called in Level.java");
         }
     }
 
@@ -193,7 +189,6 @@ public class Level implements EnemyEvents {
         addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
-        System.out.println("get money");
     }
 
     /**
@@ -369,7 +364,6 @@ public class Level implements EnemyEvents {
         this.money -= amount;
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
-        System.out.println("Money remaining:" + this.money);
     }
 
 
