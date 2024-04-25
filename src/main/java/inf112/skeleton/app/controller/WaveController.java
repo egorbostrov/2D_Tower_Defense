@@ -23,6 +23,7 @@ public class WaveController {
     float zombieIndex;
     private final boolean randomMode;
     private final Random random;
+    private boolean doubleSpeed;
 
     public WaveController(EnemyController enemyController, int selectedWave, boolean randomMode) {
         this.enemyController = enemyController;
@@ -98,15 +99,26 @@ public class WaveController {
     }
 
     private void generateRandomWave(Level level) {
-        int numZombies = random.nextInt(5) + 5 + waveIndex;//Length is always minimum 5 + wave number, but get random amount on top of this.
+        int numZombies = 5 + waveIndex + random.nextInt(5);//Length is always minimum 5 + wave number; but get random amount on top of this.
         this.zombieIndex = 1f;
 
         for(int i = 0; i < numZombies; i++) {
-            System.out.println("new random:");
-            enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
+            if(doubleSpeed) {
+                enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier * 2, healthMultiplier, (zombieIndex * spawnDelay)));
+            }
+            else {
+                enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
+            }
             zombieIndex++;
         }
         waveIndex++;
         zombieIndex = 0;
+    }
+
+    public void zombiesDoubleSpeedEnable() {
+        this.doubleSpeed = true;
+    }
+    public void zombiesDoubleSpeedDisable() {
+        this.doubleSpeed = false;
     }
 }
