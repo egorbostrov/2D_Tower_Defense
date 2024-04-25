@@ -74,7 +74,7 @@ public class EnemyTest {
     LinkedList<Direction> path = new LinkedList<>();
     Sprite mockSprite = Mockito.mock(Sprite.class);
 
-    enemy = new Enemy(0.0f, 0.0f, 1.0f, 1.0f, 100.0f, path, 50, 1, 0.0f, mockSprite);
+    enemy = new Enemy('R',0.0f, 0.0f, 1.0f, 1.0f, 100.0f, path, 50, 1, 0.0f, mockSprite);
 
     originalX = enemy.position.x;
     originalY = enemy.position.y;
