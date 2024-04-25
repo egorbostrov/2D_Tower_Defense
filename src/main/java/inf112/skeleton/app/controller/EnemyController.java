@@ -50,7 +50,7 @@ public class EnemyController {
     private void removeEnemy() {
         List<Enemy> shouldRemoved = new ArrayList<>();
         for (Enemy e : enemyList) {
-            if (e.position.x + e.size.x > GameConstants.SCREEN_WIDTH || e.position.y + e.size.y > GameConstants.SCREEN_HEIGHT) {
+            if (checkBoundsForEnemy(e)) {
                 shouldRemoved.add(e);
                 level.enemyCompletedPath();
             }
@@ -60,6 +60,10 @@ public class EnemyController {
             }
         }
         enemyList.removeAll(shouldRemoved);
+    }
+
+    private boolean checkBoundsForEnemy(Enemy enemy) {
+        return (enemy.position.x + enemy.size.x > GameConstants.SCREEN_WIDTH || enemy.position.y + enemy.size.y > GameConstants.SCREEN_HEIGHT);
     }
 
     public void doubleSpeedClicked() {
