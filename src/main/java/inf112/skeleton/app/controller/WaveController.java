@@ -42,7 +42,7 @@ public class WaveController {
             this.enemyFactory = new RandomEnemyFactory();
         }
         else {
-            this.enemyFactory = new WaveEnemyFactory(wavePatterns.get(waveIndex));
+            this.enemyFactory = new PatternedEnemyFactory(wavePatterns.get(waveIndex));
         }
 
     }
@@ -85,7 +85,7 @@ public class WaveController {
         waveIndex = waveIndex % wavePatterns.size();//Loop to first wave if we ran out of waves, using modulo
 
         String wavePattern = wavePatterns.get(waveIndex);
-        this.enemyFactory = new WaveEnemyFactory(wavePattern);
+        this.enemyFactory = new PatternedEnemyFactory(wavePattern);
 
         this.zombieIndex = 1f;
 
@@ -102,7 +102,7 @@ public class WaveController {
         this.zombieIndex = 1f;
 
         for(int i = 0; i < numZombies; i++) {
-            if(doubleSpeed) {
+            if(doubleSpeed/*level.doubleSpeedClicked()*/) {//FIX
                 enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier * 2, healthMultiplier, (zombieIndex * spawnDelay)));
             }
             else {
