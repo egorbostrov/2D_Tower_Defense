@@ -280,4 +280,9 @@ public class PlayScene extends AbstractGameScene {
     public void resume () {
         super.resume();
     }
+
+    public Object getLevel() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getLevel'");
+    }
 }

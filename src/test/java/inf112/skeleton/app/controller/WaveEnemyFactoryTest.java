@@ -1,57 +1,3 @@
-// package inf112.skeleton.app.ControllerTest;
-
-// import static org.mockito.Mockito.*;
-
-// import java.util.LinkedList;
-
-// import static org.junit.jupiter.api.Assertions.*;
-
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.mockito.Mock;
-// import org.mockito.MockitoAnnotations;
-
-// import inf112.skeleton.app.controller.WaveEnemyFactory;
-// import inf112.skeleton.app.entity.Enemy;
-// import inf112.skeleton.app.level.Level;
-// import inf112.skeleton.app.map.Map;
-
-// public class WaveEnemyFactoryTest {
-
-//     @Mock
-//     private Level mockLevel;
-//     @Mock
-//     private Map mockMap;
-
-//     private WaveEnemyFactory waveEnemyFactory;
-
-//     @BeforeEach
-//     void setUp() {
-//         MockitoAnnotations.openMocks(this);
-
-//         // Mock the behavior of the Level and Map objects
-//         when(mockLevel.getMap()).thenReturn(mockMap);
-//         when(mockMap.getDirections()).thenReturn(new LinkedList<>()); // Provide an empty LinkedList for directions
-
-//         // Initialize the WaveEnemyFactory with the zombie types string
-//         waveEnemyFactory = new WaveEnemyFactory("RT");
-//     }
-
-//     @Test
-//     void testGetNextReturnsCorrectEnemy() {
-//         // Assuming a delay value is needed, you can define it here. For example:
-//         float delay = 0.5f;
-
-//         // Call getNext to create an enemy based on the first character 'R'
-//         Enemy enemyR = waveEnemyFactory.getNext(mockLevel, delay);
-//         assertNotNull(enemyR, "Enemy should not be null for type 'R'");
-
-//         // Call getNext to create an enemy based on the next character 'T'
-//         Enemy enemyT = waveEnemyFactory.getNext(mockLevel, delay);
-//         assertNotNull(enemyT, "Enemy should not be null for type 'T'");
-//     }
-// }
-
 package inf112.skeleton.app.ControllerTest;
 
 import com.badlogic.gdx.Application;
@@ -61,9 +7,6 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
@@ -76,9 +19,7 @@ import java.util.LinkedList;
 
 public class WaveEnemyFactoryTest {
 
-    @Mock
     private Level mockLevel;
-    @Mock
     private Map mockMap;
     private static Application application;
 
@@ -86,40 +27,15 @@ public class WaveEnemyFactoryTest {
 
     @BeforeAll
     public static void init() {
+        // Initialize your libGDX environment here
         HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
         application = new HeadlessApplication(new ApplicationListener() {
-            @Override
-            public void create() {}
-
-            @Override
-            public void resize(int width, int height) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'resize'");
-            }
-
-            @Override
-            public void render() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'render'");
-            }
-
-            @Override
-            public void pause() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'pause'");
-            }
-
-            @Override
-            public void resume() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'resume'");
-            }
-
-            @Override
-            public void dispose() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'dispose'");
-            }
+            @Override public void create() {}
+            @Override public void resize(int width, int height) {}
+            @Override public void render() {}
+            @Override public void pause() {}
+            @Override public void resume() {}
+            @Override public void dispose() {}
         }, conf);
 
         Gdx.gl20 = mock(GL20.class);
@@ -128,17 +44,21 @@ public class WaveEnemyFactoryTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        // Manually create mocks
+        mockLevel = mock(Level.class);
+        mockMap = mock(Map.class);
 
+        // Define the behavior for your mocks here
         when(mockLevel.getMap()).thenReturn(mockMap);
         when(mockMap.getDirections()).thenReturn(new LinkedList<>());
 
+        // Initialize your factory
         waveEnemyFactory = new WaveEnemyFactory("RT");
     }
 
     @Test
     void testGetNextReturnsCorrectEnemy() {
-        float delay = 0.5f;
+        float delay = 0.5f; // Define any delay value needed for your test
         Enemy enemyR = waveEnemyFactory.getNext(mockLevel, delay);
         assertNotNull(enemyR, "Enemy should not be null for type 'R'");
 
@@ -148,7 +68,7 @@ public class WaveEnemyFactoryTest {
 
     @AfterEach
     void tearDown() {
-        // This is where you would normally close or release resources opened in @BeforeEach
+        // Perform teardown tasks here, such as releasing resources or resetting static information
     }
 
     @AfterAll
