@@ -40,4 +40,6 @@ public class BomberDefender extends BaseDefender{
         bullet.setBomberDefender(this);
         bullets.add(bullet);
     }
+
+
 }

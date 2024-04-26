@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.enums.DefenderType;
@@ -44,12 +45,15 @@ public class Level implements EnemyEvents {
     private OrthographicCamera camera;
     private CameraManager cameraManager;
 
-    public Level(Game game) {
+    private int mapNumber;
+
+    public Level(Game game, int mapNumber) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.setToOrtho(false);
         this.cameraManager = new CameraManager(camera);
         this.game = game;
         this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
+        this.mapNumber = mapNumber;
         start();
     }
 
@@ -64,13 +68,10 @@ public class Level implements EnemyEvents {
         enemyHealth = 5;
         userHealth = GameConstants.REMAINING_HEALTH;
 
-        map = new Map();
+        map = new Map(mapNumber);
         this.enemyController = EnemyController.getInstance(this);
-        waveController = new WaveController(enemyController);
+        waveController = new WaveController(enemyController, 1, true);
         this.towerController = TowerController.getInstance(this);
-        //towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
-        //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
-        //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 
@@ -115,7 +116,6 @@ public class Level implements EnemyEvents {
 
         if(enemyController.getEnemyList().isEmpty()) {
             nextWave();
-            System.out.println("new wave called in Level.java");
         }
     }
 
@@ -192,7 +192,6 @@ public class Level implements EnemyEvents {
         addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
-        System.out.println("get money");
     }
 
     /**
@@ -223,42 +222,9 @@ public class Level implements EnemyEvents {
      * @param x value of the tile
      * @param y value of the tile
      */
-    public void selectTile(float x, float y) {
 
-        Tile tile = this.map.getSelectedTile(x, y);
-        if (tile == null){
-            return;
-        }
-        switch (tile.getType()){
-            case TOWER:
-                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
-                infoMenu.updateTowerInfo(defender);
-                towerSelectionMenu.updateUpgradeButtons(money);
-                break;
 
-            case GROUND:
-                towerController.clearSelectedTower();
-                infoMenu.clearInfo();
-                towerSelectionMenu.clearSelectedTower();
-                break;
 
-            case PATH:
-                towerController.clearSelectedTower();
-                towerSelectionMenu.clearSelectedTower();
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    /**
-     *
-     * @return the selected tower
-     */
-    public BaseDefender getSelectedDefender() {
-        return towerController.getSelectedDefender();//GULP
-    }
 
     /**
      *
@@ -269,30 +235,9 @@ public class Level implements EnemyEvents {
     }
 
 
-    /**
-     *
-     * @return startHealth of the enemies
-     */
-    public int getEnemyHealth() {
-        return enemyHealth;
-    }
 
-    /**
-     *
-     * @return number of current enemies
-     */
-    public int getEnemyNumber() {
-        return numberOfEnemies;
-    }
 
-    /**
-     * Render tile only if bool is set to true. This is made to not render the board
-     * if not necessary which optimizes the game.
-     * @param bool is ture when board is changed and needs to render and false else.
-     */
-    public void renderTiles(boolean bool) {
-        this.map.getBoard().renderSwitch(bool);
-    }
+
 
     /**
      * Sets the time left of the current wave
@@ -309,7 +254,7 @@ public class Level implements EnemyEvents {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getAttackCost();
 
         if (cost <= money){
@@ -324,7 +269,7 @@ public class Level implements EnemyEvents {
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getRangePrice();
         if (cost <= money){
             towerController.upgradeRange();
@@ -341,7 +286,7 @@ public class Level implements EnemyEvents {
      * towerInfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getSpeedPrice();
         if (cost <= money){
             towerController.upgradeSpeed();
@@ -395,9 +340,7 @@ public class Level implements EnemyEvents {
         this.money -= amount;
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
-        System.out.println("Money remaining:" + this.money);
     }
-
 
     public int getScore(){
         return this.score;
@@ -413,5 +356,8 @@ public class Level implements EnemyEvents {
 
     public int getEnemiesKilled(){
         return this.enemiesKilled;
+    }
+    public int getUserHealth(){
+        return this.userHealth;
     }
 }

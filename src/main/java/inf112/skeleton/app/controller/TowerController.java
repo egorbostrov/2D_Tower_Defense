@@ -2,6 +2,7 @@ package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
@@ -26,12 +27,15 @@ public class TowerController implements Render{
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
 
-    private Level level;
+    private final Level level;
+
+    private Vector2 coordinatePressed;
 
 
     public TowerController(Level level){
         defenderList = new ArrayList<>();
         this.level = level;
+        this.coordinatePressed = new Vector2();
     }
 
     public static synchronized TowerController getInstance(Level level) {
@@ -77,11 +81,11 @@ public class TowerController implements Render{
     private int buildGunnerTower(float x, float y, List<Enemy> enemyList) {
         GunnerDefender gunnerDefender = new GunnerDefender(x, y, enemyList);
         defenderList.add(gunnerDefender);
-        System.out.println("Tower added at: " + x + ", " + y + " | Total towers: " + defenderList.size());
         return TOWER_PRICE_GUNNER;
     }
 
     public void doubleSpeedClicked() {
+
     }
 
     public void normalSpeedClicked() {
@@ -90,18 +94,29 @@ public class TowerController implements Render{
     public void upgradeSpeed() {
     }
 
-    public BaseDefender getSelectedDefender(Vector2 tileCenter) {
+    public void setCurrentDefender(Vector2 coordinatePressed) {
         for (BaseDefender defender : defenderList){
-
+            if(defender.getHitBox().contains(coordinatePressed)){
+                this.currentDefender = defender;
+            }
         }
-        return null;
+
     }
 
-    public BaseDefender getSelectedDefender(){
-        return currentDefender;
+    public BaseDefender getCurrentDefender(){
+        return this.currentDefender;
     }
+
+    public void setCoordinatePressed(Vector2 coordinate){
+        this.coordinatePressed = coordinate;
+    }
+
+
+
+
 
     public void upgradeRange() {
+
     }
 
     public void upgradeDamage() {

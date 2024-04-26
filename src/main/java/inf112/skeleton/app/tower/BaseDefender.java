@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
@@ -268,9 +269,13 @@ public abstract class BaseDefender extends GameObject {
     public int getAttackCost() {
         return attackPrice;
     }
+
     public DefenderType getDefenderType() {
         return defenderType;
     }
 
+    public Rectangle getHitBox(){
+        return this.boundsRectangle;
+    }
 
 }

@@ -54,12 +54,12 @@ public class PlayScene extends AbstractGameScene {
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
 
-    public PlayScene(Game game) {
+    public PlayScene(Game game, int mapNumber) {
         super(game);
         initializeResources();
         setupUI();
         setupInput(); // Now setupInput can be called safely
-        this.level = new Level(game);
+        this.level = new Level(game, mapNumber);
         initializeGameControllers();
 
     }
@@ -137,7 +137,6 @@ public class PlayScene extends AbstractGameScene {
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
@@ -147,7 +146,6 @@ public class PlayScene extends AbstractGameScene {
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("sniper selected");
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
@@ -157,7 +155,6 @@ public class PlayScene extends AbstractGameScene {
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("bomber selected");
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
@@ -206,16 +203,21 @@ public class PlayScene extends AbstractGameScene {
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
+        if (level.getUserHealth() <= 0){
+            game.setScreen(new MenuScene(game));
+        }
     }
+
 
     private void renderInfo(SpriteBatch batch){
         String scoreText = "Score: " + level.getScore();
         String moneyText = "Money: " + level.getMoney();
         String waveText = "Wave: " + level.getCurrentWave();
         String enemiesText = "Enemies killed: " + level.getEnemiesKilled();
+        String userHealthText = "Your lives: " + level.getUserHealth();
 
         float xCord = 10;
-        float yCord = GameConstants.SCREEN_HEIGHT - 20;
+        float yCord = SCREEN_HEIGHT - 20;
         int padding = 20;
 
         GlyphLayout glyphScore = bitmapFont.draw(batch, scoreText, xCord, yCord);
@@ -226,11 +228,16 @@ public class PlayScene extends AbstractGameScene {
 
         bitmapFont.draw(batch, enemiesText, xCord, yCord);
 
-        xCord = GameConstants.SCREEN_WIDTH / 2;
+        xCord = SCREEN_WIDTH / 2;
         GlyphLayout glyphWave = new GlyphLayout();
         glyphWave.setText(bitmapFont, waveText);
 
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
+
+        GlyphLayout glyphUserHealth = new GlyphLayout();
+        glyphUserHealth.setText(bitmapFont, userHealthText);
+
+        bitmapFont.draw(batch, userHealthText, SCREEN_WIDTH - (glyphUserHealth.width + padding), yCord);
     }
 
 
