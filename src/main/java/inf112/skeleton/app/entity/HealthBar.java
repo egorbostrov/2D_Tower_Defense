@@ -17,7 +17,7 @@ public class HealthBar extends GameObject {
     private float newHealth;
 
     /**
-     *
+     * Health bar that visualizes current health for each enemy
      * @param x x coordinate
      * @param y y coordinate
      * @param width width of the bar
