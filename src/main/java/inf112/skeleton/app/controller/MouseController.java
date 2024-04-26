@@ -49,10 +49,6 @@ public class MouseController implements InputProcessor {
                 return true;
             }
         }
-        else if (button == Input.Buttons.LEFT && !towerController.isTowerSelected()){
-            Vector2 coordinate = new Vector2(screenX, screenY);
-            towerController.setCurrentDefender(coordinate);
-        }
         return false;
     }
 

@@ -38,6 +38,13 @@ public class HealthBar extends GameObject {
     }
 
 
+    /**
+     * Fills the given part of health bar with given color
+     * @param width width of health bar part
+     * @param height height of health bar part
+     * @param color color to be filled in given part of health bar
+     * @return colored part of the health bar
+     */
     public Drawable createDrawable(int width, int height, Color color){
         Pixmap map = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         map.setColor(color);

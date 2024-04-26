@@ -22,6 +22,10 @@ public class MapSelectionScene extends AbstractGameScene {
     private Stage stage;
     private Skin uimenuskin;
 
+    /**
+     * Creates the scene where user is selecting which map to be played
+     * @param game the game
+     */
     public MapSelectionScene(Game game) {
         super(game);
     }
@@ -52,6 +56,7 @@ public class MapSelectionScene extends AbstractGameScene {
         layer.add(bgimg).expand().fill();
         return layer;
     }
+
 
     private Table buildControls() { // move this to menuscenemenu later on.
         Table layer = new Table();

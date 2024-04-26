@@ -21,36 +21,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HealthBarTest {
 
     private static HeadlessApplication application;
+
+
     @BeforeAll
-    static void beforeAll(){
+    public static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
         application = new HeadlessApplication(new ApplicationListener() {
             @Override
-            public void create() {}
-
+            public void create() { }
             @Override
-            public void resize(int width, int height) {}
-
+            public void resize(int width, int height) { }
             @Override
-            public void render() {}
-
+            public void render() { }
             @Override
-            public void pause() {}
-
+            public void pause() { }
             @Override
-            public void resume() {}
-
+            public void resume() { }
             @Override
-            public void dispose() {}
+            public void dispose() { }
         }, config);
-
-        // Ensure that the environment is initialized
-        Gdx.graphics = mock(com.badlogic.gdx.Graphics.class);
-        Gdx.files = mock(com.badlogic.gdx.Files.class);
-        Gdx.input = mock(com.badlogic.gdx.Input.class);
-        Gdx.net = mock(com.badlogic.gdx.Net.class);
+        // Make sure LibGDX runs in headless mode
+        Gdx.gl = mock(com.badlogic.gdx.graphics.GL20.class);
+        Gdx.gl20 = Gdx.gl;
     }
-
 
     @Test
     public void testHealthRemoveEnemyVsHealthBar(){
@@ -62,10 +55,12 @@ public class HealthBarTest {
     }
 
     @AfterAll
-    static void afterAll() {
+    public static void tearDown() {
         if (application != null) {
             application.exit();
             application = null;
         }
     }
+
+
 }
