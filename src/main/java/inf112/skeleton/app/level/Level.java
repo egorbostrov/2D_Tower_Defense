@@ -316,28 +316,16 @@ public class Level implements EnemyEvents {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getSelectedDefenderUpgrade();//GULP
-        int cost = defender.getAttackCost();
-
-        if (cost <= money){
-            towerController.upgradeDamage();
-            removeMoney(cost);
-            infoMenu.updateTowerInfo(defender);
-        }
+        towerController.upgradeDamage();
     }
+
 
     /**
      * If user has enough money, range will be upgraded for the selected tower.
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getSelectedDefenderUpgrade();//GULP
-        int cost = defender.getRangePrice();
-        if (cost <= money){
-            towerController.upgradeRange();
-            removeMoney(cost);
-            infoMenu.updateTowerInfo(defender);
-        }
+        towerController.upgradeRange();
     }
 
     /**
@@ -348,14 +336,9 @@ public class Level implements EnemyEvents {
      * towerInfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getSelectedDefenderUpgrade();//GULP
-        int cost = defender.getSpeedPrice();
-        if (cost <= money){
-            towerController.upgradeSpeed();
-            removeMoney(cost);
-            infoMenu.updateTowerInfo(defender);
-        }
+        towerController.upgradeSpeed();
     }
+
 
     /**
      * Game is restarted, and all values

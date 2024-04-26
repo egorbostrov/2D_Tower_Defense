@@ -64,7 +64,6 @@ public abstract class BaseDefender extends GameObject {
     @Override
     public void update(float deltaTime){
         super.update(deltaTime);
-        System.out.println(speed);
         updateEnemyMap();
         for (Bullet bullet : bullets) {
             bullet.update(deltaTime);

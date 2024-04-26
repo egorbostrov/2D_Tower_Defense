@@ -36,6 +36,7 @@ public class MouseController implements InputProcessor {
         if (button == Input.Buttons.LEFT && towerController.isTowerSelected()) {
             Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
             getCameraManager().getCamera().unproject(worldCoordinates); // Use CameraManager's camera to unproject
+
             float towerSize = GameConstants.TOWER_SIZE;
             float centeredSizeX = worldCoordinates.x - towerSize / 2;
             float centeredSizeY = worldCoordinates.y - towerSize / 2;
@@ -50,10 +51,8 @@ public class MouseController implements InputProcessor {
         } else if (button == Input.Buttons.LEFT && !towerController.isTowerSelected()) {
             for (BaseDefender defender : towerController.getDefenderList()) {
                 if (defender.getBoundingRectangle().contains(screenX, GameConstants.SCREEN_HEIGHT - screenY)) {
-                    defender.selectedDefender(true);
                     towerController.setSelectedTowerUpgrade(defender);
-                } else {
-                    defender.selectedDefender(false);
+                    return true;
                 }
             }
         }

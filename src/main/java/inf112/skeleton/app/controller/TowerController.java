@@ -158,17 +158,26 @@ public class TowerController implements Render{
     }
 
     public void upgradeSpeed() {
-        selectedDefenderUpgrade.speedUpgrade();
-        setSelectedTowerUpgrade(null);
-    }
-
-    public void upgradeRange() {
-        currentDefender.rangeUpgrade();
+        if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getSpeedPrice()) {
+            selectedDefenderUpgrade.speedUpgrade();
+            level.removeMoney(selectedDefenderUpgrade.getSpeedPrice());
+        }
     }
 
     public void upgradeDamage() {
-        currentDefender.damageUpgrade();
+        if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getAttackCost()) {
+            selectedDefenderUpgrade.damageUpgrade();
+            level.removeMoney(selectedDefenderUpgrade.getAttackCost());
+        }
     }
+
+    public void upgradeRange() {
+        if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getRangePrice()) {
+            selectedDefenderUpgrade.rangeUpgrade();
+            level.removeMoney(selectedDefenderUpgrade.getRangePrice());
+        }
+    }
+
 
     public void clearSelectedTower() {
         isTowerSelected = false;
@@ -210,7 +219,6 @@ public class TowerController implements Render{
     public void setTowerSelected(DefenderType type) {
         selectedTowerType = type;
         isTowerSelected = true;
-
     }
 
 
@@ -234,6 +242,7 @@ public class TowerController implements Render{
     }
 
     public void setSelectedTowerUpgrade(BaseDefender defender) {
+        defender.selectedDefender(true);
         selectedDefenderUpgrade = defender;
     }
 

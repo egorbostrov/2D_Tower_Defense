@@ -172,12 +172,28 @@ public class PlayScene extends AbstractGameScene {
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("button clicked");
-                if (towerController.getSelectedDefenderUpgrade() != null) {
-                    System.out.println("button clicked tower");
-                    level.upgradeSpeedClicked();
-                    System.out.println("defender speed upgraded");
-                }
+                System.out.println("Upgrade speed button clicked");
+                level.upgradeSpeedClicked();
+            }
+        });
+
+        damageUpgradeButton = new Button(uimenuskin, "bombertower");
+        layer.add(damageUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        damageUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade damage button clicked");
+                level.upgradeAttackClicked();
+            }
+        });
+
+        rangeUpgradeButton = new Button(uimenuskin, "bombertower");
+        layer.add(rangeUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        rangeUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade range button clicked");
+                level.upgradeRangeClicked();
             }
         });
         layer.row();
