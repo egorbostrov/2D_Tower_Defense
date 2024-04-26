@@ -26,6 +26,7 @@ public abstract class BaseDefender extends GameObject {
     protected HashMap<Enemy, Float> enemyDistanceMap;
     protected DefenderType defenderType;
     private boolean isSelected = false;
+    private boolean isSelectedDefender = false;
 
     protected Enemy enemy;
     protected float range;
@@ -286,8 +287,8 @@ public abstract class BaseDefender extends GameObject {
     public DefenderType getDefenderType() {
         return defenderType;
     }
-    public void selectedDefender(boolean selected){
-        isSelected = selected;
+    public void selectedDefender(boolean selectedDefender){
+        isSelectedDefender = selectedDefender;
     }
     public Rectangle getBoundingRectangle() {
         return new Rectangle(position.x, position.y, size.x, size.y);
