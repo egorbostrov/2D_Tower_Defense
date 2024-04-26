@@ -224,13 +224,7 @@ public class Level implements EnemyEvents {
      */
 
 
-    /**
-     *
-     * @return the selected tower
-     */
-    public BaseDefender getSelectedDefender() {
-        return towerController.getCurrentDefender();//GULP
-    }
+
 
     /**
      *
@@ -241,30 +235,9 @@ public class Level implements EnemyEvents {
     }
 
 
-    /**
-     *
-     * @return startHealth of the enemies
-     */
-    public int getEnemyHealth() {
-        return enemyHealth;
-    }
 
-    /**
-     *
-     * @return number of current enemies
-     */
-    public int getEnemyNumber() {
-        return numberOfEnemies;
-    }
 
-    /**
-     * Render tile only if bool is set to true. This is made to not render the board
-     * if not necessary which optimizes the game.
-     * @param bool is ture when board is changed and needs to render and false else.
-     */
-    public void renderTiles(boolean bool) {
-        this.map.getBoard().renderSwitch(bool);
-    }
+
 
     /**
      * Sets the time left of the current wave

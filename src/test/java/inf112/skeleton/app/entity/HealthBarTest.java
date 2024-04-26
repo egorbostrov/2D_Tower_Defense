@@ -9,6 +9,8 @@ import inf112.skeleton.app.util.GameConstants;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -23,6 +25,7 @@ public class HealthBarTest {
     private static HeadlessApplication application;
 
 
+    @ExtendWith(MockitoExtension.class)
     @BeforeAll
     public static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
