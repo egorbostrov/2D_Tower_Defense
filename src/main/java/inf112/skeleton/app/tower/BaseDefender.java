@@ -37,6 +37,12 @@ public abstract class BaseDefender extends GameObject {
     protected int attackPrice;
     protected int speedPrice;
 
+    /**
+     * Creates a Defender GameObject with given position size and enemies to defeat.
+     * @param xCord position on a-axis
+     * @param yCord position on y-axis
+     * @param enemies enemies to defeat
+     */
     public BaseDefender(float xCord, float yCord, List<Enemy> enemies) {
         super(xCord, yCord, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
         this.enemies = enemies;
