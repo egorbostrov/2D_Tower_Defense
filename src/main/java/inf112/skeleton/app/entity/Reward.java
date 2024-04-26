@@ -16,8 +16,4 @@ public class Reward extends GameObject{
     public void render(ShapeRenderer renderer){
 
     }
-
-    public boolean isRemovable() {
-        return false;
-    }
 }

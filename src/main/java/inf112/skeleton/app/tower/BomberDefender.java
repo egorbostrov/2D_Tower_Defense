@@ -7,7 +7,6 @@ import inf112.skeleton.app.enums.BulletType;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.MusicManager;
 
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
 public class BomberDefender extends BaseDefender{
 
     private final float explosionRadius;
+
     public BomberDefender(float xCord, float yCord, List<Enemy> enemyList) {
         super(xCord, yCord, enemyList);
         defenderType = DefenderType.BOMBER;
