@@ -146,7 +146,6 @@ public abstract class BaseDefender extends GameObject {
         speed *= 1.1;
         speedPrice *= 2;
     }
-
     /**
      * Calculates the rotation between the center of BaseDefender and enemy
      */
