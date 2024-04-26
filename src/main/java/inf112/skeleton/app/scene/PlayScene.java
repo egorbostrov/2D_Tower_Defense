@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.MouseController;
@@ -19,6 +20,7 @@ import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 //import inf112.skeleton.app.scene.WorldController;
+import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
@@ -40,6 +42,9 @@ public class PlayScene extends AbstractGameScene {
     private Button doubleSpeedButton;
     private Button pauseButton;
     private Button exitButton;
+    private Button speedUpgradeButton;
+    private Button damageUpgradeButton;
+    private Button rangeUpgradeButton;
 
     private boolean isToggledSpeed = false;
     private boolean isToggledPause = false;
@@ -159,6 +164,20 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("bomber selected");
                 onTowerClicked(DefenderType.BOMBER);
+            }
+        });
+
+        speedUpgradeButton = new Button(uimenuskin, "bombertower");
+        layer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        speedUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("button clicked");
+                if (towerController.getSelectedDefenderUpgrade() != null) {
+                    System.out.println("button clicked tower");
+                    level.upgradeSpeedClicked();
+                    System.out.println("defender speed upgraded");
+                }
             }
         });
         layer.row();

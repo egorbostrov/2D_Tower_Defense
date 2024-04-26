@@ -25,6 +25,7 @@ public abstract class BaseDefender extends GameObject {
     protected List<Bullet> bullets;
     protected HashMap<Enemy, Float> enemyDistanceMap;
     protected DefenderType defenderType;
+    private boolean isSelected = false;
 
     protected Enemy enemy;
     protected float range;
@@ -63,6 +64,7 @@ public abstract class BaseDefender extends GameObject {
     @Override
     public void update(float deltaTime){
         super.update(deltaTime);
+        System.out.println(speed);
         updateEnemyMap();
         for (Bullet bullet : bullets) {
             bullet.update(deltaTime);
@@ -286,6 +288,10 @@ public abstract class BaseDefender extends GameObject {
     public DefenderType getDefenderType() {
         return defenderType;
     }
-
-
+    public void selectedDefender(boolean selected){
+        isSelected = selected;
+    }
+    public Rectangle getBoundingRectangle() {
+        return new Rectangle(position.x, position.y, size.x, size.y);
+    }
 }

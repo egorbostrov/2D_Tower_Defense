@@ -9,6 +9,7 @@ import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.scene.CameraManager;
+import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 
@@ -45,6 +46,15 @@ public class MouseController implements InputProcessor {
             if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType) > 0) {
                 towerController.clearSelectedTower();
                 return true;
+            }
+        } else if (button == Input.Buttons.LEFT && !towerController.isTowerSelected()) {
+            for (BaseDefender defender : towerController.getDefenderList()) {
+                if (defender.getBoundingRectangle().contains(screenX, GameConstants.SCREEN_HEIGHT - screenY)) {
+                    defender.selectedDefender(true);
+                    towerController.setSelectedTowerUpgrade(defender);
+                } else {
+                    defender.selectedDefender(false);
+                }
             }
         }
         return false;

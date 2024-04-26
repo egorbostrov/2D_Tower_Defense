@@ -32,6 +32,7 @@ public class TowerController implements Render{
     private BaseDefender currentDefender;
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
+    private BaseDefender selectedDefenderUpgrade;
     private boolean speedMode = false;
 
     private Level level;
@@ -157,7 +158,8 @@ public class TowerController implements Render{
     }
 
     public void upgradeSpeed() {
-        currentDefender.speedUpgrade();
+        selectedDefenderUpgrade.speedUpgrade();
+        setSelectedTowerUpgrade(null);
     }
 
     public void upgradeRange() {
@@ -211,6 +213,8 @@ public class TowerController implements Render{
 
     }
 
+
+
     public boolean isTowerSelected() {
         return this.isTowerSelected;
     }
@@ -220,7 +224,20 @@ public class TowerController implements Render{
         return selectedTowerType;
     }
 
+    public List<BaseDefender> getDefenderList(){
+        return defenderList;
+    }
+
+
     public void clearDefenders(){
         defenderList.clear();
+    }
+
+    public void setSelectedTowerUpgrade(BaseDefender defender) {
+        selectedDefenderUpgrade = defender;
+    }
+
+    public BaseDefender getSelectedDefenderUpgrade() {
+        return selectedDefenderUpgrade;
     }
 }
