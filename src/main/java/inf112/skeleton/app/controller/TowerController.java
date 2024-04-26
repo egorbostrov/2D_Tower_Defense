@@ -36,12 +36,13 @@ public class TowerController implements Render{
     private boolean speedMode = false;
 
     private final Level level;
-    private Map map = new Map(1);
+    private final Map map;
 
 
     public TowerController(Level level){
         defenderList = new ArrayList<>();
         this.level = level;
+        this.map = level.getMap();
     }
 
     public static synchronized TowerController getInstance(Level level) {
