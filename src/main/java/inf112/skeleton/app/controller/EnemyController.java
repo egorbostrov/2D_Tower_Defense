@@ -12,22 +12,34 @@ import java.util.List;
 
 public class EnemyController {
 
-    private final Level level;
     private final List<Enemy> enemyList;
     private final List<Reward> rewardList;
+    private static EnemyController instance;
 
-    public EnemyController(Level level/*, String zombies*/){
+    private Level level;
+
+
+    /**
+     * Creates a new EnemyController.
+     * Used to: add and remove(kill) enemies.
+     * @param level used to check whether zombies has completed the path, and award player for kill
+     */
+    public EnemyController(Level level){
         this.level = level;
         this.enemyList = new ArrayList<>();
         rewardList = new ArrayList<>();
-//        this.enemySpawner = new WaveEnemyFactory(zombies);
-
-        //Loop spawning all enemies from the string parameter
-        /*for(int i = 0; i < zombies.length(); i++) {
-            enemyList.add(spawner.getNext(level));
-        }*/
+    }
+    public static EnemyController getInstance(Level level) {
+        if (instance == null) {
+            instance = new EnemyController(level);
+        }
+        return instance;
     }
 
+    /**
+     * Adds a new zombie to the list of zombies that's controlled on the map
+     * @param zombie the zombie to add
+     */
     public void newZombie(Enemy zombie) {
         enemyList.add(zombie);
     }
@@ -39,7 +51,6 @@ public class EnemyController {
         List<Enemy> shouldRemoved = new ArrayList<>();
         for (Enemy e : enemyList) {
             if (e.position.x + e.size.x > GameConstants.SCREEN_WIDTH || e.position.y + e.size.y > GameConstants.SCREEN_HEIGHT) {
-            //FIX , we have to check bound of the gameboard, not the screen. Changing this might create issues where enemies will be removed instantly, as they are spawned outside the gameboard.
                 shouldRemoved.add(e);
                 level.enemyCompletedPath();
             }
@@ -50,6 +61,7 @@ public class EnemyController {
         }
         enemyList.removeAll(shouldRemoved);
     }
+
 
     public void doubleSpeedClicked() {
     }
@@ -64,6 +76,7 @@ public class EnemyController {
     public void update(float elapsedTime) {
         for (Enemy enemy : enemyList) {
             enemy.update(elapsedTime);
+
         }
         removeEnemy();
     }

@@ -1,14 +1,18 @@
 package inf112.skeleton.app.level;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.enums.DefenderType;
-import inf112.skeleton.app.scene.PlayScene;
-import inf112.skeleton.app.enums.SceneEnum;
+import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.InformationMenu;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
@@ -20,8 +24,7 @@ import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.enums.GridType;
 
-public class Level {
-    private final PlayScene scene;
+public class Level implements EnemyEvents {
     private int currentWave;
     private int score;
     private int money;
@@ -38,11 +41,19 @@ public class Level {
     private boolean changeTimeAndWaveNumber = false;
     private int timeLeft;
     private final BitmapFont bitmapFont;
+    private Game game;
+    private OrthographicCamera camera;
+    private CameraManager cameraManager;
 
+    private int mapNumber;
 
-    public Level(PlayScene scene) {
-        this.scene = scene;
+    public Level(Game game, int mapNumber) {
+        this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.camera.setToOrtho(false);
+        this.cameraManager = new CameraManager(camera);
+        this.game = game;
         this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
+        this.mapNumber = mapNumber;
         start();
     }
 
@@ -57,13 +68,10 @@ public class Level {
         enemyHealth = 5;
         userHealth = GameConstants.REMAINING_HEALTH;
 
-        map = new Map();
-        enemyController = new EnemyController(this);
-        waveController = new WaveController(enemyController);
-        towerController = new TowerController();
-        towerController.buildTower(200, 200, enemyController.getEnemyList(), DefenderType.GUNNER, money);
-        //towerController.buildTower(150, 150, enemyController.getEnemyList(), DefenderType.BOMBER, money);
-        //towerController.buildTower(250, 250, enemyController.getEnemyList(), DefenderType.SNIPER, money);
+        map = new Map(mapNumber);
+        this.enemyController = EnemyController.getInstance(this);
+        waveController = new WaveController(enemyController, 1, true);
+        this.towerController = TowerController.getInstance(this);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
 
@@ -111,6 +119,10 @@ public class Level {
         }
     }
 
+    public CameraManager getCameraManager() {
+        return this.cameraManager;
+    }
+
     private void nextWave() {
         currentWave++;
         waveController.newWave(this);
@@ -143,7 +155,7 @@ public class Level {
                 System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
                 break;
             case GROUND:
-                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, money);
+                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, 100);
                 if (cost != 0){
                     tile.setType(GridType.TOWER);
                     removeMoney(cost);
@@ -162,18 +174,17 @@ public class Level {
      * Removes users health when enemies manage to go through the whole path.
      * Also changes scene to game over if user has 0 health left.
      */
+    @Override
     public void enemyCompletedPath() {
         userHealth--;
         towerSelectionMenu.fireHealthChanged(userHealth);
-        if (userHealth == 0){
-            scene.gameOver();
-        }
     }
 
     /**
      * Increases score and money when enemy is killed.
      * @param reward money gathered from killing the enemy
      */
+    @Override
     public void enemyKilled(int reward){
         score += GameConstants.SCORE_INCREASE;
         numberOfEnemies -= 1;
@@ -211,42 +222,9 @@ public class Level {
      * @param x value of the tile
      * @param y value of the tile
      */
-    public void selectTile(float x, float y) {
 
-        Tile tile = this.map.getSelectedTile(x, y);
-        if (tile == null){
-            return;
-        }
-        switch (tile.getType()){
-            case TOWER:
-                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
-                infoMenu.updateTowerInfo(defender);
-                towerSelectionMenu.updateUpgradeButtons(money);
-                break;
 
-            case GROUND:
-                towerController.clearSelectedTower();
-                infoMenu.clearInfo();
-                towerSelectionMenu.clearSelectedTower();
-                break;
 
-            case PATH:
-                towerController.clearSelectedTower();
-                towerSelectionMenu.clearSelectedTower();
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    /**
-     *
-     * @return the selected tower
-     */
-    public BaseDefender getSelectedDefender() {
-        return towerController.getSelectedDefender();//GULP
-    }
 
     /**
      *
@@ -257,30 +235,9 @@ public class Level {
     }
 
 
-    /**
-     *
-     * @return startHealth of the enemies
-     */
-    public int getEnemyHealth() {
-        return enemyHealth;
-    }
 
-    /**
-     *
-     * @return number of current enemies
-     */
-    public int getEnemyNumber() {
-        return numberOfEnemies;
-    }
 
-    /**
-     * Render tile only if bool is set to true. This is made to not render the board
-     * if not necessary which optimizes the game.
-     * @param bool is ture when board is changed and needs to render and false else.
-     */
-    public void renderTiles(boolean bool) {
-        this.map.getBoard().renderSwitch(bool);
-    }
+
 
     /**
      * Sets the time left of the current wave
@@ -297,7 +254,7 @@ public class Level {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getAttackCost();
 
         if (cost <= money){
@@ -312,7 +269,7 @@ public class Level {
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getRangePrice();
         if (cost <= money){
             towerController.upgradeRange();
@@ -329,7 +286,7 @@ public class Level {
      * towerInfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getSelectedDefender();//GULP
+        BaseDefender defender = towerController.getCurrentDefender();//GULP
         int cost = defender.getSpeedPrice();
         if (cost <= money){
             towerController.upgradeSpeed();
@@ -346,19 +303,6 @@ public class Level {
         start();
     }
 
-    /**
-     * Game gets paused when the method is called
-     */
-    public void pause() {
-        scene.pause();
-    }
-
-    /**
-     * If the game is paused, the game will be resumed when this method is called
-     */
-    public void resume() {
-        scene.resume();
-    }
 
     /**
      * Sets the speed of the game to 2x of normal speed
@@ -376,12 +320,6 @@ public class Level {
         enemyController.normalSpeedClicked();
     }
 
-    /**
-     * When the menu icon is clicked, pauseScene is active
-     */
-    public void menuClicked() {
-        scene.getSceneController().setScene(SceneEnum.PauseScene);
-    }
 
     /**
      * Adds money to your bank and calls methods in infoMenu and
@@ -418,5 +356,8 @@ public class Level {
 
     public int getEnemiesKilled(){
         return this.enemiesKilled;
+    }
+    public int getUserHealth(){
+        return this.userHealth;
     }
 }

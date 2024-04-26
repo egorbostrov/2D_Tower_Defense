@@ -18,16 +18,15 @@ import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
 
-public class MenuScene extends AbstractGameScene {
+public class MapSelectionScene extends AbstractGameScene {
     private Stage stage;
     private Skin uimenuskin;
-    //BUTTONS
-    private Button playButton;
-    private Button exitButton;
-    private Button optionsButton;
-    private Image bgimg;
 
-    public MenuScene(Game game) {
+    /**
+     * Creates the scene where user is selecting which map to be played
+     * @param game the game
+     */
+    public MapSelectionScene(Game game) {
         super(game);
     }
 
@@ -51,62 +50,56 @@ public class MenuScene extends AbstractGameScene {
         Table layer = new Table();
         layer.setFillParent(true);
         // + Background
-        bgimg = new Image(uimenuskin, "background");
+        Image bgimg = new Image(uimenuskin, "background");
         bgimg.setScaling(Scaling.stretch);
         bgimg.setFillParent(true);
         layer.add(bgimg).expand().fill();
         return layer;
     }
 
+
     private Table buildControls() { // move this to menuscenemenu later on.
         Table layer = new Table();
-        // + Play Button
-        playButton = new Button(uimenuskin, "play");
-        layer.add(playButton);
-        playButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
+        // + map one Button
+        //BUTTONS
+        Button mapOneButton = new Button(uimenuskin, "play");
+        layer.add(mapOneButton);
+        mapOneButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                onPlayClicked();
+                onMapClicked(1);
+            }
+        });
+        // + map two Button
+        Button mapTwoButton = new Button(uimenuskin, "play");
+        layer.add(mapTwoButton);
+        mapTwoButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onMapClicked(2);
             }
         });
         layer.row();
-
-
-        //+ Options Button
-        optionsButton = new Button(uimenuskin, "options");
-        layer.add(optionsButton);
-        optionsButton.addListener(new ChangeListener() {
+        //+ back button
+        Button backButton = new Button(uimenuskin, "exit");
+        layer.add(backButton).colspan(2).center();
+        backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                onOptionsClicked();
-            }
-        });
-        layer.row();
-
-        //+ exit button
-        exitButton = new Button(uimenuskin, "exit");
-        layer.add(exitButton);
-        exitButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                onExitClicked();
+                onBackClicked();
             }
         });
         return layer;
     }
 
-    private void onExitClicked() {
-        System.exit(0);
+    private void onBackClicked() {
+        game.setScreen(new MenuScene(game));
     }
 
-    private void onPlayClicked () {
-        game.setScreen(new MapSelectionScene(game));
+    private void onMapClicked (int mapNumber) {
+        game.setScreen(new PlayScene(game, mapNumber));
     }
 
-    private void onOptionsClicked () {
-        game.setScreen(new OptionScene(game));
-
-    }
     @Override
     public void render (float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

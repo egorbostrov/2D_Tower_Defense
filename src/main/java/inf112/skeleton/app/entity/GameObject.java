@@ -1,5 +1,7 @@
 package inf112.skeleton.app.entity;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -58,6 +60,18 @@ public abstract class GameObject implements Render {
         this.isVisible = true;
     }
 
+    // Initialize sprites for the game object
+    protected void initializeSprites(TextureAtlas atlas, String regularRegionName, String selectedRegionName) {
+        TextureAtlas.AtlasRegion regularRegion = atlas.findRegion(regularRegionName);
+        TextureAtlas.AtlasRegion selectedRegion = atlas.findRegion(selectedRegionName);
+        if (regularRegion == null || selectedRegion == null) {
+            Gdx.app.error("BaseDefender", "[BaseDefender] Sprite textures are not initialized!");
+            return;
+        }
+        this.sprite = new Sprite(regularRegion);
+        this.spriteSelected = new Sprite(selectedRegion);
+    }
+
     /**
      * Renders a bounds rectangle if the object is visible, used in collision
      * @param render renderer
@@ -72,11 +86,13 @@ public abstract class GameObject implements Render {
      * Renders texture of object of it's visible
      * @param batch spritebatch
      */
+    @Override
     public void render(SpriteBatch batch) {
-        if (!isVisible) {
-            return;
+        if (!isVisible) return;
+        Sprite toDraw = isSelected ? spriteSelected : sprite;
+        if (toDraw != null) {
+            batch.draw(toDraw, position.x, position.y, size.x, size.y);
         }
-        batch.draw(sprite, this.position.x, this.position.y, this.size.x, this.size.y);
     }
 
     /**
@@ -98,5 +114,7 @@ public abstract class GameObject implements Render {
     public Vector2 getPositionOfObject() {
         return position;
     }
+
+
 
 }

@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.tower.BomberDefender;
+import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
 
 import inf112.skeleton.app.enums.BulletType;
+import inf112.skeleton.app.util.MusicManager;
 
 import static inf112.skeleton.app.util.GameConstants.*;
 
@@ -32,13 +34,13 @@ public class Bullet extends GameObject {
 
         switch (bulletType) {
             case GUNNER_BULLET:
-                sprite = MyAtlas.GUNNER_BULLET;
+                sprite = GameAssets.gunnerBulletSprite;
                 break;
             case SNIPER_BULLET:
-                sprite = MyAtlas.SNIPER_BULLET;
+                sprite = GameAssets.sniperBulletSprite;
                 break;
             case BOMBER_BULLET:
-                sprite = MyAtlas.BOMBER_BULLET;
+                sprite = GameAssets.bomberBulletSprite;
                 break;
         }
     }
@@ -57,6 +59,7 @@ public class Bullet extends GameObject {
             isVisible = false;
             if (bulletType == BulletType.BOMBER_BULLET && bomberDefender != null) {
                 bomberDefender.applyAreaDamage(center, explosionRadius, damage);
+                MusicManager.playBombExplode();
             } else {
                 enemy.shot(damage);
             }
@@ -73,7 +76,7 @@ public class Bullet extends GameObject {
     /**
      *Updates the bounds rectangle, checks if the bullet has hit an enemy and thus should be removed.
      * If the bullet is visible, and has not hit an enemy, we compute the direction vector from the bullet to the target.
-     * @param deltaTime
+     * @param deltaTime time since last update
      */
     @Override
     public void update(float deltaTime) {
@@ -92,7 +95,7 @@ public class Bullet extends GameObject {
 
     /**
      * renders shapes allocated to bullet
-     * @param renderer
+     * @param renderer shapeRenderer used in our project
      */
     @Override
     public void render(ShapeRenderer renderer) {
@@ -101,7 +104,7 @@ public class Bullet extends GameObject {
 
     /**
      * Renders texture
-     * @param batch
+     * @param batch SpriteBatch used in our project
      */
     @Override
     public void render(SpriteBatch batch) {

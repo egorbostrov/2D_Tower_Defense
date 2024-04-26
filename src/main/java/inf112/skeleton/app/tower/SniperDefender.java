@@ -4,8 +4,10 @@ import inf112.skeleton.app.entity.Bullet;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.BulletType;
 import inf112.skeleton.app.enums.DefenderType;
+import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.resourceHandler.MyAtlas;
+import inf112.skeleton.app.util.MusicManager;
 
 import java.util.List;
 
@@ -20,8 +22,7 @@ public class SniperDefender extends BaseDefender{
         damage = GameConstants.TOWER_DAMAGE_SNIPER;
         range = GameConstants.TOWER_RANGE_SNIPER;
         speed = GameConstants.TOWER_SPEED_SNIPER;
-        sprite = MyAtlas.SNIPER;
-        spriteSelected = MyAtlas.SNIPER;
+        initializeSprites(GameAssets.getInstance().getAtlas(), "snipa0", "snipa0");
 
         fireRate = 2.0f;
         lastFireTime = -fireRate;
@@ -42,6 +43,7 @@ public class SniperDefender extends BaseDefender{
                 // Example: targeting the first enemy in the list
                 bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.SNIPER_BULLET));
                 lastFireTime = 0; // Reset the timer after firing
+            MusicManager.playSniperShot();
             }
         }
 }

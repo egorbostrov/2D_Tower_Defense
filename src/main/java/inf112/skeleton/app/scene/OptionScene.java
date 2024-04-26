@@ -1,114 +1,187 @@
 package inf112.skeleton.app.scene;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import inf112.skeleton.app.ui.buttons.ButtonFactory;
-import inf112.skeleton.app.ui.buttons.OButton;
-import inf112.skeleton.app.ui.buttons.OButtonListener;
-import inf112.skeleton.app.ui.buttons.OToggleButton;
-import inf112.skeleton.app.ui.components.Pressable;
-import inf112.skeleton.app.ui.components.SimpleLayout;
-import inf112.skeleton.app.util.GameUtil;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
+import inf112.skeleton.app.util.GameSettings;
+import inf112.skeleton.app.util.MusicManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static inf112.skeleton.app.util.GameConstants.TILE_HEIGHT;
-import static inf112.skeleton.app.util.GameConstants.TILE_WIDTH;
-
-public class OptionScene extends Scene {
-
+public class OptionScene extends AbstractGameScene {
     private final String stateName = "OPTION MENU";
+    private Stage stage;
+    private TextureAtlas atlas;
+    private Skin skin;
+    private TextButton saveButton;
+    private TextButton cancelButton;
+    private CheckBox chkSound;
+    private Slider sldSound;
+    private CheckBox chkMusic;
+    private Slider sldMusic;
+    private CheckBox chkFullscreen;
 
-    private OToggleButton btnMusic;
-    private OToggleButton btnSound;
-    private OButton btnBack;
-    private final List<Pressable> buttons;
-    private final SimpleLayout simpleLayout;
+    private Image bgImg;
+    private Skin uiskin;
 
-    public OptionScene(SceneController sceneController) {
-        super(sceneController);
-        glyphLayout.setText(bitmapFont, stateName);
-        simpleLayout = new SimpleLayout(
-                TILE_WIDTH * 3,
-                TILE_HEIGHT * 4,
-                TILE_WIDTH * 10,
-                TILE_HEIGHT * 3,
-                110,
-                50
-        );
-        buttons = new ArrayList<>();
-        initButtons();
-        setListeners();
+    public OptionScene(Game game) {
+        super(game);
     }
 
-    @Override
-    public void render(SpriteBatch sb, ShapeRenderer sr) {
-        super.render(sb, sr);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    // Build the scene
+    private void build() {
+        skin = new Skin(Gdx.files.internal(GameConstants.SKIN_UI),
+                new TextureAtlas(GameConstants.TEXTURE_ATLAS_UI));
+        uiskin = new Skin(Gdx.files.internal(GameConstants.PLACEHOLDER_UI),
+                new TextureAtlas(GameConstants.PLACEHOLDER_ATLAS));
 
-        sb.begin();
-        GameUtil.renderCenter(stateName, sb, bitmapFont);
-        simpleLayout.render(sb);
-        sb.end();
+        Table layerBackground = buildBg();
+        Table layerControls = buildControls();
+
+        stage.clear();
+        Stack stack = new Stack();
+        stage.addActor(stack);
+        stack.setSize(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT);
+        stack.add(layerBackground);
+        stack.add(layerControls);
+
     }
 
-    @Override
-    public void update(float deltaTime) {
-    }
-
-    @Override
-    public void updateInputs(float x, float y) {
-    }
-
-    @Override
-    public void touchDown(float x, float y, int pointer, int button) {
-        buttons.stream()
-                .filter(b -> b.contains(x, y))
-                .findFirst()
-                .ifPresent(b -> b.touchDown(x, y));
-    }
-
-    @Override
-    public void touchUp(float x, float y, int pointer, int button) {
-        buttons.forEach(b -> b.setPressed(false));
-        buttons.stream()
-                .filter(b -> b.contains(x, y))
-                .findFirst()
-                .ifPresent(b -> b.touchRelease(x, y));
-    }
-
-//    @Override
-//    public void scrolled(int amount) {
-//
-//    }
-
-    private void initButtons() {
-        final ButtonFactory bf = new ButtonFactory(TILE_WIDTH * 1.5f, TILE_HEIGHT * 1.5f);
-//        btnSound = bf.createToggleButton(MyAtlas.SOUND_ON, MyAtlas.SOUND_OFF);
-//        btnMusic = bf.createToggleButton(MyAtlas.MUSIC_ON, MyAtlas.MUSIC_OFF);
-        btnBack = bf.createOButton("BACK", MyAtlas.GROUND_TILE, true);
-
-//        buttons.add(btnSound);
-//        buttons.add(btnMusic);
-        buttons.add(btnBack);
-
-        simpleLayout.addComponents(btnBack);
-        simpleLayout.pack();
-    }
-
-    private void setListeners() {
-//        btnSound.setToggleListener(isToggled -> MusicHandler.setSoundOnOff(!isToggled));
-//        btnMusic.setToggleListener(isToggled -> MusicHandler.setMusicOnOff(!isToggled));
-        btnBack.setButtonListener((event, x, y) -> {
-            if (event == OButtonListener.TouchEvent.RELEASE)
-                getSceneController().goBack();
+    // Build the controls layer.
+    private Table buildControls () {
+        Table layer = new Table();
+        // audio-options
+        layer.pad(10, 10, 0, 10);
+        layer.add(new Label("Options", uiskin, "default-font", Color.ORANGE)).colspan(3);
+        layer.row();
+        layer.columnDefaults(0).padRight(10);
+        layer.columnDefaults(1).padRight(10);
+        // + Checkbox, "Sound" label, sound volume slider
+        chkSound = new CheckBox("Sound", uiskin);
+        layer.add(chkSound);
+        layer.add(new Label("Volume", uiskin));
+        sldSound = new Slider(0.0f, 1.0f, 0.1f, false, uiskin);
+        layer.add(sldSound);
+        layer.row();
+        // + Checkbox, "Music" label, music volume slider
+        chkMusic = new CheckBox("Music", uiskin);
+        layer.add(chkMusic);
+        layer.add(new Label("Volume", uiskin));
+        sldMusic = new Slider(0.0f, 1.0f, 0.1f, false, uiskin);
+        layer.add(sldMusic);
+        layer.row();
+        saveButton = new TextButton("Save", uiskin);
+        layer.add(saveButton).padRight(30);
+        saveButton.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                onSaveClicked();
+            }});
+        cancelButton = new TextButton("Cancel", uiskin);
+        layer.add(cancelButton);
+        cancelButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onCancelClicked();
+            }
         });
+        // video-options
+        chkFullscreen = new CheckBox("Fullscreen", uiskin);
+        layer.add(chkFullscreen);
+
+        return layer;
 
     }
 
+    // Builds the background-layer.
+    private Table buildBg() {
+        Table layer = new Table();
+        layer.setFillParent(true);
+        // + Background
+        bgImg = new Image(skin, "background");
+        bgImg.setScaling(Scaling.stretch);
+        bgImg.setFillParent(true);
+        layer.add(bgImg).expand().fill();
+        return layer;
+    }
+
+
+    // Load settings from My Preferences and change the buttons/sliders to their corresponding values.
+    private void loadSettings() {
+        GameSettings prefs = GameSettings.instance;
+        prefs.load();
+        chkSound.setChecked(prefs.getSound());
+        sldSound.setValue(prefs.getVolSound());
+        chkMusic.setChecked(prefs.getMusic());
+        sldMusic.setValue(prefs.getVolMusic());
+        chkFullscreen.setChecked(prefs.getFullscreen());
+    }
+
+    // Save selected settings to My Preferences, using the corresponding values set by the user.
+    private void saveSettings() {
+        GameSettings prefs = GameSettings.instance;
+        prefs.setSound(chkSound.isChecked());;
+        prefs.setVolSound(sldSound.getValue());
+        prefs.setMusic(chkMusic.isChecked());
+        prefs.setVolMusic(sldMusic.getValue());
+        prefs.setFullscreen(chkFullscreen.isChecked());
+        prefs.save();
+    }
+
+    // Method for Save button
+    private void onSaveClicked() {
+        saveSettings();
+        onCancelClicked();
+    }
+
+    // Method for Cancel button
+    private void onCancelClicked() {
+        game.setScreen(new MenuScene(game));
+    }
+
+    @Override
+    public void render (float deltaTime) {
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(deltaTime);
+        stage.draw();
+
+    }
+
+    @Override
+    public void resize (int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+
+    @Override
+    public void show () {
+        stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
+        Gdx.input.setInputProcessor(stage);
+        build();
+        loadSettings();
+    }
+
+    @Override
+    public void hide () {
+        stage.dispose();
+        skin.dispose();
+    }
+    @Override
+    public void pause() {
+
+    }
 }
