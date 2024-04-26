@@ -6,7 +6,6 @@ import inf112.skeleton.app.enums.BulletType;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.MusicManager;
 
 import java.util.List;
@@ -32,17 +31,15 @@ public class SniperDefender extends BaseDefender{
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        lastFireTime += deltaTime; // Accumulate time
-        projectileFire(); // Attempt to fire at each update
+        lastFireTime += deltaTime;
+        projectileFire();
     }
 
     @Override
     public void projectileFire() {
-        // Check if enough time has passed since the last shot
         if (lastFireTime >= fireRate && !enemies.isEmpty()) {
-                // Example: targeting the first enemy in the list
                 bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.SNIPER_BULLET));
-                lastFireTime = 0; // Reset the timer after firing
+                lastFireTime = 0;
             MusicManager.playSniperShot();
             }
         }
