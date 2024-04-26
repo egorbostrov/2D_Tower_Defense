@@ -45,6 +45,7 @@ public class PlayScene extends AbstractGameScene {
     private Button speedUpgradeButton;
     private Button damageUpgradeButton;
     private Button rangeUpgradeButton;
+    private Button removeDefenderButton;
 
     private boolean isToggledSpeed = false;
     private boolean isToggledPause = false;
@@ -177,8 +178,8 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        damageUpgradeButton = new Button(uimenuskin, "bombertower");
-        layer.add(damageUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        damageUpgradeButton = new Button(uimenuskin, "snipertower");
+        layer.add(damageUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -187,13 +188,22 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        rangeUpgradeButton = new Button(uimenuskin, "bombertower");
-        layer.add(rangeUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        rangeUpgradeButton = new Button(uimenuskin, "gunnertower");
+        layer.add(rangeUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("Upgrade range button clicked");
                 level.upgradeRangeClicked();
+            }
+        });
+
+        removeDefenderButton = new Button(uimenuskin, "bombertower");
+        layer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);  // Add padding at the bottom if needed
+        removeDefenderButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                towerController.sellSelectedDefender();
             }
         });
         layer.row();

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
-import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.InformationMenu;
@@ -20,8 +19,6 @@ import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.map.Map;
-import inf112.skeleton.app.map.Tile;
-import inf112.skeleton.app.enums.GridType;
 
 public class Level implements EnemyEvents {
     private int currentWave;
@@ -133,46 +130,12 @@ public class Level implements EnemyEvents {
     }
 
     /**
-     *
      * @param x x
      * @param y y
      */
     public void updateInputs(float x, float y) {
         towerSelectionMenu.updateInputs(x, y);
     }
-
-    /**
-     * Manages where user is able to put the new tower. If on path or existing tower, tower will not be placed.
-     * Tower can only be placed on the GROUND tiles.
-     * @param x coordinate for tile
-     * @param y coordinate for tile
-     * @param type type of tower
-     */
-//    public void createTowerClicked(float x, float y, DefenderType type) {
-//
-//        Tile tile = map.getSelectedTile(x, y);
-//        if (tile == null){
-//            return;
-//        }
-//        switch (tile.getType()){
-//            case TOWER:
-//                System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
-//                break;
-//            case GROUND:
-//                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type);
-//                if (cost != 0){
-//                    tile.setType(GridType.TOWER);
-//                    removeMoney(cost);
-//                }
-//                this.map.getBoard().renderSwitch(false);
-//                break;
-//            case PATH:
-//                System.out.println("KAN IKKE BYGGE PÅ PATH");
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 
     /**
      * Removes users health when enemies manage to go through the whole path.
@@ -212,52 +175,6 @@ public class Level implements EnemyEvents {
         changeTimeAndWaveNumber = false;
     }
 
-    /*public void touchDown(float x, float y) {
-        if (towerSelectionMenu.contains(x, y)){
-            towerSelectionMenu.touchDown(x, y);
-        } else {
-            selectTile(x, y);
-        }
-    }*/
-
-    /*public void touchRelease(float x, float y) {
-        towerSelectionMenu.touchRelease(x, y);
-    }*/
-
-    /**
-     * Select the tile user has clicked. If tower, then infoMenu and towerMenu are shown.
-     * If path or ground is clicked, then the menus disappear.
-     * @param x value of the tile
-     * @param y value of the tile
-     */
-//    public void selectTile(float x, float y) {
-//
-//        Tile tile = this.map.getSelectedTile(x, y);
-//        if (tile == null){
-//            return;
-//        }
-//        switch (tile.getType()){
-//            case TOWER:
-//                BaseDefender defender = towerController.getSelectedDefender(tile.getPositionOfObject());//GULP
-//                infoMenu.updateTowerInfo(defender);
-//                towerSelectionMenu.updateUpgradeButtons(money);
-//                break;
-//
-//            case GROUND:
-//                towerController.clearSelectedTower();
-//                infoMenu.clearInfo();
-//                towerSelectionMenu.clearSelectedTower();
-//                break;
-//
-//            case PATH:
-//                towerController.clearSelectedTower();
-//                towerSelectionMenu.clearSelectedTower();
-//                break;
-//
-//            default:
-//                break;
-//        }
-//    }
 
     /**
      *
@@ -273,32 +190,6 @@ public class Level implements EnemyEvents {
      */
     public Map getMap(){
         return map;
-    }
-
-
-    /**
-     *
-     * @return startHealth of the enemies
-     */
-    public int getEnemyHealth() {
-        return enemyHealth;
-    }
-
-    /**
-     *
-     * @return number of current enemies
-     */
-    public int getEnemyNumber() {
-        return numberOfEnemies;
-    }
-
-    /**
-     * Render tile only if bool is set to true. This is made to not render the board
-     * if not necessary which optimizes the game.
-     * @param bool is ture when board is changed and needs to render and false else.
-     */
-    public void renderTiles(boolean bool) {
-        this.map.getBoard().renderSwitch(bool);
     }
 
     /**

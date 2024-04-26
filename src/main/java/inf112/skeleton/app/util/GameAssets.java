@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 
 public class GameAssets implements Disposable {
+
     public static final GameAssets instance = new GameAssets();
     private final AssetManager assetManager = new AssetManager();
     private TextureAtlas atlas;
