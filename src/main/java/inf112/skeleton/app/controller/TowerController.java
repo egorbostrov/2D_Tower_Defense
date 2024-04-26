@@ -36,7 +36,7 @@ public class TowerController implements Render{
     private boolean speedMode = false;
 
     private final Level level;
-    private Map map = new Map();
+    private Map map = new Map(1);
 
 
     public TowerController(Level level){
