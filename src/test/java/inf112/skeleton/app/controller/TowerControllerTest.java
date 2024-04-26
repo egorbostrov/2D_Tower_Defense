@@ -31,7 +31,7 @@ class TowerControllerTest {
         doNothing().when(mockLevel).removeMoney(TOWER_PRICE_GUNNER);
 
         // Action
-        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.GUNNER, TOWER_PRICE_GUNNER);
+        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.GUNNER);
 
         // Assert
         assertEquals(TOWER_PRICE_GUNNER, moneySpent);
@@ -44,7 +44,7 @@ class TowerControllerTest {
         when(mockLevel.getMoney()).thenReturn(TOWER_PRICE_BOMBER);
         doNothing().when(mockLevel).removeMoney(TOWER_PRICE_BOMBER);
 
-        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.BOMBER, TOWER_PRICE_BOMBER);
+        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.BOMBER);
 
         assertEquals(TOWER_PRICE_BOMBER, moneySpent);
         assertEquals(1, towerController.getDefenderList().size());
@@ -56,7 +56,7 @@ class TowerControllerTest {
         when(mockLevel.getMoney()).thenReturn(TOWER_PRICE_SNIPER);
         doNothing().when(mockLevel).removeMoney(TOWER_PRICE_SNIPER);
 
-        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.SNIPER, TOWER_PRICE_SNIPER);
+        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.SNIPER);
 
         assertEquals(TOWER_PRICE_SNIPER, moneySpent);
         assertEquals(1, towerController.getDefenderList().size());
@@ -67,7 +67,7 @@ class TowerControllerTest {
     void testBuildTowerWhenNotEnoughMoney() {
         when(mockLevel.getMoney()).thenReturn(0);
 
-        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.GUNNER, 0);
+        int moneySpent = towerController.buildTower(0, 0, enemyList, DefenderType.GUNNER);
 
         assertEquals(0, moneySpent);
         assertTrue(towerController.getDefenderList().isEmpty());
