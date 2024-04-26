@@ -36,12 +36,13 @@ public class Enemy extends GameObject{
     private final HealthBar hpBar;
     private boolean doubleSpeed;
     private final float height;
+    public boolean hasEnteredMap;
 
     /**
      * Create a new enemy object
      * @param type char representing which type of zombie this is
-     * @param x start position on the x axis
-     * @param y start position on the y axis
+     * @param x start position on the x-axis
+     * @param y start position on the y-axis
      * @param width width of the zombie(gameObject)
      * @param height height of the zombie(gameObject)
      * @param startHealth Start health of the zombie
@@ -321,6 +322,11 @@ public class Enemy extends GameObject{
 
     public char getType() {
         return this.type;
+    }
+
+    public void enemyEnteredMap() {
+        this.hasEnteredMap = true;
+        System.out.println("enemy entered map");
     }
 
 }

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import inf112.skeleton.app.controller.WaveEnemyFactory;
+import inf112.skeleton.app.controller.PatternedEnemyFactory;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
@@ -23,7 +23,7 @@ public class WaveEnemyFactoryTest {
     @Mock
     private Map mockMap;
 
-    private WaveEnemyFactory waveEnemyFactory;
+    private PatternedEnemyFactory waveEnemyFactory;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +34,7 @@ public class WaveEnemyFactoryTest {
         when(mockMap.getDirections()).thenReturn(new LinkedList<>()); // Provide an empty LinkedList for directions
 
         // Initialize the WaveEnemyFactory with the zombie types string
-        waveEnemyFactory = new WaveEnemyFactory("RT");
+        waveEnemyFactory = new PatternedEnemyFactory("RT");
     }
 
     @Test

@@ -15,6 +15,13 @@ import java.util.List;
 public class BomberDefender extends BaseDefender{
 
     private final float explosionRadius;
+
+    /**
+     * Create a defender that throws bombs, yielding a high radius of damage
+     * @param xCord position on the x-axis
+     * @param yCord position on the y-axis
+     * @param enemyList enemies to defeat
+     */
     public BomberDefender(float xCord, float yCord, List<Enemy> enemyList) {
         super(xCord, yCord, enemyList);
         defenderType = DefenderType.BOMBER;
@@ -25,10 +32,19 @@ public class BomberDefender extends BaseDefender{
 
     }
 
-    public void applyAreaDamage(Vector2 impactPoint, float explosionRadius, float damage) {
+    /**
+     * Deal damage to enemies within the bomb explosion radius based on their distance to the bomb impact
+     * @param impactPoint position where bomb explodes
+     * @param explosionRadius radius in which the bomb deals damage
+     * @param maxDamage amount of damage dealt by bomb
+     */
+    public void applyAreaDamage(Vector2 impactPoint, float explosionRadius, float maxDamage) {
+        float impactDistance = impactPoint.dst(enemy.center);
         for (Enemy enemy : enemies) {
-            if (impactPoint.dst(enemy.center) <= explosionRadius) {
-                enemy.shot(damage);
+            if (impactDistance <= explosionRadius) {
+                float damageReductionFactor = impactDistance / explosionRadius;
+                float damageToApply = maxDamage * (1 - damageReductionFactor);
+                enemy.shot(damageToApply);
             }
         }
     }
