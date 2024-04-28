@@ -90,7 +90,12 @@ public class WaveController {
         this.zombieIndex = 1f;
 
         for(int i = 0; i < wavePattern.length(); i++) {
-            enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
+            if(level.isDoubleSpeedActive()) {
+                enemyController.newZombie(enemyFactory.getNext(level, (speedMultiplier * 2), healthMultiplier, (zombieIndex * spawnDelay)));
+            }
+            else {
+                enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
+            }
             zombieIndex++;
         }
         waveIndex++;
@@ -102,7 +107,7 @@ public class WaveController {
         this.zombieIndex = 1f;
 
         for(int i = 0; i < numZombies; i++) {
-            if(doubleSpeed/*level.doubleSpeedClicked()*/) {//FIX
+            if(level.isDoubleSpeedActive()) {//FIX
                 enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier * 2, healthMultiplier, (zombieIndex * spawnDelay)));
             }
             else {
