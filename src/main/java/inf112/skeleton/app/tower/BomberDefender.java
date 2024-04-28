@@ -7,7 +7,6 @@ import inf112.skeleton.app.enums.BulletType;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.MusicManager;
 
 import java.util.List;

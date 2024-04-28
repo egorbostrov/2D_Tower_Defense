@@ -1,16 +1,22 @@
 package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.map.Map;
+import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.tower.SniperDefender;
 import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.tower.GunnerDefender;
+import inf112.skeleton.app.util.GameAssets;
+import inf112.skeleton.app.util.GameConstants;
 
 import static inf112.skeleton.app.util.GameConstants.*;
 
@@ -26,16 +32,17 @@ public class TowerController implements Render{
     private BaseDefender currentDefender;
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
+    private BaseDefender selectedDefenderUpgrade;
+    private boolean speedMode = false;
 
     private final Level level;
-
-    private Vector2 coordinatePressed;
+    private final Map map;
 
 
     public TowerController(Level level){
         defenderList = new ArrayList<>();
         this.level = level;
-        this.coordinatePressed = new Vector2();
+        this.map = level.getMap();
     }
 
     public static synchronized TowerController getInstance(Level level) {
@@ -46,7 +53,10 @@ public class TowerController implements Render{
     }
 
     public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type){
-       switch (type){
+        if (!legalPlacement(x, y)){
+            return 0;
+        }
+        switch (type){
            case GUNNER:
                if (this.level.getMoney() >= TOWER_PRICE_GUNNER){
                    this.level.removeMoney(TOWER_PRICE_GUNNER);
@@ -66,60 +76,91 @@ public class TowerController implements Render{
        return 0;
     }
 
+    //BUGGED WIP
+    private boolean legalPlacement(float x, float y) {
+        float towerLeft = x - GameConstants.TOWER_SIZE / 2;
+        float towerBottom = y - GameConstants.TOWER_SIZE / 2;
+        Rectangle newTowerBounds = new Rectangle(towerLeft, towerBottom, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
+
+        if (map.getSelectedTile(x, y).getType() == GridType.PATH) {
+            return false;
+        }
+
+        for (BaseDefender defender : defenderList) {
+            if (defender.getHitBox().overlaps(newTowerBounds)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+
     private int buildSniperTower(float x, float y, List<Enemy> enemyList) {
         SniperDefender sniperDefender = new SniperDefender(x, y, enemyList);
+        if (speedMode) {
+            sniperDefender.setSpeed(sniperDefender.getSpeed() * 2);
+        }
         defenderList.add(sniperDefender);
         return TOWER_PRICE_SNIPER;
     }
 
     private int buildBomberTower(float x, float y, List<Enemy> enemyList) {
         BomberDefender bomberDefender = new BomberDefender(x, y, enemyList);
+        if (speedMode) {
+            bomberDefender.setSpeed(bomberDefender.getSpeed() * 2);
+        }
         defenderList.add(bomberDefender);
         return TOWER_PRICE_BOMBER;
     }
 
     private int buildGunnerTower(float x, float y, List<Enemy> enemyList) {
         GunnerDefender gunnerDefender = new GunnerDefender(x, y, enemyList);
+        if (speedMode) {
+            gunnerDefender.setSpeed(gunnerDefender.getDamage() * 2);
+        }
         defenderList.add(gunnerDefender);
         return TOWER_PRICE_GUNNER;
     }
 
     public void doubleSpeedClicked() {
-
+        speedMode = true;
+        for (BaseDefender currentDefender : defenderList) {
+            currentDefender.setSpeed(currentDefender.getSpeed() * 2);
+        }
     }
 
     public void normalSpeedClicked() {
+        speedMode = false;
+        for (BaseDefender currentDefender : defenderList) {
+            currentDefender.setSpeed(currentDefender.getSpeed() / 2);
+        }
+    }
+
+    public BaseDefender getSelectedDefender(){
+        return currentDefender;
     }
 
     public void upgradeSpeed() {
-    }
-
-    public void setCurrentDefender(Vector2 coordinatePressed) {
-        for (BaseDefender defender : defenderList){
-            if(defender.getHitBox().contains(coordinatePressed)){
-                this.currentDefender = defender;
-            }
+        if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getSpeedPrice()) {
+            level.removeMoney(selectedDefenderUpgrade.getSpeedPrice());
+            selectedDefenderUpgrade.speedUpgrade();
         }
-
-    }
-
-    public BaseDefender getCurrentDefender(){
-        return this.currentDefender;
-    }
-
-    public void setCoordinatePressed(Vector2 coordinate){
-        this.coordinatePressed = coordinate;
-    }
-
-
-
-
-
-    public void upgradeRange() {
-
     }
 
     public void upgradeDamage() {
+        if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getAttackCost()) {
+            level.removeMoney(selectedDefenderUpgrade.getAttackCost());
+            selectedDefenderUpgrade.damageUpgrade();
+        }
+    }
+
+    public void upgradeRange() {
+        if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getRangePrice()) {
+            level.removeMoney(selectedDefenderUpgrade.getRangePrice());
+            selectedDefenderUpgrade.rangeUpgrade();
+        }
     }
 
     public void clearSelectedTower() {
@@ -158,11 +199,22 @@ public class TowerController implements Render{
         }
     }
 
-    // from libgdx-kev
+    public void sellSelectedDefender() {
+        if (selectedDefenderUpgrade != null) {
+            level.addMoney(TOWER_PRICE_GUNNER); // FIX THIS, should be diffrent price for each tower
+            defenderList.remove(selectedDefenderUpgrade);
+            selectedDefenderUpgrade = null;
+        }
+    }
+
     public void setTowerSelected(DefenderType type) {
         selectedTowerType = type;
         isTowerSelected = true;
+    }
 
+    public void setSelectedTowerUpgrade(BaseDefender defender) {
+        defender.selectedDefender(true);
+        selectedDefenderUpgrade = defender;
     }
 
     public boolean isTowerSelected() {
@@ -172,5 +224,14 @@ public class TowerController implements Render{
 
     public DefenderType getSelectedTowerType() {
         return selectedTowerType;
+    }
+
+    public List<BaseDefender> getDefenderList() {
+        return defenderList;
+    }
+
+
+    public void clearDefenders() {
+        defenderList.clear();
     }
 }
