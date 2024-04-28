@@ -68,7 +68,6 @@ public class Enemy extends GameObject{
 
         getNextDistance();
         this.hpBar = new HealthBar(x + 5, y + this.height, width - 10, height / 10, currentHealth);
-        System.out.println("speed: " + speed);
     }
 
     /**
