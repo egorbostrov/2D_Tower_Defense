@@ -51,7 +51,6 @@ public class EnemyController {
         List<Enemy> shouldRemoved = new ArrayList<>();
         for (Enemy enemy : enemyList) {
             if (checkBoundsForEnemy(enemy) && enemy.hasEnteredMap) {
-                System.out.println("utenfor bounds og har entret mappet");
                 shouldRemoved.add(enemy);
                 level.enemyCompletedPath();
             }
@@ -70,8 +69,8 @@ public class EnemyController {
     private boolean checkBoundsForEnemy(Enemy enemy) {
             return (enemy.position.x + enemy.size.x > GameConstants.SCREEN_WIDTH ||
                     enemy.position.x - enemy.size.x < 0 ||
-                    enemy.position.y + enemy.size.y > GameConstants.SCREEN_HEIGHT - (GameConstants.UI_ROWS_TOP * GameConstants.TILE_HEIGHT) ||
-                    enemy.position.y - enemy.size.y < GameConstants.UI_ROWS_BOTTOM * GameConstants.TILE_HEIGHT
+                    enemy.position.y + (enemy.size.y / 2) > GameConstants.SCREEN_HEIGHT - (GameConstants.UI_ROWS_TOP * GameConstants.TILE_HEIGHT) ||
+                    enemy.position.y + (enemy.size.y / 2) < GameConstants.UI_ROWS_BOTTOM * GameConstants.TILE_HEIGHT
             );
     }
 
