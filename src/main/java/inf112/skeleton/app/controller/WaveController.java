@@ -12,6 +12,7 @@ public class WaveController {
     private FileHandle filehandle;
     private final int selectedWave;
     private final EnemyController enemyController;
+    float baseSpeedMultiplier;
     float speedMultiplier;
     float healthMultiplier;
     private float spawnDelay;
@@ -23,7 +24,6 @@ public class WaveController {
     float zombieIndex;
     private final boolean randomMode;
     private final Random random;
-    private boolean doubleSpeed;
 
     public WaveController(EnemyController enemyController, int selectedWave, boolean randomMode) {
         this.enemyController = enemyController;
@@ -34,7 +34,7 @@ public class WaveController {
         selectFileHandle();
         this.wavePatterns = readWavePatternsFromFile(filehandle.readString());
 
-        this.speedMultiplier = 1;
+        this.baseSpeedMultiplier = 1;
         this.healthMultiplier = 1;
         this.spawnDelay = 5;
 
@@ -67,9 +67,11 @@ public class WaveController {
 
     public void newWave(Level level) {
         //Increase the zombie speed, health and decrease the delay inbetween their spawns.
-        speedMultiplier *= 1.05f;
+        baseSpeedMultiplier *= 1.05f;
         healthMultiplier *= 1.05f;
         spawnDelay *= 0.75f;
+
+        speedMultiplier = level.isDoubleSpeedActive() ? baseSpeedMultiplier * 2 : baseSpeedMultiplier;
 
         if (randomMode) {
             generateRandomWave(level);
@@ -83,13 +85,13 @@ public class WaveController {
 
     private void generateFixedWave(Level level) {
         waveIndex = waveIndex % wavePatterns.size();//Loop to first wave if we ran out of waves, using modulo
-
         String wavePattern = wavePatterns.get(waveIndex);
         this.enemyFactory = new PatternedEnemyFactory(wavePattern);
 
-        this.zombieIndex = 1f;
+        zombieIndex = 0f;
 
         for(int i = 0; i < wavePattern.length(); i++) {
+            System.out.println("Speed:  " + speedMultiplier);
             enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
             zombieIndex++;
         }
@@ -99,25 +101,13 @@ public class WaveController {
 
     private void generateRandomWave(Level level) {
         int numZombies = 5 + waveIndex + random.nextInt(5);//Length is always minimum 5 + wave number; but get random amount on top of this.
-        this.zombieIndex = 1f;
+        zombieIndex = 0f;
 
         for(int i = 0; i < numZombies; i++) {
-            if(doubleSpeed/*level.doubleSpeedClicked()*/) {//FIX
-                enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier * 2, healthMultiplier, (zombieIndex * spawnDelay)));
-            }
-            else {
-                enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
-            }
+            enemyController.newZombie(enemyFactory.getNext(level, speedMultiplier, healthMultiplier, (zombieIndex * spawnDelay)));
             zombieIndex++;
         }
         waveIndex++;
         zombieIndex = 0;
-    }
-
-    public void zombiesDoubleSpeedEnable() {
-        this.doubleSpeed = true;
-    }
-    public void zombiesDoubleSpeedDisable() {
-        this.doubleSpeed = false;
     }
 }
