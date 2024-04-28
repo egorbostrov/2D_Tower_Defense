@@ -325,7 +325,6 @@ public class Enemy extends GameObject{
 
     public void enemyEnteredMap() {
         this.hasEnteredMap = true;
-        System.out.println("enemy entered map");
     }
 
 }
