@@ -21,9 +21,9 @@ public class PatternedEnemyFactory implements EnemyFactory{
      * @return new zombie
      */
     @Override
-    public Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay) {
+    public Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay, boolean doubleSpeed) {
         char zombie = zombieChars.charAt(counter);
         counter = (counter + 1) % zombieChars.length();
-        return Enemy.newEnemy(zombie, level, speedMultiplier, healthMultiplier, delay);
+        return Enemy.newEnemy(zombie, level, speedMultiplier, healthMultiplier, delay, doubleSpeed);
     }
 }

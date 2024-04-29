@@ -52,7 +52,7 @@ public class Enemy extends GameObject{
      * @param spawnDelay the delay before the zombie get put on the map
      * @param texture the visual zombie texture
      */
-    public Enemy(char type, float x, float y, float width, float height, float startHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture){
+    public Enemy(char type, float x, float y, float width, float height, float startHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture, boolean doubleSpeed){
         super(x, y, width, height);
         this.doubleSpeed = false;
         this.type = type;
@@ -62,6 +62,7 @@ public class Enemy extends GameObject{
         this.currentHealth = startHealth;
         this.reward = reward;
         this.sprite = texture;
+        this.doubleSpeed = doubleSpeed;
 
         this.spawnDelay = spawnDelay;
         this.elapsedTimeStart = 0;
@@ -79,7 +80,7 @@ public class Enemy extends GameObject{
      * @param spawnDelay sets the game time of which the zombie will spawn
      * @return new zombie/enemy with these assigned values
      */
-    public static Enemy newEnemy(char type, Level level,float speedMultiplier, float healthMultiplier, float spawnDelay) {
+    public static Enemy newEnemy(char type, Level level,float speedMultiplier, float healthMultiplier, float spawnDelay, boolean doubleSpeed) {
         return switch(type) {
             case 'R'-> new Enemy(
                     type,
@@ -92,7 +93,8 @@ public class Enemy extends GameObject{
                     ENEMY_REGULAR_BOUNTY,
                     (ENEMY_REGULAR_SPEED * speedMultiplier),
                     (spawnDelay),
-                    GameAssets.zombieSprite//GameAssets.
+                    GameAssets.zombieSprite,
+                    doubleSpeed
             );
             case 'T' -> new Enemy(
                     type,
@@ -105,7 +107,8 @@ public class Enemy extends GameObject{
                     ENEMY_TANK_BOUNTY,
                     (ENEMY_TANK_SPEED * speedMultiplier),
                     (spawnDelay),
-                    GameAssets.tankSprite
+                    GameAssets.tankSprite,
+                    doubleSpeed
             );
             case 'Q' -> new Enemy(
                     type,
@@ -118,7 +121,8 @@ public class Enemy extends GameObject{
                     ENEMY_QUICK_BOUNTY,
                     (ENEMY_QUICK_SPEED * speedMultiplier),
                     (spawnDelay),
-                    GameAssets.quickzombieSprite
+                    GameAssets.quickzombieSprite,
+                    doubleSpeed
             );
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
@@ -264,6 +268,7 @@ public class Enemy extends GameObject{
     public void doubleSpeedClicked(){
         if(!this.doubleSpeed){
             speed *= 2;
+            System.out.println("speed doubled for:  " + this);
             this.doubleSpeed = true;
         }
     }
@@ -271,6 +276,7 @@ public class Enemy extends GameObject{
     public void normalSpeedClicked(){
         if(this.doubleSpeed){
             speed /= 2;
+            System.out.println("speed halved for:   " + this);
             this.doubleSpeed = false;
         }
     }
@@ -326,5 +332,4 @@ public class Enemy extends GameObject{
     public void enemyEnteredMap() {
         this.hasEnteredMap = true;
     }
-
 }
