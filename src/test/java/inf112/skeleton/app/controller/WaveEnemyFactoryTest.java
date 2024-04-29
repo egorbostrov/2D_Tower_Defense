@@ -59,10 +59,10 @@ public class WaveEnemyFactoryTest {
     @Test
     void testGetNextReturnsCorrectEnemy() {
         float delay = 0.5f; // Define any delay value needed for your test
-        Enemy enemyR = patternedEnemyFactory.getNext(mockLevel, 1f, 1, delay);
+        Enemy enemyR = patternedEnemyFactory.getNext(mockLevel, 1f, 1, delay, false);
         assertNotNull(enemyR, "Enemy should not be null for type 'R'");
 
-        Enemy enemyT = patternedEnemyFactory.getNext(mockLevel, 1f, 1f, delay);
+        Enemy enemyT = patternedEnemyFactory.getNext(mockLevel, 1f, 1f, delay, false);
         assertNotNull(enemyT, "Enemy should not be null for type 'T'");
     }
 

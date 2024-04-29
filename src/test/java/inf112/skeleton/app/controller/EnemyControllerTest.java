@@ -52,7 +52,8 @@ public class EnemyControllerTest {
                     5,
                     5,
                     5,
-                    GameAssets.zombieSprite
+                    GameAssets.zombieSprite,
+                    false
             ));
         }
         assertEquals(5, enemyController.getEnemyList().size(), "List should contain 5 enemies");

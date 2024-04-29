@@ -73,7 +73,7 @@ public class Level implements EnemyEvents {
 
         map = new Map(mapNumber);
         this.enemyController = EnemyController.getInstance(this);
-        waveController = new WaveController(enemyController, 1, false);
+        waveController = new WaveController(enemyController, mapNumber, false);
         this.towerController = TowerController.getInstance(this);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
