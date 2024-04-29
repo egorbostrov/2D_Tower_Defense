@@ -254,9 +254,7 @@ public class PlayScene extends AbstractGameScene {
     private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
     }
-    //private String getClickedTowerType () {
 
-    //}
     @Override
     public void render (float deltaTime) { // main renderer for the playscene.
         // Do not update game world when paused.
@@ -284,10 +282,11 @@ public class PlayScene extends AbstractGameScene {
         if (level != null){
             level.render(spriteBatch);
         }
-
+        if (towerController.isTowerSelected() && towerController.getTempTower() != null) {
+            towerController.getTempTower().render(spriteBatch);
+        }
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         towerController.render(shapeRenderer);
-
         //controlMenu.render(spriteBatch);
         spriteBatch.end();
         shapeRenderer.end();
