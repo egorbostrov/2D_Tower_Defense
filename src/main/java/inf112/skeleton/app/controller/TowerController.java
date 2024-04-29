@@ -82,6 +82,11 @@ public class TowerController implements Render{
         float towerBottom = y - GameConstants.TOWER_SIZE / 2;
         Rectangle newTowerBounds = new Rectangle(towerLeft, towerBottom, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
 
+        if (map.getSelectedTile(x, y).getType() == GridType.ILLEGALPLACEMENT) {
+            System.out.println("Not a legal placement :/");
+            return false;
+        }
+
         if (map.getSelectedTile(x, y).getType() == GridType.PATH) {
             return false;
         }
