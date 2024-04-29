@@ -3,7 +3,6 @@ package inf112.skeleton.app.controller;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.level.Level;
@@ -34,9 +33,6 @@ public class TowerController implements Render{
 
     private final Level level;
     private final Map map;
-
-    private Vector2 tempTowerPosition = new Vector2();
-
 
     public TowerController(Level level){
         defenderList = new ArrayList<>();
@@ -209,27 +205,7 @@ public class TowerController implements Render{
     public void setTowerSelected(DefenderType type) {
         selectedTowerType = type;
         isTowerSelected = true;
-        currentDefender = createTempTower(tempTowerPosition.x, tempTowerPosition.y, type);
     }
-
-    private BaseDefender createTempTower(float x, float y, DefenderType type) {
-        switch (type) {
-            case GUNNER:
-                return new GunnerDefender(x, y, new ArrayList<>());
-            case SNIPER:
-                return new SniperDefender(x, y, new ArrayList<>());
-            case BOMBER:
-                return new BomberDefender(x, y, new ArrayList<>());
-        }
-        return null;
-    }
-
-    public void updateTempTowerPosition(float x, float y) {
-        if (currentDefender != null) {
-            currentDefender.setPosition(x, y);
-        }
-    }
-
 
     public void setSelectedTowerUpgrade(BaseDefender defender) {
         defender.selectedDefender(true);
