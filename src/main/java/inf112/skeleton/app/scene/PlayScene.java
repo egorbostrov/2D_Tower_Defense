@@ -282,8 +282,8 @@ public class PlayScene extends AbstractGameScene {
         if (level != null){
             level.render(spriteBatch);
         }
-        if (towerController.isTowerSelected() && towerController.getTempTower() != null) {
-            towerController.getTempTower().render(spriteBatch);
+        if (towerController.isTowerSelected() && towerController.getSelectedDefender() != null) {
+            towerController.getSelectedDefender().render(spriteBatch);
         }
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         towerController.render(shapeRenderer);
