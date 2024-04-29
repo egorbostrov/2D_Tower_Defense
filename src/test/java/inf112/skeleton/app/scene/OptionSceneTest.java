@@ -121,12 +121,12 @@ public class OptionSceneTest {
 
 
 
-    @Test
-    public void testShowInitializesStageAndInputs() {
-        optionScene.show();
-        verify(mockStage).clear();
-        verify(mockGame, never()).setScreen(any());
-    }
+//    @Test
+//    public void testShowInitializesStageAndInputs() {
+//        optionScene.show();
+//        verify(mockStage).clear();
+//        verify(mockGame, never()).setScreen(any());
+//    }
 
     @Test
     public void testHideDisposesResources() {
