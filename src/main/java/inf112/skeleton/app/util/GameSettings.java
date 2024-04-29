@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class GameSettings {
 
-    public static final GameSettings instance = new GameSettings();
+    public static GameSettings instance = new GameSettings();
 
     private static boolean sound;
     private static boolean music;
@@ -14,6 +14,18 @@ public class GameSettings {
     private static float volMusic;
     private static boolean fullscreen;
     private Preferences prefs = Gdx.app.getPreferences(GameConstants.PREFERENCES);
+
+    private GameSettings() {
+        prefs = Gdx.app.getPreferences(GameConstants.PREFERENCES);
+    }
+
+    // Public method to get the instance
+    public static synchronized GameSettings getInstance() {
+        if (instance == null) {
+            instance = new GameSettings();
+        }
+        return instance;
+    }
 
     /**
      * Load preferences from My Preferences.

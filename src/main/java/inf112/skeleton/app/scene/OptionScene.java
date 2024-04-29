@@ -23,16 +23,16 @@ import inf112.skeleton.app.util.MusicManager;
 
 public class OptionScene extends AbstractGameScene {
     private final String stateName = "OPTION MENU";
-    private Stage stage;
+    Stage stage;
     private TextureAtlas atlas;
-    private Skin skin;
-    private TextButton saveButton;
-    private TextButton cancelButton;
-    private CheckBox chkSound;
-    private Slider sldSound;
-    private CheckBox chkMusic;
-    private Slider sldMusic;
-    private CheckBox chkFullscreen;
+    Skin skin;
+    TextButton saveButton;
+    TextButton cancelButton;
+    CheckBox chkSound;
+    Slider sldSound;
+    CheckBox chkMusic;
+    Slider sldMusic;
+    CheckBox chkFullscreen;
 
     private Image bgImg;
     private Skin uiskin;
@@ -120,7 +120,7 @@ public class OptionScene extends AbstractGameScene {
 
 
     // Load settings from My Preferences and change the buttons/sliders to their corresponding values.
-    private void loadSettings() {
+    void loadSettings() {
         GameSettings prefs = GameSettings.instance;
         prefs.load();
         chkSound.setChecked(prefs.getSound());
@@ -142,13 +142,13 @@ public class OptionScene extends AbstractGameScene {
     }
 
     // Method for Save button
-    private void onSaveClicked() {
+    void onSaveClicked() {
         saveSettings();
         onCancelClicked();
     }
 
     // Method for Cancel button
-    private void onCancelClicked() {
+    void onCancelClicked() {
         game.setScreen(new MenuScene(game));
     }
 

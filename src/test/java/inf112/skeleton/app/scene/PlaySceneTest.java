@@ -60,7 +60,7 @@ class PlaySceneTest {
     @Test
     void playSceneConstructorTest() {
         // Test the PlayScene constructor
-        PlayScene scene = new PlayScene(game);
+        PlayScene scene = new PlayScene(game, 1);
         // Verify that the necessary methods are called on the PlayScene object
         // Note: Since constructors cannot be directly verified and
         // methods called within are private, this test checks if the
