@@ -72,7 +72,7 @@ public class TowerController implements Render{
     }
 
     //BUGGED WIP
-    private boolean legalPlacement(float x, float y) {
+    public boolean legalPlacement(float x, float y) {
         float towerLeft = x - GameConstants.TOWER_SIZE / 2;
         float towerBottom = y - GameConstants.TOWER_SIZE / 2;
         Rectangle newTowerBounds = new Rectangle(towerLeft, towerBottom, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
