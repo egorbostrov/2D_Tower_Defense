@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 
 import inf112.skeleton.app.enums.BulletType;
 import inf112.skeleton.app.util.MusicManager;

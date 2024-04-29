@@ -65,6 +65,7 @@ public class PlayScene extends AbstractGameScene {
     private EnemyController enemyController;
     private TowerController towerController;
     public static OrthographicCamera camera;
+    public static int currentMapNumber;
     private MouseController mouseController;
     private CameraManager cameraManager;
     private MainControlMenu controlMenu;
@@ -76,8 +77,8 @@ public class PlayScene extends AbstractGameScene {
         setupUI();
         setupInput(); // Now setupInput can be called safely
         this.level = new Level(game, mapNumber);
+        currentMapNumber = mapNumber;
         initializeGameControllers();
-
 
     }
 
@@ -140,9 +141,10 @@ public class PlayScene extends AbstractGameScene {
         this.enemyController = EnemyController.getInstance(this.level);
         this.towerController = TowerController.getInstance(this.level);
 
-        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(level));
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
+
 
 
     private Table buildControls() {
@@ -199,13 +201,13 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("Options selected");
                 OptionScene.setFromPlayScene();
-                game.setScreen(new OptionScene(game));
+                game.setScreen(new OptionScene(game, currentMapNumber));
             }
         });
 
         optionslayer.add(optionsButton).pad(10).bottom(); // Ensures options button is at the bottom right.
 
-        speedUpgradeButton = new Button(uimenuskin, "bombertower");
+        speedUpgradeButton = new Button(uimenuskin, "speedupgrade");
         optionslayer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
@@ -215,7 +217,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        damageUpgradeButton = new Button(uimenuskin, "snipertower");
+        damageUpgradeButton = new Button(uimenuskin, "damageupgrade");
         optionslayer.add(damageUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
@@ -225,7 +227,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        rangeUpgradeButton = new Button(uimenuskin, "gunnertower");
+        rangeUpgradeButton = new Button(uimenuskin, "rangeupgrade");
         optionslayer.add(rangeUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
@@ -387,8 +389,7 @@ public class PlayScene extends AbstractGameScene {
     @Override
     public void show() {
         //controlMenu = new MainControlMenu(level, towerController);
-        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(level));
-        inputMultiplexer.addProcessor(mouseController);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
         if(GameSettings.getMusic() == true) {
             MusicManager.play("gamemusic.ogg", true);
@@ -396,6 +397,7 @@ public class PlayScene extends AbstractGameScene {
 
         // temporary multiplexer to use both stage ui buttons and configurer mousecontroller bs so that i can place the towers. (temp temp temp!!!)
     }
+
     @Override
     public void hide () {
         MusicManager.stopCurrentMusic();

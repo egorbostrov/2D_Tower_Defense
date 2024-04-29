@@ -196,11 +196,9 @@ public class Level implements EnemyEvents {
     public Map getMap(){
         return map;
     }
-
-
-
-
-
+    public int getMapNumber() {
+        return mapNumber;
+    }
 
     /**
      * Sets the time left of the current wave

@@ -16,13 +16,26 @@
     default: { font: default-font, fontColor: white }
   },
   com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
-    play: { down: play_dn, up: play_up },
-    options: { down: options_dn, up: options_up },
+    play: { down: menu_board_play_down, up: menu_board_play_up },
+    options: { down: menu_board_options_down, up: menu_board_options_up },
+    exit: { down: menu_board_quit_down, up: menu_board_quit_up},
+    tutorial: { down: menu_board_tutorial_down, up: menu_board_tutorial_up}
+    playoptions: { down: board_cog_down, up: board_cog},
     gunnertower: { down :board_gunna_down, up: board_gunna},
     snipertower: { down :board_snipa_down, up: board_snipa},
-    bombertower: { down: board_bomba_down, up: board_bomba}
-    exit: { down: exit_dn, up: exit_up},
-    playoptions: { down: board_cog_down, up: board_cog}
+    bombertower: { down: board_bomba_down, up: board_bomba},
+    rangeupgrade: {
+      down: board_range_upgrade_down,
+      up: board_range_upgrade_up },
+    speedupgrade: {
+      down: board_speed_upgrade_down,
+      up:board_speed_upgrade_up
+    },
+    damageupgrade: {
+      down: board_damage_upgrade_down,
+      up: board_damage_upgrade_up
+    }
+
   },
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
     "default": {

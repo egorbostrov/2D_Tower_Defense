@@ -4,27 +4,20 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
-import inf112.skeleton.app.util.MusicManager;
 
 public class OptionScene extends AbstractGameScene {
     private final String stateName = "OPTION MENU";
     Stage stage;
-    private TextureAtlas atlas;
+    TextureAtlas atlas;
     Skin skin;
     TextButton saveButton;
     TextButton cancelButton;
@@ -33,11 +26,17 @@ public class OptionScene extends AbstractGameScene {
     CheckBox chkMusic;
     Slider sldMusic;
     CheckBox chkFullscreen;
-
+    private static boolean fromPlayScene;
     private Image bgImg;
     private Skin uiskin;
+    private int mapNumber;
 
-    public OptionScene(Game game) {
+    public OptionScene(Game game, int currentMapNumber) {
+        super(game);
+        this.mapNumber = currentMapNumber;
+    }
+
+    public OptionScene(Game game) { // Constructor for cases without a mapNumber
         super(game);
     }
 
@@ -120,7 +119,7 @@ public class OptionScene extends AbstractGameScene {
 
 
     // Load settings from My Preferences and change the buttons/sliders to their corresponding values.
-    void loadSettings() {
+    private void loadSettings() {
         GameSettings prefs = GameSettings.instance;
         prefs.load();
         chkSound.setChecked(prefs.getSound());
@@ -141,15 +140,27 @@ public class OptionScene extends AbstractGameScene {
         prefs.save();
     }
 
+    // Getter and setter to see if options was triggered from PlayScene
+    public static boolean getFromPlayScene() {
+        return fromPlayScene;
+    }
+
+    public static void setFromPlayScene() {
+        fromPlayScene = true;
+    }
     // Method for Save button
-    void onSaveClicked() {
+    private void onSaveClicked() {
         saveSettings();
         onCancelClicked();
     }
 
     // Method for Cancel button
-    void onCancelClicked() {
-        game.setScreen(new MenuScene(game));
+    private void onCancelClicked() {
+        if (fromPlayScene && mapNumber >= 0) { // Check if called from PlayScene and a valid map number exists
+            game.setScreen(new PlayScene(game, mapNumber));
+        } else {
+            game.setScreen(new MenuScene(game));
+        }
     }
 
     @Override

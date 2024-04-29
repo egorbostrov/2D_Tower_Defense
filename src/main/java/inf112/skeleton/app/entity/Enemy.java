@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.MusicManager;
@@ -289,7 +288,7 @@ public class Enemy extends GameObject{
             float slowDownTime = 0.5f;
             if (slowTime >= slowDownTime){
                 speed *= 2;
-                sprite = MyAtlas.REGULAR_ZOMBIE; //FIX Change to the texture of a normal zombie
+                sprite = GameAssets.zombieSprite; //FIX Change to the texture of a normal zombie
                 isSlowed = false;
             }
         }
@@ -302,7 +301,7 @@ public class Enemy extends GameObject{
     public void slowDown(){
         if (!isSlowed){
             slowTime = 0;
-            sprite = MyAtlas.REGULAR_ZOMBIE_SLOWED; //FIX
+            sprite = GameAssets.zombieSprite; //FIX
             speed /= 2;
             isSlowed = true;
         }
