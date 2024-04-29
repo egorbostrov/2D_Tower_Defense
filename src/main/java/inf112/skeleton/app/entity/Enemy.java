@@ -268,7 +268,6 @@ public class Enemy extends GameObject{
     public void doubleSpeedClicked(){
         if(!this.doubleSpeed){
             speed *= 2;
-            System.out.println("speed doubled for:  " + this);
             this.doubleSpeed = true;
         }
     }
@@ -276,7 +275,6 @@ public class Enemy extends GameObject{
     public void normalSpeedClicked(){
         if(this.doubleSpeed){
             speed /= 2;
-            System.out.println("speed halved for:   " + this);
             this.doubleSpeed = false;
         }
     }
