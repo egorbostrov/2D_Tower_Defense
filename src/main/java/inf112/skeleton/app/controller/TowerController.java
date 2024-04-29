@@ -1,7 +1,6 @@
 package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -9,13 +8,11 @@ import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
-import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.tower.SniperDefender;
 import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.tower.GunnerDefender;
-import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 
 import static inf112.skeleton.app.util.GameConstants.*;
@@ -39,7 +36,6 @@ public class TowerController implements Render{
     private final Map map;
 
     private Vector2 tempTowerPosition = new Vector2();
-    private BaseDefender tempTower;
 
 
     public TowerController(Level level){
@@ -213,7 +209,7 @@ public class TowerController implements Render{
     public void setTowerSelected(DefenderType type) {
         selectedTowerType = type;
         isTowerSelected = true;
-        tempTower = createTempTower(tempTowerPosition.x, tempTowerPosition.y, type);
+        currentDefender = createTempTower(tempTowerPosition.x, tempTowerPosition.y, type);
     }
 
     private BaseDefender createTempTower(float x, float y, DefenderType type) {
@@ -229,14 +225,11 @@ public class TowerController implements Render{
     }
 
     public void updateTempTowerPosition(float x, float y) {
-        if (tempTower != null) {
-            tempTower.setPosition(x, y);
+        if (currentDefender != null) {
+            currentDefender.setPosition(x, y);
         }
     }
 
-    public BaseDefender getTempTower() {
-        return tempTower;
-    }
 
     public void setSelectedTowerUpgrade(BaseDefender defender) {
         defender.selectedDefender(true);
@@ -244,7 +237,7 @@ public class TowerController implements Render{
     }
 
     public boolean isTowerSelected() {
-        return this.isTowerSelected;
+        return isTowerSelected;
     }
 
 
