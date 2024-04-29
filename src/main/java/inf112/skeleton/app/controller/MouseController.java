@@ -9,6 +9,7 @@ import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.scene.CameraManager;
+import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 
@@ -36,6 +37,7 @@ public class MouseController implements InputProcessor {
         if (button == Input.Buttons.LEFT && towerController.isTowerSelected()) {
             Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
             getCameraManager().getCamera().unproject(worldCoordinates); // Use CameraManager's camera to unproject
+
             float towerSize = GameConstants.TOWER_SIZE;
             float centeredSizeX = worldCoordinates.x - towerSize / 2;
             float centeredSizeY = worldCoordinates.y - towerSize / 2;
@@ -43,9 +45,16 @@ public class MouseController implements InputProcessor {
             List<Enemy> currentEnemies = this.enemyController.getEnemyList();
             DefenderType selectedType = towerController.getSelectedTowerType();
 
-            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType, 100) > 0) {
+            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType) > 0) {
                 towerController.clearSelectedTower();
                 return true;
+            }
+        } else if (button == Input.Buttons.LEFT && !towerController.isTowerSelected()) {
+            for (BaseDefender defender : towerController.getDefenderList()) {
+                if (defender.getBoundingRectangle().contains(screenX, GameConstants.SCREEN_HEIGHT - screenY)) {
+                    towerController.setSelectedTowerUpgrade(defender);
+                    return true;
+                }
             }
         }
         return false;

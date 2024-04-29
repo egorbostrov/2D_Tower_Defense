@@ -10,7 +10,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-import inf112.skeleton.app.controller.WaveEnemyFactory;
+import inf112.skeleton.app.controller.PatternedEnemyFactory;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
@@ -23,7 +23,7 @@ public class WaveEnemyFactoryTest {
     private Map mockMap;
     private static Application application;
 
-    private WaveEnemyFactory waveEnemyFactory;
+    private PatternedEnemyFactory patternedEnemyFactory;
 
     @BeforeAll
     public static void init() {
@@ -53,16 +53,16 @@ public class WaveEnemyFactoryTest {
         when(mockMap.getDirections()).thenReturn(new LinkedList<>());
 
         // Initialize your factory
-        waveEnemyFactory = new WaveEnemyFactory("RT");
+        patternedEnemyFactory = new PatternedEnemyFactory("RT");
     }
 
     @Test
     void testGetNextReturnsCorrectEnemy() {
         float delay = 0.5f; // Define any delay value needed for your test
-        Enemy enemyR = waveEnemyFactory.getNext(mockLevel, 1, 1, delay);
+        Enemy enemyR = patternedEnemyFactory.getNext(mockLevel, 1f, 1, delay, false);
         assertNotNull(enemyR, "Enemy should not be null for type 'R'");
 
-        Enemy enemyT = waveEnemyFactory.getNext(mockLevel, 1, 1, delay);
+        Enemy enemyT = patternedEnemyFactory.getNext(mockLevel, 1f, 1f, delay, false);
         assertNotNull(enemyT, "Enemy should not be null for type 'T'");
     }
 

@@ -9,7 +9,7 @@ public class Main {
         TDGame game = new TDGame();
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setForegroundFPS(60);
-        cfg.setTitle("TowerDefence");
+        cfg.setTitle("TowerDefense");
         cfg.setWindowedMode((int)GameConstants.SCREEN_WIDTH, (int)GameConstants.SCREEN_HEIGHT);
 
         new Lwjgl3Application(game, cfg);

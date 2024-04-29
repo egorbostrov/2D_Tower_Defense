@@ -49,32 +49,59 @@ public class EnemyController {
      */
     private void removeEnemy() {
         List<Enemy> shouldRemoved = new ArrayList<>();
-        for (Enemy e : enemyList) {
-            if (e.position.x + e.size.x > GameConstants.SCREEN_WIDTH || e.position.y + e.size.y > GameConstants.SCREEN_HEIGHT) {
-                shouldRemoved.add(e);
+        for (Enemy enemy : enemyList) {
+            if (checkBoundsForEnemy(enemy) && enemy.hasEnteredMap) {
+                shouldRemoved.add(enemy);
                 level.enemyCompletedPath();
             }
-            if (!e.isAlive()) {
-                shouldRemoved.add(e);
-                level.enemyKilled(e.getReward());
+            if (!enemy.isAlive()) {
+                shouldRemoved.add(enemy);
+                level.enemyKilled(enemy.getReward());
             }
         }
         enemyList.removeAll(shouldRemoved);
     }
 
+    /**
+     * @param enemy enemy we check bounds for
+     * @return true if enemy is our of bounds
+     */
+    private boolean checkBoundsForEnemy(Enemy enemy) {
+            return (enemy.position.x + enemy.size.x > GameConstants.SCREEN_WIDTH ||
+                    enemy.position.x - enemy.size.x < 0 ||
+                    enemy.position.y + (enemy.size.y / 2) > GameConstants.SCREEN_HEIGHT - (GameConstants.UI_ROWS_TOP * GameConstants.TILE_HEIGHT) ||
+                    enemy.position.y + (enemy.size.y / 2) < GameConstants.UI_ROWS_BOTTOM * GameConstants.TILE_HEIGHT
+            );
+    }
 
     public void doubleSpeedClicked() {
+        for (Enemy enemy : enemyList) {
+            enemy.doubleSpeedClicked();
+
+        }
     }
 
     public void normalSpeedClicked() {
+        for (Enemy enemy : enemyList) {
+            enemy.normalSpeedClicked();
+
+        }
     }
 
     public List<Enemy> getEnemyList(){
         return enemyList;
     }
 
+    public void clearEnemies() {
+        enemyList.clear();
+    }
+
+
     public void update(float elapsedTime) {
         for (Enemy enemy : enemyList) {
+            if (!checkBoundsForEnemy(enemy) && !enemy.hasEnteredMap) {
+                enemy.enemyEnteredMap();
+            }
             enemy.update(elapsedTime);
 
         }
