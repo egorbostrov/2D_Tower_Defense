@@ -10,7 +10,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -25,7 +24,6 @@ public class HealthBarTest {
     private static HeadlessApplication application;
 
 
-    @ExtendWith(MockitoExtension.class)
     @BeforeAll
     public static void setUp() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
@@ -50,7 +48,7 @@ public class HealthBarTest {
 
     @Test
     public void testHealthRemoveEnemyVsHealthBar(){
-        Enemy enemy = new Enemy('R',100, 100, GameConstants.ENEMY_WIDTH, GameConstants.ENEMY_HEIGHT, 100, new LinkedList<>(), 0, 0, 0, null);
+        Enemy enemy = new Enemy('R',100, 100, GameConstants.ENEMY_WIDTH, GameConstants.ENEMY_HEIGHT, 100, new LinkedList<>(), 0, 0, 0, null, false);
         Random random = new Random();
         int randomNumber = random.nextInt(101);
         enemy.shot(randomNumber);
