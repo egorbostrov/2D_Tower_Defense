@@ -32,7 +32,6 @@ public class TowerController implements Render{
     private BaseDefender currentDefender;
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
-
     private Level level;
     private Map map = new Map();
     private GameAssets asset = this.asset;
@@ -78,24 +77,12 @@ public class TowerController implements Render{
         float towerLeft = x - GameConstants.TOWER_SIZE / 2;
         float towerBottom = y - GameConstants.TOWER_SIZE / 2;
         Rectangle newTowerBounds = new Rectangle(towerLeft, towerBottom, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
-
-        // Check all tiles that the tower overlaps with for legality.
-        // Assuming map.getSelectedTile() returns the tile based on bottom-left corner.
-        if (map.getSelectedTile(x, y).getType() == GridType.PATH) {
-            return false; // The center of the tower would be on a path, so illegal.
-        }
-
-        // Check if any existing tower occupies the calculated bounds.
-//        for (BaseDefender defender : defenderList) {
-//            if (defender.getHitBox().overlaps(newTowerBounds)) {
-//                return false; // The position is already taken by another tower.
-//            }
-//        }
-
         return true;
     }
 
-
+//    private boolean hovermouseTower (float x, float y, DefenderType type){
+//        float
+//    }
 
     private int buildSniperTower(float x, float y, List<Enemy> enemyList) {
         SniperDefender sniperDefender = new SniperDefender(x, y, enemyList);
@@ -167,9 +154,7 @@ public class TowerController implements Render{
     public void render(SpriteBatch batch) {
         for (BaseDefender tower : defenderList) {
             tower.render(batch);
-//            if(isTowerSelected()) {
-//                BaseDefender.setSelected(isTowerSelected);
-//            }
+
         }
     }
 

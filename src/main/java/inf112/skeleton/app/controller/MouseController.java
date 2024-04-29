@@ -26,7 +26,6 @@ public class MouseController implements InputProcessor {
     private int lastX, lastY;
     private ShapeRenderer shapeRenderer;
     private EnemyController enemyController;
-    private boolean renderDebug = false;
 
     private Vector3 lastTouch = new Vector3(-1, -1, 0);
     public MouseController(Level level) {
@@ -54,18 +53,12 @@ public class MouseController implements InputProcessor {
                 System.out.println("Clicked on " + "\nX: " + worldCoordinates.x + " Y: " + worldCoordinates.y);
                 towerController.clearSelectedTower();
                 getCameraManager().getCamera().unproject(lastTouch);
-                renderDebug = true;
                 return true;
         }
-        return false;
+        // return false;
+        System.out.println("Clicked anywhere but button.");
+        return true;
     }
-
-    public void disposeDebug(ShapeRenderer shapeRenderer) {
-        shapeRenderer.dispose();
-    }
-    /**
-     * Not in use yet, but might come in handy later.
-     */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
@@ -97,7 +90,7 @@ public class MouseController implements InputProcessor {
     public boolean mouseMoved(int screenX, int screenY) {
         float mouseX = screenX;
         float mouseY = screenY;
-
+        System.out.println(mouseX + " and " + mouseY + " are the mouse coordinates.");
         return false;
     }
 
