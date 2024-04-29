@@ -233,10 +233,16 @@ public class BaseDefenderTest {
     // and functionalities within the update method.
 
     @Test
-    public void testDamageUpgrade() {
-        float initialDamage = defender.getDamage();
-        defender.damageUpgrade();
-        assertTrue("Damage should increase after upgrade", defender.getDamage() > initialDamage);
-    }
+public void testDamageUpgrade() {
+    float initialDamage = 10.0f; // Assuming you can set this value directly for testing
+    defender.setDamage(initialDamage);
+    
+    defender.damageUpgrade();
+    
+    float upgradedDamage = defender.getDamage();
+    assertTrue("Damage should increase after upgrade, was: " + upgradedDamage + ", but expected more than: " + initialDamage,
+            upgradedDamage > initialDamage);
+}
+
 }
 
