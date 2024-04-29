@@ -13,9 +13,9 @@ public class RandomEnemyFactory implements EnemyFactory{
         this.random = new Random();
     }
     @Override
-    public Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay) {
+    public Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay, boolean doubleSpeed) {
         int randomIndex = random.nextInt(possibleZombies.length());
         char zombie = possibleZombies.charAt(randomIndex);
-        return Enemy.newEnemy(zombie, level, speedMultiplier, healthMultiplier, delay);
+        return Enemy.newEnemy(zombie, level, speedMultiplier, healthMultiplier, delay, doubleSpeed);
     }
 }

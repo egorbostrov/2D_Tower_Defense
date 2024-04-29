@@ -8,26 +8,19 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.MouseController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 //import inf112.skeleton.app.scene.WorldController;
+import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
@@ -41,15 +34,28 @@ public class PlayScene extends AbstractGameScene {
     private boolean paused;
     private Stage stage;
     private Skin uimenuskin;
+
+    //Buttons
     private Button gunnerButton;
     private Button sniperButton;
     private Button bomberButton;
+    private Button doubleSpeedButton;
+    private Button pauseButton;
+    private Button exitButton;
+    private Button speedUpgradeButton;
+    private Button damageUpgradeButton;
+    private Button rangeUpgradeButton;
+    private Button removeDefenderButton;
+
+    private boolean isToggledSpeed = false;
+    private boolean isToggledPause = false;
+
     private SpriteBatch spriteBatch;
+    private ShapeRenderer shapeRenderer;
     private Level level;
     private EnemyController enemyController;
     private TowerController towerController;
     private OrthographicCamera camera;
-    private ShapeRenderer shapeRenderer;
     private CameraManager cameraManager;
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
@@ -158,13 +164,95 @@ public class PlayScene extends AbstractGameScene {
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
+
+        speedUpgradeButton = new Button(uimenuskin, "bombertower");
+        layer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        speedUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade speed button clicked");
+                level.upgradeSpeedClicked();
+            }
+        });
+
+        damageUpgradeButton = new Button(uimenuskin, "snipertower");
+        layer.add(damageUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        damageUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade damage button clicked");
+                level.upgradeAttackClicked();
+            }
+        });
+
+        rangeUpgradeButton = new Button(uimenuskin, "gunnertower");
+        layer.add(rangeUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        rangeUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade range button clicked");
+                level.upgradeRangeClicked();
+            }
+        });
+
+        removeDefenderButton = new Button(uimenuskin, "bombertower");
+        layer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);  // Add padding at the bottom if needed
+        removeDefenderButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                towerController.sellSelectedDefender();
+            }
+        });
+        layer.row();
+
+        doubleSpeedButton = new Button(uimenuskin, "gunnertower");
+        layer.add(doubleSpeedButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        doubleSpeedButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                isToggledSpeed = !isToggledSpeed;
+                if (isToggledSpeed) {
+                    System.out.println("Double speed clicked");
+                    level.doubleSpeedClicked();
+                } else {
+                    System.out.println("Normal speed clicked");
+                    level.normalSpeedClicked();
+                }
+            }
+        });
+
+        pauseButton = new Button(uimenuskin, "bombertower");
+        layer.add(pauseButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        pauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                isToggledPause = !isToggledPause;
+                if (isToggledPause) {
+                    System.out.println("Pause clicked");
+                    level.pause();
+                } else {
+                    System.out.println("Resume clicked");
+                    level.resume();
+                }
+            }
+        });
+
+        exitButton = new Button(uimenuskin, "snipertower");
+        layer.add(exitButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Exit clicked");
+                level.pause();
+                game.setScreen(new MenuScene(game));
+            }
+        });
         layer.row();
         return layer;
     }
 
     private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
-
     }
     //private String getClickedTowerType () {
 
@@ -197,27 +285,31 @@ public class PlayScene extends AbstractGameScene {
             level.render(spriteBatch);
         }
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        towerController.render(shapeRenderer);
+
         //controlMenu.render(spriteBatch);
         spriteBatch.end();
+        shapeRenderer.end();
         //worldController.renderHitboxes(shapeRenderer);
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
         if (level.getUserHealth() <= 0){
-            game.setScreen(new MenuScene(game));
+            game.setScreen(new GameOverScene(game, level));
         }
-    }
 
+    }
 
     private void renderInfo(SpriteBatch batch){
         String scoreText = "Score: " + level.getScore();
         String moneyText = "Money: " + level.getMoney();
         String waveText = "Wave: " + level.getCurrentWave();
         String enemiesText = "Enemies killed: " + level.getEnemiesKilled();
-        String userHealthText = "Your lives: " + level.getUserHealth();
+        String healthText = "Health: " + level.getUserHealth();
 
         float xCord = 10;
-        float yCord = SCREEN_HEIGHT - 20;
+        float yCord = GameConstants.SCREEN_HEIGHT - 20;
         int padding = 20;
 
         GlyphLayout glyphScore = bitmapFont.draw(batch, scoreText, xCord, yCord);
@@ -226,18 +318,16 @@ public class PlayScene extends AbstractGameScene {
         GlyphLayout glyphMoney = bitmapFont.draw(batch, moneyText, xCord, yCord);
         xCord += glyphMoney.width + padding;
 
-        bitmapFont.draw(batch, enemiesText, xCord, yCord);
+        GlyphLayout glyphHealth = bitmapFont.draw(batch, enemiesText, xCord, yCord);
+        xCord += glyphHealth.width + padding;
 
-        xCord = SCREEN_WIDTH / 2;
+        bitmapFont.draw(batch, healthText, xCord, yCord);
+
+        xCord = GameConstants.SCREEN_WIDTH / 2;
         GlyphLayout glyphWave = new GlyphLayout();
         glyphWave.setText(bitmapFont, waveText);
 
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
-
-        GlyphLayout glyphUserHealth = new GlyphLayout();
-        glyphUserHealth.setText(bitmapFont, userHealthText);
-
-        bitmapFont.draw(batch, userHealthText, SCREEN_WIDTH - (glyphUserHealth.width + padding), yCord);
     }
 
 

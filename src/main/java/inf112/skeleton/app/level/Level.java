@@ -44,6 +44,8 @@ public class Level implements EnemyEvents {
     private Game game;
     private OrthographicCamera camera;
     private CameraManager cameraManager;
+    private boolean isPaused;
+    private boolean isDoubleSpeedActive = false;
 
     private int mapNumber;
 
@@ -61,6 +63,7 @@ public class Level implements EnemyEvents {
      * Sets the start values for the start of the game and creates new map, controllers and menus
      */
     private void start() {
+        isPaused = false;
         currentWave = 0;
         score = 0;
         money = GameConstants.START_MONEY;
@@ -70,7 +73,7 @@ public class Level implements EnemyEvents {
 
         map = new Map(mapNumber);
         this.enemyController = EnemyController.getInstance(this);
-        waveController = new WaveController(enemyController, 1, true);
+        waveController = new WaveController(enemyController, mapNumber, false);
         this.towerController = TowerController.getInstance(this);
         towerSelectionMenu = new MainControlMenu(this);
         infoMenu = new InformationMenu();
@@ -110,6 +113,10 @@ public class Level implements EnemyEvents {
      * @param elapsedTime time between last frame and current frame
      */
     public void update(float elapsedTime) {
+        if (isPaused) {
+            return;
+        }
+
         map.update(elapsedTime);
         enemyController.update(elapsedTime);
         towerController.update(elapsedTime);
@@ -129,45 +136,11 @@ public class Level implements EnemyEvents {
     }
 
     /**
-     *
      * @param x x
      * @param y y
      */
     public void updateInputs(float x, float y) {
         towerSelectionMenu.updateInputs(x, y);
-    }
-
-    /**
-     * Manages where user is able to put the new tower. If on path or existing tower, tower will not be placed.
-     * Tower can only be placed on the GROUND tiles.
-     * @param x coordinate for tile
-     * @param y coordinate for tile
-     * @param type type of tower
-     */
-    public void createTowerClicked(float x, float y, DefenderType type) {
-
-        Tile tile = map.getSelectedTile(x, y);
-        if (tile == null){
-            return;
-        }
-        switch (tile.getType()){
-            case TOWER:
-                System.out.println("KAN IKKE SETTE PÅ EKSISTERENDE TÅRN");
-                break;
-            case GROUND:
-                int cost = towerController.buildTower(tile.getPositionOfObject().x, tile.getPositionOfObject().y, enemyController.getEnemyList(), type, 100);
-                if (cost != 0){
-                    tile.setType(GridType.TOWER);
-                    removeMoney(cost);
-                }
-                this.map.getBoard().renderSwitch(false);
-                break;
-            case PATH:
-                System.out.println("KAN IKKE BYGGE PÅ PATH");
-                break;
-            default:
-                break;
-        }
     }
 
     /**
@@ -178,6 +151,9 @@ public class Level implements EnemyEvents {
     public void enemyCompletedPath() {
         userHealth--;
         towerSelectionMenu.fireHealthChanged(userHealth);
+        if (userHealth == 0){
+            pause();
+        }
     }
 
     /**
@@ -204,27 +180,14 @@ public class Level implements EnemyEvents {
         changeTimeAndWaveNumber = false;
     }
 
-    /*public void touchDown(float x, float y) {
-        if (towerSelectionMenu.contains(x, y)){
-            towerSelectionMenu.touchDown(x, y);
-        } else {
-            selectTile(x, y);
-        }
-    }*/
-
-    /*public void touchRelease(float x, float y) {
-        towerSelectionMenu.touchRelease(x, y);
-    }*/
 
     /**
-     * Select the tile user has clicked. If tower, then infoMenu and towerMenu are shown.
-     * If path or ground is clicked, then the menus disappear.
-     * @param x value of the tile
-     * @param y value of the tile
+     *
+     * @return the selected tower
      */
-
-
-
+    public BaseDefender getSelectedDefender() {
+        return towerController.getSelectedDefender();//GULP
+    }
 
     /**
      *
@@ -254,14 +217,7 @@ public class Level implements EnemyEvents {
      * The cost of the upgrade will be removed from the money balance.
      */
     public void upgradeAttackClicked() {
-        BaseDefender defender = towerController.getCurrentDefender();//GULP
-        int cost = defender.getAttackCost();
-
-        if (cost <= money){
-            towerController.upgradeDamage();
-            removeMoney(cost);
-            infoMenu.updateTowerInfo(defender);
-        }
+        towerController.upgradeDamage();
     }
 
     /**
@@ -269,13 +225,7 @@ public class Level implements EnemyEvents {
      * Money balance will also be updated as well as the info for tower.
      */
     public void upgradeRangeClicked() {
-        BaseDefender defender = towerController.getCurrentDefender();//GULP
-        int cost = defender.getRangePrice();
-        if (cost <= money){
-            towerController.upgradeRange();
-            removeMoney(cost);
-            infoMenu.updateTowerInfo(defender);
-        }
+        towerController.upgradeRange();
     }
 
     /**
@@ -286,13 +236,7 @@ public class Level implements EnemyEvents {
      * towerInfo gets updated to new stats of the tower.
      */
     public void upgradeSpeedClicked() {
-        BaseDefender defender = towerController.getCurrentDefender();//GULP
-        int cost = defender.getSpeedPrice();
-        if (cost <= money){
-            towerController.upgradeSpeed();
-            removeMoney(cost);
-            infoMenu.updateTowerInfo(defender);
-        }
+        towerController.upgradeSpeed();
     }
 
     /**
@@ -300,7 +244,10 @@ public class Level implements EnemyEvents {
      * are set back to initial values from the start() method.
      */
     public void restart() {
-        start();
+       start();
+       userHealth = GameConstants.REMAINING_HEALTH;
+       enemyController.clearEnemies();
+       towerController.clearDefenders();
     }
 
 
@@ -308,6 +255,7 @@ public class Level implements EnemyEvents {
      * Sets the speed of the game to 2x of normal speed
      */
     public void doubleSpeedClicked() {
+        isDoubleSpeedActive = true;
         towerController.doubleSpeedClicked();
         enemyController.doubleSpeedClicked();
     }
@@ -316,8 +264,13 @@ public class Level implements EnemyEvents {
      * Sets the speed of the game back to normal speed.
      */
     public void normalSpeedClicked() {
+        isDoubleSpeedActive = false;
         towerController.normalSpeedClicked();
         enemyController.normalSpeedClicked();
+    }
+
+    public boolean isDoubleSpeedActive() {
+        return isDoubleSpeedActive;
     }
 
 
@@ -340,6 +293,14 @@ public class Level implements EnemyEvents {
         this.money -= amount;
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
+    }
+
+    public void pause() {
+        isPaused = true;
+    }
+
+    public void resume() {
+        isPaused = false;
     }
 
     public int getScore(){

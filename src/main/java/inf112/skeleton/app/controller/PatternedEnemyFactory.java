@@ -3,11 +3,15 @@ package inf112.skeleton.app.controller;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
 
-public class WaveEnemyFactory implements EnemyFactory{
+public class PatternedEnemyFactory implements EnemyFactory{
     private final String zombieChars;
     private int counter = 0;
 
-    public WaveEnemyFactory(String zombieChars) {
+    /**
+     * creates a wave of zombies based of the current wave.
+     * @param zombieChars string of zombie types that should spawn at the current wave.
+     */
+    public PatternedEnemyFactory(String zombieChars) {
         this.zombieChars = zombieChars;
     }
 
@@ -17,9 +21,9 @@ public class WaveEnemyFactory implements EnemyFactory{
      * @return new zombie
      */
     @Override
-    public Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay) {
+    public Enemy getNext(Level level, float speedMultiplier, float healthMultiplier, float delay, boolean doubleSpeed) {
         char zombie = zombieChars.charAt(counter);
         counter = (counter + 1) % zombieChars.length();
-        return Enemy.newEnemy(zombie, level, speedMultiplier, healthMultiplier, delay);
+        return Enemy.newEnemy(zombie, level, speedMultiplier, healthMultiplier, delay, doubleSpeed);
     }
 }

@@ -51,12 +51,16 @@ public abstract class GameObject implements Render {
      */
     protected boolean isSelected = false;
 
-
     public GameObject(float xCord, float yCord, float width, float height) {
         this.position = new Vector2(xCord, yCord);
         this.size = new Vector2(width, height);
-        this.center = new Vector2((position.x + size.x) / 2, (position.y + size.y) / 2);
-        this.boundsRectangle = new Rectangle(xCord, yCord, this.size.x, this.size.y);
+        //this.center = new Vector2((position.x + size.x) / 2, (position.y + size.y) / 2);
+        //this.boundsRectangle = new Rectangle(xCord, yCord, this.size.x, this.size.y);
+
+
+        //test
+        this.center = new Vector2(xCord + width / 2, yCord + height / 2);
+        this.boundsRectangle = new Rectangle(xCord, yCord, width, height);
         this.isVisible = true;
     }
 
@@ -109,6 +113,9 @@ public abstract class GameObject implements Render {
         //center
         center.x = position.x + size.x / 2;
         center.y = position.y + size.y / 2;
+
+        //test
+        boundsRectangle.set(position.x, position.y, size.x, size.y);
     }
 
     public Vector2 getPositionOfObject() {
