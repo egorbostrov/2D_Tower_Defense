@@ -285,6 +285,11 @@ public class PlayScene extends AbstractGameScene {
             level.render(spriteBatch);
         }
         if (towerController.isTowerSelected()) {
+            if (towerController.legalPlacement(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY())) {
+                spriteBatch.setColor(0, 1, 0, 0.5f);
+            } else {
+                spriteBatch.setColor(1, 0, 0, 0.5f);
+            }
             TextureRegion region = getTowerRegion(towerController.getSelectedTowerType());
             spriteBatch.draw(region, Gdx.input.getX() - TOWER_SIZE/2, SCREEN_HEIGHT - Gdx.input.getY() - TOWER_SIZE/2, TOWER_SIZE, TOWER_SIZE);
         }
