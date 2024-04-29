@@ -97,8 +97,6 @@ public class MouseController implements InputProcessor {
         if (towerController.isTowerSelected()) {
             Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
             getCameraManager().getCamera().unproject(worldCoordinates);
-            System.out.println("Moving: Screen (" + screenX + ", " + screenY + ") World (" + worldCoordinates.x + ", " + worldCoordinates.y + ")");
-
             towerController.updateTempTowerPosition(worldCoordinates.x - GameConstants.TOWER_SIZE/2, worldCoordinates.y - GameConstants.TOWER_SIZE/2);
             return true;
         }
