@@ -49,6 +49,7 @@ public class MouseController implements InputProcessor {
                 towerController.clearSelectedTower();
                 return true;
             }
+
         } else if (button == Input.Buttons.LEFT && !towerController.isTowerSelected()) {
             for (BaseDefender defender : towerController.getDefenderList()) {
                 if (defender.getBoundingRectangle().contains(screenX, GameConstants.SCREEN_HEIGHT - screenY)) {
@@ -93,9 +94,14 @@ public class MouseController implements InputProcessor {
      */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        float mouseX = screenX;
-        float mouseY = screenY;
+        if (towerController.isTowerSelected()) {
+            Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
+            getCameraManager().getCamera().unproject(worldCoordinates);
+            System.out.println("Moving: Screen (" + screenX + ", " + screenY + ") World (" + worldCoordinates.x + ", " + worldCoordinates.y + ")");
 
+            towerController.updateTempTowerPosition(worldCoordinates.x - GameConstants.TOWER_SIZE/2, worldCoordinates.y - GameConstants.TOWER_SIZE/2);
+            return true;
+        }
         return false;
     }
     /**
