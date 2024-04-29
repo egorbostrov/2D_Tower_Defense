@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 
 public class GameAssets implements Disposable {
+
     public static final GameAssets instance = new GameAssets();
     private final AssetManager assetManager = new AssetManager();
     private TextureAtlas atlas;
@@ -18,13 +19,22 @@ public class GameAssets implements Disposable {
     public static TextureAtlas.AtlasRegion bomberTexture;
     public static TextureAtlas.AtlasRegion bombTexture;
     public static TextureAtlas.AtlasRegion zombieTexture;
+    public static TextureAtlas.AtlasRegion tankTexture;
+    public static TextureAtlas.AtlasRegion quickZombieTexture;
+
     public static TextureAtlas.AtlasRegion pathTexture;
+
     public static TextureAtlas.AtlasRegion groundTexture;
+    public static TextureAtlas.AtlasRegion groundTexture2;
+    public static TextureAtlas.AtlasRegion groundTexture3;
+    public static TextureAtlas.AtlasRegion groundTexture4;
+
     public static Sprite bomberSprite;
     public static Sprite zombieSprite;
     public static Sprite zombieslowedSprite;
     public static Sprite tankSprite;
     public static Sprite tankslowedSprite;
+    public static Sprite quickzombieSprite;
     public static Sprite sniperSprite;
     public static Sprite sniperBulletSprite;
     public static Sprite gunnerSprite;
@@ -54,10 +64,15 @@ public class GameAssets implements Disposable {
         gunnerTexture = atlas.findRegion("gunna0");
         sniperTexture = atlas.findRegion("snipa0");
         bomberTexture = atlas.findRegion("bomba0");
-        zombieTexture = atlas.findRegion("gunna0");
+        zombieTexture = atlas.findRegion("gunna0");//FIX change atlas when available
+        tankTexture = atlas.findRegion(("bomb"));//FIX change atlas when available
+        quickZombieTexture = atlas.findRegion("snipa0");//FIX change atlas when available
         pathTexture = atlas.findRegion("path");
         bombTexture = atlas.findRegion("bomb");
-        groundTexture = atlas.findRegion("gritty2");
+        groundTexture = atlas.findRegion("gritty1");
+        groundTexture2 = atlas.findRegion("gritty2");
+        groundTexture3 = atlas.findRegion("gritty3");
+        groundTexture4 = atlas.findRegion("gritty4");
 
         // sprite form
         gunnerSprite = createSprite(gunnerTexture);
@@ -67,8 +82,10 @@ public class GameAssets implements Disposable {
         zombieSprite = createSprite(zombieTexture);//FIX Change atlas to zombie texture, when available :)
         zombieslowedSprite = createSprite(zombieTexture);//FIX Change to frozen zombie when available
 
-        tankSprite = createSprite(zombieTexture);
-        tankslowedSprite = createSprite(zombieTexture);
+        tankSprite = createSprite(tankTexture);
+        tankslowedSprite = createSprite(quickZombieTexture);
+
+        quickzombieSprite = createSprite(quickZombieTexture);
 
         gunnerBulletSprite = createSprite(atlas.findRegion("bullet"));
         sniperBulletSprite = createSprite(atlas.findRegion("bullet"));

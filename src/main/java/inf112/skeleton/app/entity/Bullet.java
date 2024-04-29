@@ -76,7 +76,7 @@ public class Bullet extends GameObject {
     /**
      *Updates the bounds rectangle, checks if the bullet has hit an enemy and thus should be removed.
      * If the bullet is visible, and has not hit an enemy, we compute the direction vector from the bullet to the target.
-     * @param deltaTime
+     * @param deltaTime time since last update
      */
     @Override
     public void update(float deltaTime) {
@@ -95,7 +95,7 @@ public class Bullet extends GameObject {
 
     /**
      * renders shapes allocated to bullet
-     * @param renderer
+     * @param renderer shapeRenderer used in our project
      */
     @Override
     public void render(ShapeRenderer renderer) {
@@ -105,7 +105,7 @@ public class Bullet extends GameObject {
 
     /**
      * Renders texture
-     * @param batch
+     * @param batch SpriteBatch used in our project
      */
     @Override
     public void render(SpriteBatch batch) {

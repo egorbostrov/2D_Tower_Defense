@@ -17,7 +17,7 @@ public class HealthBar extends GameObject {
     private float newHealth;
 
     /**
-     *
+     * Health bar that visualizes current health for each enemy
      * @param x x coordinate
      * @param y y coordinate
      * @param width width of the bar
@@ -38,7 +38,13 @@ public class HealthBar extends GameObject {
     }
 
 
-
+    /**
+     * Fills the given part of health bar with given color
+     * @param width width of health bar part
+     * @param height height of health bar part
+     * @param color color to be filled in given part of health bar
+     * @return colored part of the health bar
+     */
     public Drawable createDrawable(int width, int height, Color color){
         Pixmap map = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         map.setColor(color);
@@ -50,6 +56,9 @@ public class HealthBar extends GameObject {
 
     public void setHealth(float newHealth) {
         this.newHealth = newHealth;
+    }
+    public float getCurrentHealth(){
+        return this.newHealth;
     }
 
     public void updatePosition(float x, float y) {

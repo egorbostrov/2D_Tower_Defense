@@ -20,9 +20,10 @@ import static inf112.skeleton.app.util.GameConstants.*;
 
 public class Enemy extends GameObject{
 
+    private char type;
     private float currentHealth;
     private final int reward;
-    private int speed;
+    private float speed;
     private float distanceToTile;
     private Direction currentDirection;
     private final LinkedList<Direction> directionLinkedList;
@@ -33,48 +34,96 @@ public class Enemy extends GameObject{
     private float slowTime;
     private boolean isSlowed = false;
     private final HealthBar hpBar;
-
+    private boolean doubleSpeed;
     private final float height;
-    public Enemy(float x, float y, float width, float height, float currentHealth, LinkedList<Direction> directionLinkedList, int reward, int speed, float spawnDelay, Sprite texture){
+    public boolean hasEnteredMap;
+
+    /**
+     * Create a new enemy object
+     * @param type char representing which type of zombie this is
+     * @param x start position on the x-axis
+     * @param y start position on the y-axis
+     * @param width width of the zombie(gameObject)
+     * @param height height of the zombie(gameObject)
+     * @param startHealth Start health of the zombie
+     * @param directionLinkedList The directions used to reach the end, following the path
+     * @param reward money awarded for killing this zombie
+     * @param speed start speed of the zombie
+     * @param spawnDelay the delay before the zombie get put on the map
+     * @param texture the visual zombie texture
+     */
+    public Enemy(char type, float x, float y, float width, float height, float startHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture, boolean doubleSpeed){
         super(x, y, width, height);
+        this.doubleSpeed = false;
+        this.type = type;
         this.height = height;
         this.speed = speed;
         this.directionLinkedList = new LinkedList<>(directionLinkedList);
-        this.currentHealth = currentHealth;
+        this.currentHealth = startHealth;
         this.reward = reward;
         this.sprite = texture;
+        this.doubleSpeed = doubleSpeed;
 
         this.spawnDelay = spawnDelay;
         this.elapsedTimeStart = 0;
 
         getNextDistance();
-        hpBar = new HealthBar(x, y - height / 5, width, height / 10, currentHealth);
+        this.hpBar = new HealthBar(x + 5, y + this.height, width - 10, height / 10, currentHealth);
     }
 
-    public static Enemy newEnemy(char type, Level level, float spawnDelay) {
+    /**
+     * Creates a new zombie according to the char
+     * @param type char symbolizing the type of zombie
+     * @param level used to access the direction list
+     * @param speedMultiplier increases the speed of zombies for each wave
+     * @param healthMultiplier increases the health of zombies for each wave
+     * @param spawnDelay sets the game time of which the zombie will spawn
+     * @return new zombie/enemy with these assigned values
+     */
+    public static Enemy newEnemy(char type, Level level,float speedMultiplier, float healthMultiplier, float spawnDelay, boolean doubleSpeed) {
         return switch(type) {
             case 'R'-> new Enemy(
+                    type,
                     START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
-                    ENEMY_REGULAR_START_HP,
+                    (ENEMY_REGULAR_START_HP * healthMultiplier),
                     level.getMap().getDirections(),
                     ENEMY_REGULAR_BOUNTY,
-                    ENEMY_REGULAR_SPEED,
+                    (ENEMY_REGULAR_SPEED * speedMultiplier),
                     (spawnDelay),
-                    GameAssets.zombieSprite); //GameAssets.
+                    GameAssets.zombieSprite,
+                    doubleSpeed
+            );
             case 'T' -> new Enemy(
+                    type,
                     START_POS.x,
                     START_POS.y,
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
-                    ENEMY_TANK_START_HP,
+                    (ENEMY_TANK_START_HP * healthMultiplier),
                     level.getMap().getDirections(),
                     ENEMY_TANK_BOUNTY,
-                    ENEMY_TANK_SPEED,
+                    (ENEMY_TANK_SPEED * speedMultiplier),
                     (spawnDelay),
-                    GameAssets.zombieSprite);
+                    GameAssets.tankSprite,
+                    doubleSpeed
+            );
+            case 'Q' -> new Enemy(
+                    type,
+                    START_POS.x,
+                    START_POS.y,
+                    ENEMY_WIDTH,
+                    ENEMY_HEIGHT,
+                    (ENEMY_QUICK_START_HP * healthMultiplier),
+                    level.getMap().getDirections(),
+                    ENEMY_QUICK_BOUNTY,
+                    (ENEMY_QUICK_SPEED * speedMultiplier),
+                    (spawnDelay),
+                    GameAssets.quickzombieSprite,
+                    doubleSpeed
+            );
             default -> throw new IllegalArgumentException("No available zombie for: " + type);
         };
     }
@@ -101,7 +150,7 @@ public class Enemy extends GameObject{
      * Get method used in testing
      * @return this.speed
      */
-    public int getSpeed(){
+    public float getSpeed(){
         return this.speed;
     }
 
@@ -133,10 +182,7 @@ public class Enemy extends GameObject{
         }
     }
 
-    @Override
-    public void render(ShapeRenderer renderer){
-        hpBar.render(renderer);
-    }
+
     @Override
     public void render(SpriteBatch batch){
         if (elapsedTimeStart >= spawnDelay) {
@@ -196,26 +242,41 @@ public class Enemy extends GameObject{
         }
         removeSlowMode(elapsedTime);
 
-        hpBar.updatePosition(position.x, position.y + this.height);
+        hpBar.updatePosition(position.x + 5, position.y + this.height);
 
     }
 
 
-
+    /**
+     * @return true of the enemy is alive
+     */
    public boolean isAlive(){
         return alive;
    }
 
+    /**
+     * @return the bounty reward
+     */
     public int getReward(){
         return reward;
     }
 
+    public HealthBar getHpBar(){
+        return this.hpBar;
+    }
+
     public void doubleSpeedClicked(){
-        speed *= 2;
+        if(!this.doubleSpeed){
+            speed *= 2;
+            this.doubleSpeed = true;
+        }
     }
 
     public void normalSpeedClicked(){
-        speed /= 2;
+        if(this.doubleSpeed){
+            speed /= 2;
+            this.doubleSpeed = false;
+        }
     }
 
     /**
@@ -250,6 +311,10 @@ public class Enemy extends GameObject{
         }
     }
 
+    /**
+     * Used in testing
+     * @return current health of the enemy
+     */
     public float getEnemyHealth() {
         return this.currentHealth;
     }
@@ -258,4 +323,11 @@ public class Enemy extends GameObject{
         return this.boundsRectangle;
     }
 
+    public char getType() {
+        return this.type;
+    }
+
+    public void enemyEnteredMap() {
+        this.hasEnteredMap = true;
+    }
 }

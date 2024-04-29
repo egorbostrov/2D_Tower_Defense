@@ -2,23 +2,34 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.particles.renderers.PointSpriteRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.MouseController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 //import inf112.skeleton.app.scene.WorldController;
+import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
@@ -36,28 +47,36 @@ public class PlayScene extends AbstractGameScene {
     private Button gunnerButton;
     private Button sniperButton;
     private Button bomberButton;
+    private Button doubleSpeedButton;
+    private Button pauseButton;
+    private Button exitButton;
+    private Button speedUpgradeButton;
+    private Button damageUpgradeButton;
+    private Button rangeUpgradeButton;
+    private Button removeDefenderButton;
+
+    private boolean isToggledSpeed = false;
+    private boolean isToggledPause = false;
+
     private Button optionsButton;
     private SpriteBatch spriteBatch;
+    private ShapeRenderer shapeRenderer;
     private Level level;
     private EnemyController enemyController;
     private TowerController towerController;
-    private Map map;
     public static OrthographicCamera camera;
     private MouseController mouseController;
-
-    public static ShapeRenderer shapeRenderer;
     private CameraManager cameraManager;
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
 
-    public PlayScene(Game game) {
+    public PlayScene(Game game, int mapNumber) {
         super(game);
         initializeResources();
         setupUI();
         setupInput(); // Now setupInput can be called safely
-        this.level = new Level(game);
+        this.level = new Level(game, mapNumber);
         initializeGameControllers();
-        this.mouseController = new MouseController(level);
 
 
     }
@@ -112,9 +131,9 @@ public class PlayScene extends AbstractGameScene {
                 new TextureAtlas(GameConstants.TEXTURE_ATLAS_UI));
         Table layerControls = buildControls();
         Stack stack = new Stack();
+        stage.addActor(stack);
         stack.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stack.add(layerControls);
-        stage.addActor(stack);
     }
 
     private void initializeGameControllers() {
@@ -186,26 +205,113 @@ public class PlayScene extends AbstractGameScene {
 
         optionslayer.add(optionsButton).pad(10).bottom(); // Ensures options button is at the bottom right.
 
+        speedUpgradeButton = new Button(uimenuskin, "bombertower");
+        optionslayer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        speedUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade speed button clicked");
+                level.upgradeSpeedClicked();
+            }
+        });
+
+        damageUpgradeButton = new Button(uimenuskin, "snipertower");
+        optionslayer.add(damageUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        damageUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade damage button clicked");
+                level.upgradeAttackClicked();
+            }
+        });
+
+        rangeUpgradeButton = new Button(uimenuskin, "gunnertower");
+        optionslayer.add(rangeUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        rangeUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade range button clicked");
+                level.upgradeRangeClicked();
+            }
+        });
+
+        removeDefenderButton = new Button(uimenuskin, "bombertower");
+        optionslayer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);  // Add padding at the bottom if needed
+        removeDefenderButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                towerController.sellSelectedDefender();
+            }
+        });
+        optionslayer.row();
+
+        doubleSpeedButton = new Button(uimenuskin, "gunnertower");
+        optionslayer.add(doubleSpeedButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        doubleSpeedButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                isToggledSpeed = !isToggledSpeed;
+                if (isToggledSpeed) {
+                    System.out.println("Double speed clicked");
+                    level.doubleSpeedClicked();
+                } else {
+                    System.out.println("Normal speed clicked");
+                    level.normalSpeedClicked();
+                }
+            }
+        });
+
+        pauseButton = new Button(uimenuskin, "bombertower");
+        optionslayer.add(pauseButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        pauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                isToggledPause = !isToggledPause;
+                if (isToggledPause) {
+                    System.out.println("Pause clicked");
+                    level.pause();
+                } else {
+                    System.out.println("Resume clicked");
+                    level.resume();
+                }
+            }
+        });
+
+        exitButton = new Button(uimenuskin, "snipertower");
+        optionslayer.add(exitButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Exit clicked");
+                level.pause();
+                game.setScreen(new MenuScene(game));
+            }
+        });
+        optionslayer.row();
         maintable.add(optionslayer).expandX().fillX().bottom().right(); // Use bottom().right() to align the options button
         maintable.setDebug(true); // This lets you see the bounds of the table and its cells
-
         return maintable;
-
     }
 
     private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
 
     }
-
     //private String getClickedTowerType () {
 
     //}
-
-
     @Override
-    public void render (float deltaTime) { // main renderer for the playable scene.
+    public void render (float deltaTime) { // main renderer for the playscene.
+        // Do not update game world when paused.
+//        if (!paused) {
+//            // Update game world by the time that has passed
+//            // since last rendered frame.
+//            worldController.update(deltaTime);
+//        }
         level.update(deltaTime);
+        spriteBatch.setProjectionMatrix(camera.combined);
+
+        //controlMenu.updateInputs(Gdx.input.getX(), Gdx.input.getY());
         // Sets the clear screen color to: Cornflower Blue
         Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
         // Clears the screen
@@ -215,19 +321,20 @@ public class PlayScene extends AbstractGameScene {
             level.getMap().render(spriteBatch);
         }
         renderInfo(spriteBatch);
+//        if (worldController != null){
+//            worldController.render(spriteBatch);
+//        }
         if (level != null){
             level.render(spriteBatch);
         }
-        spriteBatch.end();
-        shapeRenderer.setProjectionMatrix(camera.combined);
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         towerController.render(shapeRenderer);
-        level.getMap().render(shapeRenderer);
-        //controlMenu.render(spriteBatch);
-        shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        //controlMenu.render(spriteBatch);
+        spriteBatch.end();
         shapeRenderer.end();
+        //worldController.renderHitboxes(shapeRenderer);
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
@@ -265,6 +372,8 @@ public class PlayScene extends AbstractGameScene {
 
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
     }
+
+
 
     @Override
     public void resize (int width, int height) {
@@ -304,5 +413,10 @@ public class PlayScene extends AbstractGameScene {
     @Override
     public void resume () {
         super.resume();
+    }
+
+    public Object getLevel() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getLevel'");
     }
 }

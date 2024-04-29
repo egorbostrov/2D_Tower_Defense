@@ -23,17 +23,17 @@ import inf112.skeleton.app.util.MusicManager;
 
 public class OptionScene extends AbstractGameScene {
     private final String stateName = "OPTION MENU";
-    private Stage stage;
+    Stage stage;
     private TextureAtlas atlas;
-    private Skin skin;
-    private TextButton saveButton;
-    private TextButton cancelButton;
-    private CheckBox chkSound;
-    private Slider sldSound;
-    private CheckBox chkMusic;
-    private Slider sldMusic;
-    private CheckBox chkFullscreen;
-    private static boolean fromPlayScene;
+    Skin skin;
+    TextButton saveButton;
+    TextButton cancelButton;
+    CheckBox chkSound;
+    Slider sldSound;
+    CheckBox chkMusic;
+    Slider sldMusic;
+    CheckBox chkFullscreen;
+
     private Image bgImg;
     private Skin uiskin;
 
@@ -120,7 +120,7 @@ public class OptionScene extends AbstractGameScene {
 
 
     // Load settings from My Preferences and change the buttons/sliders to their corresponding values.
-    private void loadSettings() {
+    void loadSettings() {
         GameSettings prefs = GameSettings.instance;
         prefs.load();
         chkSound.setChecked(prefs.getSound());
@@ -141,28 +141,15 @@ public class OptionScene extends AbstractGameScene {
         prefs.save();
     }
 
-    // Getter and setter to see if options was triggered from PlayScene
-    public static boolean getFromPlayScene() {
-        return fromPlayScene;
-    }
-
-    public static void setFromPlayScene() {
-        fromPlayScene = true;
-    }
     // Method for Save button
-    private void onSaveClicked() {
+    void onSaveClicked() {
         saveSettings();
         onCancelClicked();
     }
 
     // Method for Cancel button
-    private void onCancelClicked() {
-        if(getFromPlayScene()) {
-            game.setScreen(new PlayScene(game));
-        }
-        else {
-            game.setScreen(new MenuScene(game));
-        }
+    void onCancelClicked() {
+        game.setScreen(new MenuScene(game));
     }
 
     @Override

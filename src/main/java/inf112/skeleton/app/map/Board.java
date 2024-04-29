@@ -17,6 +17,10 @@ public class Board {
     private final Set<Vector2> pathPoints; //Set with the coordinates of all path tiles on the map
     private boolean render = false;
 
+    /**
+     * Create a gameBoard with a given set of path coordinates
+     * @param pathPoints set containing coordinates of all path tiles
+     */
     public Board(Set<Vector2> pathPoints) {
         this.pathPoints = pathPoints;
         gameBoard = new ArrayList<>();
@@ -98,6 +102,4 @@ public class Board {
     public void renderSwitch(boolean onOrOff) {
         this.render = onOrOff;
     }
-
-
 }
