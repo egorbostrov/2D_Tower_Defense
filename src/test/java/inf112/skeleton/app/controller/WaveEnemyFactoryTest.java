@@ -1,4 +1,4 @@
-package inf112.skeleton.app.ControllerTest;
+package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
@@ -59,10 +59,10 @@ public class WaveEnemyFactoryTest {
     @Test
     void testGetNextReturnsCorrectEnemy() {
         float delay = 0.5f; // Define any delay value needed for your test
-        Enemy enemyR = waveEnemyFactory.getNext(mockLevel, delay);
+        Enemy enemyR = waveEnemyFactory.getNext(mockLevel, 1, 1, delay);
         assertNotNull(enemyR, "Enemy should not be null for type 'R'");
 
-        Enemy enemyT = waveEnemyFactory.getNext(mockLevel, delay);
+        Enemy enemyT = waveEnemyFactory.getNext(mockLevel, 1, 1, delay);
         assertNotNull(enemyT, "Enemy should not be null for type 'T'");
     }
 

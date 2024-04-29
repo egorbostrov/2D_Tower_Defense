@@ -1,4 +1,4 @@
-package inf112.skeleton.app.ControllerTest;
+package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;

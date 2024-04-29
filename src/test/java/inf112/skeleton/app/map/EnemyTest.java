@@ -212,7 +212,7 @@ public class EnemyTest {
         Mockito.when(mockSprite.getTexture()).thenReturn(Mockito.mock(com.badlogic.gdx.graphics.Texture.class));
 
         // Initialize enemy with mock data
-        enemy = new Enemy(0.0f, 0.0f, 1.0f, 1.0f, 100.0f, path, 50, 1, 0.0f, mockSprite);
+        enemy = new Enemy('R', 0.0f, 0.0f, 1.0f, 1.0f, 100.0f, path, 50, 1, 0.0f, mockSprite);
         originalX = enemy.position.x;
         originalY = enemy.position.y;
     }
