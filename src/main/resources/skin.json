@@ -19,7 +19,10 @@
     play: { down: menu_board_play_down, up: menu_board_play_up },
     options: { down: menu_board_options_down, up: menu_board_options_up },
     exit: { down: menu_board_quit_down, up: menu_board_quit_up},
-    tutorial: { down: menu_board_tutorial_down, up: menu_board_tutorial_up}
+    tutorial: { down: menu_board_tutorial_down, up: menu_board_tutorial_up},
+    "back": {
+      "down": menu_board_back_down,
+      "up": menu_board_back_up},
     playoptions: { down: board_cog_down, up: board_cog},
     gunnertower: { down :board_gunna_down, up: board_gunna},
     snipertower: { down :board_snipa_down, up: board_snipa},
@@ -34,9 +37,24 @@
     damageupgrade: {
       down: board_damage_upgrade_down,
       up: board_damage_upgrade_up
+    },
+    "pausebutton": {
+      "down": board_pause_down,
+      "up": board_pause_up
+    },
+    "2xbutton": {
+      "down": board_2xspeed_down,
+      "up": board_2xspeed_up
+    },
+    "quitbutton": {
+      "down": board_quit_down,
+      "up": board_quit_up
+    },
+    "removebutton": {
+      "down": board_remove_down,
+      "up": board_remove_up
     }
-
-  },
+  }
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
     "default": {
       "font": "default-font",

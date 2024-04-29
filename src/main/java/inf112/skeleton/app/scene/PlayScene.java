@@ -237,7 +237,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        removeDefenderButton = new Button(uimenuskin, "bombertower");
+        removeDefenderButton = new Button(uimenuskin, "removebutton");
         optionslayer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);  // Add padding at the bottom if needed
         removeDefenderButton.addListener(new ChangeListener() {
             @Override
@@ -247,7 +247,7 @@ public class PlayScene extends AbstractGameScene {
         });
         optionslayer.row();
 
-        doubleSpeedButton = new Button(uimenuskin, "gunnertower");
+        doubleSpeedButton = new Button(uimenuskin, "2xbutton");
         optionslayer.add(doubleSpeedButton).padBottom(10).size(40);  // Add padding at the bottom if needed
         doubleSpeedButton.addListener(new ChangeListener() {
             @Override
@@ -263,7 +263,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        pauseButton = new Button(uimenuskin, "bombertower");
+        pauseButton = new Button(uimenuskin, "pausebutton");
         optionslayer.add(pauseButton).padBottom(10).size(40);  // Add padding at the bottom if needed
         pauseButton.addListener(new ChangeListener() {
             @Override
@@ -279,7 +279,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        exitButton = new Button(uimenuskin, "snipertower");
+        exitButton = new Button(uimenuskin, "quitbutton");
         optionslayer.add(exitButton).padBottom(10).size(40);  // Add padding at the bottom if needed
         exitButton.addListener(new ChangeListener() {
             @Override

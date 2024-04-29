@@ -21,6 +21,7 @@ public class GameAssets implements Disposable {
     public static TextureAtlas.AtlasRegion zombieTexture;
     public static TextureAtlas.AtlasRegion slowedzombieTexture;
     public static TextureAtlas.AtlasRegion slowedtankTexture;
+    public static TextureAtlas.AtlasRegion slowedrunnerTexture;
     public static TextureAtlas.AtlasRegion tankTexture;
     public static TextureAtlas.AtlasRegion quickZombieTexture;
 
@@ -65,11 +66,12 @@ public class GameAssets implements Disposable {
         gunnerTexture = atlas.findRegion("gunna0");
         sniperTexture = atlas.findRegion("snipa0");
         bomberTexture = atlas.findRegion("bomba0");
-        zombieTexture = atlas.findRegion("regularzombie");//FIX change atlas when available
+        zombieTexture = atlas.findRegion("regularzombie");
         slowedzombieTexture = atlas.findRegion("frozenregularzombie");
-        tankTexture = atlas.findRegion(("tankzombie"));//FIX change atlas when available
+        tankTexture = atlas.findRegion(("tankzombie"));
         slowedtankTexture = atlas.findRegion("frozentankzombie");
-        quickZombieTexture = atlas.findRegion("snipa0");//FIX change atlas when available
+        quickZombieTexture = atlas.findRegion("runnerzombie");
+        slowedrunnerTexture = atlas.findRegion("frozenrunnerzombie");
         pathTexture = atlas.findRegion("path");
         bombTexture = atlas.findRegion("bomb");
         groundTexture = atlas.findRegion("gritty1");
