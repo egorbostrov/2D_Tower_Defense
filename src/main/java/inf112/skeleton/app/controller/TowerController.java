@@ -160,6 +160,7 @@ public class TowerController implements Render{
 
     public void clearSelectedTower() {
         isTowerSelected = false;
+        selectedDefenderUpgrade = null;
     }
 
     /**

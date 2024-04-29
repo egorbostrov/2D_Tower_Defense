@@ -2,7 +2,6 @@ package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import java.util.List;
 import inf112.skeleton.app.entity.Enemy;
@@ -55,6 +54,8 @@ public class MouseController implements InputProcessor {
                 if (defender.getBoundingRectangle().contains(screenX, GameConstants.SCREEN_HEIGHT - screenY)) {
                     towerController.setSelectedTowerUpgrade(defender);
                     return true;
+                } else {
+                    towerController.clearSelectedTower();
                 }
             }
         }
