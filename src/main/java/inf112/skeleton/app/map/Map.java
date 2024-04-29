@@ -10,6 +10,8 @@ import java.util.*;
 
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.controller.Render;
+import inf112.skeleton.app.enums.GridType;
+import inf112.skeleton.app.util.GameConstants;
 
 public class Map implements Render{
     private FileHandle filehandle;
@@ -141,6 +143,6 @@ public class Map implements Render{
                 return tile;
             }
         }
-        throw new RuntimeException("Could not find tile in gameBoard");
+        return new Tile(-1, -1, 0, 0, GridType.ILLEGALPLACEMENT);
     }
 }
