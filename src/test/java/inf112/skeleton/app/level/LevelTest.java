@@ -181,13 +181,13 @@
           assertEquals(initialEnemies + 1, level.getEnemiesKilled());
       }
 
-      @Test
-      public void testCreateTowerClicked() {
-          // You should set up the map and tile conditions accordingly
-          //level.createTowerClicked(10, 10, DefenderType.BOMBER);
-          // Assert tower creation conditions and money spent if applicable
-          // You might need to mock or simulate the map and tiles
-      }
+//      @Test
+//      public void testCreateTowerClicked() {
+//          // You should set up the map and tile conditions accordingly
+//          level.createTowerClicked(10, 10, DefenderType.BOMBER);
+//          // Assert tower creation conditions and money spent if applicable
+//          // You might need to mock or simulate the map and tiles
+//      }
 
       @Test
       public void testUpdateInputs() {
