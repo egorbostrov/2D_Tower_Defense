@@ -9,7 +9,6 @@ import inf112.skeleton.app.scene.MenuScene;
 import inf112.skeleton.app.util.GameAssets;
 
 public class TDGame extends Game {
-    private Level level; // No longer initialized here
     private SpriteBatch batch;
     private ShapeRenderer renderer;
 

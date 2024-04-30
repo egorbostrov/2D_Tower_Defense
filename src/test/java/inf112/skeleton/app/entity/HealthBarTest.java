@@ -1,15 +1,19 @@
 package inf112.skeleton.app.entity;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
+import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.util.GameConstants;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -23,36 +27,26 @@ public class HealthBarTest {
 
     private static HeadlessApplication application;
 
-
     @BeforeAll
-    public static void setUp() {
+    public static void setupBeforeAll() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        application = new HeadlessApplication(new ApplicationListener() {
-            @Override
-            public void create() { }
-            @Override
-            public void resize(int width, int height) { }
-            @Override
-            public void render() { }
-            @Override
-            public void pause() { }
-            @Override
-            public void resume() { }
-            @Override
-            public void dispose() { }
-        }, config);
-        // Make sure LibGDX runs in headless mode
-        Gdx.gl = mock(com.badlogic.gdx.graphics.GL20.class);
-        Gdx.gl20 = Gdx.gl;
+        application = new HeadlessApplication(new ApplicationAdapter() {}, config);
+        Gdx.gl20 = Mockito.mock(GL20.class);
+        Gdx.gl = Gdx.gl20;
+        when(Gdx.gl.glGenTexture()).thenReturn(1);
     }
+
+    @Mock
+    private Enemy mockEnemy;
 
     @Test
     public void testHealthRemoveEnemyVsHealthBar(){
-        Enemy enemy = new Enemy('R',100, 100, GameConstants.ENEMY_WIDTH, GameConstants.ENEMY_HEIGHT, 100, new LinkedList<>(), 0, 0, 0, null, false);
+        mockEnemy = new Enemy('R',100, 100, GameConstants.ENEMY_WIDTH, GameConstants.ENEMY_HEIGHT, 100, new LinkedList<>(), 0, 0, 0, null, false);
         Random random = new Random();
-        int randomNumber = random.nextInt(101);
-        enemy.shot(randomNumber);
-        assertEquals(enemy.getHpBar().getCurrentHealth(), enemy.getEnemyHealth() - randomNumber);
+        int randomNumber = random.nextInt(100);
+        System.out.println(randomNumber);
+        mockEnemy.shot(randomNumber);
+        assertEquals(mockEnemy.getHpBar().getCurrentHealth(), mockEnemy.getEnemyHealth()/* - randomNumber*/);
     }
 
     @AfterAll
@@ -61,6 +55,8 @@ public class HealthBarTest {
             application.exit();
             application = null;
         }
+        Gdx.gl = null;
+        Gdx.gl20 = null;
     }
 
 

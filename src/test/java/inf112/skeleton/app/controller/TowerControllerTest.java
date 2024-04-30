@@ -40,70 +40,6 @@ public class TowerControllerTest {
     TDGame game;
     HeadlessApplicationConfiguration config;
 
-
-//    @BeforeEach
-//    void setUp() {
-////        game = new TDGame();
-////        config = new HeadlessApplicationConfiguration();
-////        new HeadlessApplication(game, config);
-////        Gdx.gl = mock(GL20.class);
-////        game.create(mock(SpriteBatch.class), mock(ShapeRenderer.class));
-//        Gdx.gl = mock(GL20.class);
-//        Gdx.gl20 = Gdx.gl; // Just to be safe, as some libGDX code uses Gdx.gl20
-//        Gdx.graphics = mock(Graphics.class);
-//        when(Gdx.graphics.getWidth()).thenReturn(800); // example value
-//        when(Gdx.graphics.getHeight()).thenReturn(600); // example value
-//        Gdx.app = mock(Application.class);
-//
-//// Mock the creation of SpriteBatch and ShaderProgram
-//        SpriteBatch spriteBatch = mock(SpriteBatch.class);
-//        ShaderProgram shaderProgram = mock(ShaderProgram.class);
-//        whenNew(SpriteBatch.class).withAnyArguments().thenReturn(spriteBatch);
-//        whenNew(ShaderProgram.class).withAnyArguments().thenReturn(shaderProgram);
-//
-//        PlayScene scene = new PlayScene(game); // Assuming you have a constructor that can take a game object.
-//        level = scene.getLevel();
-//        towerController = level.getTowerController();
-//        enemyList = new ArrayList<>();
-//        level.addMoney(-level.getMoney() + GameConstants.START_MONEY); // Reset money to start money initially if needed.
-//    }
-
-    // @BeforeEach
-    // void setUp() throws Exception {
-    //     // Mock the OpenGL classes
-    //     Gdx.gl = mock(GL20.class);
-    //     Gdx.gl20 = Gdx.gl; // Ensure both references are mocked
-    //     Gdx.graphics = mock(Graphics.class);
-    //     when(Gdx.graphics.getWidth()).thenReturn(800); // Example value
-    //     when(Gdx.graphics.getHeight()).thenReturn(600); // Example value
-    //     Gdx.app = mock(Application.class);
-    //     mockStatic(Gdx.class);
-
-    //     // Mock the SpriteBatch and ShaderProgram constructors
-    //     SpriteBatch spriteBatch = mock(SpriteBatch.class);
-    //     ShaderProgram shaderProgram = mock(ShaderProgram.class);
-    //     whenNew(SpriteBatch.class).withNoArguments().thenReturn(spriteBatch);
-    //     whenNew(ShaderProgram.class).withAnyArguments().thenReturn(shaderProgram);
-
-    //     // Since we are preparing PlayScene for test, we mock its constructor as needed
-    //     PlayScene mockPlayScene = mock(PlayScene.class);
-    //     whenNew(PlayScene.class).withArguments(any()).thenReturn(mockPlayScene);
-    //     when(mockPlayScene.getLevel()).thenReturn(mock(Level.class)); // Stub the getLevel method
-
-    //     // Create the actual game object
-    //     game = new TDGame();
-
-    //     // Create the headless application (necessary if your game logic requires the application to be initialized)
-    //     config = new HeadlessApplicationConfiguration();
-    //     new HeadlessApplication(game, config);
-
-    //     // Setup the rest of your test objects as needed
-    //     level = mockPlayScene.getLevel(); // Use the mocked PlayScene to get a mock Level
-    //     towerController = mock(TowerController.class); // Mock the TowerController if necessary
-    //     enemyList = new ArrayList<>();
-    //     when(level.getMoney()).thenReturn(GameConstants.START_MONEY); // Stub the getMoney method
-    // }
-
     @BeforeEach
     void setUp() throws Exception {
         // Mock the OpenGL classes
@@ -151,11 +87,11 @@ public class TowerControllerTest {
         // Arrange
         int startMoney = TOWER_PRICE_GUNNER;
         when(level.getMoney()).thenReturn(startMoney);
-        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.GUNNER), eq(TOWER_PRICE_GUNNER)))
+        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.GUNNER)))
                 .thenReturn(TOWER_PRICE_GUNNER);  // Assuming the tower is successfully built and the cost is returned
 
         // Act
-        int result = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.GUNNER, TOWER_PRICE_GUNNER);
+        int result = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.GUNNER);
 
         // Assert
         assertEquals(TOWER_PRICE_GUNNER, result); // Check if the result matches the tower cost
@@ -167,11 +103,11 @@ public class TowerControllerTest {
         // Arrange
         int startMoney = TOWER_PRICE_BOMBER;
         when(level.getMoney()).thenReturn(startMoney);
-        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.BOMBER), eq(TOWER_PRICE_BOMBER)))
+        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.BOMBER)))
                 .thenReturn(TOWER_PRICE_BOMBER);  // Assuming the tower is successfully built and the cost is returned
 
         // Act
-        int result = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.BOMBER, TOWER_PRICE_BOMBER);
+        int result = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.BOMBER);
 
         // Assert
         assertEquals(TOWER_PRICE_BOMBER, result); // Check if the result matches the tower cost
@@ -182,11 +118,11 @@ public class TowerControllerTest {
         // Arrange
         int startMoney = TOWER_PRICE_SNIPER;
         when(level.getMoney()).thenReturn(startMoney);
-        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.SNIPER), eq(TOWER_PRICE_SNIPER)))
+        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.SNIPER)))
                 .thenReturn(TOWER_PRICE_SNIPER);  // Assuming the tower is successfully built and the cost is returned
 
         // Act
-        int result = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.SNIPER, TOWER_PRICE_SNIPER);
+        int result = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.SNIPER);
 
         // Assert
         assertEquals(TOWER_PRICE_SNIPER, result); // Check if the result matches the tower cost
@@ -197,13 +133,13 @@ public class TowerControllerTest {
         // Arrange
         int startMoney = 0; // Not enough money to build any tower
         when(level.getMoney()).thenReturn(startMoney);
-        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), any(DefenderType.class), anyInt()))
+        when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), any(DefenderType.class)))
                 .thenReturn(0);  // Assuming the tower cannot be built due to lack of funds
 
         // Act
-        int resultGunner = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.GUNNER, TOWER_PRICE_GUNNER);
-        int resultBomber = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.BOMBER, TOWER_PRICE_BOMBER);
-        int resultSniper = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.SNIPER, TOWER_PRICE_SNIPER);
+        int resultGunner = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.GUNNER);
+        int resultBomber = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.BOMBER);
+        int resultSniper = towerController.buildTower(0.0f, 0.0f, enemyList, DefenderType.SNIPER);
 
         // Assert
         assertEquals(0, resultGunner); // Check that no money is deducted if there isn't enough to begin with

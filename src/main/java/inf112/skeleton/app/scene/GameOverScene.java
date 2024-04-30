@@ -118,7 +118,7 @@ public class GameOverScene extends AbstractGameScene{
         if (level != null) {
             level.restart();
         }
-        game.setScreen(new PlayScene(game,1));  // Pass the reset level to the new PlayScene
+        game.setScreen(new MapSelectionScene(game));  // Pass the reset level to the new PlayScene
     }
 
     private void onMenuClicked () {

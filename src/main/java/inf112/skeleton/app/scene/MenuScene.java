@@ -74,7 +74,7 @@ public class MenuScene extends AbstractGameScene {
         layer.row();
 
         // How to play button
-        howToPlayButton = new Button(uimenuskin, "play");
+        howToPlayButton = new Button(uimenuskin, "tutorial");
         layer.add(howToPlayButton);
         howToPlayButton.addListener(new ChangeListener() {
             @Override

@@ -4,28 +4,23 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.MouseController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
-//import inf112.skeleton.app.scene.WorldController;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 import static inf112.skeleton.app.util.GameConstants.*;
@@ -34,8 +29,6 @@ public class PlayScene extends AbstractGameScene {
     private boolean paused;
     private Stage stage;
     private Skin uimenuskin;
-
-    //Buttons
     private Button gunnerButton;
     private Button sniperButton;
     private Button bomberButton;
@@ -50,15 +43,20 @@ public class PlayScene extends AbstractGameScene {
     private boolean isToggledSpeed = false;
     private boolean isToggledPause = false;
 
+    private Button optionsButton;
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
     private Level level;
     private EnemyController enemyController;
     private TowerController towerController;
-    private OrthographicCamera camera;
+    public static OrthographicCamera camera;
+    public static int currentMapNumber;
+    private MouseController mouseController;
     private CameraManager cameraManager;
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
+
+    private TextureAtlas towerAtlas;
 
     public PlayScene(Game game, int mapNumber) {
         super(game);
@@ -66,6 +64,7 @@ public class PlayScene extends AbstractGameScene {
         setupUI();
         setupInput(); // Now setupInput can be called safely
         this.level = new Level(game, mapNumber);
+        currentMapNumber = mapNumber;
         initializeGameControllers();
 
     }
@@ -77,6 +76,7 @@ public class PlayScene extends AbstractGameScene {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
+        towerAtlas = new TextureAtlas("zombie.atlas");
         stage = new Stage(new ScreenViewport(camera), spriteBatch);
 
 
@@ -133,165 +133,173 @@ public class PlayScene extends AbstractGameScene {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    private Table buildControls() { // move this to playscenemenu later on.
-        Table layer = new Table();
-        layer.setFillParent(true);
-        layer.bottom();
+
+
+    private Table buildControls() {
+        Table maintable = new Table();
+        maintable.setFillParent(true);
+        maintable.bottom();
+
+        // Table for towers.
+        Table towerlayer = new Table();
+        towerlayer.bottom();
 
         gunnerButton = new Button(uimenuskin, "gunnertower");
-        layer.add(gunnerButton).padBottom(10);  // Add padding at the bottom if needed
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
+        towerlayer.add(gunnerButton).pad(10);
+
 
         sniperButton = new Button(uimenuskin, "snipertower");
-        layer.add(sniperButton).padBottom(10);  // Add padding at the bottom if needed
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("sniper selected");
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
+        towerlayer.add(sniperButton).pad(10);
+
 
         bomberButton = new Button(uimenuskin, "bombertower");
-        layer.add(bomberButton).padBottom(10);  // Add padding at the bottom if needed
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("bomber selected");
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
 
-        speedUpgradeButton = new Button(uimenuskin, "bombertower");
-        layer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        towerlayer.add(bomberButton).pad(10);
+        // Adding layers to the main table.
+        maintable.add(towerlayer).expandX().fillX().fillY().bottom(); // Use fillY() and bottom() to ensure vertical alignment
+        maintable.row(); // Start a new row for the options button
+
+        // Table for options button aligned to the bottom right.
+        Table optionslayer = new Table();
+        optionslayer.bottom().right(); // Align this table to the bottom-right
+        optionsButton = new Button(uimenuskin, "playoptions");
+        optionsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Options selected");
+                OptionScene.setFromPlayScene();
+                game.setScreen(new OptionScene(game, currentMapNumber));
+            }
+        });
+
+        optionslayer.add(optionsButton).pad(10).bottom(); // Ensures options button is at the bottom right.
+
+        speedUpgradeButton = new Button(uimenuskin, "speedupgrade");
+        optionslayer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade speed button clicked");
                 level.upgradeSpeedClicked();
             }
         });
 
-        damageUpgradeButton = new Button(uimenuskin, "snipertower");
-        layer.add(damageUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        damageUpgradeButton = new Button(uimenuskin, "damageupgrade");
+        optionslayer.add(damageUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade damage button clicked");
                 level.upgradeAttackClicked();
             }
         });
 
-        rangeUpgradeButton = new Button(uimenuskin, "gunnertower");
-        layer.add(rangeUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        rangeUpgradeButton = new Button(uimenuskin, "rangeupgrade");
+        optionslayer.add(rangeUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade range button clicked");
                 level.upgradeRangeClicked();
             }
         });
 
-        removeDefenderButton = new Button(uimenuskin, "bombertower");
-        layer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);  // Add padding at the bottom if needed
+        removeDefenderButton = new Button(uimenuskin, "removebutton");
+        optionslayer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);  // Add padding at the bottom if needed
         removeDefenderButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 towerController.sellSelectedDefender();
             }
         });
-        layer.row();
+        optionslayer.row();
 
-        doubleSpeedButton = new Button(uimenuskin, "gunnertower");
-        layer.add(doubleSpeedButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        doubleSpeedButton = new Button(uimenuskin, "2xbutton");
+        optionslayer.add(doubleSpeedButton).padBottom(10).size(40);  // Add padding at the bottom if needed
         doubleSpeedButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledSpeed = !isToggledSpeed;
                 if (isToggledSpeed) {
-                    System.out.println("Double speed clicked");
                     level.doubleSpeedClicked();
                 } else {
-                    System.out.println("Normal speed clicked");
                     level.normalSpeedClicked();
                 }
             }
         });
 
-        pauseButton = new Button(uimenuskin, "bombertower");
-        layer.add(pauseButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        pauseButton = new Button(uimenuskin, "pausebutton");
+        optionslayer.add(pauseButton).padBottom(10).size(40);  // Add padding at the bottom if needed
         pauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledPause = !isToggledPause;
                 if (isToggledPause) {
-                    System.out.println("Pause clicked");
                     level.pause();
                 } else {
-                    System.out.println("Resume clicked");
                     level.resume();
                 }
             }
         });
 
-        exitButton = new Button(uimenuskin, "snipertower");
-        layer.add(exitButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        exitButton = new Button(uimenuskin, "quitbutton");
+        optionslayer.add(exitButton).padBottom(10).size(40);  // Add padding at the bottom if needed
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Exit clicked");
                 level.pause();
                 game.setScreen(new MenuScene(game));
             }
         });
-        layer.row();
-        return layer;
+        optionslayer.row();
+        maintable.add(optionslayer).expandX().fillX().bottom().right(); // Use bottom().right() to align the options button
+        maintable.setDebug(true); // This lets you see the bounds of the table and its cells
+        return maintable;
     }
 
     private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
-    }
-    //private String getClickedTowerType () {
 
-    //}
+    }
+
     @Override
-    public void render (float deltaTime) { // main renderer for the playscene.
-        // Do not update game world when paused.
-//        if (!paused) {
-//            // Update game world by the time that has passed
-//            // since last rendered frame.
-//            worldController.update(deltaTime);
-//        }
+    public void render (float deltaTime) {
+        Gdx.gl.glClearColor(0.392f, 0.584f, 0.929f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         level.update(deltaTime);
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        //controlMenu.updateInputs(Gdx.input.getX(), Gdx.input.getY());
-        // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
-        // Clears the screen
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        spriteBatch.begin();
         if (level != null) {
+            spriteBatch.begin();
             level.getMap().render(spriteBatch);
-        }
-        renderInfo(spriteBatch);
-//        if (worldController != null){
-//            worldController.render(spriteBatch);
-//        }
-        if (level != null){
             level.render(spriteBatch);
+            spriteBatch.end();
         }
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        towerController.render(shapeRenderer);
+        renderInfo(spriteBatch);
+        towerPlacementIndicator();
+        towerUpgradeIndicator();
+        towerRangeIndicator();
 
-        //controlMenu.render(spriteBatch);
-        spriteBatch.end();
-        shapeRenderer.end();
-        //worldController.renderHitboxes(shapeRenderer);
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
@@ -300,8 +308,62 @@ public class PlayScene extends AbstractGameScene {
         }
 
     }
+    private TextureRegion getTowerRegion(DefenderType type) {
+        switch (type) {
+            case GUNNER:
+                return towerAtlas.findRegion("gunna1");
+            case SNIPER:
+                return towerAtlas.findRegion("snipa0");
+            case BOMBER:
+                return towerAtlas.findRegion("bomba0");
+            default:
+                return null;
+        }
+    }
+
+    private void towerPlacementIndicator() {
+        spriteBatch.begin();
+        if (towerController.isTowerSelected()) {
+            if (towerController.legalPlacement(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY())) {
+                spriteBatch.setColor(0, 1, 0, 0.5f);
+            } else {
+                spriteBatch.setColor(1, 0, 0, 0.5f);
+            }
+            TextureRegion region = getTowerRegion(towerController.getSelectedTowerType());
+            spriteBatch.draw(region, Gdx.input.getX() - TOWER_SIZE/2, SCREEN_HEIGHT - Gdx.input.getY() - TOWER_SIZE/2, TOWER_SIZE, TOWER_SIZE);
+        }
+        spriteBatch.end();
+    }
+
+    private void towerUpgradeIndicator() {
+        spriteBatch.begin();
+        spriteBatch.enableBlending();
+        for (BaseDefender tower : towerController.getDefenderList()) {
+            if (tower == towerController.getSelectedDefenderUpgrade()) {
+                spriteBatch.setColor(0, 1, 1, 1);
+            } else {
+                spriteBatch.setColor(1, 1, 1, 1);
+            }
+            tower.render(spriteBatch);
+        }
+        spriteBatch.end();
+    }
+
+    private void towerRangeIndicator() {
+        if (towerController.getSelectedDefenderUpgrade() != null) {
+            BaseDefender selectedTower = towerController.getSelectedDefenderUpgrade();
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(1, 1, 1, 1);
+            shapeRenderer.circle(selectedTower.center.x, selectedTower.center.y, selectedTower.getRange());
+            shapeRenderer.end();
+        }
+    }
 
     private void renderInfo(SpriteBatch batch){
+        spriteBatch.begin();
+
         String scoreText = "Score: " + level.getScore();
         String moneyText = "Money: " + level.getMoney();
         String waveText = "Wave: " + level.getCurrentWave();
@@ -328,6 +390,8 @@ public class PlayScene extends AbstractGameScene {
         glyphWave.setText(bitmapFont, waveText);
 
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
+
+        spriteBatch.end();
     }
 
 
@@ -352,6 +416,7 @@ public class PlayScene extends AbstractGameScene {
 
         // temporary multiplexer to use both stage ui buttons and configurer mousecontroller bs so that i can place the towers. (temp temp temp!!!)
     }
+
     @Override
     public void hide () {
         MusicManager.stopCurrentMusic();

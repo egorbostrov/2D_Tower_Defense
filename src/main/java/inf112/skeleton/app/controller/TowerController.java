@@ -1,21 +1,17 @@
 package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
-import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.tower.SniperDefender;
 import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.tower.GunnerDefender;
-import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 
 import static inf112.skeleton.app.util.GameConstants.*;
@@ -37,7 +33,6 @@ public class TowerController implements Render{
 
     private final Level level;
     private final Map map;
-
 
     public TowerController(Level level){
         defenderList = new ArrayList<>();
@@ -76,14 +71,19 @@ public class TowerController implements Render{
        return 0;
     }
 
-    //BUGGED WIP
-    private boolean legalPlacement(float x, float y) {
+    /**
+     * Checks if the placement of a tower is legal.
+     * Checks if the tower is placed on a path, on top of another tower or on an illegal placement tile (outside board).
+     * @param x x-coordinate of the tower
+     * @param y y-coordinate of the tower
+     * @return true if the placement is legal, false otherwise
+     */
+    public boolean legalPlacement(float x, float y) {
         float towerLeft = x - GameConstants.TOWER_SIZE / 2;
         float towerBottom = y - GameConstants.TOWER_SIZE / 2;
         Rectangle newTowerBounds = new Rectangle(towerLeft, towerBottom, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
 
         if (map.getSelectedTile(x, y).getType() == GridType.ILLEGALPLACEMENT) {
-            System.out.println("Not a legal placement :/");
             return false;
         }
 
@@ -170,6 +170,7 @@ public class TowerController implements Render{
 
     public void clearSelectedTower() {
         isTowerSelected = false;
+        selectedDefenderUpgrade = null;
     }
 
     /**
@@ -222,10 +223,13 @@ public class TowerController implements Render{
         selectedDefenderUpgrade = defender;
     }
 
-    public boolean isTowerSelected() {
-        return this.isTowerSelected;
+    public BaseDefender getSelectedDefenderUpgrade() {
+        return selectedDefenderUpgrade;
     }
 
+    public boolean isTowerSelected() {
+        return isTowerSelected;
+    }
 
     public DefenderType getSelectedTowerType() {
         return selectedTowerType;
@@ -234,7 +238,6 @@ public class TowerController implements Render{
     public List<BaseDefender> getDefenderList() {
         return defenderList;
     }
-
 
     public void clearDefenders() {
         defenderList.clear();
