@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
@@ -36,6 +34,10 @@ public class EnemyControllerTest {
     private EnemyController enemyController;
     private static HeadlessApplication application;
 
+    /**
+     * Setup headless application
+     * Mock textured classes used in HealthBar. Necessary in order to avoid pixmap errors.
+     */
     @BeforeAll
     public static void setupBeforeAll() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
@@ -82,7 +84,7 @@ public class EnemyControllerTest {
     @Test
     void doubleSpeedClickedTest() {
         //Set the initial doubleSpeed boolean as false.
-        Enemy enemy = new Enemy('R', START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<Direction>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null,
+        Enemy enemy = new Enemy('R', START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null,
                 false);
 
         enemyController.newZombie(enemy);
@@ -96,7 +98,7 @@ public class EnemyControllerTest {
     @Test
     void normalSpeedClickedTest() {
         //Set the initial doubleSpeed boolean as true.
-        Enemy enemy = new Enemy('R', START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<Direction>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null,
+        Enemy enemy = new Enemy('R', START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null,
                 true);
 
         enemyController.newZombie(enemy);
@@ -106,6 +108,10 @@ public class EnemyControllerTest {
         assertFalse(enemy.getDoubleSpeed());
     }
 
+    /**
+     * Dispose application
+     * remove texture mock associations
+     */
     @AfterAll
     public static void tearDown() {
         if(application != null) {
