@@ -172,7 +172,6 @@ public class PlayScene extends AbstractGameScene {
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade speed button clicked");
                 level.upgradeSpeedClicked();
             }
         });
@@ -182,7 +181,6 @@ public class PlayScene extends AbstractGameScene {
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade damage button clicked");
                 level.upgradeAttackClicked();
             }
         });
@@ -192,7 +190,6 @@ public class PlayScene extends AbstractGameScene {
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade range button clicked");
                 level.upgradeRangeClicked();
             }
         });
@@ -214,10 +211,8 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledSpeed = !isToggledSpeed;
                 if (isToggledSpeed) {
-                    System.out.println("Double speed clicked");
                     level.doubleSpeedClicked();
                 } else {
-                    System.out.println("Normal speed clicked");
                     level.normalSpeedClicked();
                 }
             }
@@ -230,10 +225,8 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledPause = !isToggledPause;
                 if (isToggledPause) {
-                    System.out.println("Pause clicked");
                     level.pause();
                 } else {
-                    System.out.println("Resume clicked");
                     level.resume();
                 }
             }
@@ -244,7 +237,6 @@ public class PlayScene extends AbstractGameScene {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Exit clicked");
                 level.pause();
                 game.setScreen(new MenuScene(game));
             }
