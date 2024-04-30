@@ -25,6 +25,7 @@ public class TowerController implements Render{
     private static TowerController instance;
 
     private final List<BaseDefender> defenderList;
+    private boolean isSelectedDefender;
     private BaseDefender currentDefender;
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
@@ -221,6 +222,16 @@ public class TowerController implements Render{
     public void setSelectedTowerUpgrade(BaseDefender defender) {
         defender.selectedDefender(true);
         selectedDefenderUpgrade = defender;
+        isSelectedDefender = true;
+    }
+
+    public boolean isSelectedTowerUpgrade(){
+        System.out.println(isSelectedDefender);
+        return isSelectedDefender;
+    }
+
+    public void clearSelectedDefenderUpgrade() {
+        isSelectedDefender = false;
     }
 
     public BaseDefender getSelectedDefenderUpgrade() {
