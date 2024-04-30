@@ -330,4 +330,12 @@ public class Enemy extends GameObject{
     public void enemyEnteredMap() {
         this.hasEnteredMap = true;
     }
+
+    /**
+     * Used in tests of EnemyController
+     * @return true if the enemy is running double speed, false if not.
+     */
+    public boolean getDoubleSpeed() {
+        return doubleSpeed;
+    }
 }
