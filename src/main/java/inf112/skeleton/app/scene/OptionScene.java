@@ -16,16 +16,15 @@ import inf112.skeleton.app.util.GameSettings;
 
 public class OptionScene extends AbstractGameScene {
     private final String stateName = "OPTION MENU";
-    Stage stage;
-    TextureAtlas atlas;
-    Skin skin;
-    TextButton saveButton;
-    TextButton cancelButton;
-    CheckBox chkSound;
-    Slider sldSound;
-    CheckBox chkMusic;
-    Slider sldMusic;
-    CheckBox chkFullscreen;
+    private Stage stage;
+    private Skin skin;
+    private TextButton saveButton;
+    private TextButton cancelButton;
+    private CheckBox chkSound;
+    private Slider sldSound;
+    private CheckBox chkMusic;
+    private Slider sldMusic;
+    private CheckBox chkFullscreen;
     private static boolean fromPlayScene;
     private Image bgImg;
     private Skin uiskin;
