@@ -2,7 +2,6 @@ package inf112.skeleton.app.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.enums.Direction;
@@ -20,7 +19,7 @@ import static inf112.skeleton.app.util.GameConstants.*;
 
 public class Enemy extends GameObject{
 
-    private char type;
+    private final char type;
     private float currentHealth;
     private final int reward;
     private float speed;
@@ -51,6 +50,7 @@ public class Enemy extends GameObject{
      * @param speed start speed of the zombie
      * @param spawnDelay the delay before the zombie get put on the map
      * @param texture the visual zombie texture
+     * @param doubleSpeed boolean indicating whether the enemy has double speed active
      */
     public Enemy(char type, float x, float y, float width, float height, float startHealth, LinkedList<Direction> directionLinkedList, int reward, float speed, float spawnDelay, Sprite texture, boolean doubleSpeed){
         super(x, y, width, height);
@@ -78,6 +78,7 @@ public class Enemy extends GameObject{
      * @param speedMultiplier increases the speed of zombies for each wave
      * @param healthMultiplier increases the health of zombies for each wave
      * @param spawnDelay sets the game time of which the zombie will spawn
+     * @param doubleSpeed boolean indicating whether the enemy has double speed active
      * @return new zombie/enemy with these assigned values
      */
     public static Enemy newEnemy(char type, Level level,float speedMultiplier, float healthMultiplier, float spawnDelay, boolean doubleSpeed) {
@@ -261,10 +262,16 @@ public class Enemy extends GameObject{
         return reward;
     }
 
+    /**
+     * @return enemy's healthBar
+     */
     public HealthBar getHpBar(){
         return this.hpBar;
     }
 
+    /**
+     * multiplies the speed by two if the enemy does not already have doubleSpeed active
+     */
     public void doubleSpeedClicked(){
         if(!this.doubleSpeed){
             speed *= 2;
@@ -272,6 +279,9 @@ public class Enemy extends GameObject{
         }
     }
 
+    /**
+     * halves the speed if the enemy has doubleSpeed active
+     */
     public void normalSpeedClicked(){
         if(this.doubleSpeed){
             speed /= 2;
@@ -327,7 +337,19 @@ public class Enemy extends GameObject{
         return this.type;
     }
 
+    /**
+     * Needed to let the enemies spawn outside the map without instantly removing them for being our of bounds.
+     * Let the enemy know it has entered the map, so that outOfBounds can be handled accordingly.
+     */
     public void enemyEnteredMap() {
         this.hasEnteredMap = true;
+    }
+
+    /**
+     * Used in tests of EnemyController
+     * @return true if the enemy is running double speed, false if not.
+     */
+    public boolean getDoubleSpeed() {
+        return doubleSpeed;
     }
 }
