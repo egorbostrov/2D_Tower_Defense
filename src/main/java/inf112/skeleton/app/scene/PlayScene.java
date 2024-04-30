@@ -4,10 +4,10 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -25,7 +25,6 @@ import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 import static inf112.skeleton.app.util.GameConstants.*;
@@ -60,6 +59,8 @@ public class PlayScene extends AbstractGameScene {
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
 
+    private TextureAtlas towerAtlas;
+
     public PlayScene(Game game, int mapNumber) {
         super(game);
         initializeResources();
@@ -77,6 +78,7 @@ public class PlayScene extends AbstractGameScene {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
+        towerAtlas = new TextureAtlas("zombie.atlas");
         stage = new Stage(new ScreenViewport(camera), spriteBatch);
 
 
@@ -254,9 +256,7 @@ public class PlayScene extends AbstractGameScene {
     private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
         towerController.setTowerSelected(type);
     }
-    //private String getClickedTowerType () {
 
-    //}
     @Override
     public void render (float deltaTime) { // main renderer for the playscene.
         // Do not update game world when paused.
@@ -284,10 +284,17 @@ public class PlayScene extends AbstractGameScene {
         if (level != null){
             level.render(spriteBatch);
         }
-
+        if (towerController.isTowerSelected()) {
+            if (towerController.legalPlacement(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY())) {
+                spriteBatch.setColor(0, 1, 0, 0.5f);
+            } else {
+                spriteBatch.setColor(1, 0, 0, 0.5f);
+            }
+            TextureRegion region = getTowerRegion(towerController.getSelectedTowerType());
+            spriteBatch.draw(region, Gdx.input.getX() - TOWER_SIZE/2, SCREEN_HEIGHT - Gdx.input.getY() - TOWER_SIZE/2, TOWER_SIZE, TOWER_SIZE);
+        }
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         towerController.render(shapeRenderer);
-
         //controlMenu.render(spriteBatch);
         spriteBatch.end();
         shapeRenderer.end();
@@ -299,6 +306,18 @@ public class PlayScene extends AbstractGameScene {
             game.setScreen(new GameOverScene(game, level));
         }
 
+    }
+    private TextureRegion getTowerRegion(DefenderType type) {
+        switch (type) {
+            case GUNNER:
+                return towerAtlas.findRegion("gunna1");
+            case SNIPER:
+                return towerAtlas.findRegion("snipa0");
+            case BOMBER:
+                return towerAtlas.findRegion("bomba0");
+            default:
+                return null;
+        }
     }
 
     private void renderInfo(SpriteBatch batch){
