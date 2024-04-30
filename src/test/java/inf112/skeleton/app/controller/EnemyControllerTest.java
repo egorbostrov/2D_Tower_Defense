@@ -6,7 +6,6 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.entity.Enemy;
-import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
 
