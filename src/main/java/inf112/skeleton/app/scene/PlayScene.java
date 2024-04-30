@@ -57,10 +57,11 @@ public class PlayScene extends AbstractGameScene {
     public PlayScene(Game game, int mapNumber) {
         super(game);
         initializeResources();
-        setupUI();
         this.level = new Level(game, mapNumber);
         currentMapNumber = mapNumber;
         initializeGameControllers();
+        setupUI();
+
 
     }
 
@@ -95,142 +96,159 @@ public class PlayScene extends AbstractGameScene {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-
-
     private Table buildControls() {
-        Table maintable = new Table();
-        maintable.setFillParent(true);
-        maintable.bottom();
 
-        // Table for towers.
-        Table towerLayer = new Table();
-        towerLayer.bottom();
+        // system Buttons.
+        exitButton = new Button(uimenuskin, "quitbutton");
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Exit clicked");
+                level.pause();
+                game.setScreen(new MenuScene(game));
+            }
+        });
 
+        optionsButton = new Button(uimenuskin, "playoptions");
+        optionsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Options selected");
+                OptionScene.setFromPlayScene();
+                game.setScreen(new OptionScene(game, currentMapNumber));
+            }
+        });
+
+
+        // tower buttons.
         gunnerButton = new Button(uimenuskin, "gunnertower");
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
-        towerLayer.add(gunnerButton).pad(10);
 
 
         sniperButton = new Button(uimenuskin, "snipertower");
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("sniper selected");
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
-        towerLayer.add(sniperButton).pad(10);
 
 
         bomberButton = new Button(uimenuskin, "bombertower");
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("bomber selected");
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
 
-        towerLayer.add(bomberButton).pad(10);
-        // Adding layers to the main table.
-        maintable.add(towerLayer).expandX().fillX().fillY().bottom(); // Use fillY() and bottom() to ensure vertical alignment
-        maintable.row(); // Start a new row for the options button
 
-        // Table for options button aligned to the bottom right.
-        Table optionslayer = new Table();
-        optionslayer.bottom().right(); // Align this table to the bottom-right
-        optionsButton = new Button(uimenuskin, "playoptions");
-        optionsButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                OptionScene.setFromPlayScene();
-                game.setScreen(new OptionScene(game, currentMapNumber));
-            }
-        });
-
-        optionslayer.add(optionsButton).pad(10).bottom(); // Ensures options button is at the bottom right.
-
-        speedUpgradeButton = new Button(uimenuskin, "speedupgrade");
-        optionslayer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);
-        speedUpgradeButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                level.upgradeSpeedClicked();
-            }
-        });
-
-        damageUpgradeButton = new Button(uimenuskin, "damageupgrade");
-        optionslayer.add(damageUpgradeButton).padBottom(10).size(50);
-        damageUpgradeButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                level.upgradeAttackClicked();
-            }
-        });
-
-        rangeUpgradeButton = new Button(uimenuskin, "rangeupgrade");
-        optionslayer.add(rangeUpgradeButton).padBottom(10).size(50);
-        rangeUpgradeButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                level.upgradeRangeClicked();
-            }
-        });
-
-        removeDefenderButton = new Button(uimenuskin, "removebutton");
-        optionslayer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);
-        removeDefenderButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                towerController.sellSelectedDefender();
-            }
-        });
-        optionslayer.row();
-
+        // gamecontrol buttons (2x and pause).
         doubleSpeedButton = new Button(uimenuskin, "2xbutton");
-        optionslayer.add(doubleSpeedButton).padBottom(10).size(40);
         doubleSpeedButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledSpeed = !isToggledSpeed;
                 if (isToggledSpeed) {
+                    System.out.println("Double speed clicked");
                     level.doubleSpeedClicked();
                 } else {
+                    System.out.println("Normal speed clicked");
                     level.normalSpeedClicked();
                 }
             }
         });
 
         pauseButton = new Button(uimenuskin, "pausebutton");
-        optionslayer.add(pauseButton).padBottom(10).size(40);
         pauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledPause = !isToggledPause;
                 if (isToggledPause) {
+                    System.out.println("Pause clicked");
                     level.pause();
                 } else {
+                    System.out.println("Resume clicked");
                     level.resume();
                 }
             }
         });
 
-        exitButton = new Button(uimenuskin, "quitbutton");
-        optionslayer.add(exitButton).padBottom(10).size(40);
-        exitButton.addListener(new ChangeListener() {
+        // Upgrade and remove buttons
+        speedUpgradeButton = new Button(uimenuskin, "speedupgrade");
+        speedUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                level.pause();
-                game.setScreen(new MenuScene(game));
+                System.out.println("Upgrade speed button clicked");
+                level.upgradeSpeedClicked();
             }
         });
-        optionslayer.row();
-        maintable.add(optionslayer).expandX().fillX().bottom().right();
-        maintable.setDebug(true);
-        return maintable;
+
+        damageUpgradeButton = new Button(uimenuskin, "damageupgrade");
+        damageUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade damage button clicked");
+                level.upgradeAttackClicked();
+            }
+        });
+
+        rangeUpgradeButton = new Button(uimenuskin, "rangeupgrade");
+        rangeUpgradeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Upgrade range button clicked");
+                level.upgradeRangeClicked();
+            }
+        });
+
+        removeDefenderButton = new Button(uimenuskin, "removebutton");
+        removeDefenderButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                towerController.sellSelectedDefender();
+            }
+        });
+
+        Table systemLayer = new Table();
+        Table gameLayer = new Table();
+        Table mainTable = new Table();
+        mainTable.setFillParent(true);
+
+        // System layer configuration: aligned to the top-right
+        systemLayer.right().top();  // Ensures content within is aligned to the right
+        systemLayer.add(exitButton).pad(10).size(45);
+        systemLayer.add(optionsButton).pad(10).size(45);
+
+        gameLayer.bottom().left();
+        gameLayer.add(doubleSpeedButton).pad(10).size(60);
+        gameLayer.add(pauseButton).pad(10).size(60).padRight(200);
+        // Game layer configuration: aligned to the bottom
+        gameLayer.bottom();
+        gameLayer.add(gunnerButton).pad(10).size(60);
+        gameLayer.add(sniperButton).pad(10).size(60);
+        gameLayer.add(bomberButton).pad(10).size(60).padRight(200);
+        gameLayer.add(speedUpgradeButton).pad(10).size(60);
+        gameLayer.add(damageUpgradeButton).pad(10).size(60);
+        gameLayer.add(rangeUpgradeButton).pad(10).size(60);
+        gameLayer.add(removeDefenderButton).pad(10).padLeft(50).size(60);
+
+            // Adding layers to the main table
+        mainTable.top();  // Ensures that we start adding from the top
+        mainTable.add(systemLayer).expandX().fillX().right();  // Stretches horizontally and aligns to the right
+        mainTable.row();  // Separates systemLayer from gameLayer vertically
+        mainTable.add(gameLayer).expand().fill();  // Game layer fills the remaining space
+
+        mainTable.setDebug(true);  // Enables table border lines for debugging
+        return mainTable;
     }
 
     private void onTowerClicked (DefenderType type) {
@@ -240,7 +258,7 @@ public class PlayScene extends AbstractGameScene {
 
     @Override
     public void render (float deltaTime) {
-        Gdx.gl.glClearColor(0.392f, 0.584f, 0.929f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         level.update(deltaTime);
@@ -249,6 +267,17 @@ public class PlayScene extends AbstractGameScene {
         spriteBatch.begin();
         level.getMap().render(spriteBatch);
         level.render(spriteBatch);
+
+        if (towerController.isSelectedTowerUpgrade()) {
+            speedUpgradeButton.setVisible(true);
+            damageUpgradeButton.setVisible(true);
+            rangeUpgradeButton.setVisible(true);
+        } else{
+            speedUpgradeButton.setVisible(false);
+            damageUpgradeButton.setVisible(false);
+            rangeUpgradeButton.setVisible(false);
+        }
+
         spriteBatch.end();
 
         renderInfo(spriteBatch);
