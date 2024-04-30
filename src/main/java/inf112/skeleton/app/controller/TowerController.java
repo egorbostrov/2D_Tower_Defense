@@ -223,10 +223,13 @@ public class TowerController implements Render{
         selectedDefenderUpgrade = defender;
     }
 
+    public BaseDefender getSelectedDefenderUpgrade() {
+        return selectedDefenderUpgrade;
+    }
+
     public boolean isTowerSelected() {
         return isTowerSelected;
     }
-
 
     public DefenderType getSelectedTowerType() {
         return selectedTowerType;
@@ -235,7 +238,6 @@ public class TowerController implements Render{
     public List<BaseDefender> getDefenderList() {
         return defenderList;
     }
-
 
     public void clearDefenders() {
         defenderList.clear();
