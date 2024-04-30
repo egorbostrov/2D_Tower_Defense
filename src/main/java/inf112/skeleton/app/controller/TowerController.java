@@ -71,14 +71,19 @@ public class TowerController implements Render{
        return 0;
     }
 
-    //BUGGED WIP
+    /**
+     * Checks if the placement of a tower is legal.
+     * Checks if the tower is placed on a path, on top of another tower or on an illegal placement tile (outside board).
+     * @param x x-coordinate of the tower
+     * @param y y-coordinate of the tower
+     * @return true if the placement is legal, false otherwise
+     */
     public boolean legalPlacement(float x, float y) {
         float towerLeft = x - GameConstants.TOWER_SIZE / 2;
         float towerBottom = y - GameConstants.TOWER_SIZE / 2;
         Rectangle newTowerBounds = new Rectangle(towerLeft, towerBottom, GameConstants.TOWER_SIZE, GameConstants.TOWER_SIZE);
 
         if (map.getSelectedTile(x, y).getType() == GridType.ILLEGALPLACEMENT) {
-            System.out.println("Not a legal placement :/");
             return false;
         }
 
