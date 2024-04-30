@@ -1,6 +1,5 @@
 package inf112.skeleton.app.map;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -28,8 +27,6 @@ public class Tile extends GameObject {
 
     @Override
     public void render(ShapeRenderer shapeRender) {
-        shapeRender.setColor(Color.RED);
-        super.render(shapeRender);
     }
 
     private void loadTextures() {
@@ -106,8 +103,4 @@ public class Tile extends GameObject {
     public float getY(){
         return this.position.y;
     }
-    public float getWidth() { return this.size.x; }
-    public float getHeight() { return this.size.y; }
-
-
 }
