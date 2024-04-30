@@ -8,10 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
-import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.InformationMenu;
@@ -195,9 +193,6 @@ public class Level implements EnemyEvents {
      */
     public Map getMap(){
         return map;
-    }
-    public int getMapNumber() {
-        return mapNumber;
     }
 
     /**
