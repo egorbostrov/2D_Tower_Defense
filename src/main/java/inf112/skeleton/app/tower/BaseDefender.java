@@ -262,6 +262,7 @@ public abstract class BaseDefender extends GameObject {
                 size.y  // Height of the tower
         );
     }
+
     public void setSpeed(float attackSpeed) {
         this.speed = attackSpeed;
     }

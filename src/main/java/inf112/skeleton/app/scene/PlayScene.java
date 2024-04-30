@@ -35,7 +35,6 @@ import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 import static inf112.skeleton.app.util.GameConstants.*;
@@ -71,6 +70,8 @@ public class PlayScene extends AbstractGameScene {
     private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
 
+    private TextureAtlas towerAtlas;
+
     public PlayScene(Game game, int mapNumber) {
         super(game);
         initializeResources();
@@ -89,6 +90,7 @@ public class PlayScene extends AbstractGameScene {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
+        towerAtlas = new TextureAtlas("zombie.atlas");
         stage = new Stage(new ScreenViewport(camera), spriteBatch);
 
 
@@ -212,7 +214,6 @@ public class PlayScene extends AbstractGameScene {
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade speed button clicked");
                 level.upgradeSpeedClicked();
             }
         });
@@ -222,7 +223,6 @@ public class PlayScene extends AbstractGameScene {
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade damage button clicked");
                 level.upgradeAttackClicked();
             }
         });
@@ -232,7 +232,6 @@ public class PlayScene extends AbstractGameScene {
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade range button clicked");
                 level.upgradeRangeClicked();
             }
         });
@@ -254,10 +253,8 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledSpeed = !isToggledSpeed;
                 if (isToggledSpeed) {
-                    System.out.println("Double speed clicked");
                     level.doubleSpeedClicked();
                 } else {
-                    System.out.println("Normal speed clicked");
                     level.normalSpeedClicked();
                 }
             }
@@ -270,10 +267,8 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledPause = !isToggledPause;
                 if (isToggledPause) {
-                    System.out.println("Pause clicked");
                     level.pause();
                 } else {
-                    System.out.println("Resume clicked");
                     level.resume();
                 }
             }
@@ -284,7 +279,6 @@ public class PlayScene extends AbstractGameScene {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Exit clicked");
                 level.pause();
                 game.setScreen(new MenuScene(game));
             }
@@ -299,44 +293,27 @@ public class PlayScene extends AbstractGameScene {
         towerController.setTowerSelected(type);
 
     }
-    //private String getClickedTowerType () {
 
-    //}
     @Override
-    public void render (float deltaTime) { // main renderer for the playscene.
-        // Do not update game world when paused.
-//        if (!paused) {
-//            // Update game world by the time that has passed
-//            // since last rendered frame.
-//            worldController.update(deltaTime);
-//        }
+    public void render (float deltaTime) {
+        Gdx.gl.glClearColor(0.392f, 0.584f, 0.929f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         level.update(deltaTime);
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        //controlMenu.updateInputs(Gdx.input.getX(), Gdx.input.getY());
-        // Sets the clear screen color to: Cornflower Blue
-        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
-        // Clears the screen
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        spriteBatch.begin();
         if (level != null) {
+            spriteBatch.begin();
             level.getMap().render(spriteBatch);
-        }
-        renderInfo(spriteBatch);
-//        if (worldController != null){
-//            worldController.render(spriteBatch);
-//        }
-        if (level != null){
             level.render(spriteBatch);
+            spriteBatch.end();
         }
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        towerController.render(shapeRenderer);
+        renderInfo(spriteBatch);
+        towerPlacementIndicator();
+        towerUpgradeIndicator();
+        towerRangeIndicator();
 
-        //controlMenu.render(spriteBatch);
-        spriteBatch.end();
-        shapeRenderer.end();
-        //worldController.renderHitboxes(shapeRenderer);
         // Render game world to screen
         stage.act(deltaTime);
         stage.draw();
@@ -345,8 +322,62 @@ public class PlayScene extends AbstractGameScene {
         }
 
     }
+    private TextureRegion getTowerRegion(DefenderType type) {
+        switch (type) {
+            case GUNNER:
+                return towerAtlas.findRegion("gunna1");
+            case SNIPER:
+                return towerAtlas.findRegion("snipa0");
+            case BOMBER:
+                return towerAtlas.findRegion("bomba0");
+            default:
+                return null;
+        }
+    }
+
+    private void towerPlacementIndicator() {
+        spriteBatch.begin();
+        if (towerController.isTowerSelected()) {
+            if (towerController.legalPlacement(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY())) {
+                spriteBatch.setColor(0, 1, 0, 0.5f);
+            } else {
+                spriteBatch.setColor(1, 0, 0, 0.5f);
+            }
+            TextureRegion region = getTowerRegion(towerController.getSelectedTowerType());
+            spriteBatch.draw(region, Gdx.input.getX() - TOWER_SIZE/2, SCREEN_HEIGHT - Gdx.input.getY() - TOWER_SIZE/2, TOWER_SIZE, TOWER_SIZE);
+        }
+        spriteBatch.end();
+    }
+
+    private void towerUpgradeIndicator() {
+        spriteBatch.begin();
+        spriteBatch.enableBlending();
+        for (BaseDefender tower : towerController.getDefenderList()) {
+            if (tower == towerController.getSelectedDefenderUpgrade()) {
+                spriteBatch.setColor(0, 1, 1, 1);
+            } else {
+                spriteBatch.setColor(1, 1, 1, 1);
+            }
+            tower.render(spriteBatch);
+        }
+        spriteBatch.end();
+    }
+
+    private void towerRangeIndicator() {
+        if (towerController.getSelectedDefenderUpgrade() != null) {
+            BaseDefender selectedTower = towerController.getSelectedDefenderUpgrade();
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(1, 1, 1, 1);
+            shapeRenderer.circle(selectedTower.center.x, selectedTower.center.y, selectedTower.getRange());
+            shapeRenderer.end();
+        }
+    }
 
     private void renderInfo(SpriteBatch batch){
+        spriteBatch.begin();
+
         String scoreText = "Score: " + level.getScore();
         String moneyText = "Money: " + level.getMoney();
         String waveText = "Wave: " + level.getCurrentWave();
@@ -373,6 +404,8 @@ public class PlayScene extends AbstractGameScene {
         glyphWave.setText(bitmapFont, waveText);
 
         bitmapFont.draw(batch, waveText, xCord - glyphWave.width / 2, yCord);
+
+        spriteBatch.end();
     }
 
 

@@ -2,7 +2,6 @@ package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import java.util.List;
 import inf112.skeleton.app.entity.Enemy;
@@ -49,11 +48,14 @@ public class MouseController implements InputProcessor {
                 towerController.clearSelectedTower();
                 return true;
             }
+
         } else if (button == Input.Buttons.LEFT && !towerController.isTowerSelected()) {
             for (BaseDefender defender : towerController.getDefenderList()) {
                 if (defender.getBoundingRectangle().contains(screenX, GameConstants.SCREEN_HEIGHT - screenY)) {
                     towerController.setSelectedTowerUpgrade(defender);
                     return true;
+                } else {
+                    towerController.clearSelectedTower();
                 }
             }
         }
@@ -93,9 +95,6 @@ public class MouseController implements InputProcessor {
      */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        float mouseX = screenX;
-        float mouseY = screenY;
-
         return false;
     }
     /**

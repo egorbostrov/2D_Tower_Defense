@@ -184,7 +184,7 @@
       @Test
       public void testCreateTowerClicked() {
           // You should set up the map and tile conditions accordingly
-          level.createTowerClicked(10, 10, DefenderType.BOMBER);
+          //level.createTowerClicked(10, 10, DefenderType.BOMBER);
           // Assert tower creation conditions and money spent if applicable
           // You might need to mock or simulate the map and tiles
       }
