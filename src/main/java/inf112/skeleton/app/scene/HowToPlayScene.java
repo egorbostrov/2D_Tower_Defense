@@ -89,19 +89,19 @@ public class HowToPlayScene extends AbstractGameScene{
 
 
         // Descriptions for zombies
-        Image regularZomIMG = new Image(atlas.findRegion("gunna2"));
+        Image regularZomIMG = new Image(atlas.findRegion("regularzombie"));
         layer.add(regularZomIMG).pad(2);
         Label regularZom = new Label("Regular zombie: Normal speed and health", uiskin);
         layer.add(regularZom).pad(2).colspan(5).center();
         layer.row();
 
-        Image tankZomIMG = new Image(atlas.findRegion("gunna2"));
+        Image tankZomIMG = new Image(atlas.findRegion("tankzombie"));
         layer.add(tankZomIMG).pad(2);
         Label tankZom = new Label("Tank zombie: Slow speed and high health", uiskin);
         layer.add(tankZom).pad(2).colspan(5).center();
         layer.row();
 
-        Image speedZomIMG = new Image(atlas.findRegion("gunna2"));
+        Image speedZomIMG = new Image(atlas.findRegion("runnerzombie"));
         layer.add(speedZomIMG).pad(2);
         Label speedZom = new Label("Speed zombie: Fast speed and low health", uiskin);
         layer.add(speedZom).pad(2).colspan(5).center();
@@ -127,7 +127,7 @@ public class HowToPlayScene extends AbstractGameScene{
         layer.row();
 
         // + Back button
-        backButton = new Button(uiskin, "play"); // make a new back button
+        backButton = new Button(uiskin, "back"); // make a new back button
         layer.add(backButton).pad(10).center().colspan(5);
         backButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override

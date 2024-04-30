@@ -64,10 +64,11 @@ public class Board {
      * @param renderer shape
      */
     public void render(ShapeRenderer renderer) {
-        if (render) {
+        //if (render) {
             for (Tile tile : gameBoard) {
+                renderer.rect(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()); // Draw the circle with 'range' as the radius
                 tile.render(renderer);
-            }
+           // }
         }
     }
 

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.entity.GameObject;
-import inf112.skeleton.app.resourceHandler.MyAtlas;
 import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.util.GameAssets;
 import java.util.Random;
@@ -107,5 +106,8 @@ public class Tile extends GameObject {
     public float getY(){
         return this.position.y;
     }
+    public float getWidth() { return this.size.x; }
+    public float getHeight() { return this.size.y; }
+
 
 }
