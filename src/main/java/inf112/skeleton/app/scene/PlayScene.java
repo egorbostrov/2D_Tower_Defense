@@ -1,7 +1,6 @@
 package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -17,7 +16,6 @@ import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.tower.BaseDefender;
-import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
@@ -26,9 +24,10 @@ import inf112.skeleton.app.util.MusicManager;
 import static inf112.skeleton.app.util.GameConstants.*;
 
 public class PlayScene extends AbstractGameScene {
-    private boolean paused;
     private Stage stage;
     private Skin uimenuskin;
+
+    // Buttons
     private Button gunnerButton;
     private Button sniperButton;
     private Button bomberButton;
@@ -46,14 +45,11 @@ public class PlayScene extends AbstractGameScene {
     private Button optionsButton;
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
-    private Level level;
+    private final Level level;
     private EnemyController enemyController;
     private TowerController towerController;
     public static OrthographicCamera camera;
     public static int currentMapNumber;
-    private MouseController mouseController;
-    private CameraManager cameraManager;
-    private MainControlMenu controlMenu;
     private BitmapFont bitmapFont;
 
     private TextureAtlas towerAtlas;
@@ -62,7 +58,6 @@ public class PlayScene extends AbstractGameScene {
         super(game);
         initializeResources();
         setupUI();
-        setupInput(); // Now setupInput can be called safely
         this.level = new Level(game, mapNumber);
         currentMapNumber = mapNumber;
         initializeGameControllers();
@@ -80,39 +75,6 @@ public class PlayScene extends AbstractGameScene {
         stage = new Stage(new ScreenViewport(camera), spriteBatch);
 
 
-    }
-
-    private void setupInput() {
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(new InputAdapter() {
-            @Override
-            public boolean keyDown(int keycode) {
-                System.out.println("Key Pressed: " + Keys.toString(keycode));
-                switch (keycode) {
-                    case Keys.LEFT:
-                        cameraManager.moveCamera(-10, 0);
-                        break;
-                    case Keys.RIGHT:
-                        cameraManager.moveCamera(10, 0);
-                        break;
-                    case Keys.UP:
-                        cameraManager.moveCamera(0, 10);
-                        break;
-                    case Keys.DOWN:
-                        cameraManager.moveCamera(0, -10);
-                        break;
-                    case Keys.COMMA:
-                        cameraManager.adjustZoom(-0.1f);
-                        break;
-                    case Keys.PERIOD:
-                        cameraManager.adjustZoom(0.1f);
-                        break;
-                }
-                return true;
-            }
-        });
-        inputMultiplexer.addProcessor(stage); // Make sure UI is still responsive
-        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     private void setupUI() {
@@ -141,43 +103,40 @@ public class PlayScene extends AbstractGameScene {
         maintable.bottom();
 
         // Table for towers.
-        Table towerlayer = new Table();
-        towerlayer.bottom();
+        Table towerLayer = new Table();
+        towerLayer.bottom();
 
         gunnerButton = new Button(uimenuskin, "gunnertower");
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
-        towerlayer.add(gunnerButton).pad(10);
+        towerLayer.add(gunnerButton).pad(10);
 
 
         sniperButton = new Button(uimenuskin, "snipertower");
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("sniper selected");
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
-        towerlayer.add(sniperButton).pad(10);
+        towerLayer.add(sniperButton).pad(10);
 
 
         bomberButton = new Button(uimenuskin, "bombertower");
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("bomber selected");
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
 
-        towerlayer.add(bomberButton).pad(10);
+        towerLayer.add(bomberButton).pad(10);
         // Adding layers to the main table.
-        maintable.add(towerlayer).expandX().fillX().fillY().bottom(); // Use fillY() and bottom() to ensure vertical alignment
+        maintable.add(towerLayer).expandX().fillX().fillY().bottom(); // Use fillY() and bottom() to ensure vertical alignment
         maintable.row(); // Start a new row for the options button
 
         // Table for options button aligned to the bottom right.
@@ -187,7 +146,6 @@ public class PlayScene extends AbstractGameScene {
         optionsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Options selected");
                 OptionScene.setFromPlayScene();
                 game.setScreen(new OptionScene(game, currentMapNumber));
             }
@@ -196,7 +154,7 @@ public class PlayScene extends AbstractGameScene {
         optionslayer.add(optionsButton).pad(10).bottom(); // Ensures options button is at the bottom right.
 
         speedUpgradeButton = new Button(uimenuskin, "speedupgrade");
-        optionslayer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);  // Add padding at the bottom if needed
+        optionslayer.add(speedUpgradeButton).padBottom(10).padLeft(70).size(50);
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -205,7 +163,7 @@ public class PlayScene extends AbstractGameScene {
         });
 
         damageUpgradeButton = new Button(uimenuskin, "damageupgrade");
-        optionslayer.add(damageUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        optionslayer.add(damageUpgradeButton).padBottom(10).size(50);
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -214,7 +172,7 @@ public class PlayScene extends AbstractGameScene {
         });
 
         rangeUpgradeButton = new Button(uimenuskin, "rangeupgrade");
-        optionslayer.add(rangeUpgradeButton).padBottom(10).size(50);  // Add padding at the bottom if needed
+        optionslayer.add(rangeUpgradeButton).padBottom(10).size(50);
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -223,7 +181,7 @@ public class PlayScene extends AbstractGameScene {
         });
 
         removeDefenderButton = new Button(uimenuskin, "removebutton");
-        optionslayer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);  // Add padding at the bottom if needed
+        optionslayer.add(removeDefenderButton).padBottom(10).padLeft(50).size(50);
         removeDefenderButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -233,7 +191,7 @@ public class PlayScene extends AbstractGameScene {
         optionslayer.row();
 
         doubleSpeedButton = new Button(uimenuskin, "2xbutton");
-        optionslayer.add(doubleSpeedButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        optionslayer.add(doubleSpeedButton).padBottom(10).size(40);
         doubleSpeedButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -247,7 +205,7 @@ public class PlayScene extends AbstractGameScene {
         });
 
         pauseButton = new Button(uimenuskin, "pausebutton");
-        optionslayer.add(pauseButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        optionslayer.add(pauseButton).padBottom(10).size(40);
         pauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -261,7 +219,7 @@ public class PlayScene extends AbstractGameScene {
         });
 
         exitButton = new Button(uimenuskin, "quitbutton");
-        optionslayer.add(exitButton).padBottom(10).size(40);  // Add padding at the bottom if needed
+        optionslayer.add(exitButton).padBottom(10).size(40);
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -270,12 +228,12 @@ public class PlayScene extends AbstractGameScene {
             }
         });
         optionslayer.row();
-        maintable.add(optionslayer).expandX().fillX().bottom().right(); // Use bottom().right() to align the options button
-        maintable.setDebug(true); // This lets you see the bounds of the table and its cells
+        maintable.add(optionslayer).expandX().fillX().bottom().right();
+        maintable.setDebug(true);
         return maintable;
     }
 
-    private void onTowerClicked (DefenderType type) { // adding UI button for creating towers in playscene for now, will implement to maincontrolmenu soon. WIP
+    private void onTowerClicked (DefenderType type) {
         towerController.setTowerSelected(type);
 
     }
@@ -288,12 +246,10 @@ public class PlayScene extends AbstractGameScene {
         level.update(deltaTime);
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        if (level != null) {
-            spriteBatch.begin();
-            level.getMap().render(spriteBatch);
-            level.render(spriteBatch);
-            spriteBatch.end();
-        }
+        spriteBatch.begin();
+        level.getMap().render(spriteBatch);
+        level.render(spriteBatch);
+        spriteBatch.end();
 
         renderInfo(spriteBatch);
         towerPlacementIndicator();
@@ -407,14 +363,11 @@ public class PlayScene extends AbstractGameScene {
 
     @Override
     public void show() {
-        //controlMenu = new MainControlMenu(level, towerController);
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
-        if(GameSettings.getMusic() == true) {
+        if(GameSettings.getMusic()) {
             MusicManager.play("gamemusic.ogg", true);
         }
-
-        // temporary multiplexer to use both stage ui buttons and configurer mousecontroller bs so that i can place the towers. (temp temp temp!!!)
     }
 
     @Override
@@ -428,16 +381,9 @@ public class PlayScene extends AbstractGameScene {
 
     @Override
     public void pause () {
-        paused = true;
     }
 
     @Override
     public void resume () {
-        super.resume();
-    }
-
-    public Object getLevel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLevel'");
     }
 }
