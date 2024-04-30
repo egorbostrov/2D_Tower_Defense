@@ -15,7 +15,6 @@ import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 
 public class OptionScene extends AbstractGameScene {
-    private final String stateName = "OPTION MENU";
     private Stage stage;
     private Skin skin;
     private TextButton saveButton;
@@ -131,7 +130,7 @@ public class OptionScene extends AbstractGameScene {
     // Save selected settings to My Preferences, using the corresponding values set by the user.
     private void saveSettings() {
         GameSettings prefs = GameSettings.instance;
-        prefs.setSound(chkSound.isChecked());;
+        prefs.setSound(chkSound.isChecked());
         prefs.setVolSound(sldSound.getValue());
         prefs.setMusic(chkMusic.isChecked());
         prefs.setVolMusic(sldMusic.getValue());

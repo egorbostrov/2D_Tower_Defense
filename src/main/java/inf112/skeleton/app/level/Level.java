@@ -19,8 +19,6 @@ import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.map.Map;
-import inf112.skeleton.app.map.Tile;
-import inf112.skeleton.app.enums.GridType;
 
 public class Level implements EnemyEvents {
     private int currentWave;
@@ -39,13 +37,13 @@ public class Level implements EnemyEvents {
     private boolean changeTimeAndWaveNumber = false;
     private int timeLeft;
     private final BitmapFont bitmapFont;
-    private Game game;
-    private OrthographicCamera camera;
-    private CameraManager cameraManager;
+    private final Game game;
+    private final OrthographicCamera camera;
+    private final CameraManager cameraManager;
     private boolean isPaused;
     private boolean isDoubleSpeedActive = false;
 
-    private int mapNumber;
+    private final int mapNumber;
 
     public Level(Game game, int mapNumber) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

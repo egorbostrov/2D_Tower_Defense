@@ -87,7 +87,6 @@ public class Tile extends GameObject {
         this.type = type;
     }
 
-
     /**
      *
      * @return x coordinate of the tile

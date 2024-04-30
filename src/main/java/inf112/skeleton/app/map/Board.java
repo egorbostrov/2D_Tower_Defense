@@ -1,7 +1,6 @@
 package inf112.skeleton.app.map;
 
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +14,6 @@ import java.util.Set;
 public class Board {
     private final List<Tile> gameBoard; //All tiles, building a gameBoard, holding either path or grass tiles.
     private final Set<Vector2> pathPoints; //Set with the coordinates of all path tiles on the map
-    private boolean render = false;
 
     /**
      * Create a gameBoard with a given set of path coordinates
@@ -89,14 +87,5 @@ public class Board {
         for (Tile tile : gameBoard) {
             tile.update(elapsedTime);
         }
-    }
-
-    /**
-     * Sets this.render to true/false based on the given param.
-     * If ture, them render will happen, if false then render will not happen
-     * @param onOrOff switch for rendering
-     */
-    public void renderSwitch(boolean onOrOff) {
-        this.render = onOrOff;
     }
 }
