@@ -1,20 +1,18 @@
 package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.entity.Enemy;
+import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
 
 import inf112.skeleton.app.util.GameAssets;
-import inf112.skeleton.app.util.GameConstants;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +22,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.LinkedList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static inf112.skeleton.app.util.GameConstants.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class EnemyControllerTest {
@@ -33,12 +33,6 @@ public class EnemyControllerTest {
     private Level mockLevel;
     @Mock
     private Map mockMap;
-    @Mock
-    private SpriteBatch mockBatch;
-    @Mock
-    private ShapeRenderer mockRenderer;
-    @Mock
-    private Enemy mockEnemy;
     private EnemyController enemyController;
     private static HeadlessApplication application;
 
@@ -61,23 +55,18 @@ public class EnemyControllerTest {
         Gdx.gl20 = Gdx.gl;
         when(Gdx.gl.glGenTexture()).thenReturn(1);
 
-
-        //doNothing().when(mockEnemy).initializeHealthBar(anyFloat(), anyFloat(), anyFloat(), anyFloat(), anyFloat());
-
-        when(mockEnemy.isAlive()).thenReturn(true);
-
         enemyController = new EnemyController(mockLevel);
     }
 
     @Test
-    void populateEnemyList() {
+    void newZombieTest() {
         for (int i = 0; i < 5; i++) {
             enemyController.newZombie(new Enemy(
                     'R',
-                    GameConstants.START_POS.x,
-                    GameConstants.START_POS.y,
-                    GameConstants.ENEMY_WIDTH,
-                    GameConstants.ENEMY_HEIGHT,
+                    START_POS.x,
+                    START_POS.y,
+                    ENEMY_WIDTH,
+                    ENEMY_HEIGHT,
                     5,
                     mockMap.getDirections(),
                     5,
@@ -88,6 +77,33 @@ public class EnemyControllerTest {
             ));
         }
         assertEquals(5, enemyController.getEnemyList().size(), "List should contain 5 enemies");
+    }
+
+    @Test
+    void doubleSpeedClickedTest() {
+        //Set the initial doubleSpeed boolean as false.
+        Enemy enemy = new Enemy('R', START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<Direction>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null,
+                false);
+
+        enemyController.newZombie(enemy);
+        //Call coublespeedclicked which should change the boolean to true.
+        enemyController.doubleSpeedClicked();
+
+        assertTrue(enemy.getDoubleSpeed());
+
+    }
+
+    @Test
+    void normalSpeedClickedTest() {
+        //Set the initial doubleSpeed boolean as true.
+        Enemy enemy = new Enemy('R', START_POS.x, START_POS.y, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<Direction>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null,
+                true);
+
+        enemyController.newZombie(enemy);
+        //Call normalSpeedClicked which should change the boolean to false
+        enemyController.normalSpeedClicked();
+
+        assertFalse(enemy.getDoubleSpeed());
     }
 
     @AfterAll
