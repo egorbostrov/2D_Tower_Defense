@@ -3,6 +3,7 @@ package inf112.skeleton.app.scene;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
@@ -13,6 +14,8 @@ import inf112.skeleton.app.util.GameSettings;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.mockito.*;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -20,6 +23,27 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class OptionSceneTest {
+
+    private static HeadlessApplication application;
+
+    @BeforeAll
+    public static void setupBeforeAll() {
+        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
+        application = new HeadlessApplication(new ApplicationAdapter() {}, config);
+        Gdx.gl20 = Mockito.mock(GL20.class);
+        Gdx.gl = Gdx.gl20;
+        when(Gdx.gl.glGenTexture()).thenReturn(1);
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        if (application != null) {
+            application.exit();
+            application = null;
+        }
+        Gdx.gl = null;
+        Gdx.gl20 = null;
+    }
 
     @Mock
     private Game mockGame;

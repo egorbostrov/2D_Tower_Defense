@@ -58,7 +58,7 @@ public class PlayScene extends AbstractGameScene {
         super(game);
         initializeResources();
         setupUI();
-        this.level = new Level(game, mapNumber);
+        this.level = new Level(mapNumber);
         currentMapNumber = mapNumber;
         initializeGameControllers();
 
