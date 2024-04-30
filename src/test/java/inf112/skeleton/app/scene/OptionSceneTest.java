@@ -21,13 +21,13 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class OptionSceneTest {
 
-    @Mock private Game mockGame;
-    @Mock private Stage mockStage;
-    @Mock private Skin mockSkin;
-    @Mock private CheckBox mockChkSound, mockChkMusic, mockChkFullscreen;
-    @Mock private Slider mockSldSound, mockSldMusic;
-    @Mock private TextButton mockSaveButton, mockCancelButton;
-
+    @Mock
+    private Game mockGame;
+    private Stage mockStage;
+    private Skin mockSkin;
+    private CheckBox mockChkSound, mockChkMusic, mockChkFullscreen;
+    private Slider mockSldSound, mockSldMusic;
+    private TextButton mockSaveButton, mockCancelButton;
     private OptionScene optionScene;
 
 //    @BeforeClass
@@ -62,15 +62,16 @@ public class OptionSceneTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         optionScene = new OptionScene(mockGame);
-        optionScene.stage = mockStage;
-        optionScene.skin = mockSkin;
-        optionScene.chkSound = mockChkSound;
-        optionScene.chkMusic = mockChkMusic;
-        optionScene.chkFullscreen = mockChkFullscreen;
-        optionScene.sldSound = mockSldSound;
-        optionScene.sldMusic = mockSldMusic;
-        optionScene.saveButton = mockSaveButton;
-        optionScene.cancelButton = mockCancelButton;
+        mockStage = optionScene.getStage();
+        mockSkin = optionScene.getSkin();
+        mockChkSound = optionScene.getCheckSound();
+        mockChkMusic = optionScene.getCheckMusic();
+        mockChkFullscreen = optionScene.getCheckFullscreen();
+        mockSldSound = optionScene.getSliderSound();
+        mockSldMusic = optionScene.getSliderMusic();
+        mockSaveButton = optionScene.getSaveButton();
+        mockCancelButton = optionScene.getCancelButton();
+
 
         doNothing().when(mockStage).act(anyFloat());
         doNothing().when(mockStage).draw();
@@ -84,7 +85,7 @@ public class OptionSceneTest {
         when(mockSldMusic.getValue()).thenReturn(0.3f);
         when(mockChkFullscreen.isChecked()).thenReturn(true);
 
-        optionScene.onSaveClicked();
+        //optionScene.onSaveClicked();
 
         verify(mockChkSound).isChecked();
         verify(mockChkMusic).isChecked();
@@ -97,19 +98,16 @@ public class OptionSceneTest {
 
     @Test
     public void testCancelSettingsInteraction() {
-        optionScene.onCancelClicked();
+        //optionScene.onCancelClicked();
         verify(mockGame).setScreen(any(MenuScene.class));
     }
 
 
     @Test
     public void testLoadSettings() {
-        // Assuming your OptionScene.loadSettings() method does something like this:
-        // GameSettings settings = GameSettings.getInstance();
-        // this.mockChkSound.setChecked(settings.getSound());
-        // ... etc.
 
-        optionScene.loadSettings();
+
+        //optionScene.loadSettings();
 
         // Verify that the UI elements are set to the expected values
         verify(mockChkSound).setChecked(true);

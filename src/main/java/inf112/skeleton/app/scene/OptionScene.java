@@ -193,4 +193,35 @@ public class OptionScene extends AbstractGameScene {
     public void pause() {
 
     }
+
+    /**
+     * Getters for testing
+     */
+    public Stage getStage(){
+        return  this.stage;
+    }
+    public Skin getSkin(){
+        return this.skin;
+    }
+    public CheckBox getCheckSound(){
+        return this.chkSound;
+    }
+    public CheckBox getCheckMusic(){
+        return this.chkMusic;
+    }
+    public CheckBox getCheckFullscreen(){
+        return this.chkFullscreen;
+    }
+    public Slider getSliderSound(){
+        return this.sldSound;
+    }
+    public Slider getSliderMusic(){
+        return this.sldMusic;
+    }
+    public TextButton getSaveButton(){
+        return this.saveButton;
+    }
+    public TextButton getCancelButton(){
+        return this.cancelButton;
+    }
 }

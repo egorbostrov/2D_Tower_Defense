@@ -386,4 +386,8 @@ public class PlayScene extends AbstractGameScene {
     @Override
     public void resume () {
     }
+
+    public Level getLevel(){
+        return this.level;
+    }
 }
