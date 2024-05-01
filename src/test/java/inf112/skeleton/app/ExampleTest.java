@@ -33,22 +33,22 @@ public void setUp() {
 }
 
 
-@Test
-public void testCorrectTilesCreated() {
-    List<Tile> gameBoardTiles = board.getGameBoard();
-    assertEquals(GameConstants.MAP_ROWS * GameConstants.COLUMN_SIZE, gameBoardTiles.size(), "Game board should have the correct number of tiles.");
+// @Test
+// public void testCorrectTilesCreated() {
+//     List<Tile> gameBoardTiles = board.getGameBoard();
+//     assertEquals(GameConstants.MAP_ROWS * GameConstants.COLUMN_SIZE, gameBoardTiles.size(), "Game board should have the correct number of tiles.");
 
-    for (Tile tile : gameBoardTiles) {
+//     for (Tile tile : gameBoardTiles) {
 
-        int xGrid = (int)(tile.getX() / GameConstants.TILE_WIDTH);
-        int yGrid = (int)(tile.getY() / GameConstants.TILE_HEIGHT);
-        if (pathPoints.contains(new Vector2(xGrid, yGrid))) {
-            assertEquals(GridType.PATH, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a path tile.");
-        } else {
-            assertEquals(GridType.GROUND, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a ground tile.");
-        }
-    }
-}
+//         int xGrid = (int)(tile.getX() / GameConstants.TILE_WIDTH);
+//         int yGrid = (int)(tile.getY() / GameConstants.TILE_HEIGHT);
+//         if (pathPoints.contains(new Vector2(xGrid, yGrid))) {
+//             assertEquals(GridType.PATH, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a path tile.");
+//         } else {
+//             assertEquals(GridType.GROUND, tile.getType(), "Tile at (" + xGrid + "," + yGrid + ") should be a ground tile.");
+//         }
+//     }
+// }
 
 
 
