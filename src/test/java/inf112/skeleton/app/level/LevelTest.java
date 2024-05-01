@@ -141,7 +141,7 @@
       @Before
       public void setUp() {
           // Initialize the game mock and the Level class instance
-          game = Mockito.mock(Game.class);
+
           level = new Level(1);
       }
 
@@ -193,7 +193,7 @@
       public void testUpdateInputs() {
           float x = 5.0f;
           float y = 5.0f;
-          level.updateInputs(x, y);
+
           // Verify that updateInputs modifies the state correctly
       }
 

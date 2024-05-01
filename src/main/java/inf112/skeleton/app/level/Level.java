@@ -12,8 +12,6 @@ import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
-import inf112.skeleton.app.ui.menu.InformationMenu;
-import inf112.skeleton.app.ui.menu.MainControlMenu;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
@@ -32,8 +30,6 @@ public class Level implements EnemyEvents {
     private EnemyController enemyController;
     private WaveController waveController;
     private TowerController towerController;
-    private MainControlMenu towerSelectionMenu;
-    private InformationMenu infoMenu;
     private boolean changeTimeAndWaveNumber = false;
     private int timeLeft;
     private final BitmapFont bitmapFont;
@@ -69,8 +65,6 @@ public class Level implements EnemyEvents {
         this.enemyController = EnemyController.getInstance(this);
         waveController = new WaveController(enemyController, mapNumber, false);
         this.towerController = TowerController.getInstance(this);
-        towerSelectionMenu = new MainControlMenu(this);
-        infoMenu = new InformationMenu();
 
     }
 
@@ -82,7 +76,6 @@ public class Level implements EnemyEvents {
         map.render(renderer);
         enemyController.render(renderer);
         towerController.render(renderer);
-        towerSelectionMenu.render(renderer);
     }
 
     /**
@@ -94,8 +87,6 @@ public class Level implements EnemyEvents {
         map.render(batch);
         enemyController.render(batch);
         towerController.render(batch);
-        towerSelectionMenu.render(batch);
-        infoMenu.render(batch);
         if (changeTimeAndWaveNumber){
             GameUtil.renderCenter("Wave: " + currentWave + " loading...", batch, bitmapFont);
 
@@ -133,9 +124,7 @@ public class Level implements EnemyEvents {
      * @param x x
      * @param y y
      */
-    public void updateInputs(float x, float y) {
-        towerSelectionMenu.updateInputs(x, y);
-    }
+
 
     /**
      * Removes users health when enemies manage to go through the whole path.
@@ -144,7 +133,6 @@ public class Level implements EnemyEvents {
     @Override
     public void enemyCompletedPath() {
         userHealth--;
-        towerSelectionMenu.fireHealthChanged(userHealth);
         if (userHealth == 0){
             pause();
         }
@@ -160,8 +148,6 @@ public class Level implements EnemyEvents {
         numberOfEnemies -= 1;
         enemiesKilled += 1;
         addMoney(reward);
-        infoMenu.fireScoreChanged(this.score);
-        towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
     }
 
     /**
@@ -270,8 +256,6 @@ public class Level implements EnemyEvents {
      */
     public void addMoney(int amount) {
         this.money += amount;
-        infoMenu.fireMoneyChanged(money);
-        towerSelectionMenu.moneyChanged(money);
     }
 
     /**
@@ -280,8 +264,6 @@ public class Level implements EnemyEvents {
      */
     public void removeMoney(int amount) {
         this.money -= amount;
-        infoMenu.fireMoneyChanged(money);
-        towerSelectionMenu.moneyChanged(money);
     }
 
     public void pause() {
