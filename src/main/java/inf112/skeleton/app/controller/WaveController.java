@@ -12,12 +12,11 @@ public class WaveController {
     private FileHandle filehandle;
     private final int selectedWave;
     private final EnemyController enemyController;
-    float baseSpeedMultiplier;
-    float speedMultiplier;
-    float healthMultiplier;
+    private float baseSpeedMultiplier;
+    private float speedMultiplier;
+    private float healthMultiplier;
     private float spawnDelay;
     private EnemyFactory enemyFactory;
-//    WaveEnemyFactory enemyFactory;
 
     List<String> wavePatterns;
     int waveIndex;
@@ -118,5 +117,29 @@ public class WaveController {
         }
         waveIndex++;
         zombieIndex = 0;
+    }
+
+    /**
+     * Used in testing
+     * @return the base speed multiplier for the zombies
+     */
+    public float getBaseSpeedMultiplier() {
+        return baseSpeedMultiplier;
+    }
+
+    /**
+     * Used in testing
+     * @return the health multiplier for the zombies
+     */
+    public float getHealthMultiplier() {
+        return healthMultiplier;
+    }
+
+    /**
+     * Used in testing
+     * @return the spawn delay for the zombies
+     */
+    public float getSpawnDelay() {
+        return spawnDelay;
     }
 }
