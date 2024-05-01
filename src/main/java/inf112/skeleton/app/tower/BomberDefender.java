@@ -38,8 +38,8 @@ public class BomberDefender extends BaseDefender{
      * @param maxDamage amount of damage dealt by bomb
      */
     public void applyAreaDamage(Vector2 impactPoint, float explosionRadius, float maxDamage) {
-        float impactDistance = impactPoint.dst(enemy.center);
         for (Enemy enemy : enemies) {
+            float impactDistance = impactPoint.dst(enemy.center);
             if (impactDistance <= explosionRadius) {
                 float damageReductionFactor = impactDistance / explosionRadius;
                 float damageToApply = maxDamage * (1 - damageReductionFactor);
