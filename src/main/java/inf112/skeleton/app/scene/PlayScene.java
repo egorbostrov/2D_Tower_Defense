@@ -213,8 +213,7 @@ public class PlayScene extends AbstractGameScene {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        // System layer configuration: aligned to the top-right
-        systemLayer.right().top();  // Ensures content within is aligned to the right
+        systemLayer.right().top();
         systemLayer.add(exitButton).pad(5).size(50);
         systemLayer.add(optionsButton).padLeft(10).pad(5).size(50);
 
@@ -228,21 +227,18 @@ public class PlayScene extends AbstractGameScene {
         gameLayer.add(doubleSpeedButton).pad(10).padBottom(20).size(80);
         gameLayer.add(pauseButton).pad(10).padBottom(20).size(80).padRight(250);
 
-        // Game layer configuration: aligned to the bottom
         gameLayer.bottom();
         gameLayer.add(gunnerButton).pad(10).padBottom(20).size(80);
         gameLayer.add(sniperButton).pad(10).padBottom(20).size(80);
         gameLayer.add(bomberButton).pad(10).padBottom(20).size(80);
 
-        // Adding layers to the main table
-        mainTable.top();  // Ensures that we start adding from the top
-        mainTable.add(systemLayer).expandX().fillX().right();  // Stretches horizontally and aligns to the right
+        mainTable.top();
+        mainTable.add(systemLayer).expandX().fillX().right();
         mainTable.row();
-        mainTable.add(upgradeLayer).expandX().fillX().right();  // Stretches horizontally and aligns to the right
-        mainTable.row();// Separates systemLayer from gameLayer vertically
-        mainTable.add(gameLayer).expand().fill();  // Game layer fills the remaining space
+        mainTable.add(upgradeLayer).expandX().fillX().right();
+        mainTable.row();
+        mainTable.add(gameLayer).expand().fill();
 
-        mainTable.setDebug(true);  // Enables table border lines for debugging
         return mainTable;
     }
 
