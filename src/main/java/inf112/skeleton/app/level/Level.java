@@ -34,7 +34,6 @@ public class Level implements EnemyEvents {
     private boolean changeTimeAndWaveNumber = false;
     private int timeLeft;
     private final BitmapFont bitmapFont;
-    private final Game game;
     private final OrthographicCamera camera;
     private final CameraManager cameraManager;
     private boolean isPaused;
@@ -42,11 +41,10 @@ public class Level implements EnemyEvents {
 
     private final int mapNumber;
 
-    public Level(Game game, int mapNumber) {
+    public Level(int mapNumber) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.setToOrtho(false);
         this.cameraManager = new CameraManager(camera);
-        this.game = game;
         this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
         this.mapNumber = mapNumber;
         start();
