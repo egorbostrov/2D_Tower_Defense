@@ -43,7 +43,7 @@ public class HealthBarTest {
     public void testHealthRemoveEnemyVsHealthBar(){
         mockEnemy = new Enemy('R',100, 100, GameConstants.ENEMY_WIDTH, GameConstants.ENEMY_HEIGHT, 100, new LinkedList<>(), 0, 0, 0, null, false);
         Random random = new Random();
-        int randomNumber = random.nextInt(100);
+        int randomNumber =random.nextInt(100);
         System.out.println(randomNumber);
         mockEnemy.shot(randomNumber);
         assertEquals(mockEnemy.getHpBar().getCurrentHealth(), mockEnemy.getEnemyHealth()/* - randomNumber*/);

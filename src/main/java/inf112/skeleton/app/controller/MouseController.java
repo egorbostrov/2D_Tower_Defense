@@ -9,7 +9,7 @@ import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
-
+;
 import inf112.skeleton.app.util.GameConstants;
 
 public class MouseController implements InputProcessor {

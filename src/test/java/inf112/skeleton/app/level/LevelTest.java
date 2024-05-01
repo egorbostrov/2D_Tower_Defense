@@ -141,8 +141,8 @@
       @Before
       public void setUp() {
           // Initialize the game mock and the Level class instance
-          game = Mockito.mock(Game.class);
-          level = new Level(game, 1);
+
+          level = new Level(1);
       }
 
       @Test
@@ -189,13 +189,6 @@
 //          // You might need to mock or simulate the map and tiles
 //      }
 
-      @Test
-      public void testUpdateInputs() {
-          float x = 5.0f;
-          float y = 5.0f;
-          level.updateInputs(x, y);
-          // Verify that updateInputs modifies the state correctly
-      }
 
       @Test
       public void testRestartGameResetsValues() {

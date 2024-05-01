@@ -145,4 +145,12 @@ public class Map implements Render{
         }
         return new Tile(-1, -1, 0, 0, GridType.ILLEGALPLACEMENT);
     }
+
+    /**
+     * Getter used in test
+     * @return current filehandle for map
+     */
+    public FileHandle getFilehandle(){
+        return this.filehandle;
+    }
 }

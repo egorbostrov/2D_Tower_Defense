@@ -30,7 +30,6 @@ public class Level implements EnemyEvents {
     private EnemyController enemyController;
     private WaveController waveController;
     private TowerController towerController;
-
     private boolean changeTimeAndWaveNumber = false;
     private int timeLeft;
     private final BitmapFont bitmapFont;
@@ -257,7 +256,6 @@ public class Level implements EnemyEvents {
      */
     public void addMoney(int amount) {
         this.money += amount;
-
     }
 
     /**
@@ -266,7 +264,6 @@ public class Level implements EnemyEvents {
      */
     public void removeMoney(int amount) {
         this.money -= amount;
-
     }
 
     public void pause() {
