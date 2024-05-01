@@ -16,10 +16,11 @@ import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.tower.BaseDefender;
+import inf112.skeleton.app.ui.menu.MoneyPopup;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
-
+import java.util.Iterator;
 
 import static inf112.skeleton.app.util.GameConstants.*;
 
@@ -97,8 +98,6 @@ public class PlayScene extends AbstractGameScene {
     }
 
     private Table buildControls() {
-
-        // system Buttons.
         exitButton = new Button(uimenuskin, "quitbutton");
         exitButton.addListener(new ChangeListener() {
             @Override
@@ -117,36 +116,33 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-
-        // tower buttons.
         gunnerButton = new Button(uimenuskin, "gunnertower");
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                towerController.clearSelectedDefenderUpgrade();
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
-
 
         sniperButton = new Button(uimenuskin, "snipertower");
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                towerController.clearSelectedDefenderUpgrade();
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
-
 
         bomberButton = new Button(uimenuskin, "bombertower");
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                towerController.clearSelectedDefenderUpgrade();
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
 
-
-        // gamecontrol buttons (2x and pause).
         doubleSpeedButton = new Button(uimenuskin, "2xbutton");
         doubleSpeedButton.addListener(new ChangeListener() {
             @Override
@@ -173,7 +169,6 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
-        // Upgrade and remove buttons
         speedUpgradeButton = new Button(uimenuskin, "speedupgrade");
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
@@ -260,6 +255,7 @@ public class PlayScene extends AbstractGameScene {
         level.render(spriteBatch);
         spriteBatch.end();
 
+        renderMoneyPopup();
         visibilityUpgradeButtons();
         renderInfo(spriteBatch);
         towerPlacementIndicator();
@@ -272,7 +268,20 @@ public class PlayScene extends AbstractGameScene {
         if (level.getUserHealth() <= 0){
             game.setScreen(new GameOverScene(game, level));
         }
+    }
 
+    private void renderMoneyPopup() {
+        spriteBatch.begin();
+        Iterator<MoneyPopup> iter = level.getPopups().iterator();
+        while (iter.hasNext()) {
+            MoneyPopup popup = iter.next();
+            if (popup.update(Gdx.graphics.getDeltaTime())) {
+                iter.remove();
+            } else {
+                popup.draw(spriteBatch);
+            }
+        }
+        spriteBatch.end();
     }
 
     private void visibilityUpgradeButtons() {
