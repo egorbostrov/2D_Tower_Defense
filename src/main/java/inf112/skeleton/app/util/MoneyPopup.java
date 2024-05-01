@@ -1,4 +1,4 @@
-package inf112.skeleton.app.ui.menu;
+package inf112.skeleton.app.util;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

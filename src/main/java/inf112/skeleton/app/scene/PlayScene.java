@@ -16,7 +16,7 @@ import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.tower.BaseDefender;
-import inf112.skeleton.app.ui.menu.MoneyPopup;
+import inf112.skeleton.app.util.MoneyPopup;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;

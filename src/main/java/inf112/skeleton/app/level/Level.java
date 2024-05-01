@@ -1,6 +1,5 @@
 package inf112.skeleton.app.level;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,7 +13,7 @@ import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.InformationMenu;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
-import inf112.skeleton.app.ui.menu.MoneyPopup;
+import inf112.skeleton.app.util.MoneyPopup;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
