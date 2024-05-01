@@ -189,13 +189,6 @@
 //          // You might need to mock or simulate the map and tiles
 //      }
 
-      @Test
-      public void testUpdateInputs() {
-          float x = 5.0f;
-          float y = 5.0f;
-
-          // Verify that updateInputs modifies the state correctly
-      }
 
       @Test
       public void testRestartGameResetsValues() {
