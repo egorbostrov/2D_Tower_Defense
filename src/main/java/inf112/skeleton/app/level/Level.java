@@ -169,7 +169,6 @@ public class Level implements EnemyEvents {
         addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
-        //createMoneyPopup("+$" + reward, Color.GREEN, true);
     }
 
     /**
