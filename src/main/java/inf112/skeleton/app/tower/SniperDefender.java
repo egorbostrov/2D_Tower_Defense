@@ -21,10 +21,15 @@ public class SniperDefender extends BaseDefender{
         damage = GameConstants.TOWER_DAMAGE_SNIPER;
         range = GameConstants.TOWER_RANGE_SNIPER;
         speed = GameConstants.TOWER_SPEED_SNIPER;
+        price = GameConstants.TOWER_PRICE_SNIPER;
         initializeSprites(GameAssets.getInstance().getAtlas(), "snipa0", "snipa0");
 
         fireRate = 2.0f;
         lastFireTime = -fireRate;
+    }
+
+    public float getPrice() {
+        return this.price;
     }
 
 
@@ -41,6 +46,6 @@ public class SniperDefender extends BaseDefender{
                 bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.SNIPER_BULLET));
                 lastFireTime = 0;
             MusicManager.playSniperShot();
-            }
         }
+    }
 }

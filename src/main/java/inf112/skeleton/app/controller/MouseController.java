@@ -56,6 +56,7 @@ public class MouseController implements InputProcessor {
                     return true;
                 } else {
                     towerController.clearSelectedTower();
+                    towerController.clearSelectedDefenderUpgrade();
                 }
             }
         }

@@ -36,6 +36,7 @@ public abstract class BaseDefender extends GameObject {
     protected float speedCounter = 0;
     protected float speed = 2f; // per second
 
+    protected int price;
     protected int rangePrice;
     protected int attackPrice;
     protected int speedPrice;
@@ -272,10 +273,8 @@ public abstract class BaseDefender extends GameObject {
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
-
-    public float getRange() {
-        return range;
-    }
+    public float getPrice() { return price;}
+    public float getRange() { return range;}
     public float getDamage() {
         return damage;
     }
@@ -290,6 +289,9 @@ public abstract class BaseDefender extends GameObject {
     }
     public int getAttackCost() {
         return attackPrice;
+    }
+    public BaseDefender getDefender() {
+        return this;
     }
     public DefenderType getDefenderType() {
         return defenderType;
