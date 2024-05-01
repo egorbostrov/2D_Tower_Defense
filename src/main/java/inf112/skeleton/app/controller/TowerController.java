@@ -208,7 +208,8 @@ public class TowerController implements Render{
 
     public void sellSelectedDefender() {
         if (selectedDefenderUpgrade != null) {
-            level.addMoney(TOWER_PRICE_GUNNER); // FIX THIS, should be diffrent price for each tower
+            int refundAmount = (int)(selectedDefenderUpgrade.getDefender().getPrice() * 0.75);
+            level.addMoney(refundAmount);
             defenderList.remove(selectedDefenderUpgrade);
             selectedDefenderUpgrade = null;
         }
