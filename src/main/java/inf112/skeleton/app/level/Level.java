@@ -1,6 +1,5 @@
 package inf112.skeleton.app.level;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,11 +11,15 @@ import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
+import inf112.skeleton.app.util.MoneyPopup;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.map.Map;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Level implements EnemyEvents {
     private int currentWave;
@@ -39,6 +42,9 @@ public class Level implements EnemyEvents {
     private boolean isDoubleSpeedActive = false;
 
     private final int mapNumber;
+
+    private final List<MoneyPopup> popups = new ArrayList<>();
+
 
     public Level(int mapNumber) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -256,6 +262,7 @@ public class Level implements EnemyEvents {
      */
     public void addMoney(int amount) {
         this.money += amount;
+        createMoneyPopup("+$" + amount, Color.GREEN, true);
     }
 
     /**
@@ -264,7 +271,29 @@ public class Level implements EnemyEvents {
      */
     public void removeMoney(int amount) {
         this.money -= amount;
+        if (this.money >= amount) {
+            this.money -= amount;
+            if (!towerController.isSelectedTowerUpgrade()) {
+                createMoneyPopup("-$" + amount, Color.RED, true);
+            } else {
+                createMoneyPopup("-$" + amount, Color.RED, false);
+            }
+        }
     }
+
+    private void createMoneyPopup(String text, Color color, boolean useDefaultPosition) {
+        float x = 135;
+        float y = Gdx.graphics.getHeight() - 120;
+
+        if (!useDefaultPosition && towerController.getSelectedDefenderUpgrade() != null) {
+            x = towerController.getSelectedDefenderUpgrade().center.x;
+            y = towerController.getSelectedDefenderUpgrade().center.y + 40;
+        }
+
+        MoneyPopup popup = new MoneyPopup(text, x, y, color, 2.0f);
+        popups.add(popup);
+    }
+
 
     public void pause() {
         isPaused = true;
@@ -272,6 +301,10 @@ public class Level implements EnemyEvents {
 
     public void resume() {
         isPaused = false;
+    }
+
+    public List<MoneyPopup> getPopups() {
+        return popups;
     }
 
     public int getScore(){
