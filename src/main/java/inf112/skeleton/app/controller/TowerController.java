@@ -226,7 +226,6 @@ public class TowerController implements Render{
     }
 
     public boolean isSelectedTowerUpgrade(){
-        System.out.println(isSelectedDefender);
         return isSelectedDefender;
     }
 

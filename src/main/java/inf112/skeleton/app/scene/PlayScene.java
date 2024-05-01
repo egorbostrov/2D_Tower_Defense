@@ -103,7 +103,6 @@ public class PlayScene extends AbstractGameScene {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Exit clicked");
                 level.pause();
                 game.setScreen(new MenuScene(game));
             }
@@ -113,7 +112,6 @@ public class PlayScene extends AbstractGameScene {
         optionsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Options selected");
                 OptionScene.setFromPlayScene();
                 game.setScreen(new OptionScene(game, currentMapNumber));
             }
@@ -125,7 +123,6 @@ public class PlayScene extends AbstractGameScene {
         gunnerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("gunner selected");
                 onTowerClicked(DefenderType.GUNNER);
             }
         });
@@ -135,7 +132,6 @@ public class PlayScene extends AbstractGameScene {
         sniperButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("sniper selected");
                 onTowerClicked(DefenderType.SNIPER);
             }
         });
@@ -145,7 +141,6 @@ public class PlayScene extends AbstractGameScene {
         bomberButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("bomber selected");
                 onTowerClicked(DefenderType.BOMBER);
             }
         });
@@ -158,10 +153,8 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledSpeed = !isToggledSpeed;
                 if (isToggledSpeed) {
-                    System.out.println("Double speed clicked");
                     level.doubleSpeedClicked();
                 } else {
-                    System.out.println("Normal speed clicked");
                     level.normalSpeedClicked();
                 }
             }
@@ -173,10 +166,8 @@ public class PlayScene extends AbstractGameScene {
             public void changed(ChangeEvent event, Actor actor) {
                 isToggledPause = !isToggledPause;
                 if (isToggledPause) {
-                    System.out.println("Pause clicked");
                     level.pause();
                 } else {
-                    System.out.println("Resume clicked");
                     level.resume();
                 }
             }
@@ -187,7 +178,6 @@ public class PlayScene extends AbstractGameScene {
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade speed button clicked");
                 level.upgradeSpeedClicked();
             }
         });
@@ -196,7 +186,6 @@ public class PlayScene extends AbstractGameScene {
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade damage button clicked");
                 level.upgradeAttackClicked();
             }
         });
@@ -205,7 +194,6 @@ public class PlayScene extends AbstractGameScene {
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Upgrade range button clicked");
                 level.upgradeRangeClicked();
             }
         });
@@ -231,6 +219,7 @@ public class PlayScene extends AbstractGameScene {
         gameLayer.bottom().left();
         gameLayer.add(doubleSpeedButton).pad(10).size(60);
         gameLayer.add(pauseButton).pad(10).size(60).padRight(200);
+
         // Game layer configuration: aligned to the bottom
         gameLayer.bottom();
         gameLayer.add(gunnerButton).pad(10).size(60);
@@ -267,19 +256,9 @@ public class PlayScene extends AbstractGameScene {
         spriteBatch.begin();
         level.getMap().render(spriteBatch);
         level.render(spriteBatch);
-
-        if (towerController.isSelectedTowerUpgrade()) {
-            speedUpgradeButton.setVisible(true);
-            damageUpgradeButton.setVisible(true);
-            rangeUpgradeButton.setVisible(true);
-        } else{
-            speedUpgradeButton.setVisible(false);
-            damageUpgradeButton.setVisible(false);
-            rangeUpgradeButton.setVisible(false);
-        }
-
         spriteBatch.end();
 
+        visibilityUpgradeButtons();
         renderInfo(spriteBatch);
         towerPlacementIndicator();
         towerUpgradeIndicator();
@@ -293,6 +272,19 @@ public class PlayScene extends AbstractGameScene {
         }
 
     }
+
+    private void visibilityUpgradeButtons() {
+        if (towerController.isSelectedTowerUpgrade()) {
+            speedUpgradeButton.setVisible(true);
+            damageUpgradeButton.setVisible(true);
+            rangeUpgradeButton.setVisible(true);
+        } else{
+            speedUpgradeButton.setVisible(false);
+            damageUpgradeButton.setVisible(false);
+            rangeUpgradeButton.setVisible(false);
+        }
+    }
+
     private TextureRegion getTowerRegion(DefenderType type) {
         switch (type) {
             case GUNNER:
