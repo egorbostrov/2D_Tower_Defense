@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
+import com.badlogic.gdx.files.FileHandle;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.util.GameConstants;
@@ -18,7 +19,7 @@ public class MapTest {
     private Map map;
     private static HeadlessApplication application;
 
-    private int randomNumber;
+    private int randomMapNumber;
     @BeforeAll
     public static void setupBeforeAll(){
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
@@ -28,14 +29,14 @@ public class MapTest {
     @BeforeEach
     void setUp(){
         Random random = new Random();
-        randomNumber = 1 + random.nextInt(2);
-        map = new Map(randomNumber);
+        randomMapNumber = 1 + random.nextInt(2);
+        map = new Map(randomMapNumber);
     }
 
     @Test
     void testInitializeMap(){
         assertNotNull(map);
-        assertEquals(map.getFilehandle(), Gdx.files.internal("maps/map" + randomNumber + ".txt"));
+        assertEquals(map.getFilehandle(), Gdx.files.internal("maps/map" + randomMapNumber + ".txt"));
     }
 
     @Test
@@ -76,7 +77,26 @@ public class MapTest {
     @Test
     void testDirections(){
         LinkedList<Direction> mapList = map.getDirections();
-
+        LinkedList<Direction> testDirections = new LinkedList<>();
+        FileHandle mapFileHandle = Gdx.files.internal("maps/map" + randomMapNumber + ".txt");
+        String mapFileString = mapFileHandle.readString();
+        String[] lines = mapFileString.split("\n");
+        for(String line : lines) {
+            if(line.startsWith("Directions:")) {
+                continue;
+                }
+            String[] dirs = line.split(",\\s*");
+            for(String dir : dirs) {
+                dir = dir.trim();
+                switch (dir) {
+                    case "U" -> testDirections.add(Direction.UP);
+                    case "D" -> testDirections.add(Direction.DOWN);
+                    case "L" -> testDirections.add(Direction.LEFT);
+                    case "R" -> testDirections.add(Direction.RIGHT);
+                }
+            }
+        }
+        assertEquals(mapList, testDirections);
     }
 
     @AfterAll
