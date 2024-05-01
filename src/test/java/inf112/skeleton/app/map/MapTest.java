@@ -4,38 +4,19 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
-import com.badlogic.gdx.graphics.GL20;
-import inf112.skeleton.app.entity.Enemy;
-import inf112.skeleton.app.level.Level;
-import inf112.skeleton.app.map.Map;
+import inf112.skeleton.app.enums.GridType;
+import inf112.skeleton.app.util.GameConstants;
+import org.junit.jupiter.api.*;
 
-import inf112.skeleton.app.util.GameAssets;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import com.badlogic.gdx.files.FileHandle;
-import java.util.LinkedList;
 import java.util.Random;
-
-import static inf112.skeleton.app.util.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+
 
 public class MapTest {
-
-    @Mock
-    private Map mockMap;
-
-    @Mock
-    private FileHandle mockFileHandle;
-
+    private Map map;
     private static HeadlessApplication application;
 
-
+    private int randomNumber;
     @BeforeAll
     public static void setupBeforeAll(){
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
@@ -44,20 +25,20 @@ public class MapTest {
 
     @BeforeEach
     void setUp(){
-
-        mockMap = new Map(1);
-
+        Random random = new Random();
+        randomNumber = 1 + random.nextInt(2);
+        map = new Map(randomNumber);
     }
 
     @Test
     void testInitializeMap(){
-        assertNotNull(mockMap);
-
+        assertNotNull(map);
+        assertEquals(map.getFilehandle(), Gdx.files.internal("maps/map" + randomNumber + ".txt"));
     }
 
     @Test
     void testBoardCreationWithValidData() {
-        assertNotNull(mockMap.getBoard());
+        assertNotNull(map.getBoard());
     }
 
     @Test
@@ -67,6 +48,26 @@ public class MapTest {
         int randomOverThree = 3 + random.nextInt(100);
         assertThrows(IllegalArgumentException.class, () -> new Map(randomNegativeNumber));
         assertThrows(IllegalArgumentException.class, () -> new Map(randomOverThree));
+    }
+
+    @Test
+    void testSelectedTileOffMap(){
+        Random random = new Random();
+        int randomNegativeNumberOne = random.nextInt(100) * -1;
+        int randomNegativeNumberTwo = random.nextInt(100) * -1;
+        Tile tileOffMap = map.getSelectedTile(randomNegativeNumberOne, randomNegativeNumberTwo);
+        assertEquals(tileOffMap.getX(), -1);
+        assertEquals(tileOffMap.getY(), -1);
+        assertEquals(tileOffMap.getType(), GridType.ILLEGALPLACEMENT);
+    }
+
+    @RepeatedTest(100)
+    void testSelectedTile(){
+        Random random = new Random();
+        int randomNumberOne = random.nextInt((int) GameConstants.MAP_WIDTH);
+        int randomNumberTwo =(int) GameConstants.UI_HEIGHT +  random.nextInt((int) GameConstants.MAP_HEIGHT);
+        Tile tileOnMap = map.getSelectedTile(randomNumberOne, randomNumberTwo);
+        assertNotEquals(tileOnMap.getType(), GridType.ILLEGALPLACEMENT);
     }
 
     @AfterAll
