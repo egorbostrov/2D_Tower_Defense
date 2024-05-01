@@ -18,6 +18,11 @@ public class GunnerDefender extends BaseDefender {
         initializeSprites(GameAssets.getInstance().getAtlas(), "gunna0", "gunna0");
         damage = GameConstants.TOWER_DAMAGE_GUNNER;
         range = GameConstants.TOWER_RANGE;
+        price = GameConstants.TOWER_PRICE_GUNNER;
+    }
+
+    public float getPrice() {
+        return this.price;
     }
 
     @Override

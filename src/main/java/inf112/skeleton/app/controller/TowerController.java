@@ -25,6 +25,7 @@ public class TowerController implements Render{
     private static TowerController instance;
 
     private final List<BaseDefender> defenderList;
+    private boolean isSelectedDefender;
     private BaseDefender currentDefender;
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
@@ -207,7 +208,8 @@ public class TowerController implements Render{
 
     public void sellSelectedDefender() {
         if (selectedDefenderUpgrade != null) {
-            level.addMoney(TOWER_PRICE_GUNNER); // FIX THIS, should be diffrent price for each tower
+            int refundAmount = (int)(selectedDefenderUpgrade.getDefender().getPrice() * 0.75);
+            level.addMoney(refundAmount);
             defenderList.remove(selectedDefenderUpgrade);
             selectedDefenderUpgrade = null;
         }
@@ -221,6 +223,15 @@ public class TowerController implements Render{
     public void setSelectedTowerUpgrade(BaseDefender defender) {
         defender.selectedDefender(true);
         selectedDefenderUpgrade = defender;
+        isSelectedDefender = true;
+    }
+
+    public boolean isSelectedTowerUpgrade(){
+        return isSelectedDefender;
+    }
+
+    public void clearSelectedDefenderUpgrade() {
+        isSelectedDefender = false;
     }
 
     public BaseDefender getSelectedDefenderUpgrade() {
