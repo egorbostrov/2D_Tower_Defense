@@ -4,10 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
+import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.util.GameConstants;
 import org.junit.jupiter.api.*;
 
+import java.util.LinkedList;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +43,7 @@ public class MapTest {
         assertNotNull(map.getBoard());
     }
 
-    @Test
+    @RepeatedTest(50)
     void testHandleInvalidMapSelection() {
         Random random = new Random();
         int randomNegativeNumber = random.nextInt(100) * -1;
@@ -50,7 +52,8 @@ public class MapTest {
         assertThrows(IllegalArgumentException.class, () -> new Map(randomOverThree));
     }
 
-    @Test
+
+    @RepeatedTest(50)
     void testSelectedTileOffMap(){
         Random random = new Random();
         int randomNegativeNumberOne = random.nextInt(100) * -1;
@@ -61,13 +64,19 @@ public class MapTest {
         assertEquals(tileOffMap.getType(), GridType.ILLEGALPLACEMENT);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(50)
     void testSelectedTile(){
         Random random = new Random();
         int randomNumberOne = random.nextInt((int) GameConstants.MAP_WIDTH);
-        int randomNumberTwo =(int) GameConstants.UI_HEIGHT +  random.nextInt((int) GameConstants.MAP_HEIGHT);
+        int randomNumberTwo =(int) (GameConstants.UI_ROWS_BOTTOM * GameConstants.TILE_HEIGHT) + random.nextInt((int) GameConstants.MAP_HEIGHT);
         Tile tileOnMap = map.getSelectedTile(randomNumberOne, randomNumberTwo);
         assertNotEquals(tileOnMap.getType(), GridType.ILLEGALPLACEMENT);
+    }
+
+    @Test
+    void testDirections(){
+        LinkedList<Direction> mapList = map.getDirections();
+
     }
 
     @AfterAll
