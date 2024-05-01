@@ -203,37 +203,43 @@ public class PlayScene extends AbstractGameScene {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 towerController.sellSelectedDefender();
+                towerController.clearSelectedDefenderUpgrade();
             }
         });
 
         Table systemLayer = new Table();
+        Table upgradeLayer = new Table();
         Table gameLayer = new Table();
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
         // System layer configuration: aligned to the top-right
         systemLayer.right().top();  // Ensures content within is aligned to the right
-        systemLayer.add(exitButton).pad(10).size(45);
-        systemLayer.add(optionsButton).pad(10).size(45);
+        systemLayer.add(exitButton).pad(5).size(50);
+        systemLayer.add(optionsButton).padLeft(10).pad(5).size(50);
+
+        upgradeLayer.right().top();
+        upgradeLayer.add(speedUpgradeButton).pad(10).size(60).row();
+        upgradeLayer.add(damageUpgradeButton).pad(10).size(60).row();
+        upgradeLayer.add(rangeUpgradeButton).pad(10).size(60).row();
+        upgradeLayer.add(removeDefenderButton).pad(10).padTop(50).size(60);
 
         gameLayer.bottom().left();
-        gameLayer.add(doubleSpeedButton).pad(10).size(60);
-        gameLayer.add(pauseButton).pad(10).size(60).padRight(200);
+        gameLayer.add(doubleSpeedButton).pad(10).padBottom(20).size(80);
+        gameLayer.add(pauseButton).pad(10).padBottom(20).size(80).padRight(250);
 
         // Game layer configuration: aligned to the bottom
         gameLayer.bottom();
-        gameLayer.add(gunnerButton).pad(10).size(60);
-        gameLayer.add(sniperButton).pad(10).size(60);
-        gameLayer.add(bomberButton).pad(10).size(60).padRight(200);
-        gameLayer.add(speedUpgradeButton).pad(10).size(60);
-        gameLayer.add(damageUpgradeButton).pad(10).size(60);
-        gameLayer.add(rangeUpgradeButton).pad(10).size(60);
-        gameLayer.add(removeDefenderButton).pad(10).padLeft(50).size(60);
+        gameLayer.add(gunnerButton).pad(10).padBottom(20).size(80);
+        gameLayer.add(sniperButton).pad(10).padBottom(20).size(80);
+        gameLayer.add(bomberButton).pad(10).padBottom(20).size(80);
 
-            // Adding layers to the main table
+        // Adding layers to the main table
         mainTable.top();  // Ensures that we start adding from the top
         mainTable.add(systemLayer).expandX().fillX().right();  // Stretches horizontally and aligns to the right
-        mainTable.row();  // Separates systemLayer from gameLayer vertically
+        mainTable.row();
+        mainTable.add(upgradeLayer).expandX().fillX().right();  // Stretches horizontally and aligns to the right
+        mainTable.row();// Separates systemLayer from gameLayer vertically
         mainTable.add(gameLayer).expand().fill();  // Game layer fills the remaining space
 
         mainTable.setDebug(true);  // Enables table border lines for debugging
@@ -278,10 +284,12 @@ public class PlayScene extends AbstractGameScene {
             speedUpgradeButton.setVisible(true);
             damageUpgradeButton.setVisible(true);
             rangeUpgradeButton.setVisible(true);
-        } else{
+            removeDefenderButton.setVisible(true);
+        } else if (!towerController.isSelectedTowerUpgrade() && !towerController.isTowerSelected()) {
             speedUpgradeButton.setVisible(false);
             damageUpgradeButton.setVisible(false);
             rangeUpgradeButton.setVisible(false);
+            removeDefenderButton.setVisible(false);
         }
     }
 
