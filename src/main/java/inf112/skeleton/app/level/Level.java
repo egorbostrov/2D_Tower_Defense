@@ -14,11 +14,15 @@ import inf112.skeleton.app.scene.CameraManager;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.ui.menu.InformationMenu;
 import inf112.skeleton.app.ui.menu.MainControlMenu;
+import inf112.skeleton.app.ui.menu.MoneyPopup;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.map.Map;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Level implements EnemyEvents {
     private int currentWave;
@@ -44,6 +48,9 @@ public class Level implements EnemyEvents {
     private boolean isDoubleSpeedActive = false;
 
     private final int mapNumber;
+
+    private final List<MoneyPopup> popups = new ArrayList<>();
+
 
     public Level(Game game, int mapNumber) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -164,6 +171,7 @@ public class Level implements EnemyEvents {
         addMoney(reward);
         infoMenu.fireScoreChanged(this.score);
         towerSelectionMenu.fireEnemyNumberChanged(numberOfEnemies);
+        //createMoneyPopup("+$" + reward, Color.GREEN, true);
     }
 
     /**
@@ -274,6 +282,7 @@ public class Level implements EnemyEvents {
         this.money += amount;
         infoMenu.fireMoneyChanged(money);
         towerSelectionMenu.moneyChanged(money);
+        createMoneyPopup("+$" + amount, Color.GREEN, true);
     }
 
     /**
@@ -281,10 +290,31 @@ public class Level implements EnemyEvents {
      * @param amount to be removed from your balance
      */
     public void removeMoney(int amount) {
-        this.money -= amount;
-        infoMenu.fireMoneyChanged(money);
-        towerSelectionMenu.moneyChanged(money);
+        if (this.money >= amount) {
+            this.money -= amount;
+            infoMenu.fireMoneyChanged(money);
+            towerSelectionMenu.moneyChanged(money);
+            if (!towerController.isSelectedTowerUpgrade()) {
+                createMoneyPopup("-$" + amount, Color.RED, true);
+            } else {
+                createMoneyPopup("-$" + amount, Color.RED, false);
+            }
+        }
     }
+
+    private void createMoneyPopup(String text, Color color, boolean useDefaultPosition) {
+        float x = 135;
+        float y = Gdx.graphics.getHeight() - 120;
+
+        if (!useDefaultPosition && towerController.getSelectedDefenderUpgrade() != null) {
+            x = towerController.getSelectedDefenderUpgrade().center.x;
+            y = towerController.getSelectedDefenderUpgrade().center.y + 40;
+        }
+
+        MoneyPopup popup = new MoneyPopup(text, x, y, color, 2.0f);
+        popups.add(popup);
+    }
+
 
     public void pause() {
         isPaused = true;
@@ -292,6 +322,10 @@ public class Level implements EnemyEvents {
 
     public void resume() {
         isPaused = false;
+    }
+
+    public List<MoneyPopup> getPopups() {
+        return popups;
     }
 
     public int getScore(){
