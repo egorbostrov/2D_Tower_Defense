@@ -202,7 +202,7 @@ public class Enemy extends GameObject{
         if (elapsedTimeStart < spawnDelay || currentDirection == null) {
             return;
         }
-        if (distanceToTile < 0){
+        if (distanceToTile <= 0){
             getNextDistance();
         }
         if (currentDirection != null){
