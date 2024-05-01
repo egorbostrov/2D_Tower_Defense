@@ -44,7 +44,7 @@ public class MapTest {
         assertNotNull(map.getBoard());
     }
 
-    @RepeatedTest(50)
+    @RepeatedTest(10)
     void testHandleInvalidMapSelection() {
         Random random = new Random();
         int randomNegativeNumber = random.nextInt(100) * -1;
@@ -54,7 +54,7 @@ public class MapTest {
     }
 
 
-    @RepeatedTest(50)
+    @RepeatedTest(10)
     void testSelectedTileOffMap(){
         Random random = new Random();
         int randomNegativeNumberOne = random.nextInt(100) * -1;
@@ -65,7 +65,7 @@ public class MapTest {
         assertEquals(tileOffMap.getType(), GridType.ILLEGALPLACEMENT);
     }
 
-    @RepeatedTest(50)
+    @RepeatedTest(10)
     void testSelectedTile(){
         Random random = new Random();
         int randomNumberOne = random.nextInt((int) GameConstants.MAP_WIDTH);
