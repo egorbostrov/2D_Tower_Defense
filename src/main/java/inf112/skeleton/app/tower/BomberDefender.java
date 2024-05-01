@@ -26,9 +26,14 @@ public class BomberDefender extends BaseDefender{
         defenderType = DefenderType.BOMBER;
         damage = GameConstants.TOWER_DAMAGE_BOMBER;
         explosionRadius = GameConstants.BOMBER_EXPLOSION_RADIUS;
+        price = GameConstants.TOWER_PRICE_BOMBER;
         initializeSprites(GameAssets.getInstance().getAtlas(), "bomba0", "bomba0");
 
 
+    }
+
+    public float getPrice() {
+        return this.price;
     }
 
     /**
