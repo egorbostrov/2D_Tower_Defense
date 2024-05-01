@@ -28,6 +28,10 @@ public class GameConstants {
     public static float SCREEN_HEIGHT = TILE_HEIGHT * (MAP_ROWS + UI_ROWS_BOTTOM + UI_ROWS_TOP);
     public static float SCREEN_WIDTH = TILE_WIDTH * COLUMN_SIZE;
 
+    public static float MAP_HEIGHT = TILE_HEIGHT * MAP_ROWS;
+
+    public static float MAP_WIDTH = TILE_WIDTH * COLUMN_SIZE;
+
 
     public static float ENEMY_WIDTH = TILE_WIDTH;
     public static float ENEMY_HEIGHT = TILE_HEIGHT;
