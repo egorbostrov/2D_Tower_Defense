@@ -1,6 +1,7 @@
 package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.Application;
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
@@ -15,9 +16,12 @@ import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.scene.PlayScene;
 import inf112.skeleton.app.util.GameConstants;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -30,15 +34,28 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
+import org.mockito.Mock;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({PlayScene.class, SpriteBatch.class, ShaderProgram.class, TDGame.class})
 public class TowerControllerTest {
+
+    @Mock
     private TowerController towerController;
-    private Level level;
+
+    @Mock
+    private Level mockLevel;
+    @Mock
+    private TDGame mockGame;
+    private static HeadlessApplication application;
     private List<Enemy> enemyList;
-    TDGame game;
-    HeadlessApplicationConfiguration config;
+
+    @BeforeAll
+    public static void setupBeforeAll() {
+        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
+        application = new HeadlessApplication(new ApplicationAdapter() {}, config);
+        Gdx.gl20 = Mockito.mock(GL20.class);
+        Gdx.gl = Gdx.gl20;
+        when(Gdx.gl.glGenTexture()).thenReturn(1);
+    }
 
     @BeforeEach
     void setUp() throws Exception {
@@ -60,33 +77,29 @@ public class TowerControllerTest {
 
         // Since we are preparing PlayScene for test, we mock its constructor as needed
         PlayScene mockPlayScene = mock(PlayScene.class);
-        whenNew(PlayScene.class).withArguments(any(TDGame.class)).thenReturn(mockPlayScene);
+
         when(mockPlayScene.getLevel()).thenReturn(mock(Level.class)); // Stub the getLevel method
 
         // Create the actual game object
-        game = mock(TDGame.class);
+        mockGame = mock(TDGame.class);
 
         // Create the headless application (necessary if your game logic requires the application to be initialized)
-        config = new HeadlessApplicationConfiguration();
-        new HeadlessApplication(game, config);
 
-        // Setup the rest of your test objects as needed
-        level = (Level) mockPlayScene.getLevel(); // Use the mocked PlayScene to get a mock Level
+
+        // Set up the rest of your test objects as needed
+        mockLevel = (Level) mockPlayScene.getLevel(); // Use the mocked PlayScene to get a mock Level
         towerController = mock(TowerController.class); // Mock the TowerController if necessary
         enemyList = new ArrayList<>();
-        when(level.getMoney()).thenReturn(GameConstants.START_MONEY); // Stub the getMoney method
+        when(mockLevel.getMoney()).thenReturn(GameConstants.START_MONEY); // Stub the getMoney method
     }
 
 
-    private void setMoney(int amount) {
-        level.addMoney(amount - level.getMoney()); // Reset and set money to the exact amount needed for the test.
-    }
 
     @Test
     public void testBuildGunnerTowerWhenEnoughMoney() {
         // Arrange
         int startMoney = TOWER_PRICE_GUNNER;
-        when(level.getMoney()).thenReturn(startMoney);
+        when(mockLevel.getMoney()).thenReturn(startMoney);
         when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.GUNNER)))
                 .thenReturn(TOWER_PRICE_GUNNER);  // Assuming the tower is successfully built and the cost is returned
 
@@ -102,7 +115,7 @@ public class TowerControllerTest {
     public void testBuildBomberTowerWhenEnoughMoney() {
         // Arrange
         int startMoney = TOWER_PRICE_BOMBER;
-        when(level.getMoney()).thenReturn(startMoney);
+        when(mockLevel.getMoney()).thenReturn(startMoney);
         when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.BOMBER)))
                 .thenReturn(TOWER_PRICE_BOMBER);  // Assuming the tower is successfully built and the cost is returned
 
@@ -117,7 +130,7 @@ public class TowerControllerTest {
     public void testBuildSniperTowerWhenEnoughMoney() {
         // Arrange
         int startMoney = TOWER_PRICE_SNIPER;
-        when(level.getMoney()).thenReturn(startMoney);
+        when(mockLevel.getMoney()).thenReturn(startMoney);
         when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), eq(DefenderType.SNIPER)))
                 .thenReturn(TOWER_PRICE_SNIPER);  // Assuming the tower is successfully built and the cost is returned
 
@@ -132,7 +145,7 @@ public class TowerControllerTest {
     public void testBuildTowerWhenNotEnoughMoney() {
         // Arrange
         int startMoney = 0; // Not enough money to build any tower
-        when(level.getMoney()).thenReturn(startMoney);
+        when(mockLevel.getMoney()).thenReturn(startMoney);
         when(towerController.buildTower(anyFloat(), anyFloat(), any(List.class), any(DefenderType.class)))
                 .thenReturn(0);  // Assuming the tower cannot be built due to lack of funds
 
@@ -145,5 +158,15 @@ public class TowerControllerTest {
         assertEquals(0, resultGunner); // Check that no money is deducted if there isn't enough to begin with
         assertEquals(0, resultBomber); // Same for bomber
         assertEquals(0, resultSniper); // And for sniper
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        if(application != null) {
+            application.exit();
+            application = null;
+        }
+        Gdx.gl = null;
+        Gdx.gl20 = null;
     }
 }
