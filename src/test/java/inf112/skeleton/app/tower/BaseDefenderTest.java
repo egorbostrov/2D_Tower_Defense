@@ -135,6 +135,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.Direction;
+import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -151,11 +152,8 @@ import static org.junit.Assert.*;
 
 public class BaseDefenderTest {
 
-    @Mock
     private Enemy mockEnemy;
-    @Mock
     private BaseDefender mockBaseDefender;
-    @Mock
     private HashMap<Enemy, Float> mockHashMap;
     private List<Enemy> enemies;
     private TestableDefender defender;
@@ -166,11 +164,12 @@ public class BaseDefenderTest {
     public static void init() {
         // Create a headless application to initialize the LibGDX environment
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
+        Gdx.gl = Mockito.mock(GL20.class);
+        Gdx.gl20 = Mockito.mock(GL20.class);
         new HeadlessApplication(new ApplicationAdapter() {}, config);
 
         // Mock out the GL20 instance to prevent NPE when graphics calls are made
-        Gdx.gl = Mockito.mock(GL20.class);
-        Gdx.gl20 = Mockito.mock(GL20.class);
+        
     }
 
     @BeforeEach
@@ -223,10 +222,12 @@ public class BaseDefenderTest {
     public void testUpdateWithAliveEnemy() {
         // Prepare the defender with a known enemy
         float startRotation = 0;
+        mockBaseDefender = Mockito.mock(BaseDefender.class);
         when(mockBaseDefender.getEnemy()).thenReturn(mockEnemy);
-
+        mockEnemy = Mockito.mock(Enemy.class);
         when(mockEnemy.isAlive()).thenReturn(true);
         //when(mockBaseDefender.getDirectionx()).thenReturn(-1f);
+        mockHashMap = Mockito.mock(HashMap.class);
         when(mockHashMap.containsKey(mockEnemy)).thenReturn(true);
 
         mockBaseDefender.update(1.0f); // The deltaTime triggers the internal behavior
@@ -293,7 +294,7 @@ public class BaseDefenderTest {
 
     @Test
     public void testGetPrice() {
-        GameAssets.getInstance().init();
+        // GameAssets.getInstance().init();
         GunnerDefender defender = new GunnerDefender(50, 50, enemies);
         assertTrue(defender.getPrice() == GameConstants.TOWER_PRICE_GUNNER);
     }
