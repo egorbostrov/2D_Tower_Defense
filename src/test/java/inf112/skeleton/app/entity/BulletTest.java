@@ -10,6 +10,7 @@ import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.tower.GunnerDefender;
 import inf112.skeleton.app.tower.SniperDefender;
 import inf112.skeleton.app.util.GameAssets;
+import inf112.skeleton.app.util.MusicManager;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -34,11 +35,13 @@ public class BulletTest {
         Gdx.gl = Gdx.gl20;
         when(Gdx.gl.glGenTexture()).thenReturn(1);
         GameAssets.instance.init();
+        mockStatic(MusicManager.class);
     }
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
 
     }
 
