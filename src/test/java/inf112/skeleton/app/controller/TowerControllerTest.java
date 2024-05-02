@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -20,22 +19,18 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import inf112.skeleton.app.map.Tile;
 import inf112.skeleton.app.tower.BaseDefender;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyFloat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TowerControllerTest {
@@ -295,6 +290,22 @@ public class TowerControllerTest {
 
         verify(mockDefender, times(1)).render(any(ShapeRenderer.class));  // Expect the shapeRender method to be called
     }
+
+    @Test
+public void testClearSelectedTower() {
+    // Setup: Assuming there's a method or way to set a selected tower.
+    BaseDefender mockDefender = mock(BaseDefender.class);
+    towerController.setSelectedTowerUpgrade(mockDefender);
+    towerController.setTowerSelected(DefenderType.GUNNER);  // Manually setting a tower as selected
+
+    // Act: Clear the selected tower.
+    towerController.clearSelectedTower();
+
+    // Verify: Ensure the selected tower is cleared.
+    assertFalse(towerController.isTowerSelected(), "Tower should no longer be selected after clearing.");
+    assertNull(towerController.getSelectedDefenderUpgrade(), "No defender should be selected after clearing.");
+}
+
 
     @AfterAll
     public static void tearDown() {
