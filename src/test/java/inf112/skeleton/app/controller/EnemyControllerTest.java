@@ -109,16 +109,38 @@ public class EnemyControllerTest {
 
     @Test
     void checkBoundsForEnemyTest() {
-        Enemy enemy1 = new Enemy('R', SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
+        Enemy enemy1 = new Enemy('R', SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
         enemyController.newZombie(enemy1);
         //Enemy is within bounds
         assertFalse(enemyController.boundsPublic(enemy1));
         enemyController.clearEnemies();
 
-        Enemy enemy2 = new Enemy('R', -1, SCREEN_WIDTH + 1, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
+        Enemy enemy2 = new Enemy('R', -20, SCREEN_HEIGHT /2, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
         enemyController.newZombie(enemy2);
-        //Enemy is out of bounds
+        //Enemy is out of bounds to the left
         assertTrue(enemyController.boundsPublic(enemy2));
+        enemyController.clearEnemies();
+
+
+        Enemy enemy3 = new Enemy('R', SCREEN_WIDTH + 20, SCREEN_HEIGHT / 2, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
+        enemyController.newZombie(enemy3);
+        //Enemy is out of bounds to the right
+        assertTrue(enemyController.boundsPublic(enemy3));
+        enemyController.clearEnemies();
+
+
+        Enemy enemy4 = new Enemy('R', SCREEN_WIDTH / 2, SCREEN_HEIGHT + 20, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
+        enemyController.newZombie(enemy4);
+        //Enemy is out of bounds over the top
+        assertTrue(enemyController.boundsPublic(enemy4));
+        enemyController.clearEnemies();
+
+        Enemy enemy5 = new Enemy('R', SCREEN_WIDTH / 2, -20, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
+        enemyController.newZombie(enemy5);
+        //Enemy is out of bounds under the bottom
+        assertTrue(enemyController.boundsPublic(enemy5));
+        enemyController.clearEnemies();
+
     }
 
     /**
