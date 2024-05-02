@@ -253,4 +253,8 @@ public class TowerController implements Render{
     public void clearDefenders() {
         defenderList.clear();
     }
+
+    public float getDamage(){
+        return currentDefender.getDamage();
+    }
 }
