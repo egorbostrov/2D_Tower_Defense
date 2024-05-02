@@ -68,7 +68,7 @@
 //     @Test
 //     public void testEnemyInteraction() {
 //         // Call the update method which should now work with the actual Enemy instance
-        
+
 //         defender.update(1.0f);
 
 //         // Perform assertions based on the expected interactions between the defender and the enemy
@@ -134,6 +134,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.util.GameAssets;
@@ -233,16 +234,30 @@ public class BaseDefenderTest {
     // and functionalities within the update method.
 
     @Test
-public void testDamageUpgrade() {
-    float initialDamage = 10.0f; // Assuming you can set this value directly for testing
-    defender.setDamage(initialDamage);
-    
-    defender.damageUpgrade();
-    
-    float upgradedDamage = defender.getDamage();
-    assertTrue("Damage should increase after upgrade, was: " + upgradedDamage + ", but expected more than: " + initialDamage,
-            upgradedDamage > initialDamage);
-}
+    public void testDamageUpgrade() {
+        float initialDamage = 10.0f; // Assuming you can set this value directly for testing
+        defender.setDamage(initialDamage);
+
+        defender.damageUpgrade();
+
+        float upgradedDamage = defender.getDamage();
+        assertTrue("Damage should increase after upgrade, was: " + upgradedDamage + ", but expected more than: " + initialDamage,
+                upgradedDamage > initialDamage);
+    }
+
+    @Test
+    public void testSpeedUpgrade() {
+        float oldSpeed = defender.getSpeed();
+        defender.speedUpgrade();
+        assertTrue("Speed should increase after upgrade", defender.getSpeed() > oldSpeed);
+    }
+
+    @Test
+    public void testRangeUpgrade() {
+        float oldRange = defender.getRange();
+        defender.rangeUpgrade();
+        assertTrue("Range should increase after upgrade", defender.getRange() > oldRange);
+    }
 
 }
 
