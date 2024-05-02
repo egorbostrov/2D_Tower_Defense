@@ -68,7 +68,10 @@ public class WaveController {
         //Increase the zombie speed, health and decrease the delay inbetween their spawns.
         baseSpeedMultiplier += 0.05f;
         healthMultiplier *= 1.05f;
-        spawnDelay *= 0.75f;
+
+        if (spawnDelay > 0.5f) {
+            spawnDelay *= 0.80f;
+        }
 
         speedMultiplier = level.isDoubleSpeedActive() ? baseSpeedMultiplier * 2 : baseSpeedMultiplier;
 
