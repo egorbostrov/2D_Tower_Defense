@@ -114,4 +114,13 @@ public class EnemyController {
 
     public void render(ShapeRenderer renderer) {
     }
+
+    /**
+     * Used for testing
+     * @param enemy enemy to check bounds for
+     * @return true if enemy is out of bounds
+     */
+    public boolean boundsPublic(Enemy enemy) {
+        return checkBoundsForEnemy(enemy);
+    }
 }
