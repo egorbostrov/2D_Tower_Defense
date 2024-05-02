@@ -256,6 +256,14 @@ public class Enemy extends GameObject{
     }
 
     /**
+     * Used in testing
+     * @return the type of the enemy
+     */
+    public char getType() {
+        return type;
+    }
+
+    /**
      * @return enemy's healthBar
      */
     public HealthBar getHpBar(){

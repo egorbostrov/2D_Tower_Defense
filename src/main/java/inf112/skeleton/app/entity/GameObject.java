@@ -68,10 +68,10 @@ public abstract class GameObject implements Render {
     protected void initializeSprites(TextureAtlas atlas, String regularRegionName, String selectedRegionName) {
         TextureAtlas.AtlasRegion regularRegion = atlas.findRegion(regularRegionName);
         TextureAtlas.AtlasRegion selectedRegion = atlas.findRegion(selectedRegionName);
-        if (regularRegion == null || selectedRegion == null) {
-            Gdx.app.error("BaseDefender", "[BaseDefender] Sprite textures are not initialized!");
-            return;
-        }
+//        if (regularRegion == null || selectedRegion == null) {
+//            Gdx.app.error("BaseDefender", "[BaseDefender] Sprite textures are not initialized!");
+//            return;
+//        }
         this.sprite = new Sprite(regularRegion);
         this.spriteSelected = new Sprite(selectedRegion);
     }
