@@ -14,10 +14,7 @@ import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class BaseDefender extends GameObject {
 
@@ -82,10 +79,10 @@ public abstract class BaseDefender extends GameObject {
         if (enemy.isAlive() && enemyDistanceMap.containsKey(enemy)) {
             checkRotation();
             startFiring(deltaTime);
-            removeBullet();
         } else {
             enemy = null;
         }
+        removeBullet();
     }
 
     @Override
@@ -132,7 +129,7 @@ public abstract class BaseDefender extends GameObject {
      * Also ups the next upgrade price
      */
     public void damageUpgrade(){
-        damage *= 1.5;
+        damage *= 1.5f;
         attackPrice *= 2;
     }
 
@@ -141,7 +138,7 @@ public abstract class BaseDefender extends GameObject {
      * Also ups the next upgrade price
      */
     public void rangeUpgrade(){
-        range *= 1.1;
+        range *= 1.1f;
         rangePrice *= 2;
     }
 
@@ -150,7 +147,7 @@ public abstract class BaseDefender extends GameObject {
      * Also ups the next upgrade price
      */
     public void speedUpgrade(){
-        speed *= 1.1;
+        speed *= 1.1f;
         speedPrice *= 2;
     }
 
@@ -207,8 +204,7 @@ public abstract class BaseDefender extends GameObject {
      */
     private void removeBullet(){
         List<Bullet> tempList = new ArrayList<>();
-        for (int i = 0; i < bullets.size(); i++) {
-            Bullet bullet = bullets.get(i);
+        for (Bullet bullet : bullets) {
             if (!bullet.isVisible()) {
                 tempList.add(bullet);
             }
@@ -301,5 +297,12 @@ public abstract class BaseDefender extends GameObject {
     }
     public Rectangle getBoundingRectangle() {
         return new Rectangle(position.x, position.y, size.x, size.y);
+    }
+
+    /**
+     * @return list of bullets shot by the enemy
+     */
+    public List<Bullet> getBullets() {
+        return bullets;
     }
 }
