@@ -61,5 +61,7 @@ class GameObjectTest {
         assertEquals(30.0f + height / 2, gameObject.center.y);
     }
 
+
+
     // Add more tests for other methods and behaviors...
 }

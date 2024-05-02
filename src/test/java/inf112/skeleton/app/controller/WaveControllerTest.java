@@ -53,7 +53,11 @@ private static HeadlessApplication application;
 
     @AfterAll
     public static void tearDown() {
-        application.exit();
-        application = null;
+        if(application != null) {
+            application.exit();
+            application = null;
+        }
+        Gdx.gl = null;
+        Gdx.gl20 = null;
     }
 }

@@ -61,13 +61,13 @@ public class GameConstants {
     public static int TOWER_RANGE_PRICE = 15;
     public static int TOWER_SPEED_PRICE = 15;
     public static int TOWER_DAMAGE_GUNNER = 5;
-    public static final float BOMBER_EXPLOSION_RADIUS = 50;
+    public static final float BOMBER_EXPLOSION_RADIUS = 60;
     public static final float TOWER_DAMAGE_SNIPER = 15;
     public static final float TOWER_RANGE_SNIPER = 999;
     public static final float TOWER_SPEED_SNIPER = 5;
     public static final int TOWER_PRICE_GUNNER = 100;
-    public static final int TOWER_PRICE_BOMBER = 100;
-    public static final int TOWER_PRICE_SNIPER = 100;
+    public static final int TOWER_PRICE_BOMBER = 400;
+    public static final int TOWER_PRICE_SNIPER = 300;
 
 
     public static final float TOWER_DAMAGE_BOMBER = 10;
