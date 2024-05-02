@@ -272,7 +272,6 @@ public class Level implements EnemyEvents {
      * @param amount to be removed from your balance
      */
     public void removeMoney(int amount) {
-        this.money -= amount;
         if (this.money >= amount) {
             this.money -= amount;
             if (!towerController.isSelectedTowerUpgrade()) {

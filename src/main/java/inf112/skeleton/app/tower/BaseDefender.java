@@ -23,6 +23,7 @@ public abstract class BaseDefender extends GameObject {
     protected HashMap<Enemy, Float> enemyDistanceMap;
     protected DefenderType defenderType;
     private boolean isSelected = false;
+    private Vector2 direction;
     private boolean isSelectedDefender = false;
 
     protected Enemy enemy;
@@ -72,17 +73,21 @@ public abstract class BaseDefender extends GameObject {
         for (Bullet bullet : bullets) {
             bullet.update(deltaTime);
         }
-        if (enemy == null) {
+        if (getEnemy() == null) {
             findTarget();
-            return;
+           return;
         }
-        if (enemy.isAlive() && enemyDistanceMap.containsKey(enemy)) {
+        if (getEnemy().isAlive() && enemyDistanceMap.containsKey(enemy)) {
             checkRotation();
             startFiring(deltaTime);
         } else {
             enemy = null;
         }
         removeBullet();
+    }
+
+    public Enemy getEnemy(){
+        return this.enemy;
     }
 
     @Override
@@ -156,9 +161,9 @@ public abstract class BaseDefender extends GameObject {
      */
     private void checkRotation(){
         if (enemy != null) {
-            Vector2 direction = new Vector2(enemy.center).sub(center);
+            direction = new Vector2(enemy.center).sub(center);
             float angle = direction.angleDeg();
-            boolean shouldFlip = direction.x < 0;
+            boolean shouldFlip = getDirectionx() < 0;
             if (sprite.isFlipX() != shouldFlip) {
                 sprite.flip(true, false);
             }
@@ -169,6 +174,9 @@ public abstract class BaseDefender extends GameObject {
                 rotation = angle;
             }
         }
+    }
+    public float getRotation(){
+        return this.rotation;
     }
 
     /**
@@ -245,10 +253,6 @@ public abstract class BaseDefender extends GameObject {
         this.enemy = closestEnemy;
     }
 
-    public boolean contains(float x, float y){
-        return x >= position.x && x < position.x + size.x &&
-                y >= position.y && y < position.y + size.y;
-    }
 
     // getters and setters
     public Rectangle getHitBox(){
@@ -266,8 +270,8 @@ public abstract class BaseDefender extends GameObject {
     public void setDamage(float damage) {
         this.damage = damage;
     }
-    public void setSelected(boolean isSelected) {
-        this.isSelected = isSelected;
+    public void setRange(float range) {
+        this.range = range;
     }
     public float getPrice() { return price;}
     public float getRange() { return range;}
@@ -304,5 +308,13 @@ public abstract class BaseDefender extends GameObject {
      */
     public List<Bullet> getBullets() {
         return bullets;
+    }
+
+    /**
+     * used in testing
+     * @return direction
+     */
+    public float getDirectionx() {
+        return direction.x;
     }
 }
