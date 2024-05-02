@@ -47,10 +47,13 @@ public class MusicManager {
             currentMusic.setVolume(GameSettings.getVolMusic());
         }
     }
-    public static boolean isMusicPlaying() {
-        return currentMusic != null && currentMusic.isPlaying();
-    }
 
+    public static float getMusicVolume() {
+        return GameSettings.getVolMusic();
+    }
+    public static String getCurrentTrack() {
+        return currentTrack;
+    }
 
     // Game SFX
     // Defenders
