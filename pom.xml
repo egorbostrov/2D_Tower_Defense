@@ -197,6 +197,7 @@
 						<exclude>inf112/skeleton/app/Main.class</exclude>
 						<exclude>inf112/skeleton/app/TDGame.class</exclude>
 						<exclude>inf112/skeleton/app/scene/**/*.class</exclude>
+						<exclude>inf112/skeleton/app/controller/MouseController.class</exclude> <!--excluded as we test this manually-->
 					</excludes>
 				</configuration>
 				<executions>
