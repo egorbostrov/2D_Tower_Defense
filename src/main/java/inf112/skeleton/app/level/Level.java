@@ -1,20 +1,14 @@
 package inf112.skeleton.app.level;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import inf112.skeleton.app.controller.EnemyEvents;
 import inf112.skeleton.app.controller.WaveController;
 import inf112.skeleton.app.scene.CameraManager;
-import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.util.MoneyPopup;
 import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.util.GameUtil;
 import inf112.skeleton.app.controller.EnemyController;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.map.Map;
@@ -26,18 +20,13 @@ public class Level implements EnemyEvents {
     private int currentWave;
     private int score;
     private int money;
-    private int numberOfEnemies;
     private int enemiesKilled;
-    private int enemyHealth;
     private int userHealth;
     private Map map;
     private EnemyController enemyController;
     private WaveController waveController;
     private TowerController towerController;
 
-    private boolean changeTimeAndWaveNumber = false;
-    private int timeLeft;
-    private final BitmapFont bitmapFont;
     private final OrthographicCamera camera;
     private final CameraManager cameraManager;
     private boolean isPaused;
@@ -52,7 +41,6 @@ public class Level implements EnemyEvents {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.setToOrtho(false);
         this.cameraManager = new CameraManager(camera);
-        this.bitmapFont = GameUtil.generateBitmapFont(80, Color.BLACK);
         this.mapNumber = mapNumber;
         start();
     }
@@ -61,45 +49,18 @@ public class Level implements EnemyEvents {
      * Sets the start values for the start of the game and creates new map, controllers and menus
      */
     private void start() {
-        isPaused = false;
-        currentWave = 0;
-        score = 0;
-        money = GameConstants.START_MONEY;
-        numberOfEnemies = 10;
-        enemyHealth = 5;
-        userHealth = GameConstants.REMAINING_HEALTH;
-
         map = new Map(mapNumber);
         this.enemyController = EnemyController.getInstance(this);
         waveController = new WaveController(enemyController, mapNumber, false);
         this.towerController = TowerController.getInstance(this);
 
+        isPaused = false;
+        currentWave = 0;
+        score = 0;
+        money = GameConstants.START_MONEY;
+        userHealth = GameConstants.REMAINING_HEALTH;
     }
 
-    /**
-     * Renders the rectangles for the tiles
-     * @param renderer the shape to be rendered
-     */
-    public void render(ShapeRenderer renderer) {
-        map.render(renderer);
-        enemyController.render(renderer);
-        towerController.render(renderer);
-    }
-
-    /**
-     * Renders the given batch on map, enemyController, towerController, towerSelectionMenu and infoMenu.
-     *
-     * @param batch given batch
-     */
-    public void render(SpriteBatch batch) {
-        map.render(batch);
-        enemyController.render(batch);
-        towerController.render(batch);
-        if (changeTimeAndWaveNumber){
-            GameUtil.renderCenter("Wave: " + currentWave + " loading...", batch, bitmapFont);
-
-        }
-    }
 
     /**
      *
@@ -153,28 +114,8 @@ public class Level implements EnemyEvents {
     @Override
     public void enemyKilled(int reward){
         score += GameConstants.SCORE_INCREASE;
-        numberOfEnemies -= 1;
         enemiesKilled += 1;
         addMoney(reward);
-    }
-
-    /**
-     * Creates new enemies with new number of enemies
-     * @param waveEnemies number of enemies in the new wave
-     */
-    public void newWaveCreated(int waveEnemies) {
-        currentWave++;
-        numberOfEnemies = waveEnemies;
-        changeTimeAndWaveNumber = false;
-    }
-
-
-    /**
-     *
-     * @return the selected tower
-     */
-    public BaseDefender getSelectedDefender() {
-        return towerController.getSelectedDefender();//GULP
     }
 
     /**
@@ -185,14 +126,6 @@ public class Level implements EnemyEvents {
         return map;
     }
 
-    /**
-     * Sets the time left of the current wave
-     * @param seconds is the time left of the current wave
-     */
-    public void nextWaveCountDown(int seconds) {
-        changeTimeAndWaveNumber = true;
-        timeLeft = seconds;
-    }
 
     /**
      * If user has enough money, attack will be upgraded for the selected
@@ -227,10 +160,8 @@ public class Level implements EnemyEvents {
      * are set back to initial values from the start() method.
      */
     public void restart() {
-       start();
-       userHealth = GameConstants.REMAINING_HEALTH;
-       enemyController.clearEnemies();
-       towerController.clearDefenders();
+        enemyController.clearEnemies();
+        towerController.clearDefenders();
     }
 
 

@@ -59,11 +59,6 @@ public abstract class BaseDefender extends GameObject {
     @Override
     public void render(ShapeRenderer renderer) {
         super.render(renderer);
-
-//
-//        for (Bullet bullet : bullets) {
-//            bullet.render(renderer);
-//        }
     }
 
     @Override
@@ -75,7 +70,7 @@ public abstract class BaseDefender extends GameObject {
         }
         if (getEnemy() == null) {
             findTarget();
-           return;
+            return;
         }
         if (getEnemy().isAlive() && enemyDistanceMap.containsKey(enemy)) {
             checkRotation();
@@ -253,7 +248,6 @@ public abstract class BaseDefender extends GameObject {
         this.enemy = closestEnemy;
     }
 
-
     // getters and setters
     public Rectangle getHitBox(){
         return new Rectangle(
@@ -292,9 +286,6 @@ public abstract class BaseDefender extends GameObject {
     }
     public BaseDefender getDefender() {
         return this;
-    }
-    public DefenderType getDefenderType() {
-        return defenderType;
     }
     public void selectedDefender(boolean selectedDefender){
         isSelectedDefender = selectedDefender;

@@ -102,7 +102,7 @@ public class PlayScene extends AbstractGameScene {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                level.pause();
+                level.restart();
                 game.setScreen(new MenuScene(game));
             }
         });
@@ -252,7 +252,9 @@ public class PlayScene extends AbstractGameScene {
 
         spriteBatch.begin();
         level.getMap().render(spriteBatch);
-        level.render(spriteBatch);
+        //level.render(spriteBatch);
+        enemyController.render(spriteBatch);
+        towerController.render(spriteBatch);
         spriteBatch.end();
 
         renderMoneyPopup();

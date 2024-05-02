@@ -144,10 +144,6 @@ public class TowerController implements Render{
         }
     }
 
-    public BaseDefender getSelectedDefender(){
-        return currentDefender;
-    }
-
     public void upgradeSpeed() {
         if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getSpeedPrice()) {
             level.removeMoney(selectedDefenderUpgrade.getSpeedPrice());

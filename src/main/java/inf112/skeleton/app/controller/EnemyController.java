@@ -112,9 +112,6 @@ public class EnemyController {
         }
     }
 
-    public void render(ShapeRenderer renderer) {
-    }
-
     /**
      * Used for testing
      * @param enemy enemy to check bounds for

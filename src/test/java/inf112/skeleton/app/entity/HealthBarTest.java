@@ -46,7 +46,7 @@ public class HealthBarTest {
         int randomNumber =random.nextInt(100);
         System.out.println(randomNumber);
         mockEnemy.shot(randomNumber);
-        assertEquals(mockEnemy.getHpBar().getCurrentHealth(), mockEnemy.getEnemyHealth()/* - randomNumber*/);
+        assertEquals(mockEnemy.getHpBar().getCurrentHealth(), mockEnemy.getEnemyHealth());
     }
 
     @AfterAll

@@ -80,14 +80,6 @@ public class Tile extends GameObject {
     }
 
     /**
-     * Sets the type of the tile
-     * @param type to be given to the tile
-     */
-    public void setType(GridType type) {
-        this.type = type;
-    }
-
-    /**
      *
      * @return x coordinate of the tile
      */

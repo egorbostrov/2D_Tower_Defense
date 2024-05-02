@@ -29,8 +29,6 @@ public class Enemy extends GameObject{
     private float elapsedTimeStart;
 
     private boolean alive = true;
-    private float slowTime;
-    private boolean isSlowed = false;
     private final HealthBar hpBar;
     private boolean doubleSpeed;
     private final float height;
@@ -238,12 +236,8 @@ public class Enemy extends GameObject{
                 default:
                     break;
             }
-
         }
-        removeSlowMode(elapsedTime);
-
         hpBar.updatePosition(position.x + 5, position.y + this.height);
-
     }
 
 
@@ -289,51 +283,11 @@ public class Enemy extends GameObject{
     }
 
     /**
-     * Remove slowness effect from a zombie.
-     * @param elapsedTime time since last render
-     */
-    private void removeSlowMode(float elapsedTime){
-        if (isSlowed){
-            slowTime += elapsedTime;
-            float slowDownTime = 0.5f;
-            if (slowTime >= slowDownTime){
-                speed *= 2;
-                sprite = GameAssets.zombieSprite; //FIX Change to the texture of a normal zombie
-                isSlowed = false;
-            }
-        }
-    }
-
-    /**
-     * Put on a slowness effect.
-     * Used when shot by a specific type of tower(ice tower?) FIX
-     */
-    public void slowDown(){
-        if (!isSlowed){
-            slowTime = 0;
-            sprite = GameAssets.zombieSprite; //FIX
-            speed /= 2;
-            isSlowed = true;
-        }
-        else {
-            slowTime = 0;
-        }
-    }
-
-    /**
      * Used in testing
      * @return current health of the enemy
      */
     public float getEnemyHealth() {
         return this.currentHealth;
-    }
-
-    public Rectangle getBoundsRectangle() {
-        return this.boundsRectangle;
-    }
-
-    public char getType() {
-        return this.type;
     }
 
     /**
