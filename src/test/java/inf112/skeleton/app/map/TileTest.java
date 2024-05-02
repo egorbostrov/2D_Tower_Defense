@@ -1,29 +1,29 @@
-// package inf112.skeleton.app.map;
+package inf112.skeleton.app.map;
 
-// import com.badlogic.gdx.graphics.Color;
-// import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-// import inf112.skeleton.app.enums.GridType;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.mockito.Mock;
-// import org.mockito.MockitoAnnotations;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import inf112.skeleton.app.enums.GridType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-// import static org.mockito.Mockito.verify;
-// import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
-// public class TileTest {
+public class TileTest {
 
-//     @Mock
-//     private ShapeRenderer mockShapeRenderer;
+@Mock
+private ShapeRenderer mockShapeRenderer;
 
-//     private Tile tile;
+private Tile tile;
 
-//     @BeforeEach
-//     void setUp() {
-//         MockitoAnnotations.openMocks(this);
-//         // Assuming 'size' is a Vector2 field in the GameObject class that Tile extends
-//         tile = new Tile(0, 0, 1, 1, GridType.PATH);
-//     }
+@BeforeEach
+void setUp() {
+MockitoAnnotations.openMocks(this);
+// Assuming 'size' is a Vector2 field in the GameObject class that Tile extends
+tile = new Tile(0, 0, 1, 1, GridType.PATH);
+}
 
 //     @Test
 //     void testRenderWithShapeRenderer() {
