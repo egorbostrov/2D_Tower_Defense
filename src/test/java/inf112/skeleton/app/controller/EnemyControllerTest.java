@@ -107,6 +107,20 @@ public class EnemyControllerTest {
         assertFalse(enemy.getDoubleSpeed());
     }
 
+    @Test
+    void checkBoundsForEnemyTest() {
+        Enemy enemy1 = new Enemy('R', SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
+        enemyController.newZombie(enemy1);
+        //Enemy is within bounds
+        assertFalse(enemyController.boundsPublic(enemy1));
+        enemyController.clearEnemies();
+
+        Enemy enemy2 = new Enemy('R', -1, SCREEN_WIDTH + 1, ENEMY_WIDTH, ENEMY_HEIGHT,ENEMY_REGULAR_START_HP, new LinkedList<>(), ENEMY_REGULAR_BOUNTY, ENEMY_REGULAR_SPEED, 0, null, false);
+        enemyController.newZombie(enemy2);
+        //Enemy is out of bounds
+        assertTrue(enemyController.boundsPublic(enemy2));
+    }
+
     /**
      * Dispose application
      * remove texture mock associations
