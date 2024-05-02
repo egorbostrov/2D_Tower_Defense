@@ -255,6 +255,8 @@ public class BaseDefenderTest {
                 upgradedDamage > initialDamage);
     }
 
+
+
     @Test
     public void testSpeedUpgrade() {
         float oldSpeed = defender.getSpeed();
@@ -301,6 +303,9 @@ public class BaseDefenderTest {
         assertEquals(GameConstants.TOWER_RANGE, defender.getRange(), 0.01);
         assertEquals(GameConstants.TOWER_DAMAGE_GUNNER, defender.getDamage(), 0.01);
         assertEquals(GameConstants.TOWER_SPEED_PRICE, defender.getSpeedPrice(), 0.01);
+        assertEquals(GameConstants.TOWER_RANGE_PRICE, defender.getRangePrice(), 0.01);
+        assertEquals(GameConstants.TOWER_ATTACK_PRICE, defender.getAttackCost(), 0.01);
+        assertEquals(defender, defender.getDefender());
     }
 
 

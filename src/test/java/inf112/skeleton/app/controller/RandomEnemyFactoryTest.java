@@ -60,4 +60,14 @@ class RandomEnemyFactoryTest {
         Enemy result = enemyFactory.getNext(mockLevel, speedMultiplier, healthMultiplier, delay, doubleSpeed);
         assertNotNull(result, "enemy should not be null");
     }
+
+    @AfterAll
+    public static void cleanUp() {
+        if (application != null) {
+            application.exit();
+            application = null;
+        }
+        Gdx.gl = null;
+        Gdx.gl20 = null;
+    }
 }
