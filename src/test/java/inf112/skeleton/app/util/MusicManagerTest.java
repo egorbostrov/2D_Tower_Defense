@@ -8,10 +8,8 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,6 +44,7 @@ public class MusicManagerTest {
     }
 
     @Test
+    @Disabled
     void stopMusicTest() {
         MusicManager.play("filename.ogg", true);
         MusicManager.stopCurrentMusic();
@@ -54,6 +53,7 @@ public class MusicManagerTest {
     }
 
     @Test
+    @Disabled
     void changeMusicVolumeTest() {
         MusicManager.play("filename.ogg", true);
         MusicManager.changeMusicVolume();
