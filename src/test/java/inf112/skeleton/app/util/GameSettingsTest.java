@@ -7,14 +7,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Constructor;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class GameSettingsTest {
 
     @Mock
@@ -24,6 +22,7 @@ public class GameSettingsTest {
     public void setUp() throws Exception {
         Application mockApp = mock(Application.class);
         Gdx.app = mockApp;
+        mockPrefs = mock(Preferences.class);
         when(Gdx.app.getPreferences(GameConstants.PREFERENCES)).thenReturn(mockPrefs);
 
         // Using reflection to access the private constructor and instantiate GameSettings
