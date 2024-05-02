@@ -8,11 +8,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 import inf112.skeleton.app.enums.DefenderType;
 import inf112.skeleton.app.enums.GridType;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
+import inf112.skeleton.app.util.GameAssets;
+import inf112.skeleton.app.util.GameConstants;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +35,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class TowerControllerTest {
 
@@ -51,6 +54,11 @@ public class TowerControllerTest {
     private static HeadlessApplication application;
     @Mock
     private Tile mockTile;
+    @Mock
+    private Rectangle mockHitBox;
+
+    @Mock
+    private BaseDefender mockDefender;
 
     @BeforeAll
     public static void setupBeforeAll() {
@@ -58,6 +66,7 @@ public class TowerControllerTest {
         application = new HeadlessApplication(new ApplicationAdapter() {}, config);
         Gdx.gl20 = mock(GL20.class);
         Gdx.gl = Gdx.gl20;
+        GameAssets.instance.init();
     }
 
     @BeforeEach
@@ -70,6 +79,7 @@ public class TowerControllerTest {
 
         // Assuming you want to mock the behavior of methods called on towerController
         towerController = new TowerController(mockLevel);
+        mockDefender = mock(BaseDefender.class);
     }
 
     @Test
@@ -82,6 +92,23 @@ public class TowerControllerTest {
         boolean result = towerController.legalPlacement(x, y);
 
         assertTrue(result);
+    }
+
+    @Test
+    public void testLegalPlacementWhenHitboxOverlaps() {
+        float x = 0;
+        float y = 0;
+
+        when(mockTile.getType()).thenReturn(GridType.GROUND);
+
+        List<BaseDefender> defenderList = towerController.getDefenderList();
+        defenderList.add(mockDefender);
+        when(mockDefender.getHitBox()).thenReturn(mockHitBox);
+        when(mockHitBox.overlaps(any())).thenReturn(true);
+
+        boolean result = towerController.legalPlacement(x, y);
+
+        assertFalse(result);
     }
 
     @Test
@@ -103,6 +130,30 @@ public class TowerControllerTest {
         int result = towerController.buildTower(0.0f, 0.0f, mockEnemyController.getEnemyList(), DefenderType.BOMBER);
 
         assertTrue(result == 0);
+    }
+
+    @Test
+    public void testBuildBomber(){
+        when(mockTile.getType()).thenReturn(GridType.GROUND);
+
+        int result = towerController.buildTower(0.0f, 0.0f, mockEnemyController.getEnemyList(), DefenderType.BOMBER);
+        assertTrue(result == GameConstants.TOWER_PRICE_BOMBER);
+    }
+
+    @Test
+    public void testBuildGunner(){
+        when(mockTile.getType()).thenReturn(GridType.GROUND);
+
+        int result = towerController.buildTower(0.0f, 0.0f, mockEnemyController.getEnemyList(), DefenderType.GUNNER);
+        assertTrue(result == GameConstants.TOWER_PRICE_GUNNER);
+    }
+
+    @Test
+    public void testBuildSniper(){
+        when(mockTile.getType()).thenReturn(GridType.GROUND);
+
+        int result = towerController.buildTower(0.0f, 0.0f, mockEnemyController.getEnemyList(), DefenderType.SNIPER);
+        assertTrue(result == GameConstants.TOWER_PRICE_SNIPER);
     }
 
     @Test
