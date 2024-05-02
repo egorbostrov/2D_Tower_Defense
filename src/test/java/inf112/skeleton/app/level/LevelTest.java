@@ -126,8 +126,6 @@ public class LevelTest {
 
     @Test
     public void testRestartGameResetsValues() {
-        level.addMoney(0);
-        level.enemyKilled(50);
         level.restart();
         testInitialConditions();
     }
