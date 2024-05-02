@@ -158,7 +158,7 @@ public abstract class BaseDefender extends GameObject {
         if (enemy != null) {
             direction = new Vector2(enemy.center).sub(center);
             float angle = direction.angleDeg();
-            boolean shouldFlip = getDirectionx() < 0;
+            boolean shouldFlip = direction.x < 0;
             if (sprite.isFlipX() != shouldFlip) {
                 sprite.flip(true, false);
             }
@@ -299,13 +299,5 @@ public abstract class BaseDefender extends GameObject {
      */
     public List<Bullet> getBullets() {
         return bullets;
-    }
-
-    /**
-     * used in testing
-     * @return direction
-     */
-    public float getDirectionx() {
-        return direction.x;
     }
 }

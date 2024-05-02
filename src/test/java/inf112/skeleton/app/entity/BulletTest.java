@@ -2,26 +2,15 @@ package inf112.skeleton.app.entity;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.enums.BulletType;
 import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.tower.BomberDefender;
 import inf112.skeleton.app.tower.GunnerDefender;
+import inf112.skeleton.app.tower.SniperDefender;
 import inf112.skeleton.app.util.GameAssets;
-import inf112.skeleton.app.util.GameConstants;
-import inf112.skeleton.app.util.MusicManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
@@ -54,7 +43,7 @@ public class BulletTest {
     }
 
     @Test
-    void testBulletHit() {
+    void testBulletHitGunner() {
         List<Enemy> enemyList = new ArrayList<>();
         Enemy enemy = new Enemy('R', 110, 110, 50, 50, 1, new LinkedList<>(), 50, 0, 0, null, false);
         enemyList.add(enemy);
@@ -65,6 +54,37 @@ public class BulletTest {
         assertFalse(defender.getBullets().isEmpty(), "Should be a bullet now");
         defender.update(1);
 
+
+        assertTrue(defender.getBullets().isEmpty(), "Bullet should have been removed as it hit a zombie");
+    }
+
+    @Test
+    void testBulletHitSniper() {
+        List<Enemy> enemyList = new ArrayList<>();
+        Enemy enemy = new Enemy('R', 110, 110, 50, 50, 1, new LinkedList<>(), 50, 0, 0, null, false);
+        enemyList.add(enemy);
+        BaseDefender defender = new SniperDefender(100, 100, enemyList);
+
+        defender.update(0);
+        defender.projectileFire();
+        defender.update(3);
+        assertFalse(defender.getBullets().isEmpty(), "Should be a bullet now");
+        defender.update(1);
+
+        assertTrue(defender.getBullets().isEmpty(), "Bullet should have been removed as it hit a zombie");
+    }
+
+    @Test
+    void testBulletHitBomber() {
+        List<Enemy> enemyList = new ArrayList<>();
+        Enemy enemy = new Enemy('R', 110, 110, 50, 50, 1, new LinkedList<>(), 50, 0, 0, null, false);
+        enemyList.add(enemy);
+        BaseDefender defender = new BomberDefender(100, 100, enemyList);
+
+        defender.update(0);
+        defender.projectileFire();
+        assertFalse(defender.getBullets().isEmpty(), "Should be a bullet now");
+        defender.update(1);
 
         assertTrue(defender.getBullets().isEmpty(), "Bullet should have been removed as it hit a zombie");
     }

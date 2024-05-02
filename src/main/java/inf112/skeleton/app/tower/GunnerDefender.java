@@ -21,10 +21,6 @@ public class GunnerDefender extends BaseDefender {
         price = GameConstants.TOWER_PRICE_GUNNER;
     }
 
-    public float getPrice() {
-        return this.price;
-    }
-
     @Override
     public void projectileFire() {
         MusicManager.playGunnerShot();
