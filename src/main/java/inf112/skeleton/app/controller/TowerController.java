@@ -257,4 +257,8 @@ public class TowerController implements Render{
     public float getDamage(){
         return currentDefender.getDamage();
     }
+
+    public boolean isSpeedMode() {
+        return speedMode;
+    }
 }
