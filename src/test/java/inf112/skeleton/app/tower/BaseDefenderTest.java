@@ -232,7 +232,7 @@ public class BaseDefenderTest {
         when(mockBaseDefender.getEnemy()).thenReturn(mockEnemy);
 
         when(mockEnemy.isAlive()).thenReturn(true);
-        when(mockBaseDefender.getDirectionx()).thenReturn(-1f);
+        //when(mockBaseDefender.getDirectionx()).thenReturn(-1f);
         when(mockHashMap.containsKey(mockEnemy)).thenReturn(true);
 
         mockBaseDefender.update(1.0f); // The deltaTime triggers the internal behavior
