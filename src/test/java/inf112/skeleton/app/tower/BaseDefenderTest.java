@@ -135,9 +135,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.util.GameAssets;
+import inf112.skeleton.app.util.GameConstants;
 import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -257,6 +259,40 @@ public class BaseDefenderTest {
         float oldRange = defender.getRange();
         defender.rangeUpgrade();
         assertTrue("Range should increase after upgrade", defender.getRange() > oldRange);
+    }
+
+    @Test
+    public void testGetHitBox() {
+
+        TestableDefender defender = new TestableDefender(50, 50, enemies);
+
+
+        Rectangle hitBox = defender.getHitBox();
+
+        assertEquals(50 - GameConstants.TOWER_SIZE / 2, hitBox.x, 0.01);
+        assertEquals(50 - GameConstants.TOWER_SIZE / 2, hitBox.y, 0.01);
+        assertEquals(GameConstants.TOWER_SIZE, hitBox.width, 0.01);
+        assertEquals(GameConstants.TOWER_SIZE, hitBox.height, 0.01);
+    }
+
+    @Test
+    public void testSetters(){
+        TestableDefender defender = new TestableDefender(50, 50, enemies);
+        defender.setDamage(10);
+        defender.setRange(10);
+        defender.setSpeed(10);
+        assertEquals(10, defender.getDamage(), 0.01);
+        assertEquals(10, defender.getRange(), 0.01);
+        assertEquals(10, defender.getSpeed(), 0.01);
+    }
+
+    @Test
+    public void testGetters(){
+        TestableDefender defender = new TestableDefender(50, 50, enemies);
+        assertEquals(GameConstants.TOWER_PRICE_GUNNER, defender.getPrice(), 0.01);
+        assertEquals(GameConstants.TOWER_RANGE, defender.getRange(), 0.01);
+        assertEquals(GameConstants.TOWER_DAMAGE_GUNNER, defender.getDamage(), 0.01);
+        assertEquals(GameConstants.TOWER_SPEED_PRICE, defender.getSpeedPrice(), 0.01);
     }
 
 }
