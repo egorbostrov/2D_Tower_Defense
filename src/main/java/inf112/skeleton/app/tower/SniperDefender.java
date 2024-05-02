@@ -24,12 +24,8 @@ public class SniperDefender extends BaseDefender{
         price = GameConstants.TOWER_PRICE_SNIPER;
         initializeSprites(GameAssets.getInstance().getAtlas(), "snipa0", "snipa0");
 
-        fireRate = 2.0f;
-        lastFireTime = -fireRate;
-    }
-
-    public float getPrice() {
-        return this.price;
+        fireRate = 3.0f;
+        lastFireTime = 0;
     }
 
 
