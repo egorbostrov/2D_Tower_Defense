@@ -32,10 +32,6 @@ public class BomberDefender extends BaseDefender{
 
     }
 
-    public float getPrice() {
-        return this.price;
-    }
-
     /**
      * Deal damage to enemies within the bomb explosion radius based on their distance to the bomb impact
      * @param impactPoint position where bomb explodes
@@ -55,7 +51,8 @@ public class BomberDefender extends BaseDefender{
 
     @Override
     public void projectileFire() {
-        Bullet bullet = new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET, GameConstants.BOMBER_EXPLOSION_RADIUS);
+        Bullet bullet = new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET);
+        bullet.setExplosionRadius(explosionRadius);
         MusicManager.playBomberShot();
         bullet.setBomberDefender(this);
         bullets.add(bullet);
