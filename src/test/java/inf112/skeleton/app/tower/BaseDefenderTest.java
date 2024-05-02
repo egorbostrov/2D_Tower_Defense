@@ -130,21 +130,15 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.Direction;
-import inf112.skeleton.app.map.Map;
-import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
-import org.junit.BeforeClass;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,7 +162,7 @@ public class BaseDefenderTest {
 
     private Enemy enemy;
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         // Create a headless application to initialize the LibGDX environment
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
@@ -179,7 +173,7 @@ public class BaseDefenderTest {
         Gdx.gl20 = Mockito.mock(GL20.class);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         enemies = new ArrayList<>();
@@ -296,20 +290,75 @@ public class BaseDefenderTest {
         assertEquals(10, defender.getSpeed(), 0.01);
     }
 
+
     @Test
-    public void testGetters(){
-        TestableDefender defender = new TestableDefender(50, 50, enemies);
-        assertEquals(GameConstants.TOWER_PRICE_GUNNER, defender.getPrice(), 0.01);
-        assertEquals(GameConstants.TOWER_RANGE, defender.getRange(), 0.01);
-        assertEquals(GameConstants.TOWER_DAMAGE_GUNNER, defender.getDamage(), 0.01);
-        assertEquals(GameConstants.TOWER_SPEED_PRICE, defender.getSpeedPrice(), 0.01);
-        assertEquals(GameConstants.TOWER_RANGE_PRICE, defender.getRangePrice(), 0.01);
-        assertEquals(GameConstants.TOWER_ATTACK_PRICE, defender.getAttackCost(), 0.01);
-        assertEquals(defender, defender.getDefender());
+    public void testGetPrice() {
+        GameAssets.getInstance().init();
+        GunnerDefender defender = new GunnerDefender(50, 50, enemies);
+        assertTrue(defender.getPrice() == GameConstants.TOWER_PRICE_GUNNER);
+    }
+    @Test
+    public void testSetSpeed() {
+        GameAssets.getInstance().init();
+        SniperDefender defender = new SniperDefender(50, 50, enemies);
+        defender.setSpeed(10);
+        assertTrue(defender.getSpeed() == 10);
     }
 
+    @Test
+    public void testGetRange() {
+        GameAssets.getInstance().init();
+        GunnerDefender defender = new GunnerDefender(50, 50, enemies);
+        assertTrue(defender.getRange() == GameConstants.TOWER_RANGE);
+    }
+    @Test
+    public void testGetDamage() {
+        GameAssets.getInstance().init();
+        GunnerDefender defender = new GunnerDefender(50, 50, enemies);
+        assertTrue(defender.getDamage() == GameConstants.TOWER_DAMAGE_GUNNER);
+    }
+    @Test
+    public void testGetSpeed() {
+        GameAssets.getInstance().init();
+        SniperDefender defender = new SniperDefender(50, 50, enemies);
+        assertTrue(defender.getSpeed() == GameConstants.TOWER_SPEED_SNIPER);
+    }
 
+    @Test
+    public void testGetDefender() {
+        GameAssets.getInstance().init();
+        GunnerDefender defender = new GunnerDefender(50, 50, enemies);
+        assertTrue(defender.getDefender() == defender);
+    }
 
+    @Test
+    public void testGetBoundingRectangle() {
+        TestableDefender defender = new TestableDefender(50, 50, enemies);
+        Rectangle boundingRectangle = defender.getBoundingRectangle();
+        assertEquals(50, boundingRectangle.x, 0.01);
+        assertEquals(50, boundingRectangle.y, 0.01);
+        assertEquals(GameConstants.TOWER_SIZE, boundingRectangle.width, 0.01);
+        assertEquals(GameConstants.TOWER_SIZE, boundingRectangle.height, 0.01);
+    }
 
+    @Test
+    public void testGetSpeedPrice() {
+        GameAssets.getInstance().init();
+        GunnerDefender defender = new GunnerDefender(50, 50, enemies);
+        assertTrue(defender.getSpeedPrice() == GameConstants.TOWER_SPEED_PRICE);
+    }
+
+    @Test
+    public void testGetRangePrice() {
+        GameAssets.getInstance().init();
+        GunnerDefender defender = new GunnerDefender(50, 50, enemies);
+        assertTrue(defender.getRangePrice() == GameConstants.TOWER_RANGE_PRICE);
+    }
+
+    @Test
+    public void testGetAttackCost() {
+        GameAssets.getInstance().init();
+        GunnerDefender defender = new GunnerDefender(50, 50, enemies);
+        assertTrue(defender.getAttackCost() == GameConstants.TOWER_ATTACK_PRICE);
+    }
 }
-

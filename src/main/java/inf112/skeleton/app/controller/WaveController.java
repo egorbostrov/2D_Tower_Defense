@@ -69,7 +69,7 @@ public class WaveController {
         baseSpeedMultiplier += 0.05f;
         healthMultiplier *= 1.05f;
 
-        if (spawnDelay > 0.5f) {
+        if (spawnDelay > 0.25f) {
             spawnDelay *= 0.80f;
         }
 
