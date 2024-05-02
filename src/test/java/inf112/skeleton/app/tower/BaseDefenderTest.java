@@ -136,8 +136,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.Direction;
+import inf112.skeleton.app.map.Map;
 import inf112.skeleton.app.util.GameAssets;
 import inf112.skeleton.app.util.GameConstants;
 import org.junit.BeforeClass;
@@ -145,6 +147,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import static inf112.skeleton.app.util.GameConstants.ENEMY_HEIGHT;
@@ -156,8 +159,13 @@ public class BaseDefenderTest {
 
     @Mock
     private Enemy mockEnemy;
+    @Mock
+    private BaseDefender mockBaseDefender;
+    @Mock
+    private HashMap<Enemy, Float> mockHashMap;
     private List<Enemy> enemies;
     private TestableDefender defender;
+
     private Enemy enemy;
 
     @BeforeClass
@@ -184,6 +192,7 @@ public class BaseDefenderTest {
         enemies.add(enemy);
 
         defender = new TestableDefender(50, 50, enemies);
+
     }
 
     @Test
@@ -219,17 +228,16 @@ public class BaseDefenderTest {
     @Test
     public void testUpdateWithAliveEnemy() {
         // Prepare the defender with a known enemy
+        float startRotation = 0;
+        when(mockBaseDefender.getEnemy()).thenReturn(mockEnemy);
+
         when(mockEnemy.isAlive()).thenReturn(true);
-        defender.enemy = mockEnemy; // Directly set the enemy for this test scenario
+        when(mockBaseDefender.getDirectionx()).thenReturn(-1f);
+        when(mockHashMap.containsKey(mockEnemy)).thenReturn(true);
 
-        // Call update with a deltaTime
-        defender.update(1.0f); // The deltaTime triggers the internal behavior
+        mockBaseDefender.update(1.0f); // The deltaTime triggers the internal behavior
+        assertEquals(startRotation, mockBaseDefender.getRotation(), 0.01);
 
-        // Verify that checkRotation and startFiring are called appropriately
-        // Since they are internal methods and their effects are private, you would
-        // instead verify their effects, such as changes to the defender's state,
-        // or interactions with the mockEnemy or bullets.
-        // ...
     }
 
     // You would continue to write more test cases to cover the different branches
@@ -294,6 +302,9 @@ public class BaseDefenderTest {
         assertEquals(GameConstants.TOWER_DAMAGE_GUNNER, defender.getDamage(), 0.01);
         assertEquals(GameConstants.TOWER_SPEED_PRICE, defender.getSpeedPrice(), 0.01);
     }
+
+
+
 
 }
 
