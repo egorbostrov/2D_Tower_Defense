@@ -1,7 +1,6 @@
 package inf112.skeleton.app.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.util.GameConstants;
@@ -15,7 +14,7 @@ public class EnemyController {
 
     private static EnemyController instance;
 
-    private Level level;
+    private final Level level;
 
 
     /**
