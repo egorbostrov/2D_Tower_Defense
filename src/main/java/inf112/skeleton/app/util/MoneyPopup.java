@@ -30,5 +30,12 @@ public class MoneyPopup {
     public void draw(SpriteBatch batch) {
         font.draw(batch, text, x, y);
     }
+
+    /**
+     * @return timer. Used in test
+     */
+    public float getTimer() {
+        return timer;
+    }
 }
 
