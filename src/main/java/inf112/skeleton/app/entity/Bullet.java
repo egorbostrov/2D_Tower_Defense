@@ -18,18 +18,14 @@ public class Bullet extends GameObject {
     private BomberDefender bomberDefender;
     private final Enemy enemy;
     private final float damage;
-    private final float explosionRadius;
+    private float explosionRadius;
 
     public Bullet(float x, float y, Enemy enemy, float damage, BulletType bulletType) {
-        this(x, y, enemy, damage, bulletType, 0); // Call the other constructor with explosionRadius = 0
-    }
-
-    public Bullet(float x, float y, Enemy enemy, float damage, BulletType bulletType, float explosionRadius) {
         super(x, y, GameConstants.BULLET_WIDTH, GameConstants.BULLET_HEIGHT);
         this.enemy = enemy;
         this.damage = damage;
         this.bulletType = bulletType;
-        this.explosionRadius = BOMBER_EXPLOSION_RADIUS;
+        this.explosionRadius = 0;
 
         switch (bulletType) {
             case GUNNER_BULLET:
@@ -43,6 +39,7 @@ public class Bullet extends GameObject {
                 break;
         }
     }
+
 
     public void setBomberDefender(BomberDefender bomberDefender) {
         this.bomberDefender = bomberDefender;
@@ -90,6 +87,10 @@ public class Bullet extends GameObject {
                 this.position.add(temporary);
             }
         }
+    }
+
+    public void setExplosionRadius(float explosionRadius) {
+        this.explosionRadius = explosionRadius;
     }
 
     /**
