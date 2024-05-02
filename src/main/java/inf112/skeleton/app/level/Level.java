@@ -1,5 +1,6 @@
 package inf112.skeleton.app.level;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -33,6 +34,7 @@ public class Level implements EnemyEvents {
     private EnemyController enemyController;
     private WaveController waveController;
     private TowerController towerController;
+
     private boolean changeTimeAndWaveNumber = false;
     private int timeLeft;
     private final BitmapFont bitmapFont;
@@ -262,7 +264,7 @@ public class Level implements EnemyEvents {
      */
     public void addMoney(int amount) {
         this.money += amount;
-        createMoneyPopup("+$" + amount, Color.GREEN, true);
+
     }
 
     /**
@@ -293,7 +295,6 @@ public class Level implements EnemyEvents {
         MoneyPopup popup = new MoneyPopup(text, x, y, color, 2.0f);
         popups.add(popup);
     }
-
 
     public void pause() {
         isPaused = true;

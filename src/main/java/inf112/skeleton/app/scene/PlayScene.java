@@ -96,6 +96,8 @@ public class PlayScene extends AbstractGameScene {
     }
 
     private Table buildControls() {
+
+        // system Buttons.
         exitButton = new Button(uimenuskin, "quitbutton");
         exitButton.addListener(new ChangeListener() {
             @Override
