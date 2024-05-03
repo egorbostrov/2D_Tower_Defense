@@ -26,6 +26,14 @@ public class EnemyController {
         this.level = level;
         this.enemyList = new ArrayList<>();
     }
+
+    /**
+     * Returns the singleton instance of the EnemyController class.
+     * If the instance does not exist, it creates a new one with the provided level.
+     *
+     * @param level The level to be used for the EnemyController.
+     * @return The singleton instance of the EnemyController.
+     */
     public static EnemyController getInstance(Level level) {
         if (instance == null) {
             instance = new EnemyController(level);
@@ -35,14 +43,15 @@ public class EnemyController {
 
     /**
      * Adds a new zombie to the list of zombies that's controlled on the map
-     * @param zombie the zombie to add
+     * @param zombie the enemy to add
      */
     public void newZombie(Enemy zombie) {
         enemyList.add(zombie);
     }
 
     /**
-     * Iterates the enemies and removes the ones that are either: outside the map or killed(thus also rewards the player for the kill)
+     * Iterates over the enemies and removes the ones that are either outside the map or killed.
+     * Also rewards the player for the kill.
      */
     private void removeEnemy() {
         List<Enemy> shouldRemoved = new ArrayList<>();
@@ -60,8 +69,9 @@ public class EnemyController {
     }
 
     /**
-     * @param enemy enemy we check bounds for
-     * @return true if enemy is our of bounds
+     * Checks if the enemy is out of bounds.
+     * @param enemy we check bounds for.
+     * @return true if enemy is our of bounds.
      */
     private boolean checkBoundsForEnemy(Enemy enemy) {
             return (enemy.position.x + enemy.size.x > GameConstants.SCREEN_WIDTH ||
@@ -71,6 +81,9 @@ public class EnemyController {
             );
     }
 
+    /**
+     * Doubles the speed of all enemies.
+     */
     public void doubleSpeedClicked() {
         for (Enemy enemy : enemyList) {
             enemy.doubleSpeedClicked();
@@ -78,6 +91,9 @@ public class EnemyController {
         }
     }
 
+    /**
+     * Resets the speed of all enemies to their normal speed.
+     */
     public void normalSpeedClicked() {
         for (Enemy enemy : enemyList) {
             enemy.normalSpeedClicked();
@@ -85,15 +101,27 @@ public class EnemyController {
         }
     }
 
+
+    /**
+     * Returns the list of enemies.
+     * @return The list of enemies.
+     */
     public List<Enemy> getEnemyList(){
         return enemyList;
     }
 
+
+    /**
+     * Clears the list of enemies.
+     */
     public void clearEnemies() {
         enemyList.clear();
     }
 
-
+    /**
+     * Updates the state of all enemies and removes any that are out of bounds or killed.
+     * @param elapsedTime The time elapsed since the last update.
+     */
     public void update(float elapsedTime) {
         for (Enemy enemy : enemyList) {
             if (!checkBoundsForEnemy(enemy) && !enemy.hasEnteredMap) {
@@ -105,6 +133,10 @@ public class EnemyController {
         removeEnemy();
     }
 
+    /**
+     * Renders all enemies.
+     * @param batch The SpriteBatch used for rendering.
+     */
     public void render(SpriteBatch batch) {
         for (Enemy enemy : enemyList) {
             enemy.render(batch);
@@ -112,9 +144,10 @@ public class EnemyController {
     }
 
     /**
-     * Used for testing
-     * @param enemy enemy to check bounds for
-     * @return true if enemy is out of bounds
+     * Checks if the enemy is out of bounds.
+     * This method is used for testing.
+     * @param enemy The enemy to check bounds for.
+     * @return true if the enemy is out of bounds.
      */
     public boolean boundsPublic(Enemy enemy) {
         return checkBoundsForEnemy(enemy);

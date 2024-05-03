@@ -20,6 +20,14 @@ public class Bullet extends GameObject {
     private final float damage;
     private float explosionRadius;
 
+    /**
+     * Creates a new Bullet.
+     * @param x The x-coordinate of the bullet.
+     * @param y The y-coordinate of the bullet.
+     * @param enemy The enemy that the bullet is targeting.
+     * @param damage The damage that the bullet will inflict.
+     * @param bulletType The type of the bullet.
+     */
     public Bullet(float x, float y, Enemy enemy, float damage, BulletType bulletType) {
         super(x, y, GameConstants.BULLET_WIDTH, GameConstants.BULLET_HEIGHT);
         this.enemy = enemy;
@@ -40,15 +48,14 @@ public class Bullet extends GameObject {
         }
     }
 
-
+    /**
+     * Sets the BomberDefender for the bullet.
+     * @param bomberDefender The BomberDefender to set.
+     */
     public void setBomberDefender(BomberDefender bomberDefender) {
         this.bomberDefender = bomberDefender;
     }
 
-
-    /**
-     * Checks if a bullet has hit a zombie, if that is the case, we call a help method shot() which handles the damage etc
-     */
     private void checkRemove() {
         float distance = enemy.center.dst(center);
         if (distance <= GameConstants.BULLET_HEIGHT) {
@@ -63,14 +70,15 @@ public class Bullet extends GameObject {
     }
 
     /**
-     * @return boolean showing if the bullet is still visible
+     * Checks if the bullet is still visible.
+     * @return true if the bullet is still visible, false otherwise.
      */
     public boolean isVisible() {
         return isVisible;
     }
 
     /**
-     *Updates the bounds rectangle, checks if the bullet has hit an enemy and thus should be removed.
+     * Updates the bounds rectangle, checks if the bullet has hit an enemy and thus should be removed.
      * If the bullet is visible, and has not hit an enemy, we compute the direction vector from the bullet to the target.
      * @param deltaTime time since last update
      */
@@ -89,6 +97,10 @@ public class Bullet extends GameObject {
         }
     }
 
+    /**
+     * Sets the explosion radius for the bullet.
+     * @param explosionRadius The explosion radius to set.
+     */
     public void setExplosionRadius(float explosionRadius) {
         this.explosionRadius = explosionRadius;
     }

@@ -50,17 +50,27 @@ public abstract class GameObject implements Render {
      */
     protected boolean isSelected = false;
 
+    /**
+     * Creates a new GameObject.
+     * @param xCord The x-coordinate of the GameObject.
+     * @param yCord The y-coordinate of the GameObject.
+     * @param width The width of the GameObject.
+     * @param height The height of the GameObject.
+     */
     public GameObject(float xCord, float yCord, float width, float height) {
         this.position = new Vector2(xCord, yCord);
         this.size = new Vector2(width, height);
-
-
-        //test
         this.center = new Vector2(xCord + width / 2, yCord + height / 2);
         this.boundsRectangle = new Rectangle(xCord, yCord, width, height);
         this.isVisible = true;
     }
 
+    /**
+     * Initializes the sprites for the GameObject.
+     * @param atlas The TextureAtlas to use for the sprites.
+     * @param regularRegionName The name of the region for the regular sprite.
+     * @param selectedRegionName The name of the region for the selected sprite.
+     */
     protected void initializeSprites(TextureAtlas atlas, String regularRegionName, String selectedRegionName) {
         TextureAtlas.AtlasRegion regularRegion = atlas.findRegion(regularRegionName);
         TextureAtlas.AtlasRegion selectedRegion = atlas.findRegion(selectedRegionName);
@@ -110,10 +120,11 @@ public abstract class GameObject implements Render {
         boundsRectangle.set(position.x, position.y, size.x, size.y);
     }
 
+    /**
+     * Returns the position of the GameObject.
+     * @return The position of the GameObject.
+     */
     public Vector2 getPositionOfObject() {
         return position;
     }
-
-
-
 }

@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class HealthBar extends GameObject {
 
-
     private final ProgressBar healthBar;
     private float newHealth;
 
@@ -54,17 +53,35 @@ public class HealthBar extends GameObject {
         return drawable;
     }
 
+    /**
+     * Sets the health of the HealthBar.
+     * @param newHealth The new health to set.
+     */
     public void setHealth(float newHealth) {
         this.newHealth = newHealth;
     }
+
+    /**
+     * Returns the current health of the HealthBar.
+     * @return The current health of the HealthBar.
+     */
     public float getCurrentHealth(){
         return this.newHealth;
     }
+
+    /**
+     * Updates the position of the HealthBar.
+     * @param x The new x-coordinate to set.
+     * @param y The new y-coordinate to set.
+     */
     public void updatePosition(float x, float y) {
         this.position.set(x, y);
     }
 
-
+    /**
+     * Renders the HealthBar.
+     * @param batch The SpriteBatch used in the project.
+     */
     @Override
     public void render(SpriteBatch batch){
         healthBar.setValue(this.newHealth);
@@ -72,11 +89,12 @@ public class HealthBar extends GameObject {
         healthBar.draw(batch, 1);
     }
 
-
-
+    /**
+     * Updates the HealthBar.
+     * @param elapsedTime The time since the last update.
+     */
     @Override
     public void update(float elapsedTime){
         super.update(elapsedTime);
     }
-
 }

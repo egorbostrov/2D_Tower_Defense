@@ -34,7 +34,7 @@ public class Enemy extends GameObject{
     public boolean hasEnteredMap;
 
     /**
-     * Create a new enemy object
+     * Creates a new enemy object
      * @param type char representing which type of zombie this is
      * @param x start position on the x-axis
      * @param y start position on the y-axis
@@ -144,25 +144,23 @@ public class Enemy extends GameObject{
     }
 
     /**
-     * Get method used in testing
-     * @return this.speed
+     * Returns the speed of the enemy.
+     * This method is used for testing.
+     * @return The speed of the enemy.
      */
     public float getSpeed(){
         return this.speed;
     }
 
     /**
-     * Get method used in testing
-     * @return directionLinkedList
+     * Returns the direction list of the enemy.
+     * This method is used for testing.
+     * @return The direction list of the enemy.
      */
     public LinkedList<Direction> getDirectionLinkedList(){
         return this.directionLinkedList;
     }
 
-    /**
-     *Sets the next movement distance, according to the current directions.
-     * As the zombie never rotates more than 90 degrees,
-     */
     private void getNextDistance(){
         currentDirection = directionLinkedList.pollFirst();
         if (currentDirection != null){
@@ -179,7 +177,10 @@ public class Enemy extends GameObject{
         }
     }
 
-
+    /**
+     * Renders the enemy and its health bar.
+     * @param batch The SpriteBatch used in the project.
+     */
     @Override
     public void render(SpriteBatch batch){
         if (elapsedTimeStart >= spawnDelay) {
@@ -189,8 +190,8 @@ public class Enemy extends GameObject{
     }
 
     /**
-     * Changes the direction of the enemy, according to the elapsed time, speed and direction.
-     * @param elapsedTime time since last frame
+     * Updates the enemy's position and direction according to the elapsed time, speed, and direction.
+     * @param elapsedTime The time since the last frame.
      */
     @Override
     public void update(float elapsedTime) {
