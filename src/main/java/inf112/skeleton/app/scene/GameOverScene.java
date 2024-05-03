@@ -25,10 +25,16 @@ public class GameOverScene extends AbstractGameScene{
     private Image image;
     private final Level level;
 
+    /**
+     * Constructor for GameOverScene
+     * @param game the game
+     * @param level the level
+     */
     public GameOverScene(Game game, Level level) {
         super(game);
         this.level = level;
     }
+
 
     private void build() {
         uiskin = new Skin(Gdx.files.internal(GameConstants.SKIN_UI),
@@ -46,6 +52,7 @@ public class GameOverScene extends AbstractGameScene{
 
     }
 
+
     private Table buildBg() {
         Table layer = new Table();
         layer.setFillParent(true);
@@ -56,6 +63,7 @@ public class GameOverScene extends AbstractGameScene{
         layer.add(image).expand().fill();
         return layer;
     }
+
 
     private Table buildControls() {
         Table layer = new Table();

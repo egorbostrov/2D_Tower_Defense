@@ -28,6 +28,10 @@ public class MenuScene extends AbstractGameScene {
     private Button howToPlayButton;
     private Image image;
 
+    /**
+     * Creates the scene where user can choose to play, see how to play, change options or exit the game
+     * @param game the game
+     */
     public MenuScene(Game game) {
         super(game);
     }

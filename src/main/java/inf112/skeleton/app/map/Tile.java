@@ -18,6 +18,14 @@ public class Tile extends GameObject {
     private TextureAtlas.AtlasRegion groundTexture4;
 
 
+    /**
+     * Constructor for Tile
+     * @param x coordinate
+     * @param y coordinate
+     * @param width of the tile
+     * @param height of the tile
+     * @param type of the tile
+     */
     public Tile(float x, float y, float width, float height, GridType type) {
         super(x, y, width, height);
         this.type = type;

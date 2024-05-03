@@ -27,6 +27,10 @@ public class HowToPlayScene extends AbstractGameScene{
     private Button backButton;
     private Image image;
 
+    /**
+     * Constructor for HowToPlayScene that shows info on how to play the game
+     * @param game the game
+     */
     public HowToPlayScene(Game game) {
         super(game);
     }

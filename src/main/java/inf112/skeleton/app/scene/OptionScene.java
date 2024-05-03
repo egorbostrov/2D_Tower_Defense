@@ -29,6 +29,11 @@ public class OptionScene extends AbstractGameScene {
     private Skin uiskin;
     private int mapNumber;
 
+    /**
+     * Constructor for OptionScene to choose what settings to change
+     * @param game the game
+     * @param currentMapNumber the current map number
+     */
     public OptionScene(Game game, int currentMapNumber) {
         super(game);
         this.mapNumber = currentMapNumber;
