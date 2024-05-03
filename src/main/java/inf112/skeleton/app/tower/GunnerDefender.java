@@ -26,9 +26,4 @@ public class GunnerDefender extends BaseDefender {
         MusicManager.playGunnerShot();
         bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
     }
-
-//    @Override
-//    public void rappidFire() {
-//        bullets.add(new Bullet(center.x, center.y, enemy, damage, BulletType.GUNNER_BULLET));
-//    }
 }

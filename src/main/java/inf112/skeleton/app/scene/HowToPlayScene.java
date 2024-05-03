@@ -4,18 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.util.GameConstants;
 import inf112.skeleton.app.util.GameSettings;
 import inf112.skeleton.app.util.MusicManager;
@@ -29,7 +25,7 @@ public class HowToPlayScene extends AbstractGameScene{
 
     //BUTTONS
     private Button backButton;
-    private Image bgimg;
+    private Image image;
 
     public HowToPlayScene(Game game) {
         super(game);
@@ -57,10 +53,10 @@ public class HowToPlayScene extends AbstractGameScene{
         layer.setFillParent(true);
 
         // + Background
-        bgimg = new Image(uiskin, "background");
-        bgimg.setScaling(Scaling.stretch);
-        bgimg.setFillParent(true);
-        layer.add(bgimg).expand().fill();
+        image = new Image(uiskin, "background");
+        image.setScaling(Scaling.stretch);
+        image.setFillParent(true);
+        layer.add(image).expand().fill();
         return layer;
     }
 
@@ -161,14 +157,14 @@ public class HowToPlayScene extends AbstractGameScene{
     }
     @Override
     public void show () {
-        GameSettings prefs = GameSettings.instance;
+        GameSettings preference = GameSettings.instance;
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();
-        prefs.load();   // load preferences.
-        MusicManager.changeMusicVolume(); // change volume (placeholder for when i will complete musicmanager).
-        if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
-            MusicManager.stopCurrentMusic(); // stop the music.
+        preference.load();
+        MusicManager.changeMusicVolume();
+        if(!GameSettings.getMusic()) {
+            MusicManager.stopCurrentMusic();
         } else {
             MusicManager.play("menumusic.ogg", true);
         }

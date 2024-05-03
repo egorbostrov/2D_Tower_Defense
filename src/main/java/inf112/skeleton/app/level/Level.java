@@ -90,12 +90,6 @@ public class Level implements EnemyEvents {
     }
 
     /**
-     * @param x x
-     * @param y y
-     */
-
-
-    /**
      * Removes users health when enemies manage to go through the whole path.
      * Also changes scene to game over if user has 0 health left.
      */
@@ -195,7 +189,7 @@ public class Level implements EnemyEvents {
      */
     public void addMoney(int amount) {
         this.money += amount;
-
+        createMoneyPopup("+$" + amount, Color.GREEN, true);
     }
 
     /**
@@ -224,6 +218,10 @@ public class Level implements EnemyEvents {
 
         MoneyPopup popup = new MoneyPopup(text, x, y, color, 2.0f);
         popups.add(popup);
+    }
+
+    public void setTowerController(TowerController towerController) {
+        this.towerController = towerController;
     }
 
     public void pause() {

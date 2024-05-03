@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Board {
-    private final List<Tile> gameBoard; //All tiles, building a gameBoard, holding either path or grass tiles.
-    private final Set<Vector2> pathPoints; //Set with the coordinates of all path tiles on the map
+    private final List<Tile> gameBoard;
+    private final Set<Vector2> pathPoints;
 
     /**
      * Create a gameBoard with a given set of path coordinates
@@ -26,7 +26,7 @@ public class Board {
     }
 
     /**
-     * Creates board with tiles using given gameconstants
+     * Creates board with tiles using given gameConstants
      */
     private void createGameBoard() {
         float tileXCordStart, tileYCordStart;
@@ -49,7 +49,7 @@ public class Board {
     }
 
     /**
-     * Returns a list of all the tiles in the gameboard.
+     * Returns a list of all the tiles in the gameBoard.
      * @return gameBoard
      */
     public List<Tile> getGameBoard() {

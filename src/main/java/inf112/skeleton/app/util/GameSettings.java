@@ -13,10 +13,10 @@ public class GameSettings {
     private static float volSound;
     private static float volMusic;
     private static boolean fullscreen;
-    private Preferences prefs = Gdx.app.getPreferences(GameConstants.PREFERENCES);
+    private Preferences preference;
 
     private GameSettings() {
-        prefs = Gdx.app.getPreferences(GameConstants.PREFERENCES);
+        preference = Gdx.app.getPreferences(GameConstants.PREFERENCES);
     }
 
     // Public method to get the instance
@@ -31,24 +31,23 @@ public class GameSettings {
      * Load preferences from My Preferences.
      */
     public void load () {
-        sound = prefs.getBoolean("sound", true);
-        music = prefs.getBoolean("music", true);
-        fullscreen = prefs.getBoolean("fullscreen", true);
-        volSound = MathUtils.clamp(prefs.getFloat("volSound", 0.5f),0.0f, 1.0f);
-        volMusic = MathUtils.clamp(prefs.getFloat("volMusic", 0.5f),0.0f, 1.0f);
+        sound = preference.getBoolean("sound", true);
+        music = preference.getBoolean("music", true);
+        fullscreen = preference.getBoolean("fullscreen", true);
+        volSound = MathUtils.clamp(preference.getFloat("volSound", 0.5f),0.0f, 1.0f);
+        volMusic = MathUtils.clamp(preference.getFloat("volMusic", 0.5f),0.0f, 1.0f);
     }
 
     /**
      * Save preferences to My Preferences.
      */
     public void save () {
-        prefs.putBoolean("sound", sound);
-        prefs.putBoolean("music", music);
-        prefs.putFloat("volSound", volSound);
-        prefs.putFloat("volMusic", volMusic);
-        prefs.putBoolean("fullscreen", fullscreen);
-        prefs.flush();
-        System.out.println("Settings saved. (My Preferences in %userprofile% backslash .prefs)");
+        preference.putBoolean("sound", sound);
+        preference.putBoolean("music", music);
+        preference.putFloat("volSound", volSound);
+        preference.putFloat("volMusic", volMusic);
+        preference.putBoolean("fullscreen", fullscreen);
+        preference.flush();
     }
 
     // Setters

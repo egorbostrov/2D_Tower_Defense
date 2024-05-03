@@ -2,7 +2,6 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 
 import inf112.skeleton.app.util.GameAssets;
 

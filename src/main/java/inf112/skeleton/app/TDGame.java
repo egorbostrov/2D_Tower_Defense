@@ -1,10 +1,8 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.scene.MenuScene;
 import inf112.skeleton.app.util.GameAssets;
 

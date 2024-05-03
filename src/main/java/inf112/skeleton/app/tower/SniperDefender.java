@@ -28,6 +28,12 @@ public class SniperDefender extends BaseDefender{
         lastFireTime = 0;
     }
 
+    @Override
+    public void speedUpgrade() {
+        fireRate /= 1.15f;
+        speedPrice *= 2;
+    }
+
 
     @Override
     public void update(float deltaTime) {

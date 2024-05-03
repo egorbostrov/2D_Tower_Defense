@@ -2,7 +2,6 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,8 +22,8 @@ public class GameOverScene extends AbstractGameScene{
     private Button playButton;
     private Button exitButton;
     private Button optionsButton;
-    private Image bgimg;
-    private Level level;
+    private Image image;
+    private final Level level;
 
     public GameOverScene(Game game, Level level) {
         super(game);
@@ -51,10 +50,10 @@ public class GameOverScene extends AbstractGameScene{
         Table layer = new Table();
         layer.setFillParent(true);
         // + Background
-        bgimg = new Image(uiskin, "background");
-        bgimg.setScaling(Scaling.stretch);
-        bgimg.setFillParent(true);
-        layer.add(bgimg).expand().fill();
+        image = new Image(uiskin, "background");
+        image.setScaling(Scaling.stretch);
+        image.setFillParent(true);
+        layer.add(image).expand().fill();
         return layer;
     }
 
@@ -77,28 +76,16 @@ public class GameOverScene extends AbstractGameScene{
         layer.add(new Label(waveText, uiskin));
         layer.row();
 
-        // + Play Button
-        playButton = new Button(uiskin, "play"); // make a new reset button
+        // + Back Button
+        playButton = new Button(uiskin, "back");
         layer.add(playButton);
         playButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
             @Override
-            public void changed(ChangeEvent event, Actor actor) {onResetClicked();}
+            public void changed(ChangeEvent event, Actor actor) {onMenuClicked();}
         });
         layer.row();
 
-
-        //+ Options Button
-        optionsButton = new Button(uiskin, "options"); // make a new menu button
-        layer.add(optionsButton);
-        optionsButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                onMenuClicked();
-            }
-        });
-        layer.row();
-
-        //+ exit button
+        //+ Exit button
         exitButton = new Button(uiskin, "exit");
         layer.add(exitButton);
         exitButton.addListener(new ChangeListener() {
@@ -114,14 +101,12 @@ public class GameOverScene extends AbstractGameScene{
         System.exit(0);
     }
 
-    private void onResetClicked() {
+    private void onMenuClicked() {
         level.restart();
-        game.setScreen(new MenuScene(game));  // Pass the reset level to the new PlayScene
+        game.setScreen(new MenuScene(game));
+
     }
 
-    private void onMenuClicked () {
-        game.setScreen(new MenuScene(game));
-    }
 
     @Override
     public void render (float deltaTime) {
@@ -142,14 +127,14 @@ public class GameOverScene extends AbstractGameScene{
     }
     @Override
     public void show () {
-        GameSettings prefs = GameSettings.instance;
+        GameSettings preference = GameSettings.instance;
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();
-        prefs.load();   // load preferences.
-        MusicManager.changeMusicVolume(); // change volume (placeholder for when i will complete musicmanager).
-        if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
-            MusicManager.stopCurrentMusic(); // stop the music.
+        preference.load();
+        MusicManager.changeMusicVolume();
+        if(!GameSettings.getMusic()) {
+            MusicManager.stopCurrentMusic();
         } else {
             MusicManager.play("menumusic.ogg", true);
         }

@@ -26,7 +26,7 @@ public class MenuScene extends AbstractGameScene {
     private Button exitButton;
     private Button optionsButton;
     private Button howToPlayButton;
-    private Image bgimg;
+    private Image image;
 
     public MenuScene(Game game) {
         super(game);
@@ -48,24 +48,25 @@ public class MenuScene extends AbstractGameScene {
 
     }
 
-    private Table buildBg() {   // move this to menuscenemenu later on.
+    private Table buildBg() {
         Table layer = new Table();
         layer.setFillParent(true);
+
         // + Background
-        bgimg = new Image(uimenuskin, "background");
-        bgimg.setScaling(Scaling.stretch);
-        bgimg.setFillParent(true);
-        layer.add(bgimg).expand().fill();
+        image = new Image(uimenuskin, "background");
+        image.setScaling(Scaling.stretch);
+        image.setFillParent(true);
+        layer.add(image).expand().fill();
         return layer;
     }
 
-    private Table buildControls() { // move this to menuscenemenu later on.
+    private Table buildControls() {
         Table layer = new Table();
 
         // + Play Button
         playButton = new Button(uimenuskin, "play");
         layer.add(playButton);
-        playButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
+        playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 onPlayClicked();
@@ -142,14 +143,14 @@ public class MenuScene extends AbstractGameScene {
     }
     @Override
     public void show () {
-        GameSettings prefs = GameSettings.instance;
+        GameSettings preference = GameSettings.instance;
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();
-        prefs.load();   // load preferences.
-        MusicManager.changeMusicVolume(); // change volume (placeholder for when i will complete musicmanager).
-        if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
-            MusicManager.stopCurrentMusic(); // stop the music.
+        preference.load();
+        MusicManager.changeMusicVolume();
+        if(!GameSettings.getMusic()) {
+            MusicManager.stopCurrentMusic();
         } else {
             MusicManager.play("menumusic.ogg", true);
         }

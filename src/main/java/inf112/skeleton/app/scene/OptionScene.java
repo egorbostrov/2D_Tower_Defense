@@ -25,7 +25,7 @@ public class OptionScene extends AbstractGameScene {
     private Slider sldMusic;
     private CheckBox chkFullscreen;
     private static boolean fromPlayScene;
-    private Image bgImg;
+    private Image image;
     private Skin uiskin;
     private int mapNumber;
 
@@ -108,39 +108,34 @@ public class OptionScene extends AbstractGameScene {
         Table layer = new Table();
         layer.setFillParent(true);
         // + Background
-        bgImg = new Image(skin, "background");
-        bgImg.setScaling(Scaling.stretch);
-        bgImg.setFillParent(true);
-        layer.add(bgImg).expand().fill();
+        image = new Image(skin, "background");
+        image.setScaling(Scaling.stretch);
+        image.setFillParent(true);
+        layer.add(image).expand().fill();
         return layer;
     }
 
 
     // Load settings from My Preferences and change the buttons/sliders to their corresponding values.
     private void loadSettings() {
-        GameSettings prefs = GameSettings.instance;
-        prefs.load();
-        chkSound.setChecked(prefs.getSound());
-        sldSound.setValue(prefs.getVolSound());
-        chkMusic.setChecked(prefs.getMusic());
-        sldMusic.setValue(prefs.getVolMusic());
-        chkFullscreen.setChecked(prefs.getFullscreen());
+        GameSettings preference = GameSettings.instance;
+        preference.load();
+        chkSound.setChecked(preference.getSound());
+        sldSound.setValue(preference.getVolSound());
+        chkMusic.setChecked(preference.getMusic());
+        sldMusic.setValue(preference.getVolMusic());
+        chkFullscreen.setChecked(preference.getFullscreen());
     }
 
     // Save selected settings to My Preferences, using the corresponding values set by the user.
     private void saveSettings() {
-        GameSettings prefs = GameSettings.instance;
-        prefs.setSound(chkSound.isChecked());
-        prefs.setVolSound(sldSound.getValue());
-        prefs.setMusic(chkMusic.isChecked());
-        prefs.setVolMusic(sldMusic.getValue());
-        prefs.setFullscreen(chkFullscreen.isChecked());
-        prefs.save();
-    }
-
-    // Getter and setter to see if options was triggered from PlayScene
-    public static boolean getFromPlayScene() {
-        return fromPlayScene;
+        GameSettings preference = GameSettings.instance;
+        preference.setSound(chkSound.isChecked());
+        preference.setVolSound(sldSound.getValue());
+        preference.setMusic(chkMusic.isChecked());
+        preference.setVolMusic(sldMusic.getValue());
+        preference.setFullscreen(chkFullscreen.isChecked());
+        preference.save();
     }
 
     public static void setFromPlayScene() {
@@ -192,36 +187,5 @@ public class OptionScene extends AbstractGameScene {
     @Override
     public void pause() {
 
-    }
-
-    /**
-     * Getters for testing
-     */
-    public Stage getStage(){
-        return  this.stage;
-    }
-    public Skin getSkin(){
-        return this.skin;
-    }
-    public CheckBox getCheckSound(){
-        return this.chkSound;
-    }
-    public CheckBox getCheckMusic(){
-        return this.chkMusic;
-    }
-    public CheckBox getCheckFullscreen(){
-        return this.chkFullscreen;
-    }
-    public Slider getSliderSound(){
-        return this.sldSound;
-    }
-    public Slider getSliderMusic(){
-        return this.sldMusic;
-    }
-    public TextButton getSaveButton(){
-        return this.saveButton;
-    }
-    public TextButton getCancelButton(){
-        return this.cancelButton;
     }
 }

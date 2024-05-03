@@ -46,25 +46,25 @@ public class MapSelectionScene extends AbstractGameScene {
 
     }
 
-    private Table buildBg() {   // move this to menuscenemenu later on.
+    private Table buildBg() {
         Table layer = new Table();
         layer.setFillParent(true);
         // + Background
-        Image bgimg = new Image(uimenuskin, "background");
-        bgimg.setScaling(Scaling.stretch);
-        bgimg.setFillParent(true);
-        layer.add(bgimg).expand().fill();
+        Image image = new Image(uimenuskin, "background");
+        image.setScaling(Scaling.stretch);
+        image.setFillParent(true);
+        layer.add(image).expand().fill();
         return layer;
     }
 
 
-    private Table buildControls() { // move this to menuscenemenu later on.
+    private Table buildControls() {
         Table layer = new Table();
         // + map one Button
         //BUTTONS
         Button mapOneButton = new Button(uimenuskin, "play");
         layer.add(mapOneButton);
-        mapOneButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
+        mapOneButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 onMapClicked(1);
@@ -73,7 +73,7 @@ public class MapSelectionScene extends AbstractGameScene {
         // + map two Button
         Button mapTwoButton = new Button(uimenuskin, "play");
         layer.add(mapTwoButton);
-        mapTwoButton.addListener(new ChangeListener() { // todo: lage general lambda-expression for listeners
+        mapTwoButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 onMapClicked(2);
@@ -119,14 +119,14 @@ public class MapSelectionScene extends AbstractGameScene {
     }
     @Override
     public void show () {
-        GameSettings prefs = GameSettings.instance;
+        GameSettings preference = GameSettings.instance;
         stage = new Stage(new StretchViewport(GameConstants.UI_WIDTH, GameConstants.UI_HEIGHT));
         Gdx.input.setInputProcessor(stage);
         build();
-        prefs.load();   // load preferences.
-        MusicManager.changeMusicVolume(); // change volume (placeholder for when i will complete musicmanager).
-        if(!GameSettings.getMusic()) {  // if music gets disabled in settings...
-            MusicManager.stopCurrentMusic(); // stop the music.
+        preference.load();
+        MusicManager.changeMusicVolume();
+        if(!GameSettings.getMusic()) {
+            MusicManager.stopCurrentMusic();
         } else {
             MusicManager.play("menumusic.ogg", true);
         }

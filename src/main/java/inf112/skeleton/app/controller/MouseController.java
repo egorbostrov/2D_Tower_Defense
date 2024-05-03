@@ -13,12 +13,10 @@ import inf112.skeleton.app.tower.BaseDefender;
 import inf112.skeleton.app.util.GameConstants;
 
 public class MouseController implements InputProcessor {
-    private TowerController towerController;
+    private final TowerController towerController;
 
-    private boolean isDragging;
-    private Level level;
-    private int lastX, lastY;
-    private EnemyController enemyController;
+    private final Level level;
+    private final EnemyController enemyController;
 
     public MouseController(TowerController towerController, EnemyController enemyController, Level level) {
         this.towerController = towerController;
@@ -35,7 +33,7 @@ public class MouseController implements InputProcessor {
 
         if (button == Input.Buttons.LEFT && towerController.isTowerSelected()) {
             Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
-            getCameraManager().getCamera().unproject(worldCoordinates); // Use CameraManager's camera to unproject
+            getCameraManager().getCamera().unproject(worldCoordinates);
 
             float towerSize = GameConstants.TOWER_SIZE;
             float centeredSizeX = worldCoordinates.x - towerSize / 2;
@@ -71,10 +69,6 @@ public class MouseController implements InputProcessor {
      */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (button == Input.Buttons.LEFT){
-            isDragging = false;
-            return true;
-        }
         return false;
     }
     /**
@@ -82,13 +76,6 @@ public class MouseController implements InputProcessor {
      */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (isDragging) {
-            float deltaX = screenX - lastX;
-            float deltaY = screenY - lastY;
-            lastX = screenX;
-            lastY = screenY;
-            return true;
-        }
         return false;
     }
     /**

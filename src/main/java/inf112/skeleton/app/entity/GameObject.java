@@ -1,6 +1,5 @@
 package inf112.skeleton.app.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -54,8 +53,6 @@ public abstract class GameObject implements Render {
     public GameObject(float xCord, float yCord, float width, float height) {
         this.position = new Vector2(xCord, yCord);
         this.size = new Vector2(width, height);
-        //this.center = new Vector2((position.x + size.x) / 2, (position.y + size.y) / 2);
-        //this.boundsRectangle = new Rectangle(xCord, yCord, this.size.x, this.size.y);
 
 
         //test
@@ -64,14 +61,9 @@ public abstract class GameObject implements Render {
         this.isVisible = true;
     }
 
-    // Initialize sprites for the game object
     protected void initializeSprites(TextureAtlas atlas, String regularRegionName, String selectedRegionName) {
         TextureAtlas.AtlasRegion regularRegion = atlas.findRegion(regularRegionName);
         TextureAtlas.AtlasRegion selectedRegion = atlas.findRegion(selectedRegionName);
-//        if (regularRegion == null || selectedRegion == null) {
-//            Gdx.app.error("BaseDefender", "[BaseDefender] Sprite textures are not initialized!");
-//            return;
-//        }
         this.sprite = new Sprite(regularRegion);
         this.spriteSelected = new Sprite(selectedRegion);
     }

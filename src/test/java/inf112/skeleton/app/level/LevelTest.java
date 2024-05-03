@@ -3,6 +3,7 @@ package inf112.skeleton.app.level;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.map.Board;
 import inf112.skeleton.app.util.GameConstants;
 import org.junit.BeforeClass;
@@ -131,16 +133,43 @@ public class LevelTest {
     }
 
     @Test
-    public void removeMoneyDoesNotGoBelowZero() {
+    public void testRemoveMoneyNotBelowZero() {
         level.removeMoney(GameConstants.START_MONEY + 1);
         assertEquals(GameConstants.START_MONEY, level.getMoney());
     }
+
+    @Test
+    public void testRemoveMoneySelectedTowerUpgrade() {
+        // Arrange
+        TowerController mockTowerController = Mockito.mock(TowerController.class);
+        when(mockTowerController.isSelectedTowerUpgrade()).thenReturn(true);
+        level.setTowerController(mockTowerController); // Assuming there's a setter for towerController
+
+        // Act
+        level.removeMoney(100); // Assuming START_MONEY is more than 50
+
+        // Assert
+        assertEquals(GameConstants.START_MONEY - 100, level.getMoney());
+    }
+
 
     @Test
     public void testEnemyCompletedPath() {
         int initialHealth = level.getUserHealth();
         level.enemyCompletedPath();
         assertEquals(initialHealth - 1, level.getUserHealth());
+    }
+
+    @Test
+    public void testEnemyCompletedPath0Health() {
+        int initialHealth = level.getUserHealth();
+        level.enemyCompletedPath();
+        level.enemyCompletedPath();
+        level.enemyCompletedPath();
+        level.enemyCompletedPath();
+        level.enemyCompletedPath();
+        level.enemyCompletedPath();
+        assertEquals(initialHealth - 6, level.getUserHealth());
     }
 
     @Disabled("Does not test anything useful yet")

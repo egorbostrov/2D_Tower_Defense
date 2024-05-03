@@ -11,7 +11,6 @@ import java.util.*;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.controller.Render;
 import inf112.skeleton.app.enums.GridType;
-import inf112.skeleton.app.util.GameConstants;
 
 public class Map implements Render{
     private FileHandle filehandle;

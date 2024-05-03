@@ -20,7 +20,7 @@ public class MusicManager {
 
 
     public static void play(String filename, boolean loop) {
-        if (GameSettings.getMusic()!=false) {
+        if (GameSettings.getMusic()) {
             if (!filename.equals(currentTrack) || (currentMusic != null && !currentMusic.isPlaying())) {
                 // Stop current music if it's not the right track or not playing
                 stopCurrentMusic();

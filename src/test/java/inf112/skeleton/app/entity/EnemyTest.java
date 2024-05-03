@@ -1,8 +1,8 @@
-package inf112.skeleton.app.map;
+package inf112.skeleton.app.entity;
 
 import inf112.skeleton.app.level.Level;
+import inf112.skeleton.app.map.Map;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,7 +16,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.LinkedList;
 
-import inf112.skeleton.app.entity.Enemy;
 import inf112.skeleton.app.enums.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;

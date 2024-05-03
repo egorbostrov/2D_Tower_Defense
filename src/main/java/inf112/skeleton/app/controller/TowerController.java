@@ -26,7 +26,6 @@ public class TowerController implements Render{
 
     private final List<BaseDefender> defenderList;
     private boolean isSelectedDefender;
-    private BaseDefender currentDefender;
     private boolean isTowerSelected;
     private DefenderType selectedTowerType;
     private BaseDefender selectedDefenderUpgrade;
@@ -192,7 +191,7 @@ public class TowerController implements Render{
     }
 
     /**
-     * Calls the shaperender method for each tower, which renders their range, shown using a red circle.
+     * Calls the shapeRender method for each tower, which renders their range, shown using a red circle.
      * @param renderer the ShapeRenderer used
      */
     @Override
@@ -248,10 +247,6 @@ public class TowerController implements Render{
 
     public void clearDefenders() {
         defenderList.clear();
-    }
-
-    public float getDamage(){
-        return currentDefender.getDamage();
     }
 
     public boolean isSpeedMode() {

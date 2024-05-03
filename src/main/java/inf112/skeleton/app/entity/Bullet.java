@@ -82,7 +82,7 @@ public class Bullet extends GameObject {
                 checkRemove();
                 Vector2 targetPosition = new Vector2().set(enemy.center.x, enemy.center.y);
 
-                Vector2 temporary = targetPosition.sub(this.center).clamp(TILE_WIDTH * 8, TILE_WIDTH * 8)//FIX here we set restriction to the length of the projectile shooting, maybe we should set a limit here according to the range of the tower shooting the bullet?
+                Vector2 temporary = targetPosition.sub(this.center).clamp(TILE_WIDTH * 8, TILE_WIDTH * 8)
                         .scl(deltaTime);
                 this.position.add(temporary);
             }

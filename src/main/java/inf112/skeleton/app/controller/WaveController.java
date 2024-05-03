@@ -65,7 +65,7 @@ public class WaveController {
     }
 
     public void newWave(Level level) {
-        //Increase the zombie speed, health and decrease the delay inbetween their spawns.
+        //Increase the zombie speed, health and decrease the delay in between their spawns.
         baseSpeedMultiplier += 0.05f;
         healthMultiplier *= 1.05f;
 

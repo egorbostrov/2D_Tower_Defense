@@ -9,7 +9,7 @@ import inf112.skeleton.app.util.GameAssets;
 import java.util.Random;
 
 public class Tile extends GameObject {
-    private GridType type;
+    private final GridType type;
     private TextureAtlas.AtlasRegion tileTexture;
     private TextureAtlas.AtlasRegion pathTexture;
     private TextureAtlas.AtlasRegion groundTexture;
@@ -30,7 +30,6 @@ public class Tile extends GameObject {
     }
 
     private void loadTextures() {
-        // Access the texture regions from GameAssets
         pathTexture = GameAssets.pathTexture;
         groundTexture = GameAssets.groundTexture;
         groundTexture2 = GameAssets.groundTexture2;
