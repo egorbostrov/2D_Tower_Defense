@@ -2,15 +2,12 @@ package inf112.skeleton.app.scene;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -60,10 +57,16 @@ public class MapSelectionScene extends AbstractGameScene {
 
     private Table buildControls() {
         Table layer = new Table();
-        // + map one Button
+
+        // Title
+        Label titleLabel = new Label("Select a map!", uimenuskin, "default-font", Color.ORANGE);
+        titleLabel.setFontScale(2);
         //BUTTONS
-        Button mapOneButton = new Button(uimenuskin, "play");
-        layer.add(mapOneButton);
+        layer.add(titleLabel).padTop(10).center().colspan(5);
+        Button mapOneButton = new Button(uimenuskin, "map1select");
+        layer.row();
+        // + map one Button
+        layer.add(mapOneButton).size(100);
         mapOneButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -71,8 +74,8 @@ public class MapSelectionScene extends AbstractGameScene {
             }
         });
         // + map two Button
-        Button mapTwoButton = new Button(uimenuskin, "play");
-        layer.add(mapTwoButton);
+        Button mapTwoButton = new Button(uimenuskin, "map2select");
+        layer.add(mapTwoButton).size(100);
         mapTwoButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

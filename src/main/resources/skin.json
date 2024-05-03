@@ -53,6 +53,14 @@
     "removebutton": {
       "down": board_remove_down,
       "up": board_remove_up
+    },
+    "map1select": {
+      "down": board_map1_down,
+      "up": board_map1_up
+    },
+    "map2select":{
+      "down": board_map2_down,
+      "up": board_map2_up
     }
   }
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
