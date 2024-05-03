@@ -39,6 +39,12 @@
 				</os>
 			</activation>
 			<dependencies>
+				<!--Should make libgdx work on Mac without -XstartOnFirstThread -->
+				<dependency>
+					<groupId>com.badlogicgames.gdx</groupId>
+					<artifactId>gdx-lwjgl3-glfw-awt-macos</artifactId>
+					<version>${libgdx.version}</version>
+				</dependency>
 			</dependencies>
 		</profile>
 	</profiles>
