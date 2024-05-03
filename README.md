@@ -1,21 +1,30 @@
 # Obama Gaming (Gruppe 5)
-- **Link til semesteroppgaven:** https://git.app.uib.no/inf112/24v/inf112-24v/-/wikis/prosjekt/semesteroppgave
-- **Link til issue-board:** https://git.app.uib.no/Tarjei.Flotre/obama-gaming/-/boards
+### [Issue-Board](https://git.app.uib.no/Tarjei.Flotre/obama-gaming/-/boards)
 
-## Navnet på spillet ikke bestemt
+# The White House Protectors
 
 ## Team & Roller
-- Sjå oblig 1 for mer info om rollene og selve teamet.
-- **Prosjektleder:** Egor Bostrov
-- **Systemarkitekt:** Trym Fonn Jakobsen
-- **Utvikler:** Alle
-- **Design og UX:** Kevinas Pliuskus
-- **Testansvarlig:** William Manley
-- **Santas Hjelper:** Tarjei Fløtre
+### **Prosjektleder:** Egor Bostrov
+### **Systemarkitekt:** Trym Fonn Jakobsen
+### **Design og UX:** Kevinas Pliuskus
+### **Testansvarlig:** William Manley
+### **Support:** Tarjei Fløtre
 
 ## Om spillet
-- Kommer...
+#### I en apokalyptisk verden i 2016 har et nytt virus blitt sluppet løs, hvor de smittede forvandles til zombier.<br>
+#### Som general i militæret er det din oppgave å beskytte stien til Det hvite hus.<br>
+#### Du må strategisk plassere ulike typer forsvarere for å hindre at zombiene når frem. <br>
+#### Du har kun seks ekstra vakter til rådighet; disse vaktene fungerer som dine liv.<br>
+#### Vaktene er svært svake og vil mest sannsynlig dø om de angripes. <br>
+#### Hvis alle vaktene dør, vil zombiene kunne trenge gjennom og drepe vår elskede president, Barack Obama. <br>
+#### Hele USA er på dine skuldre, lykke til general.
+
 ## Kjøring
-- Kommer...
+#### Først kjøre `mvn clean package` i konsollen
+#### Deretter kjøre `java -jar target/white-house-defender-1.0-SNAPSHOT-fat.jar` i konsollen
+#### Hvis dette ikke fungere, bruk `mvn exec:java` i konsollen
+#### Kjører Java 17 eller senere
+
+
 ## Kilder
 - Kommer...
