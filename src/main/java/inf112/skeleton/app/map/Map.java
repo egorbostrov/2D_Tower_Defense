@@ -19,7 +19,7 @@ public class Map implements Render{
     private final int selectedMap;
 
     /**
-     * Hard coded map using directions that the path has
+     * Constructor for Map given the map number
      */
     public Map(int mapSelection) {
         this.selectedMap = mapSelection;
@@ -72,7 +72,7 @@ public class Map implements Render{
         return directions;
     }
 
-//Some help from chatGPT with the string handling here.
+    //Some help from chatGPT with the string handling here.
     private Set<Vector2> createPathSet(String fileContent) {
         Set<Vector2> pathTiles = new HashSet<>();
         String[] lines = fileContent.split("\n");
@@ -130,7 +130,7 @@ public class Map implements Render{
     }
 
     /**
-     *
+     * Returns the selected tile
      * @param x coordinate for tile
      * @param y coordinate for tile
      * @return the selected tile

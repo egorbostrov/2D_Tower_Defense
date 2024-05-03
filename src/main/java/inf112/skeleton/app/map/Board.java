@@ -25,9 +25,7 @@ public class Board {
         createGameBoard();
     }
 
-    /**
-     * Creates board with tiles using given gameConstants
-     */
+
     private void createGameBoard() {
         float tileXCordStart, tileYCordStart;
         float tileWidth = GameConstants.TILE_WIDTH;
@@ -79,7 +77,7 @@ public class Board {
     }
 
     /**
-     * Updates the tiles on hte game board
+     * Updates the tiles on the game board
      * @param elapsedTime time from previous frame to current frame
      *
      */
