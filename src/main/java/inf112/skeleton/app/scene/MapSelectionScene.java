@@ -81,7 +81,7 @@ public class MapSelectionScene extends AbstractGameScene {
         });
         layer.row();
         //+ back button
-        Button backButton = new Button(uimenuskin, "exit");
+        Button backButton = new Button(uimenuskin, "back");
         layer.add(backButton).colspan(2).center();
         backButton.addListener(new ChangeListener() {
             @Override
