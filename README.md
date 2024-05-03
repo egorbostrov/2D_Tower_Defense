@@ -27,4 +27,17 @@
 
 
 ## Kilder
-- Kommer...
+- Alle Kildene som er brukt i spillet er "non-copyright" og kan brukes fritt av andre.
+- [gunnershot.ogg](https://pixabay.com/sound-effects/hit-someting-6037/)
+- [snipershot.ogg](https://pixabay.com/sound-effects/gun-shot-1-176892/)
+- [bombershot.ogg](https://pixabay.com/sound-effects/cannon-shot-14799/)
+- [zombiedeathsound.ogg](https://pixabay.com/sound-effects/zombie-3-106344/)
+- [mainmenusong.ogg](https://pixabay.com/music/synthwave-neon-gaming-128925/)
+- [gamesong.ogg](https://pixabay.com/music/upbeat-8-bit-legends-ancient-shrine-200457/)
+- [GUNNER_DEFENDER](https://secrethideout.itch.io/team-wars-platformer-battle)
+
+
+## Copyright lisens
+#### All grafikk er laget av `Obama Gaming`, bortsett fra GUNNER_DEFENER. 
+#### Lyder er hentet av "non-copyright" nettsider og kan brukes fritt av andre, disse finnes i kilder.
+#### Spillet er laget av `Obama Gaming` og kan brukes fritt av andre.
