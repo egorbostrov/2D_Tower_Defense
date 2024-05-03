@@ -10,11 +10,11 @@ public class MusicManager {
     private static String currentTrack = "";
 
     // SFX
-    private static final Sound sniperShotSound = Gdx.audio.newSound(Gdx.files.internal("sniper_shot.ogg"));
-    private static final Sound gunnerShotSound = Gdx.audio.newSound(Gdx.files.internal("gunner_shot.ogg"));
-    private static final Sound bomberShotSound = Gdx.audio.newSound(Gdx.files.internal("bombashoot.ogg"));
-    private static final Sound bombExplodeSound = Gdx.audio.newSound(Gdx.files.internal("bombexplode.ogg"));
-    private static final Sound zombieDeathScream = Gdx.audio.newSound(Gdx.files.internal("zombie_death.ogg"));
+    private static final Sound sniperShotSound = Gdx.audio.newSound(Gdx.files.internal("snipershot.ogg"));
+    private static final Sound gunnerShotSound = Gdx.audio.newSound(Gdx.files.internal("gunnershot.ogg"));
+    private static final Sound bomberShotSound = Gdx.audio.newSound(Gdx.files.internal("bombershot.ogg"));
+    private static final Sound bombExplodeSound = Gdx.audio.newSound(Gdx.files.internal("bombexplosion.ogg"));
+    private static final Sound zombieDeathScream = Gdx.audio.newSound(Gdx.files.internal("zombiedeathsound.ogg"));
 
     public static void play(String filename, boolean loop) {
         if (GameSettings.getMusic()) {
