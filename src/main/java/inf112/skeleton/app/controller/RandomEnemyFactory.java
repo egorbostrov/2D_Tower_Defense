@@ -20,7 +20,8 @@ public class RandomEnemyFactory implements EnemyFactory{
 
     /**
      * Creates a new enemy with random type.
-     * The type of the enemy is chosen randomly from the possible enemy types.
+     * The type of the enemy is chosen randomly from the possible enemy types,
+     * thus this factory is not hardcoded and allow addition of more enemies without changing the factory
      *
      * @param level The level to be used for the enemy.
      * @param speedMultiplier The speed multiplier for the enemy.
