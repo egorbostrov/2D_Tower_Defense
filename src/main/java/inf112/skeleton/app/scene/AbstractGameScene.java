@@ -8,6 +8,10 @@ import inf112.skeleton.app.util.GameAssets;
 public abstract class AbstractGameScene implements Screen {
     protected Game game;
 
+    /**
+     * Constructor for AbstractGameScene
+     * @param game the game
+     */
     public AbstractGameScene (Game game) {
         this.game = game;
     }

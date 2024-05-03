@@ -20,8 +20,5 @@ public class TestableDefender extends BaseDefender {
         // Implement this method as needed for testing, or leave it minimal.
     }
 
-    @Override
-    public void rappidFire() {
-        // Implement this method as needed for testing, or leave it minimal.
-    }
+
 }

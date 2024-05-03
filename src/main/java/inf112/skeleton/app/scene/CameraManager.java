@@ -8,6 +8,10 @@ public class CameraManager {
     private final float zoom;
     private final OrthographicCamera camera; // Direct reference to the camera being managed.
 
+    /**
+     * Constructor for CameraManager
+     * @param camera the camera to manage
+     */
     public CameraManager(OrthographicCamera camera) {
         this.camera = camera; // Initialize with a specific camera.
         this.position = new Vector3(camera.position); // Start with the current camera position.
@@ -15,6 +19,7 @@ public class CameraManager {
     }
 
 
+    //getter methods
     public OrthographicCamera getCamera() {
         return camera;
     }
@@ -23,6 +28,11 @@ public class CameraManager {
     }
 
 
+    /**
+     * resize the camera
+     * @param width the width of the camera
+     * @param height the height of the camera
+     */
     public void resize(int width, int height) {
         camera.viewportWidth = width;
         camera.viewportHeight = height;

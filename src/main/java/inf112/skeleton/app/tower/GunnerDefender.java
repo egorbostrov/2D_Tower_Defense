@@ -12,6 +12,12 @@ import java.util.List;
 
 public class GunnerDefender extends BaseDefender {
 
+    /**
+     * Create a defender that shoots bullets
+     * @param x position on the x-axis
+     * @param y position on the y-axis
+     * @param enemyList enemies to defeat
+     */
     public GunnerDefender(float x, float y, List<Enemy> enemyList) {
         super(x, y, enemyList);
         defenderType = DefenderType.GUNNER;
@@ -21,6 +27,9 @@ public class GunnerDefender extends BaseDefender {
         price = GameConstants.TOWER_PRICE_GUNNER;
     }
 
+    /**
+     * Fire a bullet projectile
+     */
     @Override
     public void projectileFire() {
         MusicManager.playGunnerShot();

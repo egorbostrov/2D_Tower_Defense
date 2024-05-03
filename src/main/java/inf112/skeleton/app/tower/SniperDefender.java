@@ -15,6 +15,12 @@ public class SniperDefender extends BaseDefender{
     private float fireRate;
     private float lastFireTime;
 
+    /**
+     * Create sniper defender that shoots high damage bullets
+     * @param x position on the x-axis
+     * @param y position on the y-axis
+     * @param enemyList enemies to defeat
+     */
     public SniperDefender(float x, float y, List<Enemy> enemyList) {
         super(x, y, enemyList);
         defenderType = DefenderType.SNIPER;
@@ -28,6 +34,9 @@ public class SniperDefender extends BaseDefender{
         lastFireTime = 0;
     }
 
+    /**
+     * Upgrade the fire rate of the sniper defender
+     */
     @Override
     public void speedUpgrade() {
         fireRate /= 1.15f;
@@ -35,6 +44,10 @@ public class SniperDefender extends BaseDefender{
     }
 
 
+    /**
+     * Update the sniper defender
+     * @param deltaTime time since last frame
+     */
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
@@ -42,6 +55,9 @@ public class SniperDefender extends BaseDefender{
         projectileFire();
     }
 
+    /**
+     * Fire a bullet projectile
+     */
     @Override
     public void projectileFire() {
         if (lastFireTime >= fireRate && !enemies.isEmpty()) {
