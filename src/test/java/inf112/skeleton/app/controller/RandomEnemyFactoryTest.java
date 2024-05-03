@@ -33,7 +33,6 @@ class RandomEnemyFactoryTest {
     public static void setupBeforeAll() {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
         application = new HeadlessApplication(new ApplicationAdapter() {}, config);
-        //Mocking needed for the healthbar created in Enemy constructor
         Gdx.gl = mock(GL20.class);
         Gdx.gl20 = Gdx.gl;
         when(Gdx.gl.glGenTexture()).thenReturn(1);

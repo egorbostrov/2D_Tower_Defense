@@ -106,6 +106,4 @@ public class MapTest {
             application = null;
         }
     }
-
-
 }

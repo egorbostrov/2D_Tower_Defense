@@ -37,12 +37,10 @@ public class LibGDXTestBase {
             public void dispose() {}
         }, config);
 
-        // Mocking the Gdx components
         Gdx.gl = Mockito.mock(GL20.class);
         Gdx.gl20 = Gdx.gl;
         Gdx.graphics = Mockito.mock(Graphics.class);
 
-        // Setting up the expected responses from the mocked Graphics object
         Mockito.when(Gdx.graphics.getWidth()).thenReturn(800);
         Mockito.when(Gdx.graphics.getHeight()).thenReturn(600);
     }

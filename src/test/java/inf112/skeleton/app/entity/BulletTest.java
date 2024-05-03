@@ -24,7 +24,6 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BulletTest {
-
     private static HeadlessApplication application;
 
     @BeforeAll
@@ -41,8 +40,6 @@ public class BulletTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-
     }
 
     @Test

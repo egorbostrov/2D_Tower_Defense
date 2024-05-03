@@ -66,13 +66,12 @@ public class TowerControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);  //// Initializes annotated mocks
+        MockitoAnnotations.openMocks(this);
         when(mockLevel.getMap()).thenReturn(mockMap);
         when(mockMap.getSelectedTile(anyFloat(), anyFloat())).thenReturn(mockTile);
         when(mockTile.getType()).thenReturn(GridType.GROUND);
         when(mockLevel.getMoney()).thenReturn(1000);
 
-        // Assuming you want to mock the behavior of methods called on towerController
         towerController = new TowerController(mockLevel);
         mockDefender = mock(BaseDefender.class);
     }
@@ -153,155 +152,131 @@ public class TowerControllerTest {
 
     @Test
     void testUpgradeDamage() {
-        // Setup
-        int damageUpgradeCost = 100;  // Assuming the damage upgrade costs 100
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        when(mockDefender.getAttackCost()).thenReturn(damageUpgradeCost);  // Setup the cost
-        when(mockLevel.getMoney()).thenReturn(1000);  // Ensuring there's enough money
-        towerController.setSelectedTowerUpgrade(mockDefender);  // Setting the selected defender
+        int damageUpgradeCost = 100;
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        when(mockDefender.getAttackCost()).thenReturn(damageUpgradeCost);
+        when(mockLevel.getMoney()).thenReturn(1000);
+        towerController.setSelectedTowerUpgrade(mockDefender);
 
-        // Act
         towerController.upgradeDamage();
 
-        // Verify
-        verify(mockLevel, times(1)).removeMoney(damageUpgradeCost);  // Verify money is deducted correctly
-        verify(mockDefender, times(1)).damageUpgrade();  // Verify the damage upgrade is called
+        verify(mockLevel, times(1)).removeMoney(damageUpgradeCost);
+        verify(mockDefender, times(1)).damageUpgrade();
     }
 
     @Test
     void testUpgradeRange() {
-        // Setup
-        int rangeUpgradeCost = 100;  // Assuming the range upgrade costs 100
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        when(mockDefender.getRangePrice()).thenReturn(rangeUpgradeCost);  // Setup the cost
-        when(mockLevel.getMoney()).thenReturn(1000);  // Ensuring there's enough money
-        towerController.setSelectedTowerUpgrade(mockDefender);  // Setting the selected defender
+        int rangeUpgradeCost = 100;
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        when(mockDefender.getRangePrice()).thenReturn(rangeUpgradeCost);
+        when(mockLevel.getMoney()).thenReturn(1000);
+        towerController.setSelectedTowerUpgrade(mockDefender);
 
-        // Act
         towerController.upgradeRange();
 
-        // Verify
-        verify(mockLevel, times(1)).removeMoney(rangeUpgradeCost);  // Verify money is deducted correctly
-        verify(mockDefender, times(1)).rangeUpgrade();  // Verify the range upgrade is called
+        verify(mockLevel, times(1)).removeMoney(rangeUpgradeCost);
+        verify(mockDefender, times(1)).rangeUpgrade();
     }
 
     @Test
     void testUpgradeSpeed() {
-        // Setup
-        int speedUpgradeCost = 100;  // Assuming the speed upgrade costs 100
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        when(mockDefender.getSpeedPrice()).thenReturn(speedUpgradeCost);  // Setup the cost
-        when(mockLevel.getMoney()).thenReturn(1000);  // Ensuring there's enough money
-        towerController.setSelectedTowerUpgrade(mockDefender);  // Setting the selected defender
+        int speedUpgradeCost = 100;
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        when(mockDefender.getSpeedPrice()).thenReturn(speedUpgradeCost);
+        when(mockLevel.getMoney()).thenReturn(1000);
+        towerController.setSelectedTowerUpgrade(mockDefender);
 
-        // Act
         towerController.upgradeSpeed();
 
-        // Verify
-        verify(mockLevel, times(1)).removeMoney(speedUpgradeCost);  // Verify money is deducted correctly
-        verify(mockDefender, times(1)).speedUpgrade();  // Verify the speed upgrade is called
+        verify(mockLevel, times(1)).removeMoney(speedUpgradeCost);
+        verify(mockDefender, times(1)).speedUpgrade();
     }
 
     @Test
     public void testSellSelectedDefender() {
-        // Setup
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        BaseDefender innerDefender = mock(BaseDefender.class); // Mocking the inner defender object that getDefender() should return
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        BaseDefender innerDefender = mock(BaseDefender.class);
 
         int defenderPrice = 100;
         int expectedRefund = (int) (defenderPrice * 0.75);
 
-        when(innerDefender.getPrice()).thenReturn((float) defenderPrice);  // Set up price for the inner defender
-        when(mockDefender.getDefender()).thenReturn(innerDefender); // Ensure getDefender() returns this inner mock
+        when(innerDefender.getPrice()).thenReturn((float) defenderPrice);
+        when(mockDefender.getDefender()).thenReturn(innerDefender);
 
-        when(mockLevel.getMoney()).thenReturn(1000); // Initial money setup
+        when(mockLevel.getMoney()).thenReturn(1000);
 
         towerController = new TowerController(mockLevel);
-        towerController.setSelectedTowerUpgrade(mockDefender); // Set the defender to be sold
+        towerController.setSelectedTowerUpgrade(mockDefender);
 
-        // Act
         towerController.sellSelectedDefender();
 
-        // Verify
-        verify(mockLevel, times(1)).addMoney(expectedRefund);  // Verify money is added back
-        assertNull(towerController.getSelectedDefenderUpgrade());  // Verify no defender is currently selected
+        verify(mockLevel, times(1)).addMoney(expectedRefund);
+        assertNull(towerController.getSelectedDefenderUpgrade());
     }
 
     @Test
     public void testDoubleSpeedClicked() {
-        // Setup
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        towerController.getDefenderList().add(mockDefender); // Adding the mocked defender to the list
-        when(mockDefender.getSpeed()).thenReturn(1.0f);  // Initial speed
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        towerController.getDefenderList().add(mockDefender);
+        when(mockDefender.getSpeed()).thenReturn(1.0f);
 
-        // Act
         towerController.doubleSpeedClicked();
 
-        // Verify
-        verify(mockDefender, times(1)).setSpeed(2.0f);  // Expect the speed to be doubled
-        assertTrue(towerController.isSpeedMode());  // Check if speedMode is true
+        verify(mockDefender, times(1)).setSpeed(2.0f);
+        assertTrue(towerController.isSpeedMode());
     }
 
 
     @Test
     public void testNormalSpeedClicked() {
-        // Setup
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        towerController.getDefenderList().add(mockDefender); // Adding the mocked defender to the list
-        when(mockDefender.getSpeed()).thenReturn(2.0f);  // Assuming the speed was previously doubled to 2.0f
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        towerController.getDefenderList().add(mockDefender);
+        when(mockDefender.getSpeed()).thenReturn(2.0f);
 
-        // Act
         towerController.normalSpeedClicked();
 
-        // Verify
-        verify(mockDefender, times(1)).setSpeed(1.0f);  // Expect the speed to be halved
-        assertFalse(towerController.isSpeedMode());  // Check if speedMode is false
+        verify(mockDefender, times(1)).setSpeed(1.0f);
+        assertFalse(towerController.isSpeedMode());
     }
 
     @Test
     public void testSetTowerSelected() {
-        // Setup
-        DefenderType expectedType = DefenderType.GUNNER;  // Example tower type
+        DefenderType expectedType = DefenderType.GUNNER;
 
-        // Act
         towerController.setTowerSelected(expectedType);
 
-        // Verify
         assertEquals(expectedType, towerController.getSelectedTowerType(), "The selected tower type should be set to GUNNER.");
         assertTrue(towerController.isTowerSelected(), "Tower selection should be set to true.");
     }
 
     @Test
     public void testRender() {
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        towerController.getDefenderList().add(mockDefender); // Adding the mocked defender to the list
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        towerController.getDefenderList().add(mockDefender);
 
         towerController.render(mock(SpriteBatch.class));
 
-        verify(mockDefender, times(1)).render(any(SpriteBatch.class));  // Expect the render method to be called
+        verify(mockDefender, times(1)).render(any(SpriteBatch.class));
     }
 
     @Test
     public void testShapeRender() {
-        BaseDefender mockDefender = mock(BaseDefender.class);  // Mocking the defender
-        towerController.getDefenderList().add(mockDefender); // Adding the mocked defender to the list
+        BaseDefender mockDefender = mock(BaseDefender.class);
+        towerController.getDefenderList().add(mockDefender);
 
         towerController.render(mock(ShapeRenderer.class));
 
-        verify(mockDefender, times(1)).render(any(ShapeRenderer.class));  // Expect the shapeRender method to be called
+        verify(mockDefender, times(1)).render(any(ShapeRenderer.class));
     }
 
     @Test
 public void testClearSelectedTower() {
-    // Setup: Assuming there's a method or way to set a selected tower.
     BaseDefender mockDefender = mock(BaseDefender.class);
     towerController.setSelectedTowerUpgrade(mockDefender);
-    towerController.setTowerSelected(DefenderType.GUNNER);  // Manually setting a tower as selected
+    towerController.setTowerSelected(DefenderType.GUNNER);
 
-    // Act: Clear the selected tower.
     towerController.clearSelectedTower();
 
-    // Verify: Ensure the selected tower is cleared.
     assertFalse(towerController.isTowerSelected(), "Tower should no longer be selected after clearing.");
     assertNull(towerController.getSelectedDefenderUpgrade(), "No defender should be selected after clearing.");
 }

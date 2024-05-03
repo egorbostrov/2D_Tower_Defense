@@ -17,7 +17,7 @@ public class TestableDefender extends BaseDefender {
 
     @Override
     public void projectileFire() {
-        // Implement this method as needed for testing, or leave it minimal.
+
     }
 
 
