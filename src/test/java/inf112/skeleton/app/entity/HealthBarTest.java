@@ -69,6 +69,4 @@ public class HealthBarTest {
         Gdx.gl = null;
         Gdx.gl20 = null;
     }
-
-
 }

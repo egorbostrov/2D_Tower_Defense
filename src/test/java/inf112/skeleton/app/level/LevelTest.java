@@ -18,12 +18,10 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.TowerController;
 import inf112.skeleton.app.map.Board;
 import inf112.skeleton.app.util.GameConstants;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 import com.badlogic.gdx.Graphics;
@@ -35,7 +33,7 @@ public class LevelTest {
     private Level level;
     private Board board;
     private Set<Vector2> mockPathPoints;
-    
+
     static MockedConstruction<SpriteBatch> batch;
     static MockedConstruction<BitmapFont> font;
     static MockedConstruction<Animation> animation;
@@ -62,27 +60,34 @@ public class LevelTest {
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
         ApplicationListener listener = new ApplicationListener() {
             @Override
-            public void create() {}
+            public void create() {
+            }
+
             @Override
-            public void resize(int width, int height) {}
+            public void resize(int width, int height) {
+            }
+
             @Override
-            public void render() {}
+            public void render() {
+            }
+
             @Override
-            public void pause() {}
+            public void pause() {
+            }
+
             @Override
-            public void resume() {}
+            public void resume() {
+            }
+
             @Override
-            public void dispose() {}
+            public void dispose() {
+            }
         };
 
         Gdx.gl = Mockito.mock(GL20.class);
         Gdx.graphics = Mockito.mock(Graphics.class);
-        
-        new HeadlessApplication(listener, config);
-        
 
-        // Setting up the expected responses from the mocked Graphics object
-        
+        new HeadlessApplication(listener, config);
     }
 
     @BeforeEach
@@ -119,7 +124,7 @@ public class LevelTest {
         int initialMoney = level.getMoney();
         int initialEnemies = level.getEnemiesKilled();
 
-        level.enemyKilled(100); // assuming reward is 100 money units
+        level.enemyKilled(100);
 
         assertEquals(initialScore + GameConstants.SCORE_INCREASE, level.getScore());
         assertEquals(initialMoney + 100, level.getMoney());
@@ -140,15 +145,12 @@ public class LevelTest {
 
     @Test
     public void testRemoveMoneySelectedTowerUpgrade() {
-        // Arrange
         TowerController mockTowerController = Mockito.mock(TowerController.class);
         when(mockTowerController.isSelectedTowerUpgrade()).thenReturn(true);
-        level.setTowerController(mockTowerController); // Assuming there's a setter for towerController
+        level.setTowerController(mockTowerController);
 
-        // Act
-        level.removeMoney(100); // Assuming START_MONEY is more than 50
+        level.removeMoney(100);
 
-        // Assert
         assertEquals(GameConstants.START_MONEY - 100, level.getMoney());
     }
 
@@ -171,12 +173,4 @@ public class LevelTest {
         level.enemyCompletedPath();
         assertEquals(initialHealth - 6, level.getUserHealth());
     }
-
-    @Disabled("Does not test anything useful yet")
-    public void testNextWaveIncreasesWaveCount() {
-        int currentWave = level.getCurrentWave();
-        //level.newWaveCreated(10);
-        assertEquals(currentWave + 1, level.getCurrentWave());
-    }
-    
 }

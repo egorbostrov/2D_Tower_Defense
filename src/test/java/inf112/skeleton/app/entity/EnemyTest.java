@@ -34,7 +34,6 @@ public class EnemyTest {
             public void create() {
                 Gdx.gl = Mockito.mock(GL20.class);
                 Gdx.gl20 = Gdx.gl;
-                // Mock the glGenTexture method to avoid native calls
                 Mockito.when(Gdx.gl.glGenTexture()).thenReturn(1);
             }
 
@@ -54,12 +53,10 @@ public class EnemyTest {
             public void dispose() {}
         });
 
-        // Mock dependencies
         LinkedList<Direction> path = new LinkedList<>();
         Sprite mockSprite = Mockito.mock(Sprite.class);
         Mockito.when(mockSprite.getTexture()).thenReturn(Mockito.mock(com.badlogic.gdx.graphics.Texture.class));
 
-        // Initialize enemy with mock data
         enemy = new Enemy('R', 0.0f, 0.0f, 1.0f, 1.0f, 100.0f, path, 50, 1, 0.0f, mockSprite, false);
         originalX = enemy.position.x;
         originalY = enemy.position.y;
@@ -98,19 +95,15 @@ public class EnemyTest {
 
     @Test
     public void testEnemyCreationWithTypeQAndDirectionList() {
-        // Mock dependencies
         Level mockLevel = Mockito.mock(Level.class);
         Map mockMap = Mockito.mock(Map.class);
         LinkedList<Direction> mockDirections = new LinkedList<>();
 
-        // Define behavior
         when(mockLevel.getMap()).thenReturn(mockMap);
         when(mockMap.getDirections()).thenReturn(mockDirections);
 
-        // Create enemy
         Enemy enemy = Enemy.newEnemy('Q', mockLevel, 1.0f, 1.0f, 0.0f, false);
 
-        // Verify results
         assertEquals('Q', enemy.getType(), "Enemy type should be 'Q'");
         assertEquals(mockDirections, enemy.getDirectionLinkedList(), "Enemy should have the correct direction list");
     }
@@ -138,7 +131,6 @@ public class EnemyTest {
 
     @AfterAll
     public static void cleanUp() {
-        // Properly clean up the libGDX application to prevent memory leaks
         if (Gdx.app != null) {
             Gdx.app.exit();
         }

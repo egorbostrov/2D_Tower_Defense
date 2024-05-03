@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
+
 import inf112.skeleton.app.level.Level;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,13 +17,11 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class WaveControllerTest {
+public class WaveControllerTest {
 
+    private static HeadlessApplication application;
     @Mock
-    private Level level;
-
-
-private static HeadlessApplication application;
+    private Level mockLevel;
 
     @BeforeAll
     public static void setupBeforeAlla() {
@@ -34,9 +34,9 @@ private static HeadlessApplication application;
 
     @Test
     void testNewWaveIncrementsAndDecrements() {
-        Level mockLevel = new Level(1);
+        mockLevel = new Level(1);
 
-        EnemyController enemyController = new EnemyController(level);
+        EnemyController enemyController = new EnemyController(mockLevel);
         WaveController waveController = new WaveController(enemyController, 1, false);
 
         float initialBaseSpeedMultiplier = waveController.getBaseSpeedMultiplier();

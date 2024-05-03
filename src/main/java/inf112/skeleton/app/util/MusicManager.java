@@ -55,8 +55,6 @@ public class MusicManager {
         return currentTrack;
     }
 
-    // Game SFX
-    // Defenders
     public static void playSniperShot() {
         sniperShotSound.play();
     }

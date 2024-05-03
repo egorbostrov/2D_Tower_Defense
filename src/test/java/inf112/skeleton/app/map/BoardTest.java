@@ -22,22 +22,17 @@ public class BoardTest {
     @BeforeEach
     void setUp() {
         pathPoints = new HashSet<>();
-        // Populate pathPoints with some points
         pathPoints.add(new Vector2(0, 0));
         pathPoints.add(new Vector2(1, 0));
-        // You can add more points as needed for your test
         board = new Board(pathPoints);
     }
 
     @Test
     void boardInitializesCorrectly() {
         List<Tile> gameBoard = board.getGameBoard();
-        // Check if the game board has the correct number of tiles
         assertEquals(totalTiles, gameBoard.size(), "Game board should have the correct number of tiles");
 
-        // Check if the path tiles are set correctly
         assertTrue(gameBoard.get(0).getType() == GridType.PATH, "The first tile should be a PATH tile");
         assertTrue(gameBoard.get(1).getType() == GridType.PATH, "The second tile should also be a PATH tile");
-        // Add more assertions to check if GROUND tiles are set correctly
     }
 }
