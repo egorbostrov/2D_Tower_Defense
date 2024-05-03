@@ -26,7 +26,6 @@ public class Level implements EnemyEvents {
     private EnemyController enemyController;
     private WaveController waveController;
     private TowerController towerController;
-
     private final OrthographicCamera camera;
     private final CameraManager cameraManager;
     private boolean isPaused;
@@ -55,10 +54,10 @@ public class Level implements EnemyEvents {
         this.towerController = TowerController.getInstance(this);
 
         isPaused = false;
-        currentWave = 0;
-        score = 0;
-        money = GameConstants.START_MONEY;
-        userHealth = GameConstants.REMAINING_HEALTH;
+        this.currentWave = 0;
+        this.score = 0;
+        this.money = GameConstants.START_MONEY;
+        this.userHealth = GameConstants.REMAINING_HEALTH;
     }
 
 
