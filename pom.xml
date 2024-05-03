@@ -30,6 +30,7 @@
 		</repository>
 	</repositories>
 	<profiles>
+
 		<!-- Fix for Mac startup issue -->
 		<profile>
 			<id>inf112-macosx</id>
@@ -45,14 +46,9 @@
 					<artifactId>gdx-lwjgl3-glfw-awt-macos</artifactId>
 					<version>${libgdx.version}</version>
 				</dependency>
-				<dependency>
-					<groupId>com.badlogicgames.gdx</groupId>
-					<artifactId>gdx-platform</artifactId>
-					<version>${libgdx.version}</version>
-					<classifier>natives-linux</classifier>
-				</dependency>
 			</dependencies>
 		</profile>
+
 	</profiles>
 	<dependencies>
 		<!--libGDX graphics library – https://libgdx.com/ -->
