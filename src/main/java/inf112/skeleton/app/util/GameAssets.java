@@ -102,11 +102,17 @@ public class GameAssets implements Disposable {
         }
     }
 
+    /**
+     * Creates a sprite from a texture atlas region
+     * @param region the region to create a sprite from
+     * @return the created sprite
+     */
     public static Sprite createSprite(TextureAtlas.AtlasRegion region) {
         final Sprite sprite = new Sprite(region);
         sprite.flip(false, false);
         return sprite;
     }
+
 
     public TextureAtlas getAtlas() {
         return atlas;

@@ -55,6 +55,11 @@ public class PlayScene extends AbstractGameScene {
 
     private TextureAtlas towerAtlas;
 
+    /**
+     * Constructor for PlayScene
+     * @param game Game object
+     * @param mapNumber map number
+     */
     public PlayScene(Game game, int mapNumber) {
         super(game);
         initializeResources();
@@ -64,6 +69,9 @@ public class PlayScene extends AbstractGameScene {
         initializeGameControllers();
     }
 
+    /**
+     * Initialize resources
+     */
     private void initializeResources() {
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -77,6 +85,9 @@ public class PlayScene extends AbstractGameScene {
 
     }
 
+    /**
+     * Setup UI
+     */
     private void setupUI() {
         uimenuskin = new Skin(Gdx.files.internal(GameConstants.SKIN_UI),
                 new TextureAtlas(GameConstants.TEXTURE_ATLAS_UI));
@@ -87,6 +98,9 @@ public class PlayScene extends AbstractGameScene {
         stack.add(layerControls);
     }
 
+    /**
+     * Initialize game controllers
+     */
     private void initializeGameControllers() {
         this.enemyController = EnemyController.getInstance(this.level);
         this.towerController = TowerController.getInstance(this.level);
@@ -95,6 +109,10 @@ public class PlayScene extends AbstractGameScene {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
+    /**
+     * Build controls
+     * @return Table of buttons to control the game
+     */
     private Table buildControls() {
 
         // system Buttons.
@@ -106,7 +124,7 @@ public class PlayScene extends AbstractGameScene {
                 game.setScreen(new MenuScene(game));
             }
         });
-
+        // options button
         optionsButton = new Button(uimenuskin, "playoptions");
         optionsButton.addListener(new ChangeListener() {
             @Override
@@ -116,6 +134,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //gunner tower button
         gunnerButton = new Button(uimenuskin, "gunnertower");
         gunnerButton.addListener(new ChangeListener() {
             @Override
@@ -125,6 +144,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //sniper tower button
         sniperButton = new Button(uimenuskin, "snipertower");
         sniperButton.addListener(new ChangeListener() {
             @Override
@@ -134,6 +154,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //bomber tower button
         bomberButton = new Button(uimenuskin, "bombertower");
         bomberButton.addListener(new ChangeListener() {
             @Override
@@ -143,6 +164,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //double speed button
         doubleSpeedButton = new Button(uimenuskin, "2xbutton");
         doubleSpeedButton.addListener(new ChangeListener() {
             @Override
@@ -156,6 +178,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //pause button
         pauseButton = new Button(uimenuskin, "pausebutton");
         pauseButton.addListener(new ChangeListener() {
             @Override
@@ -169,6 +192,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //speed upgrade button
         speedUpgradeButton = new Button(uimenuskin, "speedupgrade");
         speedUpgradeButton.addListener(new ChangeListener() {
             @Override
@@ -177,6 +201,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //damage upgrade button
         damageUpgradeButton = new Button(uimenuskin, "damageupgrade");
         damageUpgradeButton.addListener(new ChangeListener() {
             @Override
@@ -185,6 +210,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //range upgrade button
         rangeUpgradeButton = new Button(uimenuskin, "rangeupgrade");
         rangeUpgradeButton.addListener(new ChangeListener() {
             @Override
@@ -193,6 +219,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //remove defender button
         removeDefenderButton = new Button(uimenuskin, "removebutton");
         removeDefenderButton.addListener(new ChangeListener() {
             @Override
@@ -202,6 +229,7 @@ public class PlayScene extends AbstractGameScene {
             }
         });
 
+        //Place buttons in table
         Table systemLayer = new Table();
         Table upgradeLayer = new Table();
         Table gameLayer = new Table();
@@ -237,11 +265,19 @@ public class PlayScene extends AbstractGameScene {
         return mainTable;
     }
 
+    /**
+     * Handle tower clicked
+     * @param type type of tower
+     */
     private void onTowerClicked (DefenderType type) {
         towerController.setTowerSelected(type);
 
     }
 
+    /**
+     * Render the game
+     * @param deltaTime time since last frame update
+     */
     @Override
     public void render (float deltaTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -252,7 +288,6 @@ public class PlayScene extends AbstractGameScene {
 
         spriteBatch.begin();
         level.getMap().render(spriteBatch);
-        //level.render(spriteBatch);
         enemyController.render(spriteBatch);
         towerController.render(spriteBatch);
         spriteBatch.end();
@@ -397,6 +432,7 @@ public class PlayScene extends AbstractGameScene {
         }
     }
 
+
     @Override
     public void show() {
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
@@ -405,6 +441,7 @@ public class PlayScene extends AbstractGameScene {
             MusicManager.play("gamemusic.ogg", true);
         }
     }
+
 
     @Override
     public void hide () {

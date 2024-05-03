@@ -20,8 +20,5 @@ public class TestableDefender extends BaseDefender {
 
     }
 
-    @Override
-    public void rappidFire() {
 
-    }
 }

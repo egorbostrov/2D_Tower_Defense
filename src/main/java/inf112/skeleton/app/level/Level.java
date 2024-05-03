@@ -30,12 +30,13 @@ public class Level implements EnemyEvents {
     private final CameraManager cameraManager;
     private boolean isPaused;
     private boolean isDoubleSpeedActive = false;
-
     private final int mapNumber;
-
     private final List<MoneyPopup> popups = new ArrayList<>();
 
-
+    /**
+     * Creates a new Level.
+     * @param mapNumber The number of the map for the level.
+     */
     public Level(int mapNumber) {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.setToOrtho(false);
@@ -62,8 +63,8 @@ public class Level implements EnemyEvents {
 
 
     /**
-     *
-     * @param elapsedTime time between last frame and current frame
+     * Updates the level based on the elapsed time.
+     * @param elapsedTime The time between the last frame and the current frame.
      */
     public void update(float elapsedTime) {
         if (isPaused) {
@@ -79,6 +80,10 @@ public class Level implements EnemyEvents {
         }
     }
 
+    /**
+     * Returns the camera of the level.
+     * @return The camera of the level.
+     */
     public CameraManager getCameraManager() {
         return this.cameraManager;
     }
@@ -176,6 +181,10 @@ public class Level implements EnemyEvents {
         enemyController.normalSpeedClicked();
     }
 
+    /**
+     * Returns if the game is in double speed mode or not
+     * @return true if double speed is active, false otherwise
+     */
     public boolean isDoubleSpeedActive() {
         return isDoubleSpeedActive;
     }
@@ -219,37 +228,72 @@ public class Level implements EnemyEvents {
         popups.add(popup);
     }
 
+    /**
+     * Sets the TowerController for the level.
+     * @param towerController The TowerController to set.
+     */
     public void setTowerController(TowerController towerController) {
         this.towerController = towerController;
     }
 
+    /**
+     * Pauses the level.
+     */
     public void pause() {
         isPaused = true;
     }
 
+    /**
+     * Resumes the level.
+     */
     public void resume() {
         isPaused = false;
     }
 
+    /**
+     * Returns the list of money popups for the level.
+     * @return The list of money popups for the level.
+     */
     public List<MoneyPopup> getPopups() {
         return popups;
     }
 
+    /**
+     * Returns the score for the level.
+     * @return The score for the level.
+     */
     public int getScore(){
         return this.score;
     }
 
+    /**
+     * Returns the money for the level.
+     * @return The money for the level.
+     */
     public int getMoney(){
         return this.money;
     }
 
+    /**
+     * Returns the current wave for the level.
+     * @return The current wave for the level.
+     */
     public int getCurrentWave(){
         return this.currentWave;
     }
 
+    /**
+     * Returns the number of enemies killed in the level.
+     * @return The number of enemies killed in the level.
+     */
     public int getEnemiesKilled(){
         return this.enemiesKilled;
     }
+
+    /**
+     * Returns the user's health for the level.
+     * @return The user's health for the level.
+     */
     public int getUserHealth(){
         return this.userHealth;
     }

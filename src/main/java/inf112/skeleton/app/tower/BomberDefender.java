@@ -49,6 +49,9 @@ public class BomberDefender extends BaseDefender{
         }
     }
 
+    /**
+     * Fire a bomb projectile
+     */
     @Override
     public void projectileFire() {
         Bullet bullet = new Bullet(center.x, center.y, enemy, damage, BulletType.BOMBER_BULLET);

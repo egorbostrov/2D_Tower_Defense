@@ -10,19 +10,15 @@ public class MusicManager {
     private static String currentTrack = "";
 
     // SFX
-    // Shooting sfx
     private static final Sound sniperShotSound = Gdx.audio.newSound(Gdx.files.internal("sniper_shot.ogg"));
     private static final Sound gunnerShotSound = Gdx.audio.newSound(Gdx.files.internal("gunner_shot.ogg"));
     private static final Sound bomberShotSound = Gdx.audio.newSound(Gdx.files.internal("bombashoot.ogg"));
     private static final Sound bombExplodeSound = Gdx.audio.newSound(Gdx.files.internal("bombexplode.ogg"));
-    // Enemy sfx
     private static final Sound zombieDeathScream = Gdx.audio.newSound(Gdx.files.internal("zombie_death.ogg"));
-
 
     public static void play(String filename, boolean loop) {
         if (GameSettings.getMusic()) {
             if (!filename.equals(currentTrack) || (currentMusic != null && !currentMusic.isPlaying())) {
-                // Stop current music if it's not the right track or not playing
                 stopCurrentMusic();
                 currentMusic = Gdx.audio.newMusic(Gdx.files.internal(filename));
                 currentMusic.setLooping(loop);
@@ -33,44 +29,56 @@ public class MusicManager {
     }
 
     public static void stopCurrentMusic() {
-            if (currentMusic != null) {
-                currentMusic.stop();
-                currentMusic.dispose();
-                currentMusic = null;
-                currentTrack = "";
-            }
-
+        if (currentMusic != null) {
+            currentMusic.stop();
+            currentMusic.dispose();
+            currentMusic = null;
+            currentTrack = "";
+        }
     }
 
-    public static void changeMusicVolume(){
-        if(currentMusic!=null) {
+    public static void changeMusicVolume() {
+        if (currentMusic != null) {
             currentMusic.setVolume(GameSettings.getVolMusic());
         }
     }
 
-    public static float getMusicVolume() {
-        return GameSettings.getVolMusic();
-    }
     public static String getCurrentTrack() {
         return currentTrack;
     }
 
     public static void playSniperShot() {
-        sniperShotSound.play();
+        if (GameSettings.getSound()) { // Check if sound is enabled
+            float volume = GameSettings.getVolSound(); // Get volume setting
+            sniperShotSound.play(volume); // Play the sound with the specified volume
+        }
     }
+
     public static void playGunnerShot() {
-        gunnerShotSound.play();
-    }
-    public static void playBomberShot() { bomberShotSound.play();
-    }
-    public static void playBombExplode() { bombExplodeSound.play();
+        if (GameSettings.getSound()) { // Check if sound is enabled
+            float volume = GameSettings.getVolSound(); // Get volume setting
+            gunnerShotSound.play(volume); // Play the sound with the specified volume
+        }
     }
 
-    // Enemies
+    public static void playBomberShot() {
+        if (GameSettings.getSound()) { // Check if sound is enabled
+            float volume = GameSettings.getVolSound(); // Get volume setting
+            bomberShotSound.play(volume); // Play the sound with the specified volume
+        }
+    }
+
+    public static void playBombExplode() {
+        if (GameSettings.getSound()) { // Check if sound is enabled
+            float volume = GameSettings.getVolSound(); // Get volume setting
+            bombExplodeSound.play(volume); // Play the sound with the specified volume
+        }
+    }
+
     public static void playZombieDeathScream() {
-        zombieDeathScream.play();
+        if (GameSettings.getSound()) { // Check if sound is enabled
+            float volume = GameSettings.getVolSound(); // Get volume setting
+            zombieDeathScream.play(volume); // Play the sound with the specified volume
+        }
     }
-
-
-
 }

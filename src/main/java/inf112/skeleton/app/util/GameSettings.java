@@ -15,6 +15,7 @@ public class GameSettings {
     private static boolean fullscreen;
     private Preferences preference;
 
+    // Private constructor to prevent instantiation
     private GameSettings() {
         preference = Gdx.app.getPreferences(GameConstants.PREFERENCES);
     }

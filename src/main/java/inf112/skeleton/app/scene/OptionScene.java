@@ -29,6 +29,11 @@ public class OptionScene extends AbstractGameScene {
     private Skin uiskin;
     private int mapNumber;
 
+    /**
+     * Constructor for OptionScene to choose what settings to change
+     * @param game the game
+     * @param currentMapNumber the current map number
+     */
     public OptionScene(Game game, int currentMapNumber) {
         super(game);
         this.mapNumber = currentMapNumber;
@@ -68,6 +73,13 @@ public class OptionScene extends AbstractGameScene {
         layer.columnDefaults(1).padRight(10);
         // + Checkbox, "Sound" label, sound volume slider
         chkSound = new CheckBox("Sound", uiskin);
+        chkSound.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                boolean isSoundEnabled = chkSound.isChecked();
+                GameSettings.setSound(isSoundEnabled);
+            }
+        });
         layer.add(chkSound);
         layer.add(new Label("Volume", uiskin));
         sldSound = new Slider(0.0f, 1.0f, 0.1f, false, uiskin);

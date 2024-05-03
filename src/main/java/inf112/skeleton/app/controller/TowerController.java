@@ -34,12 +34,23 @@ public class TowerController implements Render{
     private final Level level;
     private final Map map;
 
+    /**
+     * Creates a new TowerController.
+     * @param level The level to be used for the TowerController.
+     */
     public TowerController(Level level){
         defenderList = new ArrayList<>();
         this.level = level;
         this.map = level.getMap();
     }
 
+    /**
+     * Returns the singleton instance of the TowerController class.
+     * If the instance does not exist, it creates a new one with the provided level.
+     *
+     * @param level The level to be used for the TowerController.
+     * @return The singleton instance of the TowerController.
+     */
     public static synchronized TowerController getInstance(Level level) {
         if (instance == null) {
             instance = new TowerController(level);
@@ -47,6 +58,16 @@ public class TowerController implements Render{
         return instance;
     }
 
+    /**
+     * Builds a tower of the specified type at the given coordinates.
+     * The tower is only built if the placement is legal and the player has enough money.
+     *
+     * @param x The x-coordinate for the tower.
+     * @param y The y-coordinate for the tower.
+     * @param enemyList The list of enemies for the tower to target.
+     * @param type The type of the tower to build.
+     * @return The price of the built tower, or 0 if the tower was not built.
+     */
     public int buildTower(float x, float y, List<Enemy> enemyList, DefenderType type){
         if (!legalPlacement(x, y)){
             return 0;
@@ -74,6 +95,7 @@ public class TowerController implements Render{
     /**
      * Checks if the placement of a tower is legal.
      * Checks if the tower is placed on a path, on top of another tower or on an illegal placement tile (outside board).
+     *
      * @param x x-coordinate of the tower
      * @param y y-coordinate of the tower
      * @return true if the placement is legal, false otherwise
@@ -129,6 +151,9 @@ public class TowerController implements Render{
         return TOWER_PRICE_GUNNER;
     }
 
+    /**
+     * Doubles the speed of all towers.
+     */
     public void doubleSpeedClicked() {
         speedMode = true;
         for (BaseDefender currentDefender : defenderList) {
@@ -136,6 +161,9 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Resets the speed of all towers to their normal speed.
+     */
     public void normalSpeedClicked() {
         speedMode = false;
         for (BaseDefender currentDefender : defenderList) {
@@ -143,6 +171,9 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Upgrades the speed of the selected tower.
+     */
     public void upgradeSpeed() {
         if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getSpeedPrice()) {
             level.removeMoney(selectedDefenderUpgrade.getSpeedPrice());
@@ -150,6 +181,9 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Upgrades the damage of the selected tower.
+     */
     public void upgradeDamage() {
         if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getAttackCost()) {
             level.removeMoney(selectedDefenderUpgrade.getAttackCost());
@@ -157,6 +191,9 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Upgrades the range of the selected tower.
+     */
     public void upgradeRange() {
         if (selectedDefenderUpgrade != null && level.getMoney() >= selectedDefenderUpgrade.getRangePrice()) {
             level.removeMoney(selectedDefenderUpgrade.getRangePrice());
@@ -164,6 +201,9 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Clears the selected tower.
+     */
     public void clearSelectedTower() {
         isTowerSelected = false;
         selectedDefenderUpgrade = null;
@@ -201,6 +241,9 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Sells the selected tower and refunds 75% of its price.
+     */
     public void sellSelectedDefender() {
         if (selectedDefenderUpgrade != null) {
             int refundAmount = (int)(selectedDefenderUpgrade.getDefender().getPrice() * 0.75);
@@ -210,45 +253,83 @@ public class TowerController implements Render{
         }
     }
 
+    /**
+     * Sets the selected tower type and marks that a tower is selected.
+     * @param type The type of the tower to select.
+     */
     public void setTowerSelected(DefenderType type) {
         selectedTowerType = type;
         isTowerSelected = true;
     }
 
+    /**
+     * Sets the selected tower for upgrade and marks that a tower is selected for upgrade.
+     * @param defender The tower to select for upgrade.
+     */
     public void setSelectedTowerUpgrade(BaseDefender defender) {
         defender.selectedDefender(true);
         selectedDefenderUpgrade = defender;
         isSelectedDefender = true;
     }
 
+    /**
+     * Checks if a tower is selected for upgrade.
+     * @return true if a tower is selected for upgrade, false otherwise.
+     */
     public boolean isSelectedTowerUpgrade(){
         return isSelectedDefender;
     }
 
+    /**
+     * Clears the selected tower for upgrade.
+     */
     public void clearSelectedDefenderUpgrade() {
         isSelectedDefender = false;
     }
 
+    /**
+     * Returns the selected tower for upgrade.
+     * @return The selected tower for upgrade.
+     */
     public BaseDefender getSelectedDefenderUpgrade() {
         return selectedDefenderUpgrade;
     }
 
+    /**
+     * Checks if a tower is selected.
+     * @return true if a tower is selected, false otherwise.
+     */
     public boolean isTowerSelected() {
         return isTowerSelected;
     }
 
+    /**
+     * Returns the selected tower type.
+     * @return The selected tower type.
+     */
     public DefenderType getSelectedTowerType() {
         return selectedTowerType;
     }
 
+    /**
+     * Returns the list of defenders.
+     * @return The list of defenders.
+     */
     public List<BaseDefender> getDefenderList() {
         return defenderList;
     }
 
+    /**
+     * Clears the list of defenders.
+     */
     public void clearDefenders() {
         defenderList.clear();
     }
 
+    /**
+     * Checks if the speed mode is enabled.
+     * @return true if the speed mode is enabled, false otherwise.
+     */
     public boolean isSpeedMode() {
         return speedMode;
     }

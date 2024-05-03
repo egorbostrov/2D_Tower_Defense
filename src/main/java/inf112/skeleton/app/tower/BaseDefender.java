@@ -58,6 +58,10 @@ public abstract class BaseDefender extends GameObject {
         super.render(renderer);
     }
 
+    /**
+     * Updates the base defender. Checks if enemy is alive, if not, finds a new target.
+     * @param deltaTime time since last frame
+     */
     @Override
     public void update(float deltaTime){
         super.update(deltaTime);
@@ -173,17 +177,13 @@ public abstract class BaseDefender extends GameObject {
 
     /**
      * Override this if tower shoots sometimes, attacks per speed of tower
+     *
      */
     public void projectileFire(){
 
     }
 
-    /**
-     * Override this if tower shoots rapidly, attacks per update
-     */
-    public void rappidFire(){
 
-    }
 
     /**
      * Makes the base defender shoot. Ensures the rate of fire is consistent while
@@ -191,7 +191,6 @@ public abstract class BaseDefender extends GameObject {
      * @param deltaTime time since last frame update
      */
     private void startFiring(float deltaTime){
-        rappidFire();
         speedCounter += deltaTime;
         if (speedCounter >= 1f / speed) {
             speedCounter = 0;
@@ -229,7 +228,7 @@ public abstract class BaseDefender extends GameObject {
     }
 
     /**
-     * Finds the closest enemy to teh base defender
+     * Finds the closest enemy to the base defender
      */
     private void findTarget() {
         Enemy closestEnemy = null;

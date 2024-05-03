@@ -24,6 +24,12 @@ public class WaveController {
     private final boolean randomMode;
     private final Random random;
 
+    /**
+     * Creates a new WaveController.
+     * @param enemyController The EnemyController to be used for creating enemies.
+     * @param selectedWave The selected wave pattern.
+     * @param randomMode Whether to generate waves randomly or not.
+     */
     public WaveController(EnemyController enemyController, int selectedWave, boolean randomMode) {
         this.enemyController = enemyController;
         this.selectedWave = selectedWave;
@@ -46,6 +52,7 @@ public class WaveController {
 
     }
 
+
     private void selectFileHandle() {
         switch(selectedWave) {
             case 1 -> filehandle = Gdx.files.internal("maps/WavePattern1.txt");
@@ -64,8 +71,12 @@ public class WaveController {
         return cleanLines;
     }
 
+    /**
+     * Generates a new wave of enemies.
+     * Increases the speed, health and decreases the delay in between the spawns.
+     * @param level The level to be used for the enemies.
+     */
     public void newWave(Level level) {
-        //Increase the zombie speed, health and decrease the delay in between their spawns.
         baseSpeedMultiplier += 0.05f;
         healthMultiplier *= 1.05f;
 
