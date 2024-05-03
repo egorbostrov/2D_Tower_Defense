@@ -108,9 +108,9 @@ public class LevelTest {
 
     @Test
     public void testRemoveMoney() {
-        int moneToBeRemoved = 100;
-        level.removeMoney(moneToBeRemoved);
-        assertEquals(GameConstants.START_MONEY - moneToBeRemoved, level.getMoney());
+        int moneyToBeRemoved = 100;
+        level.removeMoney(moneyToBeRemoved);
+        assertEquals(GameConstants.START_MONEY - moneyToBeRemoved, level.getMoney());
     }
 
     @Test
