@@ -246,12 +246,7 @@ public abstract class BaseDefender extends GameObject {
 
     // getters and setters
     public Rectangle getHitBox(){
-        return new Rectangle(
-                position.x - size.x / 2, // Left edge of the tower
-                position.y - size.y / 2, // Bottom edge of the tower
-                size.x, // Width of the tower
-                size.y  // Height of the tower
-        );
+        return new Rectangle(position.x + size.x/2, position.y + size.y/4, size.x /8, size.y / 2);
     }
 
     public void setSpeed(float attackSpeed) {
