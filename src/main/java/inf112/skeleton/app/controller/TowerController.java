@@ -72,6 +72,10 @@ public class TowerController implements Render{
         if (!legalPlacement(x, y)){
             return 0;
         }
+
+        x = x - GameConstants.TOWER_SIZE / 2;
+        y = y - GameConstants.TOWER_SIZE / 2;
+
         switch (type){
            case GUNNER:
                if (this.level.getMoney() >= TOWER_PRICE_GUNNER){
