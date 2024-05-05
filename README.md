@@ -42,12 +42,14 @@
 
 ## Kilder
 - Alle Kildene som er brukt i spillet er "non-copyright" og kan brukes fritt av andre.
+- Alle kan bli funnet i [resources](src/main/resources) mappen i spillet.
 - [gunnershot.ogg](https://pixabay.com/sound-effects/hit-someting-6037/)
 - [snipershot.ogg](https://pixabay.com/sound-effects/gun-shot-1-176892/)
 - [bombershot.ogg](https://pixabay.com/sound-effects/cannon-shot-14799/)
+- [bombexplosion.ogg]())
 - [zombiedeathsound.ogg](https://pixabay.com/sound-effects/zombie-3-106344/)
-- [mainmenusong.ogg](https://pixabay.com/music/synthwave-neon-gaming-128925/)
-- [gamesong.ogg](https://pixabay.com/music/upbeat-8-bit-legends-ancient-shrine-200457/)
+- [mainmenumusic.ogg](https://pixabay.com/music/synthwave-neon-gaming-128925/)
+- [gamemusic.ogg](https://pixabay.com/music/upbeat-8-bit-legends-ancient-shrine-200457/)
 - [GUNNER_DEFENDER](https://secrethideout.itch.io/team-wars-platformer-battle)
 
 
