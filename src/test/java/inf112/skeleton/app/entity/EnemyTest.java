@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.Gdx;
@@ -38,9 +37,7 @@ public class EnemyTest {
     }
 
     @BeforeEach
-    public void setUpClass() {
-
-
+    public void setUp() {
         LinkedList<Direction> path = new LinkedList<>();
         Sprite mockSprite = Mockito.mock(Sprite.class);
         Mockito.when(mockSprite.getTexture()).thenReturn(Mockito.mock(com.badlogic.gdx.graphics.Texture.class));
@@ -119,8 +116,9 @@ public class EnemyTest {
 
     @AfterAll
     public static void cleanUp() {
-        if (Gdx.app != null) {
-            Gdx.app.exit();
+        if (application != null) {
+            application.exit();
+            application = null;
         }
         Gdx.graphics = null;
         Gdx.gl = null;
