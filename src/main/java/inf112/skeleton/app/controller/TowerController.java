@@ -118,7 +118,7 @@ public class TowerController implements Render{
         }
 
         for (BaseDefender defender : defenderList) {
-            if (defender.getHitBox().overlaps(newTowerBounds)) {
+            if (defender.getBoundingRectangle().overlaps(newTowerBounds)) {
                 return false;
             }
         }
