@@ -20,10 +20,15 @@
 #### Hele USA er på dine skuldre, lykke til general.
 
 ## Kjøring
+### Kjøring av spillet:
 #### Først kjøre `mvn clean package` i konsollen
 #### Deretter kjøre `java -jar target/white-house-defender-1.0-SNAPSHOT-fat.jar` i konsollen
 #### Hvis dette ikke fungere, bruk `mvn exec:java` i konsollen
 #### Kjører Java 17 eller senere
+
+### Kjøring av tester:
+#### Kjøre `mvn clean test` i konsollen
+#### Deretter følg denne stien `target/site/jacoco/index.html` for å se resultatene
 
 
 ## Kilder
