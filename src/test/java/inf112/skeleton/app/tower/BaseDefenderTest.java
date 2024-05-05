@@ -128,10 +128,10 @@ public class BaseDefenderTest {
 
         Rectangle hitBox = defender.getHitBox();
 
-        assertEquals(50 - GameConstants.TOWER_SIZE / 2, hitBox.x, 0.01);
-        assertEquals(50 - GameConstants.TOWER_SIZE / 2, hitBox.y, 0.01);
-        assertEquals(GameConstants.TOWER_SIZE, hitBox.width, 0.01);
-        assertEquals(GameConstants.TOWER_SIZE, hitBox.height, 0.01);
+        assertEquals(50 + GameConstants.TOWER_SIZE / 2, hitBox.x, 0.01);
+        assertEquals(50 + GameConstants.TOWER_SIZE / 4, hitBox.y, 0.01);
+        assertEquals(GameConstants.TOWER_SIZE / 8, hitBox.width, 0.01);
+        assertEquals(GameConstants.TOWER_SIZE / 2, hitBox.height, 0.01);
     }
 
     @Test
