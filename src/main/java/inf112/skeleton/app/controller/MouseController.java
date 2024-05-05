@@ -35,14 +35,10 @@ public class MouseController implements InputProcessor {
             Vector3 worldCoordinates = new Vector3(screenX, screenY, 0);
             getCameraManager().getCamera().unproject(worldCoordinates);
 
-            float towerSize = GameConstants.TOWER_SIZE;
-            float centeredSizeX = worldCoordinates.x - towerSize / 2;
-            float centeredSizeY = worldCoordinates.y - towerSize / 2;
-
             List<Enemy> currentEnemies = this.enemyController.getEnemyList();
             DefenderType selectedType = towerController.getSelectedTowerType();
 
-            if (towerController.buildTower(centeredSizeX, centeredSizeY, currentEnemies, selectedType) > 0) {
+            if (towerController.buildTower(worldCoordinates.x, worldCoordinates.y, currentEnemies, selectedType) > 0) {
                 towerController.clearSelectedTower();
                 return true;
             }
