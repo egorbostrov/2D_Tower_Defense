@@ -1,13 +1,14 @@
 package inf112.skeleton.app.entity;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import inf112.skeleton.app.level.Level;
 import inf112.skeleton.app.map.Map;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.Gdx;
@@ -25,34 +26,18 @@ public class EnemyTest {
     private static Enemy enemy;
     private static float originalX;
     private static float originalY;
+    private static HeadlessApplication application;
+    @BeforeAll
+    public static void setupBeforeAll() {
+        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
+        application = new HeadlessApplication(new ApplicationAdapter() {}, config);
+        Gdx.gl = Mockito.mock(GL20.class);
+        Gdx.gl20 = Gdx.gl;
+        Mockito.when(Gdx.gl.glGenTexture()).thenReturn(1);
+    }
 
     @BeforeEach
-    public void setUpClass() {
-        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        new HeadlessApplication(new ApplicationListener() {
-            @Override
-            public void create() {
-                Gdx.gl = Mockito.mock(GL20.class);
-                Gdx.gl20 = Gdx.gl;
-                Mockito.when(Gdx.gl.glGenTexture()).thenReturn(1);
-            }
-
-            @Override
-            public void resize(int width, int height) {}
-
-            @Override
-            public void render() {}
-
-            @Override
-            public void pause() {}
-
-            @Override
-            public void resume() {}
-
-            @Override
-            public void dispose() {}
-        });
-
+    public void setUp() {
         LinkedList<Direction> path = new LinkedList<>();
         Sprite mockSprite = Mockito.mock(Sprite.class);
         Mockito.when(mockSprite.getTexture()).thenReturn(Mockito.mock(com.badlogic.gdx.graphics.Texture.class));
@@ -131,8 +116,9 @@ public class EnemyTest {
 
     @AfterAll
     public static void cleanUp() {
-        if (Gdx.app != null) {
-            Gdx.app.exit();
+        if (application != null) {
+            application.exit();
+            application = null;
         }
         Gdx.graphics = null;
         Gdx.gl = null;
