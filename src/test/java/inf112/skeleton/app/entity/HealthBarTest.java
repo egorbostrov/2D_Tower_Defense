@@ -53,7 +53,6 @@ public class HealthBarTest {
     public void testHealthRemoveEnemyVsHealthBar(){
         Random random = new Random();
         int randomNumber =random.nextInt(100);
-        System.out.println(randomNumber);
         mockEnemy.shot(randomNumber);
         assertEquals(mockEnemy.getHpBar().getCurrentHealth(), mockEnemy.getEnemyHealth());
     }
