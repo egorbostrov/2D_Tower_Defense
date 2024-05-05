@@ -122,11 +122,6 @@ effektive måten gjennom sterk kommunikasjon og forståelse for hverandres rolle
 - Når spilleren restartet spillet, ble liv og penger evig.
 - Dette gjør at spilleren kunne spille videre uten å miste liv eller bruke penger.
 
-#### Defender legal og illegal placement
-- Selv om en defender lyser grønn (legal position), kunne vi ikke plassere den.
-- Defender kunne også lyse rød (illegal position), men vi kunne plassere den.
-- Dette gjør de at spilleren kunne ikke plassere defender på en legal position, og kunne plassere defender på en illegal position.
-
 
 ## <ins>Produkt og kode</ins>
 ### Utbedring av feil

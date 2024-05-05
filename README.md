@@ -21,14 +21,23 @@
 
 ## Kjøring
 ### Kjøring av spillet:
-#### Først kjøre `mvn clean package` i konsollen
-#### Deretter kjøre `java -jar target/white-house-defender-1.0-SNAPSHOT-fat.jar` i konsollen
-#### Hvis dette ikke fungere, bruk `mvn exec:java` i konsollen
-#### Kjører Java 17 eller senere
+#### Først kjøre `mvn clean package` i konsollen.
+#### Deretter kjøre `java -jar target/white-house-defender-1.0-SNAPSHOT-fat.jar` i konsollen,
+#### Hvis dette ikke fungere, bruk `mvn exec:java` i konsollen.
+#### Kjører Java 17 eller senere.
 
 ### Kjøring av tester:
 #### Kjøre `mvn clean test` i konsollen
-#### Deretter følg denne stien `target/site/jacoco/index.html` for å se resultatene
+#### Deretter følg denne stien [target/site/jacoco/index.html](target/site/jacoco/index.html) og åpne den i din browser, for å se resultatene.
+
+## Kjente feil
+#### Bytte Map
+- Når spilleren byttet map, ble ikke "wave" restartet, enemies og defenders var ennå på brettet.
+- Dette gjør at spilleren kunne plassere tårn på en map, og bytte map for å spille videre.
+
+#### Restart game
+- Når spilleren restartet spillet, ble liv og penger evig.
+- Dette gjør at spilleren kunne spille videre uten å miste liv eller bruke penger.
 
 
 ## Kilder
