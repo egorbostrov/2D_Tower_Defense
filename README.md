@@ -34,9 +34,6 @@
 
 
 ## Kjente feil
-#### Bytting av scenes
-- Når spilleren bytter scenes internt, ble liv og penger evig, wave, enemies killed og score oppdatteres ikke.
-- Dette gjør at spilleren kan spille videre uten å miste liv eller bruke penger.
 
 #### Enemies off center of path
 - Når farten på enemies blir for høy, går de litt og litt av stien.
