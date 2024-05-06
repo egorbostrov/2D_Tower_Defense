@@ -10,7 +10,7 @@ public class Main {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setForegroundFPS(60);
         cfg.setResizable(false);
-        cfg.setTitle("TowerDefense");
+        cfg.setTitle("The White House Protectors");
         cfg.setWindowedMode((int)GameConstants.SCREEN_WIDTH, (int)GameConstants.SCREEN_HEIGHT);
 
         new Lwjgl3Application(game, cfg);

@@ -90,6 +90,7 @@ public class Level implements EnemyEvents {
 
     private void nextWave() {
         currentWave++;
+        createWavePopup("Started wave: " + currentWave, Color.WHITE, 0, 0);
         waveController.newWave(this);
     }
 
@@ -224,6 +225,13 @@ public class Level implements EnemyEvents {
             y = towerController.getSelectedDefenderUpgrade().center.y + 40;
         }
 
+        MoneyPopup popup = new MoneyPopup(text, x, y, color, 2.0f);
+        popups.add(popup);
+    }
+
+    private void createWavePopup(String text, Color color, float x, float y) {
+        x = Gdx.graphics.getWidth() / 2.3f;
+        y = Gdx.graphics.getHeight() / 1.18f;
         MoneyPopup popup = new MoneyPopup(text, x, y, color, 2.0f);
         popups.add(popup);
     }

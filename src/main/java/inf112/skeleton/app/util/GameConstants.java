@@ -52,7 +52,7 @@ public class GameConstants {
     public static float ENEMY_QUICK_START_HP = 4f;
     public static int ENEMY_QUICK_BOUNTY = 75;
 
-    public static int START_MONEY = 1000;
+    public static int START_MONEY = 200;
     public static int REMAINING_HEALTH = 6;
     public static int SCORE_INCREASE = 100;
     public static float TOWER_SIZE = TILE_WIDTH;

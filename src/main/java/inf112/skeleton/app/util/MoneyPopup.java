@@ -27,6 +27,7 @@ public class MoneyPopup {
         this.timer = timer;
         this.font = new BitmapFont();
         this.font.setColor(color);
+        this.font.getData().setScale(1.5f);
     }
 
     /**
