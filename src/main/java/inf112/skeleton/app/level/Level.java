@@ -50,9 +50,11 @@ public class Level implements EnemyEvents {
      */
     private void start() {
         map = new Map(mapNumber);
-        this.enemyController = EnemyController.getInstance(this);
+
+        this.enemyController = new EnemyController(this);
         waveController = new WaveController(enemyController, mapNumber, false);
-        this.towerController = TowerController.getInstance(this);
+
+        this.towerController = new TowerController(this);
 
         isPaused = false;
         this.currentWave = 0;
@@ -304,6 +306,20 @@ public class Level implements EnemyEvents {
      */
     public int getUserHealth(){
         return this.userHealth;
+    }
+
+    /**
+     * @return the enemy controller for the level.
+     */
+    public EnemyController getEnemyController() {
+        return enemyController;
+    }
+
+    /**
+     * @return the tower controller for the level.
+     */
+    public TowerController getTowerController() {
+        return towerController;
     }
 
 }
