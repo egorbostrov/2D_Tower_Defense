@@ -52,3 +52,8 @@
 - Selv om en defender lyser grønn (legal position), kunne vi ikke plassere den.
 - Defender kunne også lyse rød (illegal position), men vi kunne plassere den.
 - Dette gjorde at spilleren kunne ikke plassere defender på en legal position, og kunne plassere defender på en illegal position.
+
+### <ins>Unable to start new game without closing the app</ins>
+#### Beskrivelse:
+-Fikk ikke byttet kart eller starte nytt spill.
+-Bytting av scene tilbake til playScene fra meny eller gameOver beholdt fortsatt gamle Enemy- og TowerController.
