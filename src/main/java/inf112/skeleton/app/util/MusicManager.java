@@ -22,6 +22,8 @@ public class MusicManager {
                 stopCurrentMusic();
                 currentMusic = Gdx.audio.newMusic(Gdx.files.internal(filename));
                 currentMusic.setLooping(loop);
+                float volume = GameSettings.getVolMusic() * 0.9f;
+                currentMusic.setVolume(volume);
                 currentMusic.play();
                 currentTrack = filename;
             }
@@ -41,10 +43,6 @@ public class MusicManager {
         if (currentMusic != null) {
             currentMusic.setVolume(GameSettings.getVolMusic());
         }
-    }
-
-    public static String getCurrentTrack() {
-        return currentTrack;
     }
 
     public static void playSniperShot() {
