@@ -2,11 +2,9 @@ package inf112.skeleton.app.level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -25,7 +23,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
-import com.badlogic.gdx.Graphics;
 
 import java.util.Set;
 
@@ -42,10 +39,10 @@ public class LevelTest {
 
     @BeforeAll
     static void setupBeforeAll() {
-        batch = mockConstruction(SpriteBatch.class);
+        /*batch = mockConstruction(SpriteBatch.class);
         font = mockConstruction(BitmapFont.class);
         animation = mockConstruction(Animation.class);
-        region = mockConstruction(TextureRegion.class);
+        region = mockConstruction(TextureRegion.class);*/
 
         HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
         application = new HeadlessApplication(new ApplicationAdapter() {}, config);
@@ -56,10 +53,10 @@ public class LevelTest {
 
     @AfterAll
     static void deregister() {
-        batch.close();
+        /*batch.close();
         font.close();
         animation.close();
-        region.close();
+        region.close();*/
 
         if (application != null) {
             application.exit();
