@@ -45,20 +45,6 @@ public class TowerController implements Render{
     }
 
     /**
-     * Returns the singleton instance of the TowerController class.
-     * If the instance does not exist, it creates a new one with the provided level.
-     *
-     * @param level The level to be used for the TowerController.
-     * @return The singleton instance of the TowerController.
-     */
-    public static synchronized TowerController getInstance(Level level) {
-        if (instance == null) {
-            instance = new TowerController(level);
-        }
-        return instance;
-    }
-
-    /**
      * Builds a tower of the specified type at the given coordinates.
      * The tower is only built if the placement is legal and the player has enough money.
      *

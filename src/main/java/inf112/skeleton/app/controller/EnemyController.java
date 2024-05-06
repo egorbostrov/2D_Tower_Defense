@@ -27,19 +27,6 @@ public class EnemyController {
         this.enemyList = new ArrayList<>();
     }
 
-    /**
-     * Returns the singleton instance of the EnemyController class.
-     * If the instance does not exist, it creates a new one with the provided level.
-     *
-     * @param level The level to be used for the EnemyController.
-     * @return The singleton instance of the EnemyController.
-     */
-    public static EnemyController getInstance(Level level) {
-        if (instance == null) {
-            instance = new EnemyController(level);
-        }
-        return instance;
-    }
 
     /**
      * Adds a new zombie to the list of zombies that's controlled on the map

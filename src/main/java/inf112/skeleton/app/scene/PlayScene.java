@@ -102,9 +102,8 @@ public class PlayScene extends AbstractGameScene {
      * Initialize game controllers
      */
     private void initializeGameControllers() {
-        this.enemyController = EnemyController.getInstance(this.level);
-        this.towerController = TowerController.getInstance(this.level);
-
+        this.enemyController = level.getEnemyController();
+        this.towerController = level.getTowerController();
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, new MouseController(towerController, enemyController, level));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
