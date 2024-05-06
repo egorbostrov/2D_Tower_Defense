@@ -34,7 +34,7 @@ public class GameSettings {
     public void load () {
         sound = preference.getBoolean("sound", true);
         music = preference.getBoolean("music", true);
-        fullscreen = preference.getBoolean("fullscreen", true);
+        fullscreen = preference.getBoolean("fullscreen", false);
         volSound = MathUtils.clamp(preference.getFloat("volSound", 0.5f),0.0f, 1.0f);
         volMusic = MathUtils.clamp(preference.getFloat("volMusic", 0.5f),0.0f, 1.0f);
     }
