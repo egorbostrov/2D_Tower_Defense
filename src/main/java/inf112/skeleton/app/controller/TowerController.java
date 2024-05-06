@@ -51,7 +51,7 @@ public class TowerController implements Render{
      * @param level The level to be used for the TowerController.
      * @return The singleton instance of the TowerController.
      */
-    public static synchronized TowerController getInstance(Level level) { //Might be the source of bug. This would hinder the generation of a new TowerController when we go from pause/gameoverScene.
+    public static synchronized TowerController getInstance(Level level) { //Bug here. This would hinder the generation of a new TowerController when we go from pause/gameoverScene.
         if (instance == null) {
             instance = new TowerController(level);
         }
