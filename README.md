@@ -34,13 +34,18 @@
 
 
 ## Kjente feil
-#### Restart game
-- Når spilleren restartet spillet internt, ble liv og penger evig, wave, enemies killed og score oppdatteres ikke.
+#### Bytting av scenes
+- Når spilleren bytter scenes internt, ble liv og penger evig, wave, enemies killed og score oppdatteres ikke.
 - Dette gjør at spilleren kan spille videre uten å miste liv eller bruke penger.
 
 #### Enemies off center of path
 - Når farten på enemies blir for høy, går de litt og litt av stien.
 - Dette gjør at spillet ikke ser så bra ut.
+
+#### Fullscreen
+- Når spillet blir satt i fullscreen, blir spillet ødelagt.
+- Inputs blir feil og skaleringen, derfor er det ikke mulig å spille i fullscreen.
+- Denne funkjsonen har derfor blitt deaktivert.
 
 
 ## Credits
