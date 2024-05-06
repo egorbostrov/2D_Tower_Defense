@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.when;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
@@ -45,6 +46,12 @@ public class LevelTest {
         font = mockConstruction(BitmapFont.class);
         animation = mockConstruction(Animation.class);
         region = mockConstruction(TextureRegion.class);
+
+        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
+        application = new HeadlessApplication(new ApplicationAdapter() {}, config);
+        Gdx.gl = Mockito.mock(GL20.class);
+        Gdx.gl20 = Gdx.gl;
+        Mockito.when(Gdx.gl.glGenTexture()).thenReturn(1);
     }
 
     @AfterAll
@@ -53,41 +60,14 @@ public class LevelTest {
         font.close();
         animation.close();
         region.close();
-    }
 
-    @BeforeEach
-    public void init() {
-        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        ApplicationListener listener = new ApplicationListener() {
-            @Override
-            public void create() {
-            }
-
-            @Override
-            public void resize(int width, int height) {
-            }
-
-            @Override
-            public void render() {
-            }
-
-            @Override
-            public void pause() {
-            }
-
-            @Override
-            public void resume() {
-            }
-
-            @Override
-            public void dispose() {
-            }
-        };
-
-        Gdx.gl = Mockito.mock(GL20.class);
-        Gdx.graphics = Mockito.mock(Graphics.class);
-
-        new HeadlessApplication(listener, config);
+        if (application != null) {
+            application.exit();
+            application = null;
+        }
+        Gdx.graphics = null;
+        Gdx.gl = null;
+        Gdx.gl20 = null;
     }
 
     @BeforeEach
